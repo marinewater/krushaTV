@@ -1,0 +1,64 @@
+<div class="row profile">
+	<div class="col-lg-5 col-lg-push-3">
+		<div class="jumbotron" ng-if="username">
+			<h1><span class="glyphicon glyphicon-user"></span> Profile</h1>
+
+			<h2><span class="glyphicon glyphicon-book"></span> Info</h2>
+			<ul class="list-unstyled">
+				<li>Username: <strong>{{ username }}</strong></li>
+				<li>Total tracked shows: <strong>{{ total_shows }}</strong></li>
+				<li>Total watched episodes: <strong>{{ total_episodes }}</strong></li>
+			</ul>
+
+			<h2><span class="glyphicon glyphicon-cog"></span> Settings</h2>
+			<div>
+				<h3>Episode Offset</h3>
+				Offset: <span ng-if="days"><strong>{{ days }}</strong> days </span><span ng-if="hours"><strong>{{ hours }}</strong> hours</span> <success timeout="5000" success="setOffsetSuccess.value"/>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-xs-12">
+								Days: <strong>{{ offset.days }}</strong>
+								<div><slider ng-model="offset.days" min="-7" max="7" on-slide="computeOffset(offset)" on-stop-slide="setOffset(days, hours)"></slider></div>
+							</div>
+							<div class="col-xs-12">
+								Hours:  <strong>{{ offset.hours }}</strong>
+								<div><slider tooltipdirection="bottom" ng-model="offset.hours" min="-23" max="23" on-slide="computeOffset(offset)" on-stop-slide="setOffset(days, hours)"></slider></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<hr class="visible-xs"/>
+						<h4>Example</h4>
+						<ul class="list-unstyled">
+							<li>Airdate: {{ now | date: 'yyyy-MM-dd' }}</li>
+							<li ng-if="dateDisplayed">Displayed at: <strong>{{ dateDisplayed | date: 'yyyy-MM-dd HH:mm'}}</strong></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h3>Date Format</h3>
+
+				<div class="row">
+					<div class="col-sm-6">
+						<select class="form-control" ng-model="dateFormat" ng-options="d.display for d in dateFormats">
+						</select>
+					</div>
+					<div class="col-sm-6">
+						<h4>Example</h4>
+						{{ now | date: dateFormat.value }}
+					</div>
+				</div>
+			</div>
+
+			<h2><span class="glyphicon glyphicon-globe"></span> Links</h2>
+			<ul class="list-unstyled">
+				<li><a href="/track">Look at the shows you are tracking.</a></li>
+				<li ng-if="admin"><a href="/admin/reddit">Look at submitted subreddits</a></li>
+				<li ng-if="admin"><a href="/admin/imdb">Look at submitted IMDb ids</a></li>
+			</ul>
+		</div>
+		<loadingspinner/>
+	</div>
+</div>

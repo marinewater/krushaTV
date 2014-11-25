@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-lg-4 col-lg-push-4">
+		<table class="table" ng-show="subreddits">
+			<thead>
+				<tr>
+					<th>Show</th>
+					<th>subreddit</th>
+					<th>accept</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="sub in subreddits | orderBy:'showid'">
+					<td>{{ sub.showname }}</td>
+					<td><a ng-href="//www.reddit.com{{ sub.subreddit }}" target="_blank">{{ sub.subreddit }}</a></td>
+					<td><span class="glyphicon glyphicon-ok text-success pointer" ng-click="acceptSub(sub.id)"></span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p ng-show="!subreddits">No unanswered submissions for subreddits.</p>
+	</div>
+</div>

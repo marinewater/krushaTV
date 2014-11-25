@@ -1,0 +1,8 @@
+/node_modules
+/.sass-cache
+/config/auth.js
+/config/config.json
+/config/tvrage.json
+/log/*
+*.tmp
+/.idea

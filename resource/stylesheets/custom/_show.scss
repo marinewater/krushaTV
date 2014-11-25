@@ -1,0 +1,98 @@
+.controls {
+  padding: 10px 20px 1px 20px;
+  margin-bottom: 10px;
+
+  .list-inline {
+    li {
+      &:first-child {
+        padding-left: 25px;
+      }
+    }
+  }
+  .list-unstyled {
+    margin-left: 20px;
+  }
+}
+
+.seasons {
+  margin-bottom: 50px;
+}
+
+.info {
+  padding: 30px 50px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: $card-border;
+  }
+
+  li {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 18px;
+  }
+}
+
+.show-card {
+  background-color: $card-bg;
+  border: $card-border;
+  padding: 20px 50px;
+
+  .season {
+    padding: 3px 20px;
+    margin-bottom: 10px;
+
+    &:hover {
+      background-color: $link-hover-color;
+    }
+
+    h3 {
+      margin-top: 10px;
+    }
+  }
+}
+
+.shows {
+  margin-bottom: 35px;
+
+  ul.nav {
+    float: left;
+    padding: 20px;
+    background-color: $card-bg;
+    border: $card-border;
+  }
+
+  .tab-content {
+    float: right;
+    background-color: $card-bg;
+    border: $card-border;
+    padding: 20px 50px;
+  }
+}
+
+@media (min-width: $screen-md-min) and (max-width: $screen-lg-min) {
+  .shows {
+    ul.nav {
+      width: 20%;
+    }
+
+    .tab-content {
+      width: 78%;
+    }
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .shows {
+    ul.nav {
+      width: 32%;
+    }
+
+    .tab-content {
+      width: 66.666%;
+    }
+  }
+}

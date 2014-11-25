@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="page-header">
+			<h1>Tracked Shows</h1>
+		</div>
+	</div>
+</div>
+<div class="row" ng-init="order = orderByName; reverse=false">
+	<div class="col-lg-6 col-lg-push-3">
+		<div class="card seasons">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th ng-click="order = orderByName; reverse=!reverse" class="pointer">Show</th>
+						<th ng-click="order = 'ended'; reverse=!reverse" class="pointer">Running</th>
+						<th ng-click="order = 'season_count'; reverse=!reverse" class="pointer hidden-xs">Seasons</th>
+						<th ng-click="order = 'episode_count'; reverse=!reverse" class="pointer hidden-xs">Episodes</th>
+						<th ng-click="order = 'unwatched'; reverse=!reverse" class="pointer">Unwatched Episodes</th>
+						<th>Untrack</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="show in shows | orderBy: order: reverse">
+						<td><a ng-href="/show/{{ show.id }}">{{ show.name }}</a></td>
+						<td><span class="glyphicon glyphicon-ok text-success" ng-if="!show.ended"></span><span class="glyphicon glyphicon-remove" ng-if="show.ended"></span></td>
+						<td class="hidden-xs">{{ show.season_count }}</td>
+						<td class="hidden-xs">{{ show.episode_count }}</td>
+						<td ng-init="show.unwatched = show.episode_count - show.watched_count">{{ show.unwatched }}</td>
+						<td><span class="glyphicon glyphicon-minus text-danger pointer" ng-click="doNotTrack(show)"></span></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p ng-if="!shows">You do not track any shows yet.</p>
+		</div>
+	</div>
+</div>

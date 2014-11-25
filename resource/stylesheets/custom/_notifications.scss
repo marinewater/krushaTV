@@ -1,0 +1,53 @@
+@import "../../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/css3/border-radius";
+
+growl-notifications {
+	position: fixed;
+	right: 10px;
+  	z-index: 1000;
+}
+
+growl-notification {
+	@include border-radius(5px, 5px);
+	padding: 15px 30px;
+	margin-bottom: 15px;
+  	z-index: 1000;
+
+	&.info {
+		background-color: $state-info-text;
+		border-color: $state-info-border;
+	}
+
+	&.success {
+		background-color: $state-success-bg;
+		border-color: $state-success-border;
+	}
+
+	&.warning {
+		background-color: $state-warning-bg;
+		border-color: $state-warning-border;
+	}
+
+	&.danger {
+		background-color: $state-danger-bg;
+		border-color: $state-danger-border;
+	}
+
+	&.fading.ng-move{
+	  opacity: 0;
+	  -webkit-transition: 0.1s linear all; /* Safari/Chrome */
+	  transition: 0.1s linear all; /* All other modern browsers and IE10+ */
+	}
+
+	&.fading.ng-move.ng-move-active {
+	  opacity: 1;
+	}
+	&.fading.ng-leave {
+	  opacity: 1;
+	  -webkit-transition: 1s linear all; /* Safari/Chrome */
+	  transition: 1s linear all; /* All other modern browsers and IE10+ */
+	}
+
+	&.fading.ng-leave.ng-leave-active {
+	  opacity: 0;
+	}
+}

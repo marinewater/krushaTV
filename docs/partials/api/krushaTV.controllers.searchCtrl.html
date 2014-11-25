@@ -1,0 +1,46 @@
+<h1><code ng:non-bindable="">searchCtrl</code>
+<div><span class="hint">controller in module <code ng:non-bindable="">krushaTV</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="krushatv-controllers-page krushatv-controllers-searchctrl-page"><p>Controller for search.html template</p>
+</div></div>
+<h2 id="dependencies">Dependencies</h2>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$scope">$scope</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$location">$location</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$rootScope">$rootScope</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiSearch">apiSearch</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:search_text">search_text</a></code>
+</li>
+</ul>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_compilesearch">compileSearch()</h3>
+<div class="compilesearch"><div class="searchctrl-compilesearch-page"><p>takes the results of the local and the remote search and combines them into one array
+if there is an entry in both result sets, only the local one will be put into the result array</p>
+</div></div>
+</li>
+<li><h3 id="methods_getresults">getResults()</h3>
+<div class="getresults"><div class="searchctrl-getresults-page"><p>fetches search results from two api endpoints (local database and remote api)</p>
+</div></div>
+</li>
+<li><h3 id="methods_getshow">getShow(show)</h3>
+<div class="getshow"><div class="searchctrl-getshow-page"><p>change location to the show, create it first if it is not in the database</p>
+</div><h5 id="methods_getshow_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>show</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="searchctrl-getshow-page"><p>show</p>
+</div></td></tr><tr><td>show.location</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="searchctrl-getshow-page"><p><em>local</em> or <em>remote</em></p>
+</div></td></tr><tr><td>show.id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="searchctrl-getshow-page"><p>show id</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_mobilesearch">mobileSearch(search_input)</h3>
+<div class="mobilesearch"><div class="searchctrl-mobilesearch-page"><p>mobile search is not in the navbar, instead it is above the search results
+since the search function is only listening for the rootscope broadcast, we have to broadcast here</p>
+</div><h5 id="methods_mobilesearch_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>search_input</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="searchctrl-mobilesearch-page"><p>search text, e.g. <em>Firefly</em></p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

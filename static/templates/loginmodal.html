@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h3 class="modal-title">Login</h3>
+</div>
+<div class="modal-body">
+    <form role="form" class="form-horizontal" ng-submit="modalLoginForm.$valid && login(username, password)" name="modalLoginForm">
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2" ng-show="alerts.length>0">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': modalLoginForm.username.$touched && modalLoginForm.username.$error.required}">
+            <label for="username" class="col-md-2 control-label">Username</label>
+            <div class="col-md-10">
+                <input type="text" name="username" id="username" class="form-control" placeholder="Username" ng-model="username" ng-model-options="{ updateOn: 'blur' }" required/>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': modalLoginForm.password.$touched && (modalLoginForm.password.$error.minlength || modalLoginForm.password.$error.required)}">
+            <label for="password" class="col-md-2 control-label">Password</label>
+            <div class="col-md-10">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" ng-model="password" ng-model-options="{ updateOn: 'blur' }" required ng-minlength="6"/>
+                <span class="help-block" ng-show="modalLoginForm.password.$touched && modalLoginForm.password.$error.minlength">Password needs to be at least 6 characters long.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <span class="help-block">Don't have an account yet? <a href="/signup">Sign up here!</a></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+                <p>or login with:</p>
+
+                <ul class="list-inline">
+                    <li><a href="/auth/reddit" class="btn btn-default" target="_self">Reddit</a></li>
+                    <li><a href="/auth/google" class="btn btn-danger" target="_self">Google</a></li>
+                    <li><a href="/auth/facebook" class="btn btn-primary" target="_self">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Close</button>
+</div>

@@ -1,0 +1,16 @@
+.search {
+
+  li > span {
+	  cursor: pointer;
+	  color: $link-color;
+
+	  &:hover {
+		  color: $link-hover-color;
+		  text-decoration: underline;
+	  }
+  }
+}
+
+.search-input {
+  margin-bottom: 20px;
+}

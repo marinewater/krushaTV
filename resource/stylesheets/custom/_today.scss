@@ -1,0 +1,94 @@
+@import "../../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/css3/flexbox";
+
+.today {
+
+  h2 {
+	border-bottom: $card-border;
+  }
+  .card {
+	margin-bottom: 30px;
+  }
+  .row-flex {
+	padding-left: 10px;
+	padding-right: 10px;
+
+	> div {
+	  padding: 0;
+	  display: flex;
+	  > div {
+		background-color: #F5F5F5;
+		margin: 1px;
+		padding-left: 15px;
+		padding-right: 15px;
+		width: 100%;
+
+		&:hover {
+		  background-color: #DAE3FD;
+		  cursor: pointer;
+
+		  a {
+			text-decoration: underline;
+		  }
+		}
+	  }
+	}
+  }
+}
+
+@media (max-width: $screen-sm-min) {
+  .today {
+	.row-flex {
+	  .col-xs-12 {
+		> div {
+		  padding: 5px 0;
+		  margin: 5px 0;
+		}
+	  }
+	}
+	h3 {
+	  font-size: $font-size-base;
+	  display: inline;
+	  margin-top: 0;
+	}
+
+	p {
+	  display: inline;
+
+	  &::before {
+		content: " - ";
+	  }
+	}
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .today {
+	h3 {
+	  font-size: 16px;
+	}
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .col-lg-3:nth-child(4n+1){
+	clear: both;
+  }
+  .col-lg-4:nth-child(3n+1){
+	clear: both;
+  }
+  .col-lg-6:nth-child(2n+1){
+	clear: both;
+  }
+}
+
+@media (min-width: $screen-md-min) and (max-width: $screen-lg-min) {
+	.col-md-3:nth-child(4n+1){
+		clear: both;
+	}
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-md-min) {
+	.col-sm-4:nth-child(3n+1){
+		clear: both;
+	}
+}

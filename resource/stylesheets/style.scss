@@ -1,0 +1,87 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+
+@import "custom/variables";
+@import "custom/card";
+@import "bootstrap";
+@import "custom/flex";
+@import "custom/spinner";
+@import "custom/search";
+@import "custom/show";
+@import "custom/notifications";
+@import "custom/footer";
+@import "custom/today";
+@import "custom/page_header";
+@import "custom/signup";
+@import "custom/profile";
+@import "custom/navbar";
+@import "custom/bootstrap-slider";
+
+
+body {
+  padding-top: 70px;
+}
+a, .pointer {
+	cursor: pointer;
+}
+
+.jumbotron {
+  background-color: #fff;
+  border: 1px solid #ddd;
+
+	h1 {
+		margin-top: 0;
+		font-size: 3em;
+		
+		span {
+			font-size: 0.8em;
+		}
+	}
+}
+
+.link {
+	cursor: pointer;
+	color: $link-color;
+
+	&:hover {
+		color: $link-hover-color;
+		text-decoration: underline;
+	}
+}
+
+.reddit {
+	background-color: darken($body-bg, 3%);
+	border-top: 1px solid #D2D2D2;
+
+	h3 {
+		font-size: 20px;
+	}
+
+	p {
+		a {
+			color: #888;
+			font-weight: bold;
+
+			&:hover {
+				color: #888;
+			}
+		}
+	}
+
+	p.text-center {
+		cursor: pointer;
+	}
+}
+
+.watched {
+	.glyphicon {
+		cursor: pointer;
+	}
+}
+
+.github {
+  	color: $github;
+
+  	&:hover {
+	  color: darken($github, 10%);
+	}
+}
