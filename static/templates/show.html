@@ -99,7 +99,7 @@
 <div class="row visible-lg visible-md shows" ng-show="seasons | countUnwatched: showWatched">
 	<div class="col-md-12">
 		<tabset vertical="true" type="pills">
-			<tab ng-repeat="season in seasons" ng-if="showSeasons(season, showWatched)" active="season.status">
+			<tab ng-repeat="season in seasons" ng-if="showSeasons(season, showWatched)" active="season.status" select="updateOffset()">
 				<tab-heading>
 					Season {{ season.season }} <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 				</tab-heading>

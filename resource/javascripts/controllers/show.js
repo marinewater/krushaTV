@@ -10,8 +10,8 @@
  * @requires krushaTV.service:redirect
  * @requires krushaTV.service:loggedin
  */
-krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$filter', 'apiShow', 'apiReddit', 'apiImdb', 'helpers', 'notifications', 'loggedin',
-	function($scope, $routeParams, $cookies, $filter, apiShow, apiReddit, apiImdb, helpers, notifications, loggedin) {
+krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$filter', '$timeout', 'apiShow', 'apiReddit', 'apiImdb', 'helpers', 'notifications', 'loggedin',
+	function($scope, $routeParams, $cookies, $filter, $timeout, apiShow, apiReddit, apiImdb, helpers, notifications, loggedin) {
 		$scope.show = {};
 		$scope.seasons = {};
 		$scope.tracked = null;
@@ -318,6 +318,16 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$filter', 
 			apiImdb.submitIMDbId(imdb_id[1], show_id).success(function() {
 				$scope.submittedImdbId = imdb_id[1];
 			});
+		};
+
+		/**
+		 * @ngdoc showCtrl.method
+		 * @name showCtrl#updateOffset
+		 * @description updates scrollfix offset
+		 * @methodOf krushaTV.controllers:showCtrl
+		 */
+		$scope.updateOffset = function() {
+			$timeout(updateOffset);
 		};
 
 		var showid = $routeParams.id;

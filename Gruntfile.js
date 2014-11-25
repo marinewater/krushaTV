@@ -29,6 +29,7 @@ module.exports = function(grunt) {
                 files: {
                     'static/javascripts/krusha.min.js': [
                         'resource/javascripts/polyfills.js',
+                        'resource/javascripts/scrollfix.js',
                         'resource/javascripts/krusha.js',
                         'resource/javascripts/filter.js',
                         'resource/javascripts/validators.js',

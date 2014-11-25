@@ -8239,8 +8239,9 @@ button.close {
   padding: 20px;
   background-color: #FFF;
   border: 1px solid #dedede;
+  position: fixed;
 }
-/* line 68, ../../resource/stylesheets/custom/_show.scss */
+/* line 69, ../../resource/stylesheets/custom/_show.scss */
 .shows .tab-content {
   float: right;
   background-color: #FFF;
@@ -8249,21 +8250,21 @@ button.close {
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
-  /* line 78, ../../resource/stylesheets/custom/_show.scss */
+  /* line 79, ../../resource/stylesheets/custom/_show.scss */
   .shows ul.nav {
     width: 20%;
   }
-  /* line 82, ../../resource/stylesheets/custom/_show.scss */
+  /* line 83, ../../resource/stylesheets/custom/_show.scss */
   .shows .tab-content {
     width: 78%;
   }
 }
 @media (min-width: 1200px) {
-  /* line 90, ../../resource/stylesheets/custom/_show.scss */
+  /* line 91, ../../resource/stylesheets/custom/_show.scss */
   .shows ul.nav {
     width: 32%;
   }
-  /* line 94, ../../resource/stylesheets/custom/_show.scss */
+  /* line 95, ../../resource/stylesheets/custom/_show.scss */
   .shows .tab-content {
     width: 66.666%;
   }
