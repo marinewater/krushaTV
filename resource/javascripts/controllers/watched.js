@@ -9,6 +9,7 @@
  * @requires krushaTV.service:parse
  */
 krusha.controller('watchtedCtrl', ['$scope', '$cookies', 'apiShow', 'parse', function($scope, $cookies, apiShow, parse) {
+	$scope.$parent.title = 'Watched Episodes';
 	$scope.shows = [];
 
 	/**

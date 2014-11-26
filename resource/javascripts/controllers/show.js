@@ -109,6 +109,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$filter', 
 			apiShow.getShow(show_id)
 				.success(function(data) {
 					$scope.show = data;
+					$scope.$parent.title = $scope.show.name;
 
 					if ('tracked' in data)
 						$scope.tracked = data.tracked;

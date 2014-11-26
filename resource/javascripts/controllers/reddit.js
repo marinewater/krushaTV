@@ -9,6 +9,8 @@
  * @requires krushaTV.service:apiReddit
  */
 krusha.controller('redditCtrl', ['$scope', 'apiReddit', function($scope, apiReddit) {
+	$scope.$parent.title = 'Reddit Submissions';
+
 	/**
 	 * @ngdoc redditCtrl.method
 	 * @name redditCtrl#getSubreddits

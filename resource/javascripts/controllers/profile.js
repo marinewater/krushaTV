@@ -7,6 +7,8 @@
  * @requires krushaTV.service:apiSettings
  */
 krusha.controller('profileCtrl', ['$scope', 'apiSettings', function($scope, apiSettings) {
+	$scope.$parent.title = 'Profile';
+	
 	/**
 	 * username
 	 * @type {string}

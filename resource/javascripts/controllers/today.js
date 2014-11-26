@@ -11,6 +11,8 @@
  * @requires krushaTV.service:apiShow
  */
 krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShow', function($scope, $filter, $location, apiShow) {
+	$scope.$parent.title = 'New Episodes';
+
 	/**
 	 * @ngdoc todayCtrl.method
 	 * @name todayCtrl#getTodaysEpisodes

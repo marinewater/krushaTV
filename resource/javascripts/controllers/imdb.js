@@ -9,6 +9,8 @@
  * @requires krushaTV.service:apiImdb
  */
 krusha.controller('imdbCtrl', ['$scope', 'apiImdb', function($scope, apiImdb) {
+	$scope.$parent.title = 'IMDb submissions';
+
 	/**
 	 * @ngdoc imdbCtrl.method
 	 * @name imdbCtrl#getIMDbIds

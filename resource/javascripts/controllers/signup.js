@@ -11,6 +11,8 @@
  */
 krusha.controller('signupCtrl', ['$scope', '$location', 'apiAuth', 'notifications', 'loggedin',
 	function($scope, $location, apiAuth, notifications, loggedin) {
+		$scope.$parent.title = 'Sign Up';
+
 		/**
 		 * error messages as infos
 		 * @type {Array}

@@ -79,3 +79,6 @@ krusha.controller('notificationsCtrl', ['$scope', 'notifications', function($sco
 
 krusha.controller('navCtrl', [function() {
 }]);
+krusha.controller('parentCtrl', ['$scope', function($scope){
+    $scope.title = '';
+}]);

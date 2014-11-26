@@ -39,6 +39,7 @@ krusha.controller('mainCtrl', ['$scope', '$rootScope', '$location', 'search_text
  */
 krusha.controller('searchCtrl', ['$scope', '$location', '$rootScope', 'apiSearch', 'apiShow', 'search_text',
 	function($scope, $location, $rootScope, apiSearch, apiShow, search_text) {
+		$scope.$parent.title = 'Search Results';
 	$scope.shows= [];
 	$scope.shows_remote = [];
 

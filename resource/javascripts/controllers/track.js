@@ -8,6 +8,8 @@
  * @requires krushaTV.service:apiShow
  */
 krusha.controller('trackCtrl', ['$scope', 'apiShow', function($scope, apiShow) {
+	$scope.$parent.title = 'Tracked Shows';
+
 	/**
 	 * @ngdoc trackCtrl.method
 	 * @name trackCtrl#getTracked

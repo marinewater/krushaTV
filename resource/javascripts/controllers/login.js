@@ -12,6 +12,8 @@
  */
 krusha.controller('loginCtrl', ['$scope', '$location', 'apiAuth', 'notifications', 'redirect', 'loggedin',
 	function($scope, $location, apiAuth, notifications, redirect, loggedin) {
+		$scope.$parent.title = 'Login';
+
 		/**
 		 * error messages as infos
 		 * @type {Array}
