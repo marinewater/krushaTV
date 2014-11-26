@@ -205,9 +205,9 @@ module.exports = function(router, log, models) {
 							 */
 							var log_error = '/api/show';
 
-							if (typeof response !== undefined)
+							if (typeof response !== 'undefined')
 								log_error += ' HTTP-Code: ' + response.statusCode;
-							if (typeof error !== undefined)
+							if (typeof error !== 'undefined')
 								log_error += ' error: ' + error;
 
 							log.error(log_error);
