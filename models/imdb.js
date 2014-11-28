@@ -28,6 +28,15 @@ module.exports = function(sequelize, DataTypes) {
                           console.log(err);
                   }
             });
+
+          sequelize
+              .query('ALTER TABLE "' + Imdb.tableName + '" ADD CONSTRAINT "' + Imdb.tableName + '_check_imdb_id" CHECK (imdb_id ~* \'^tt[0-9]{7}$\'::text)')
+              .error(function(err){
+                  if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: constraint "Imdbs_check_imdb_id" for relation "Imdbs" already exists')) {
+                      if ((process.env.NODE_ENV || "development") === 'development')
+                          console.log(err);
+                  }
+              });
       } 
     }
   });

@@ -99,6 +99,26 @@ module.exports = function(sequelize, DataTypes) {
 
 				return sequelize
 					.query('SELECT * FROM "' + Post.tableName + '" WHERE "' + Post.getSearchVector() + '" @@ to_tsquery(\'english\', ' + query + ')', Post);
+			},
+
+			addConstraints: function(models) {
+				sequelize
+					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_subreddit" CHECK (subreddit ~* \'^/r/[A-Za-z0-9]+$\'::text)')
+					.error(function(err){
+						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: constraint "' + Series.tableName + '_check_subreddit" for relation "' + Series.tableName + '" already exists')) {
+							if ((process.env.NODE_ENV || "development") === 'development')
+								console.log(err);
+						}
+					});
+
+				sequelize
+					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_imdb_id" CHECK (imdbid ~* \'^tt[0-9]{7}$\'::text)')
+					.error(function(err){
+						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: constraint "' + Series.tableName + '_check_imdb_id" for relation "' + Series.tableName + '" already exists')) {
+							if ((process.env.NODE_ENV || "development") === 'development')
+								console.log(err);
+						}
+					});
 			}
 		}
 	});

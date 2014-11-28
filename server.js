@@ -96,6 +96,7 @@ app.use(function(req, res) {
 models.sequelize.sync()
 	.done(function() {
         models.Series.addFullTextIndex();
+		models.Series.addConstraints();
         models.WatchedEpisodes.addConstraints();
         models.TrackShow.addConstraints();
         models.Subreddits.addConstraints();
