@@ -3,7 +3,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 	var Imdb = sequelize.define("Imdb", {
-		imdb_id: { type: DataTypes.TEXT }
+		imdb_id: { type: DataTypes.TEXT, allowNull: false }
 	},
   	{
     classMethods: {
@@ -20,12 +20,14 @@ module.exports = function(sequelize, DataTypes) {
         });
       },
       addConstraints: function(models) {
-      sequelize
-        .query('ALTER TABLE "' + Imdb.tableName + '" ADD CONSTRAINT ' + Imdb.tableName + '_show_user_unique UNIQUE (showid, userid);')
-        .error(function(err){
-          if ((process.env.NODE_ENV || "development") === 'development')
-            console.log(err);
-        });
+          sequelize
+            .query('ALTER TABLE "' + Imdb.tableName + '" ADD CONSTRAINT ' + Imdb.tableName + '_show_user_unique UNIQUE (showid, userid);')
+            .error(function(err){
+                  if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: relation "imdbs_show_user_unique" already exists')) {
+                      if ((process.env.NODE_ENV || "development") === 'development')
+                          console.log(err);
+                  }
+            });
       } 
     }
   });

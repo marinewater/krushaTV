@@ -20,8 +20,10 @@ module.exports = function(sequelize, DataTypes) {
 				sequelize
 					.query('ALTER TABLE "' + TrackShow.tableName + '" ADD CONSTRAINT show_user_unique UNIQUE (showid, userid);')
 					.error(function(err){
-					if ((process.env.NODE_ENV || "development") === 'development')
-						console.log(err);
+						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: relation "show_user_unique" already exists')) {
+							if ((process.env.NODE_ENV || "development") === 'development')
+								console.log(err);
+						}
 				});
 			},
 			unwatchedEpisodes: function(models, userid) {

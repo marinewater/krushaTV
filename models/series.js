@@ -78,8 +78,10 @@ module.exports = function(sequelize, DataTypes) {
 								console.log(err);
 						});
 				}).error(function(err){
-					if ((process.env.NODE_ENV || "development") === 'development')
-						console.log(err);
+						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: column "PostText" of relation "Series" already exists')) {
+							if ((process.env.NODE_ENV || "development") === 'development')
+								console.log(err);
+						}
 				});
 
 			},

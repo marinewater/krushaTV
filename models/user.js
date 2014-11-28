@@ -44,6 +44,12 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false
           }
         });
+        User.hasMany(models.Imdb, {
+          foreignKey: {
+            fieldName: 'userid',
+            allowNull: false
+          }
+        });
       }
     }
   });
