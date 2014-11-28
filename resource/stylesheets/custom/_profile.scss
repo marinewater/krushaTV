@@ -1,5 +1,78 @@
+@import "compass/css3/transition";
+@import "compass/css3/border-radius";
+
+$tab-nav-width: 0.2;
+
 .profile {
-  ul {
-    margin-bottom: 50px;
+  .example {
+    padding-top: 15px;
+  }
+
+  &.col-md-12 {
+    padding-left: 0;
+  }
+
+  .nav-pills {
+    background-color: $navbar-inverse-bg;
+    color: $navbar-inverse-link-color;
+    width: percentage($tab-nav-width);
+    float: left;
+
+    .glyphicon {
+      margin-right: 5px;
+    }
+
+    .glyphicon-user {
+      color: $navbar-inverse-brand-color;
+    }
+
+    .glyphicon-calendar {
+      color: $nav-date-color;
+    }
+
+    .imdb {
+      color: $imdb-color;
+    }
+
+    .reddit-color {
+      color: $reddit-color;
+    }
+
+    .glyphicon-eye-open {
+      color: $display-color;
+    }
+
+    > li {
+      padding: 0;
+      margin: 0;
+
+      a {
+        padding: 15px 20px;
+        @include border-radius(0, 0);
+        font-size: $font-size-large;
+        color: $navbar-inverse-link-color;
+
+        &:hover {
+          padding-left: 30px;
+          background-color: $navbar-inverse-link-hover-bg;
+          @include transition-duration(.2s);
+        }
+      }
+
+      &.active {
+        > a, > a:hover, > a:focus {
+          background-color: darken($navbar-inverse-link-hover-bg, 5%);
+          padding-left: 30px;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    width: percentage(1 - $tab-nav-width);
+    float: right;
+    padding:  ($grid-gutter-width / 2) $grid-gutter-width $grid-gutter-width $grid-gutter-width;
+    background-color: $card-bg;
+    border: $card-border;
   }
 }

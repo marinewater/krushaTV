@@ -8474,9 +8474,80 @@ footer li {
   margin-bottom: 10px;
 }
 
-/* line 2, ../../resource/stylesheets/custom/_profile.scss */
-.profile ul {
-  margin-bottom: 50px;
+/* line 7, ../../resource/stylesheets/custom/_profile.scss */
+.profile .example {
+  padding-top: 15px;
+}
+/* line 11, ../../resource/stylesheets/custom/_profile.scss */
+.profile.col-md-12 {
+  padding-left: 0;
+}
+/* line 15, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills {
+  background-color: #222;
+  color: #F2F1F1;
+  width: 20%;
+  float: left;
+}
+/* line 21, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills .glyphicon {
+  margin-right: 5px;
+}
+/* line 25, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills .glyphicon-user {
+  color: #5179D0;
+}
+/* line 29, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills .glyphicon-calendar {
+  color: #33B265;
+}
+/* line 33, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills .imdb {
+  color: #ECCC4A;
+}
+/* line 37, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills .reddit-color {
+  color: #ff5700;
+}
+/* line 41, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills .glyphicon-eye-open {
+  color: #79EEFD;
+}
+/* line 45, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills > li {
+  padding: 0;
+  margin: 0;
+}
+/* line 49, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills > li a {
+  padding: 15px 20px;
+  -moz-border-radius: 0 / 0;
+  -webkit-border-radius: 0 0;
+  border-radius: 0 / 0;
+  font-size: 18px;
+  color: #F2F1F1;
+}
+/* line 55, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills > li a:hover {
+  padding-left: 30px;
+  background-color: #3D3D3D;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+/* line 63, ../../resource/stylesheets/custom/_profile.scss */
+.profile .nav-pills > li.active > a, .profile .nav-pills > li.active > a:hover, .profile .nav-pills > li.active > a:focus {
+  background-color: #303030;
+  padding-left: 30px;
+}
+/* line 71, ../../resource/stylesheets/custom/_profile.scss */
+.profile .tab-content {
+  width: 80%;
+  float: right;
+  padding: 15px 30px 30px 30px;
+  background-color: #FFF;
+  border: 1px solid #dedede;
 }
 
 /* line 3, ../../resource/stylesheets/custom/_navbar.scss */
@@ -8762,39 +8833,16 @@ a, .pointer {
   text-decoration: underline;
 }
 
-/* line 51, ../../resource/stylesheets/style.scss */
-.reddit {
-  background-color: #e7e7e7;
-  border-top: 1px solid #D2D2D2;
-}
-/* line 55, ../../resource/stylesheets/style.scss */
-.reddit h3 {
-  font-size: 20px;
-}
-/* line 60, ../../resource/stylesheets/style.scss */
-.reddit p a {
-  color: #888;
-  font-weight: bold;
-}
-/* line 64, ../../resource/stylesheets/style.scss */
-.reddit p a:hover {
-  color: #888;
-}
-/* line 70, ../../resource/stylesheets/style.scss */
-.reddit p.text-center {
-  cursor: pointer;
-}
-
-/* line 76, ../../resource/stylesheets/style.scss */
+/* line 52, ../../resource/stylesheets/style.scss */
 .watched .glyphicon {
   cursor: pointer;
 }
 
-/* line 81, ../../resource/stylesheets/style.scss */
+/* line 57, ../../resource/stylesheets/style.scss */
 .github {
   color: #4F4F4F;
 }
-/* line 84, ../../resource/stylesheets/style.scss */
+/* line 60, ../../resource/stylesheets/style.scss */
 .github:hover {
   color: #363636;
 }

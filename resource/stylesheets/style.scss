@@ -48,30 +48,6 @@ a, .pointer {
 	}
 }
 
-.reddit {
-	background-color: darken($body-bg, 3%);
-	border-top: 1px solid #D2D2D2;
-
-	h3 {
-		font-size: 20px;
-	}
-
-	p {
-		a {
-			color: #888;
-			font-weight: bold;
-
-			&:hover {
-				color: #888;
-			}
-		}
-	}
-
-	p.text-center {
-		cursor: pointer;
-	}
-}
-
 .watched {
 	.glyphicon {
 		cursor: pointer;

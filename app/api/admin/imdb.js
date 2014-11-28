@@ -82,8 +82,18 @@ module.exports = function(router, log, models) {
                         next();
                     });
                 }).error(function(err) {
-                    log.error('PUT /api/admin/imdb/' + submission_id + ' DB: ' + err);
-                    next();
+                    if (err.name === 'SequelizeUniqueConstraintError' && err.fields.indexOf('imdbid' ) > -1) {
+                        res.status(409);
+                        return res.json({
+                            'type': 'error',
+                            'code': 409,
+                            'message': 'This imdb id has already been submitted to another show.'
+                        });
+                    }
+                    else {
+                        log.error('PUT /api/admin/imdb/' + submission_id + ' DB: ' + err);
+                        next();
+                    }
                 });
         }).error(function(err) {
             log.error('PUT /api/admin/imdb/' + submission_id + ' DB: ' + err);
