@@ -119,28 +119,19 @@ module.exports = function(router, log, models, passport) {
 			models.TrackShow.count({
 				where: { 'userid': req.user.id }
 			}).success(function(total_watched_shows) {
-				models.User.findOne({
-					where: {
-						'id': req.user.id
-					},
-					attributes: ['episode_offset']
-				}).success(function(user) {
-					return res.json({
-						'type': 'profile',
-						'user': req.user.username,
-						'total_episodes': total_watched_episodes,
-						'total_shows': total_watched_shows,
-						'admin': req.user.admin === true,
-						'settings': {
-							'episode_offset': {
-								'days': typeof user.episode_offset.days !== 'undefined' ? user.episode_offset.days : 0,
-								'hours': typeof user.episode_offset.hours !== 'undefined' ? user.episode_offset.hours : 0
-							}
-						}
-					});
-				}).error(function(err) {
-					log.error('GET /api/profile DB: ' + err);
-					return next();
+				return res.json({
+					'type': 'profile',
+					'user': req.user.username,
+					'total_episodes': total_watched_episodes,
+					'total_shows': total_watched_shows,
+					'admin': req.user.admin === true,
+					'settings': {
+						'episode_offset': {
+							'days': typeof req.user.episode_offset.days !== 'undefined' ? req.user.episode_offset.days : 0,
+							'hours': typeof req.user.episode_offset.hours !== 'undefined' ? req.user.episode_offset.hours : 0
+						},
+						'date_format': req.user.date_format
+					}
 				});
 			}).error(function(err) {
 				log.error('GET /api/profile DB: ' + err);
@@ -192,6 +183,54 @@ module.exports = function(router, log, models, passport) {
 				});
 			}).error(function(err) {
 				log.error('PUT /profile/settings/episode-offset DB: ' + err);
+				res.status(400);
+				return res.json({
+					'type': 'error',
+					'code': 400,
+					'message': 'Bad Request'
+				});
+			});
+	});
+
+	/**
+	 * sets how dates are displayed for a user
+	 */
+	router.put('/profile/settings/date-format', isLoggedIn, function(req, res, next) {
+		/**
+		 * date format RegExp
+		 * @type {RegExp}
+		 */
+		var date_format_regex = /^((d|M){2}|y{4})[./-]((d|M){2}|y{4})[./-]((d|M){2}|y{4})$/;
+
+		/**
+		 * date format
+		 * @type {String}
+		 */
+		var date_format = req.body.date_format;
+
+		if (typeof date_format === 'undefined' || !date_format.match(date_format_regex)) {
+			res.status(400);
+			return res.json({
+				'type': 'error',
+				'code': 400,
+				'message': 'date_format is not a valid date format'
+			});
+		}
+
+		models.User.update({
+				'date_format': date_format
+			},
+			{
+				where: {
+					'id': req.user.id
+				}
+			}).success(function() {
+				return res.json({
+					'type': 'settings',
+					'success': true
+				});
+			}).error(function(err) {
+				log.error('PUT /profile/settings/date-format DB: ' + err);
 				res.status(400);
 				return res.json({
 					'type': 'error',

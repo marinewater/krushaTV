@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     password: { type: DataTypes.TEXT },
     episode_offset: { type: 'INTERVAL', allowNull: false, defaultValue: '0 days' },
     admin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
+    date_format: { type: DataTypes.TEXT, allowNull: false, defaultValue: 'yyyy-MM-dd'},
     facebookid: { type: DataTypes.TEXT },
     facebooktoken: { type: DataTypes.TEXT },
     googleid: { type: DataTypes.TEXT },
@@ -50,6 +51,16 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false
           }
         });
+      },
+      addConstraints: function(models) {
+        sequelize
+            .query('ALTER TABLE "' + User.tableName + '" ADD CONSTRAINT "' + User.tableName + '_check_date_format" CHECK (date_format ~ \'^((d|M){2}|y{4})[./-]((d|M){2}|y{4})[./-]((d|M){2}|y{4})$\'::text)')
+            .error(function(err){
+              if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: constraint "' + User.tableName + '_check_date_format" for relation "' + User.tableName + '" already exists')) {
+                if ((process.env.NODE_ENV || "development") === 'development')
+                  console.log(err);
+              }
+            });
       }
     }
   });

@@ -399,88 +399,183 @@ describe('User', function() {
 							res.body.should.have.property('total_episodes', 0);
 							res.body.should.have.property('total_shows', 0);
 							res.body.should.have.property('settings');
-							res.body.settings.should.have.property('episode_offset', 0);
+							res.body.settings.should.have.property('episode_offset');
+							res.body.settings.episode_offset.should.have.property('days', 0);
+							res.body.settings.episode_offset.should.have.property('hours', 0);
+							res.body.settings.should.have.property('date_format', 'yyyy-MM-dd');
 							done();
 						});
 				});
 		});
 
-		it('should set the episode offset setting', function(done) {
-			var newUser = {
-				'username': 'test',
-				'password': 'testtest'
-			};
+		describe('Settings', function() {
+			describe('Episode Offset', function() {
+				it('should set the episode offset setting', function(done) {
+					var newUser = {
+						'username': 'test',
+						'password': 'testtest'
+					};
 
-			var user = request.agent(app);
-			user
-				.post('/api/signup')
-				.set('Content-Type', 'application/json')
-				.send(newUser)
-				.expect(200)
-				.end(function() {
+					var user = request.agent(app);
 					user
-						.put('/api/profile/settings/episode-offset')
+						.post('/api/signup')
 						.set('Content-Type', 'application/json')
-						.send({
-							'offset': -1
-						})
+						.send(newUser)
 						.expect(200)
-						.end(function(err, res) {
-							should.not.exist(err);
-							res.body.should.have.property('type', 'settings');
-							res.body.should.have.property('success', true);
+						.end(function() {
+							user
+								.put('/api/profile/settings/episode-offset')
+								.set('Content-Type', 'application/json')
+								.send({
+									'offset': {
+										'days': -2,
+										'hours': 1
+									}
+								})
+								.expect(200)
+								.end(function(err, res) {
+									should.not.exist(err);
+									res.body.should.have.property('type', 'settings');
+									res.body.should.have.property('success', true);
 
-							sequelize.query('SELECT u.episode_offset FROM "Users" u WHERE u.username = \'' + newUser.username + '\' LIMIT 1;')
-								.success(function(db_user) {
-									db_user[0].should.have.property('episode_offset');
-									db_user[0].episode_offset.should.have.property('days', -1);
-									done();
-								}).error(function(err) {
-									done(err);
+									sequelize.query('SELECT u.episode_offset FROM "Users" u WHERE u.username = \'' + newUser.username + '\' LIMIT 1;')
+										.success(function(db_user) {
+											db_user[0].should.have.property('episode_offset');
+											db_user[0].episode_offset.should.have.property('days', -2);
+											db_user[0].episode_offset.should.have.property('hours', 1);
+											done();
+										}).error(function(err) {
+											done(err);
+										});
 								});
 						});
 				});
-		});
 
-		it('should fail to set episode offset setting if user is not loggedin', function(done) {
-			request(app)
-				.put('/api/profile/settings/episode-offset')
-				.expect(401)
-				.end(function(err, res) {
-					should.not.exist(err);
-					res.body.should.have.property('message', 'not logged in');
-					done();
-				});
-		});
-
-		it('should fail to set a string as episode offset setting', function(done) {
-			var newUser = {
-				'username': 'test',
-				'password': 'testtest'
-			};
-
-			var user = request.agent(app);
-			user
-				.post('/api/signup')
-				.set('Content-Type', 'application/json')
-				.send(newUser)
-				.expect(200)
-				.end(function() {
-					user
+				it('should fail to set episode offset setting if user is not loggedin', function(done) {
+					request(app)
 						.put('/api/profile/settings/episode-offset')
-						.set('Content-Type', 'application/json')
-						.send({
-							'offset': "abc"
-						})
-						.expect(400)
+						.expect(401)
 						.end(function(err, res) {
 							should.not.exist(err);
-							res.body.should.have.property('type', 'error');
-							res.body.should.have.property('code', 400);
-							res.body.should.have.property('message', 'offset must be integer');
+							res.body.should.have.property('message', 'not logged in');
 							done();
 						});
 				});
+
+				it('should fail to set a string as episode offset setting', function(done) {
+					var newUser = {
+						'username': 'test',
+						'password': 'testtest'
+					};
+
+					var user = request.agent(app);
+					user
+						.post('/api/signup')
+						.set('Content-Type', 'application/json')
+						.send(newUser)
+						.expect(200)
+						.end(function() {
+							user
+								.put('/api/profile/settings/episode-offset')
+								.set('Content-Type', 'application/json')
+								.send({
+									'offset': {
+										'days': "abc",
+										'hours': "def"
+									}
+								})
+								.expect(400)
+								.end(function(err, res) {
+									should.not.exist(err);
+									res.body.should.have.property('type', 'error');
+									res.body.should.have.property('code', 400);
+									res.body.should.have.property('message', 'offset.days and offset.hours must be integer');
+									done();
+								});
+						});
+				});
+			});
+
+			describe('Date Format', function() {
+				it('should fail to set the date format if user is not loggedin', function(done) {
+					request(app)
+						.put('/api/profile/settings/date-format')
+						.expect(401)
+						.end(function(err, res) {
+							should.not.exist(err);
+							res.body.should.have.property('message', 'not logged in');
+							done();
+						});
+				});
+
+				it('should set the date format', function(done) {
+					var newUser = {
+						'username': 'test',
+						'password': 'testtest'
+					};
+
+					var date_format = 'yyyy-MM-dd';
+
+					var user = request.agent(app);
+					user
+						.post('/api/signup')
+						.set('Content-Type', 'application/json')
+						.send(newUser)
+						.expect(200)
+						.end(function() {
+							user
+								.put('/api/profile/settings/date-format')
+								.set('Content-Type', 'application/json')
+								.send({
+									'date_format': date_format
+								})
+								.expect(200)
+								.end(function(err, res) {
+									should.not.exist(err);
+									res.body.should.have.property('type', 'settings');
+									res.body.should.have.property('success', true);
+
+									sequelize.query('SELECT u.date_format FROM "Users" u WHERE u.username = \'' + newUser.username + '\' LIMIT 1;')
+										.success(function(db_user) {
+											db_user[0].should.have.property('date_format', date_format);
+											done();
+										}).error(function(err) {
+											done(err);
+										});
+								});
+						});
+				});
+
+				it('should fail to set a random string as date format', function(done) {
+					var newUser = {
+						'username': 'test',
+						'password': 'testtest'
+					};
+
+					var user = request.agent(app);
+					user
+						.post('/api/signup')
+						.set('Content-Type', 'application/json')
+						.send(newUser)
+						.expect(200)
+						.end(function() {
+							user
+								.put('/api/profile/settings/date-format')
+								.set('Content-Type', 'application/json')
+								.send({
+									'date_format': "abc"
+								})
+								.expect(400)
+								.end(function(err, res) {
+									should.not.exist(err);
+									res.body.should.have.property('type', 'error');
+									res.body.should.have.property('code', 400);
+									res.body.should.have.property('message', 'date_format is not a valid date format');
+									done();
+								});
+						});
+				});
+			});
 		});
 	});
 });
