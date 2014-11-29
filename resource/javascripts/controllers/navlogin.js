@@ -38,6 +38,7 @@ krusha.controller('navLoginCtrl', ['$scope', '$location', '$modal', 'redirect', 
 			apiAuth.loginStatus()
 				.success(function(data) {
 					loggedin.setUser(data.user);
+					loggedin.setDateFormat(data.dateFormat);
 					loggedin.setStatus(true);
 				}).error(function(err, status) {
 					if (status == 401) {
@@ -89,6 +90,7 @@ krusha.controller('navLoginCtrl', ['$scope', '$location', '$modal', 'redirect', 
 				.success(function() {
 					notifications.add('Logout successful!', 'warning', 5000);
 					loggedin.setStatus(false);
+					loggedin.setDateFormat(false);
 					$location.path('/');
 				})
 				.error(function() {
@@ -143,6 +145,7 @@ krusha.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'apiAuth', '
 				.success(function(data) {
 					notifications.add('Welcome ' + data.user + '!', 'success', 5000);
 					loggedin.setUser(data.user);
+					loggedin.setDateFormat(data.dateFormat);
 					loggedin.setStatus(true);
 					$scope.cancel();
 				})

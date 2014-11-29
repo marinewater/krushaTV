@@ -8482,43 +8482,52 @@ footer li {
 .profile.col-md-12 {
   padding-left: 0;
 }
-/* line 15, ../../resource/stylesheets/custom/_profile.scss */
+/* line 16, ../../resource/stylesheets/custom/_profile.scss */
+.profile .date-format .col-lg-2 {
+  padding-left: 0;
+}
+/* line 19, ../../resource/stylesheets/custom/_profile.scss */
+.profile .date-format success {
+  line-height: 34px;
+  vertical-align: middle;
+}
+/* line 24, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills {
   background-color: #222;
   color: #F2F1F1;
   width: 20%;
   float: left;
 }
-/* line 21, ../../resource/stylesheets/custom/_profile.scss */
+/* line 30, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .glyphicon {
   margin-right: 5px;
 }
-/* line 25, ../../resource/stylesheets/custom/_profile.scss */
+/* line 34, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .glyphicon-user {
   color: #5179D0;
 }
-/* line 29, ../../resource/stylesheets/custom/_profile.scss */
+/* line 38, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .glyphicon-calendar {
   color: #33B265;
 }
-/* line 33, ../../resource/stylesheets/custom/_profile.scss */
+/* line 42, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .imdb {
   color: #ECCC4A;
 }
-/* line 37, ../../resource/stylesheets/custom/_profile.scss */
+/* line 46, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .reddit-color {
   color: #ff5700;
 }
-/* line 41, ../../resource/stylesheets/custom/_profile.scss */
+/* line 50, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .glyphicon-eye-open {
   color: #79EEFD;
 }
-/* line 45, ../../resource/stylesheets/custom/_profile.scss */
+/* line 54, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li {
   padding: 0;
   margin: 0;
 }
-/* line 49, ../../resource/stylesheets/custom/_profile.scss */
+/* line 58, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li a {
   padding: 15px 20px;
   -moz-border-radius: 0 / 0;
@@ -8527,7 +8536,7 @@ footer li {
   font-size: 18px;
   color: #F2F1F1;
 }
-/* line 55, ../../resource/stylesheets/custom/_profile.scss */
+/* line 64, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li a:hover {
   padding-left: 30px;
   background-color: #3D3D3D;
@@ -8536,12 +8545,12 @@ footer li {
   -webkit-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-/* line 63, ../../resource/stylesheets/custom/_profile.scss */
+/* line 72, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li.active > a, .profile .nav-pills > li.active > a:hover, .profile .nav-pills > li.active > a:focus {
   background-color: #303030;
   padding-left: 30px;
 }
-/* line 71, ../../resource/stylesheets/custom/_profile.scss */
+/* line 80, ../../resource/stylesheets/custom/_profile.scss */
 .profile .tab-content {
   width: 80%;
   float: right;

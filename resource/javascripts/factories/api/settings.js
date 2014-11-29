@@ -28,6 +28,18 @@ krusha.factory('apiSettings', ['$http', function($http) {
          */
         getProfile: function () {
             return $http.get('/api/profile');
+        },
+
+        /**
+         * @ngdoc apiSettings.method
+         * @name apiSettings#setDateFormat
+         * @description sends a http request to change the date format
+         * @methodOf krushaTV.service:apiSettings
+         * @param {string} date_format the format dates should be displayed in
+         * @returns {HttpPromise} HttpPromise
+         */
+        setDateFormat: function(date_format) {
+            return $http.put('/api/profile/settings/date-format', {'date_format': date_format});
         }
     }
 }]);

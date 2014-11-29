@@ -69,8 +69,10 @@ krusha.directive('loadingcontent',   ['$http' ,function ($http)
  * @param {function} markShowWatched function that marks a show and all of its seasons and episodes as watched/unwatched
  * @param {boolean} watched displays the correct words (watched/unwatched): **true:** shows unwatched episodes, **false:** shows watched episodes
  */
-krusha.directive('watched', ['$cookies', function($cookies) {
+krusha.directive('watched', ['$cookies', 'loggedin', function($cookies, loggedin) {
     var link = function ($scope) {
+        $scope.dateFormat = loggedin.getDateFormat();
+
         if ($cookies.oneAtATime === undefined) {
             $cookies.oneAtATime = true;
         }

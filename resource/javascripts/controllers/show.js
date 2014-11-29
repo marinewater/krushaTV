@@ -20,6 +20,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$filter', 
 		$scope.loggedin = loggedin.getStatus();
 		$scope.submittedRedditText = false;
 		$scope.submittedImdbId = false;
+		$scope.dateFormat = loggedin.getDateFormat();
 		var reddit_info = {};
 
 		var oneWeekAgo = new Date();

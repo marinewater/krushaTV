@@ -12,6 +12,15 @@ $tab-nav-width: 0.2;
     padding-left: 0;
   }
 
+  .date-format {
+    .col-lg-2 {
+      padding-left: 0;
+    }
+    success {
+      line-height: $input-height-base;
+      vertical-align: middle;
+    }
+  }
   .nav-pills {
     background-color: $navbar-inverse-bg;
     color: $navbar-inverse-link-color;

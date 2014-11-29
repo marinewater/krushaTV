@@ -6,8 +6,8 @@
  * @requires $scope
  * @requires krushaTV.service:apiSettings
  */
-krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications',
-	function($scope, apiSettings, apiImdb, apiReddit, notifications) {
+krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications', 'loggedin',
+	function($scope, apiSettings, apiImdb, apiReddit, notifications, loggedin) {
 		$scope.$parent.title = 'Profile';
 
 		/**
@@ -38,6 +38,12 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 		$scope.setOffsetSuccess = {value: 'not'};
 
 		/**
+		 * needed for the success directive: **true:** displays green checkmark, **false:** displays error
+		 * @type {{value: (string|boolean)}}
+		 */
+		$scope.changeDateFormatSuccess = {value: 'not'};
+
+		/**
 		 * episode offsets to choose from
 		 * @type {Array<number>}
 		 */
@@ -47,11 +53,17 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 		 * date formats
 		 * @type {{value: string, display: string}[]}
 		 */
-		$scope.dateFormats = [
-			{ value: 'yyyy-MM-dd', display: 'yyyy-MM-dd (2010-31-12)'},
-			{ value: 'dd.MM.yyyy', display: 'dd.MM.yyyy (31.12.2010)'},
-			{ value: 'MM/dd/yyyy', display: 'MM/dd/yyyy (12/31/2010)'}
-		];
+		$scope.dateFormats = {
+			'yyyy-MM-dd': 'yyyy-MM-dd (2010-31-12)',
+			'dd.MM.yyyy': 'dd.MM.yyyy (31.12.2010)',
+			'MM/dd/yyyy': 'MM/dd/yyyy (12/31/2010)'
+		};
+
+		/**
+		 * selected date format
+		 * @type {{value: string}}
+		 */
+		$scope.dateFormat = '';
 
 		var now = new Date();
 		now.setHours(0);
@@ -78,6 +90,7 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 				$scope.admin = data.admin;
 				$scope.offset = data.settings.episode_offset;
 				$scope.computeOffset($scope.offset);
+				$scope.dateFormat = data.settings.date_format;
 			});
 		};
 
@@ -119,10 +132,10 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 
 		// IMDB
 		/**
-		 * @ngdoc imdbCtrl.method
-		 * @name imdbCtrl#getIMDbIds
+		 * @ngdoc profileCtrl.method
+		 * @name profileCtrl#getIMDbIds
 		 * @description gets all user submitted imdb_ids from the api
-		 * @methodOf krushaTV.controllers:imdbCtrl
+		 * @methodOf krushaTV.controllers:profileCtrl
 		 */
 		$scope.getIMDbIds = function() {
 			apiImdb.getSubmittedIMDbIds().success(function(data) {
@@ -135,10 +148,10 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 		};
 
 		/**
-		 * @ngdoc imdbCtrl.method
-		 * @name imdbCtrl#acceptIMDbId
+		 * @ngdoc profileCtrl.method
+		 * @name profileCtrl#acceptIMDbId
 		 * @description accepts a user submission for a imdb id
-		 * @methodOf krushaTV.controllers:imdbCtrl
+		 * @methodOf krushaTV.controllers:profileCtrl
 		 * @param {number} submission_id unique id for the imdb id that will be accepted
 		 */
 		$scope.acceptIMDbId = function(submission_id) {
@@ -153,10 +166,10 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 
 		// reddit
 		/**
-		 * @ngdoc redditCtrl.method
-		 * @name redditCtrl#getSubreddits
+		 * @ngdoc profileCtrl.method
+		 * @name profileCtrl#getSubreddits
 		 * @description gets all user submitted subreddits from the api
-		 * @methodOf krushaTV.controllers:redditCtrl
+		 * @methodOf krushaTV.controllers:profileCtrl
 		 */
 		$scope.getSubreddits = function() {
 			apiReddit.getSubmittedSubreddits().success(function(data) {
@@ -169,15 +182,29 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 		};
 
 		/**
-		 * @ngdoc redditCtrl.method
-		 * @name redditCtrl#acceptSub
+		 * @ngdoc profileCtrl.method
+		 * @name profileCtrl#acceptSub
 		 * @description accepts a user submission for a subreddit
-		 * @methodOf krushaTV.controllers:redditCtrl
+		 * @methodOf krushaTV.controllers:profileCtrl
 		 * @param {number} submission_id unique id for the subreddit that will be accepted
 		 */
 		$scope.acceptSub = function(submission_id) {
 			apiReddit.acceptSubmittedSubreddit(submission_id).success(function() {
 				$scope.getSubreddits();
+			});
+		};
+
+		/**
+		 * @ngdoc profileCtrl.method
+		 * @name profileCtrl#changeDateFormat
+		 * @description change date format
+		 * @methodOf krushaTV.controllers:profileCtrl
+		 * @param {string} date_format date format
+		 */
+		$scope.changeDateFormat = function(date_format) {
+			apiSettings.setDateFormat(date_format).success(function() {
+				$scope.changeDateFormatSuccess.value = true;
+				loggedin.setDateFormat(date_format);
 			});
 		};
 

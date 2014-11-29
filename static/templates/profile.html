@@ -53,24 +53,33 @@
 							<hr class="visible-xs"/>
 							<h3>Example</h3>
 							<ul class="list-unstyled">
-								<li>Airdate: {{ now | date: 'yyyy-MM-dd' }}</li>
-								<li ng-if="dateDisplayed">Displayed at: <strong>{{ dateDisplayed | date: 'yyyy-MM-dd HH:mm'}}</strong></li>
+								<li>Airdate: {{ now | date: dateFormat }}</li>
+								<li ng-if="dateDisplayed">Displayed at: <strong>{{ dateDisplayed | date: dateFormat + ' HH:mm'}}</strong></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<hr/>
 				<div>
-					<div class="row">
+					<div class="row date-format">
 						<div class="col-sm-6 col-lg-3">
 							<h2>Date Format</h2>
 
-							<select class="form-control" ng-model="dateFormat" ng-options="d.display for d in dateFormats">
-							</select>
+							<div class="row">
+								<div class="col-lg-10">
+									<div class="form-group">
+										<select class="form-control" ng-model="dateFormat" ng-options="format as label for (format, label) in dateFormats" ng-change="changeDateFormat(dateFormat)">
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<success timeout="5000" success="changeDateFormatSuccess.value"></success>
+								</div>
+							</div>
 						</div>
 						<div class="col-sm-6 col-lg-offset-3 example">
 							<h3>Example</h3>
-							{{ now | date: dateFormat.value }}
+							{{ now | date: dateFormat }}
 						</div>
 					</div>
 				</div>

@@ -248,7 +248,8 @@ module.exports = function(router, log, models, passport) {
 			return res.json({
 				'type': 'status',
 				'auth': true,
-				'user': req.user.username
+				'user': req.user.username,
+				'dateFormat': req.user.date_format
 			});
 		}
 		else {

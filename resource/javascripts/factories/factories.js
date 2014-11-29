@@ -119,6 +119,7 @@ krusha.factory('notifications', ['$rootScope', function($rootScope) {
 krusha.factory('loggedin', ['$rootScope', function($rootScope) {
     var loggedin = false;
     var user = null;
+    var dateFormat = 'yyyy-MM-dd';
 
     return {
         getStatus: function() {
@@ -133,6 +134,15 @@ krusha.factory('loggedin', ['$rootScope', function($rootScope) {
         },
         getUser: function() {
             return user;
+        },
+        getDateFormat: function() {
+            return dateFormat;
+        },
+        setDateFormat: function(format) {
+            if (format)
+                dateFormat = format;
+            else
+                dateFormat = 'yyyy-MM-dd';
         }
     }
 }]);

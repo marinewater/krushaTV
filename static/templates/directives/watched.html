@@ -43,7 +43,7 @@
 					<tr ng-repeat="episode in season.episodes | orderBy: 'episode'">
 						<td>{{ episode.episode }}</td>
 						<td>{{ episode.title }}</td>
-						<td>{{ episode.airdate | date: "yyyy-MM-dd" }}</td>
+						<td>{{ episode.airdate | date: dateFormat }}</td>
 						<td>
 							<span class="glyphicon pointer" tooltip-popup-delay="500" tooltip="mark as {{ watchedText }}" ng-click="markEpisodeWatched(episode, season, show)" ng-class="{'glyphicon-minus': !watched, 'text-danger': !watched, 'glyphicon-plus': watched, 'text-success': watched}"></span>
 						</td>
