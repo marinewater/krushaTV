@@ -63,7 +63,7 @@ krusha.directive('loadingcontent',   ['$http' ,function ($http)
  * @description displays all watched/unwatched episodes and lets the user mark them as unwatched/watched
  * @restrict E
  * @scope
- * @param {object} shows object containing watchted/unwatched episodes
+ * @param {object} shows object containing watched/unwatched episodes
  * @param {function} markEpisodeWatched function that marks an episode as watched/unwatched
  * @param {function} markSeasonWatched function that marks a season and all of its episodes as watched/unwatched
  * @param {function} markShowWatched function that marks a show and all of its seasons and episodes as watched/unwatched
@@ -116,6 +116,17 @@ krusha.directive('watched', ['$cookies', 'loggedin', function($cookies, loggedin
     };
 }]);
 
+
+/**
+ * @ngdoc directive
+ * @name krushaTV.directive:unwatched
+ * @description displays all watched/unwatched episodes and lets the user mark them as unwatched/watched
+ * @restrict E
+ * @scope
+ * @param {object} shows object containing shows with watched/unwatched episodes
+ * @param {object} seasons object containing seasons with watched/unwatched episodes
+ * @param {object} episodes object containing watched/unwatched episodes
+ */
 krusha.directive('unwatched', ['loggedin', function(loggedin) {
     var link = function($scope) {
         $scope.dateFormat = loggedin.getDateFormat();
