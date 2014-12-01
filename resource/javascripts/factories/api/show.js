@@ -209,6 +209,33 @@ krusha.factory('apiShow', ['$http', function($http) {
          */
         getUnwatchedShows: function() {
             return $http.get('/api/unwatched/shows');
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getUnwatchedSeasons
+         * @description
+         * gets seasons with unwatched episodes for specific show from the api
+         * @param {Number} showid show id
+         * @returns {HttpPromise} HttpPromise
+         */
+        getUnwatchedSeasons: function(showid) {
+            return $http.get('/api/unwatched/shows/' + showid + '/seasons');
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getUnwatchedEpisodes
+         * @description
+         * gets  unwatched episodes for specific show and season from the api
+         * @param {Number} showid show id
+         * @param {Number} season season number
+         * @returns {HttpPromise} HttpPromise
+         */
+        getUnwatchedEpisodes: function(showid, season) {
+            return $http.get('/api/unwatched/shows/' + showid + '/seasons/' + season + '/episodes');
         }
     }
 }]);

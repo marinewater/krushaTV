@@ -130,6 +130,14 @@ krusha.directive('watched', ['$cookies', 'loggedin', function($cookies, loggedin
 krusha.directive('unwatched', ['loggedin', function(loggedin) {
     var link = function($scope) {
         $scope.dateFormat = loggedin.getDateFormat();
+
+        $scope.getActiveShow = function() {
+            var active_show = $scope.shows.find(function(show) {
+                return !!show.active;
+            });
+
+            return active_show.id;
+        }
     };
 
     return {
@@ -139,7 +147,9 @@ krusha.directive('unwatched', ['loggedin', function(loggedin) {
         scope: {
             shows: '=shows',
             seasons: '=seasons',
-            episodes: '=episodes'
+            episodes: '=episodes',
+            getSeasons: '=getSeasons',
+            getEpisodes: '=getEpisodes'
         }
     }
 }]);

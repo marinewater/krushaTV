@@ -8,7 +8,7 @@
     <div class="col-lg-3">
         <div class="card">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="show in shows | orderByName" ng-class="{active: show.active}"><a>{{ show.name }}</a></li>
+                <li ng-repeat="show in shows | orderByName" ng-class="{active: show.active}"><a ng-click="getSeasons(show.id)">{{ show.name }}</a></li>
             </ul>
         </div>
     </div>
@@ -16,7 +16,7 @@
     <div class="col-lg-2">
         <div class="card">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a>Season {{ season.season }}</a></li>
+                <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a ng-click="getEpisodes(getActiveShow(), season.season)">Season {{ season.season }}</a></li>
             </ul>
         </div>
     </div>

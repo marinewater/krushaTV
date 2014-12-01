@@ -69,6 +69,79 @@ module.exports = function(router, log, models) {
 		});
 	});
 
+	router.get('/unwatched/shows/:showid/seasons', isLoggedIn, function(req, res, next) {
+		var showid = parseInt(req.params.showid);
+
+		if (isNaN(showid)) {
+			res.status(400);
+			return res.json({
+				'type': 'error',
+				'code': 400,
+				'message': 'showid has to be an integer'
+			});
+		}
+
+		models.TrackShow.unwatchedSeasons(models, req.user.id, showid).success(function(unwatchedSeasons) {
+			if (unwatchedSeasons.length > 0) {
+				models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, unwatchedSeasons[0].season).success(function(unwatchedEpisodes) {
+					return res.json({
+						'type': 'seasons',
+						'seasons': unwatchedSeasons,
+						'episodes': unwatchedEpisodes
+					});
+				}).error(function(err) {
+					log.error('GET /unwatched/shows unwatchedEpisodes DB: ' + err);
+					next();
+				});
+			}
+			else {
+				res.status(400);
+				return res.json({
+					'type': 'error',
+					'code': 400,
+					'message': 'No unwatched episodes for showid ' + showid
+				});
+			}
+		}).error(function(err) {
+			log.error('GET /unwatched/shows unwatchedSeasons DB: ' + err);
+			next();
+		});
+	});
+
+	router.get('/unwatched/shows/:showid/seasons/:season/episodes', isLoggedIn, function(req, res, next) {
+		var showid = parseInt(req.params.showid);
+		var season = parseInt(req.params.season);
+
+		if (isNaN(showid) || isNaN(season)) {
+			res.status(400);
+			return res.json({
+				'type': 'error',
+				'code': 400,
+				'message': 'showid and season have to be an integer'
+			});
+		}
+
+		models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, season).success(function(unwatchedEpisodes) {
+			if (unwatchedEpisodes.length > 0) {
+				return res.json({
+					'type': 'episodes',
+					'episodes': unwatchedEpisodes
+				});
+			}
+			else {
+				res.status(400);
+				return res.json({
+					'type': 'error',
+					'code': 400,
+					'message': 'No unwatched episodes for showid ' + showid + 'and season ' + season
+				});
+			}
+		}).error(function(err) {
+			log.error('GET /unwatched/shows unwatchedEpisodes DB: ' + err);
+			next();
+		});
+	});
+
 
 	// route middleware to make sure a user is logged in
 	function isLoggedIn(req, res, next) {
