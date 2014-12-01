@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Unwatched Episodes</h1>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card">
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-repeat="show in shows | orderByName" ng-class="{active: show.active}"><a>{{ show.name }}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+        <div class="card">
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a>Season {{ season.season }}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card">
+            <table class="table table-condensed table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Nr</th>
+                    <th>Title</th>
+                    <th>Airdate</th>
+                    <th>Watched</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="episode in episodes | orderBy: 'episode'">
+                        <td>{{ episode.episode }}</td>
+                        <td>{{ episode.title }}</td>
+                        <td>{{ episode.airdate | date: dateFormat }}</td>
+                        <td><span class="glyphicon pointer glyphicon-remove text-danger"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

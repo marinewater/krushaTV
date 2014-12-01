@@ -197,6 +197,18 @@ krusha.factory('apiShow', ['$http', function($http) {
          */
         getomdb: function(imdb_id) {
             return $http.get('//www.omdbapi.com/?r=json&i=' + imdb_id)
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getUnwatchedShows
+         * @description
+         * gets shows with unwatched episodes from the api
+         * @returns {HttpPromise} HttpPromise
+         */
+        getUnwatchedShows: function() {
+            return $http.get('/api/unwatched/shows');
         }
     }
 }]);

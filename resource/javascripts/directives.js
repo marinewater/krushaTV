@@ -116,6 +116,23 @@ krusha.directive('watched', ['$cookies', 'loggedin', function($cookies, loggedin
     };
 }]);
 
+krusha.directive('unwatched', ['loggedin', function(loggedin) {
+    var link = function($scope) {
+        $scope.dateFormat = loggedin.getDateFormat();
+    };
+
+    return {
+        restrict: 'E',
+        templateUrl: '/static/templates/directives/unwatched.html',
+        link: link,
+        scope: {
+            shows: '=shows',
+            seasons: '=seasons',
+            episodes: '=episodes'
+        }
+    }
+}]);
+
 /**
  * @ngdoc directive
  * @name krushaTV.directive:success
