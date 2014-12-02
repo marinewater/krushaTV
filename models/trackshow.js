@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
 						WHERE t.showid = s.id AND s.id = e.seriesid AND t.userid = ' + userid +
 						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id AND w.userid = t.userid) \
 						GROUP BY s.id, s.name \
-						ORDER BY substring(s.name from \'' + order_regex +' \');')
+						ORDER BY substring(s.name from \'' + order_regex + '\');')
 			},
 			unwatchedSeasons: function(models, userid, showid) {
 				userid = parseInt(userid);

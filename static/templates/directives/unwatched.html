@@ -8,7 +8,7 @@
     <div class="col-lg-3">
         <div class="card">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="show in shows track by show.id | orderByName" ng-class="{active: show.active}"><a ng-click="getSeasons(show.id)">{{ ::show.name }}</a></li>
+                <li ng-repeat="show in shows | orderByName track by show.id" ng-class="{active: show.active}"><a ng-click="getSeasons(show.id)">{{ ::show.name }}</a></li>
             </ul>
         </div>
     </div>
@@ -16,13 +16,18 @@
     <div class="col-lg-2">
         <div class="card">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a ng-click="getEpisodes(getActiveShow(), season.season)">Season {{ ::season.season }}</a></li>
+                <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a ng-click="getEpisodes(getActiveShow().id, season.season)">Season {{ ::season.season }}</a></li>
             </ul>
         </div>
     </div>
 
     <div class="col-lg-7">
         <div class="card">
+            <h2 class="pull-left">{{ getActiveShow().name }} <small>Season {{ getActiveSeason().season }}</small></h2>
+            <div class="mark-watched" ng-if="episodes.length > 1 || seasons.length > 1">
+                <p class="text-right" ng-if="episodes.length > 1"><a ng-click="markSeasonWatched()">Mark all episodes of <em>Season {{ getActiveSeason().season }}</em> of <em>{{ getActiveShow().name }}</em> as watched.</a></p>
+                <p class="text-right" ng-if="seasons.length > 1"><a ng-click="markShowWatched()">Mark <strong>all episodes</strong> of <em>{{ getActiveShow().name }}</em> as watched.</a></p>
+            </div>
             <table class="table table-condensed table-striped table-hover">
                 <thead>
                 <tr>
@@ -37,7 +42,7 @@
                         <td>{{ ::episode.episode }}</td>
                         <td>{{ ::episode.title }}</td>
                         <td>{{ ::episode.airdate | date: dateFormat }}</td>
-                        <td><span class="glyphicon pointer glyphicon-remove text-danger"></span></td>
+                        <td><span class="glyphicon pointer glyphicon-remove text-danger" ng-click="markEpisodeWatched(episode)"></span></td>
                     </tr>
                 </tbody>
             </table>

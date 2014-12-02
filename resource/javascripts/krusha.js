@@ -49,7 +49,7 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
             })
             .when('/unwatched', {
                 templateUrl: '/static/templates/unwatched.html',
-                controller: 'unwatchtedCtrl'
+                controller: 'unwatchedCtrl'
             })
             .when('/watched', {
                 templateUrl: '/static/templates/watched.html',

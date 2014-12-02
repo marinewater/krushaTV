@@ -8855,3 +8855,8 @@ a, .pointer {
 .github:hover {
   color: #363636;
 }
+
+/* line 65, ../../resource/stylesheets/style.scss */
+.mark-watched {
+  margin-top: 30px;
+}

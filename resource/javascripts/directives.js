@@ -127,17 +127,24 @@ krusha.directive('watched', ['$cookies', 'loggedin', function($cookies, loggedin
  * @param {object} seasons object containing seasons with watched/unwatched episodes
  * @param {object} episodes object containing watched/unwatched episodes
  */
-krusha.directive('unwatched', ['loggedin', function(loggedin) {
+krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, loggedin) {
     var link = function($scope) {
+        $scope.shows = [];
+        $scope.seasons = [];
+
         $scope.dateFormat = loggedin.getDateFormat();
 
         $scope.getActiveShow = function() {
-            var active_show = $scope.shows.find(function(show) {
+            return $scope.shows.find(function(show) {
                 return !!show.active;
             });
+        };
 
-            return active_show.id;
-        }
+        $scope.getActiveSeason = function() {
+            return $scope.seasons.find(function(season) {
+                return !!season.active;
+            });
+        };
     };
 
     return {
@@ -149,7 +156,10 @@ krusha.directive('unwatched', ['loggedin', function(loggedin) {
             seasons: '=seasons',
             episodes: '=episodes',
             getSeasons: '=getSeasons',
-            getEpisodes: '=getEpisodes'
+            getEpisodes: '=getEpisodes',
+            markEpisodeWatched: '=markEpisodeWatched',
+            markSeasonWatched: '=markSeasonWatched',
+            markShowWatched: '=markShowWatched'
         }
     }
 }]);
