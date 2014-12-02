@@ -95,10 +95,10 @@ module.exports = function(router, log, models) {
 				});
 			}
 			else {
-				res.status(400);
+				res.status(404);
 				return res.json({
 					'type': 'error',
-					'code': 400,
+					'code': 404,
 					'message': 'No unwatched episodes for showid ' + showid
 				});
 			}
@@ -129,11 +129,11 @@ module.exports = function(router, log, models) {
 				});
 			}
 			else {
-				res.status(400);
+				res.status(404);
 				return res.json({
 					'type': 'error',
-					'code': 400,
-					'message': 'No unwatched episodes for showid ' + showid + 'and season ' + season
+					'code': 404,
+					'message': 'No unwatched episodes for showid ' + showid + ' and season ' + season
 				});
 			}
 		}).error(function(err) {
