@@ -1,12 +1,34 @@
 module.exports = function(router, log, models) {
 	router.get('/watched/shows', isLoggedIn, function(req, res, next) {
 		models.TrackShow.watchedShows(models, req.user.id).success(function(watchedShows) {
-			res.json({
-				'type': 'shows',
-				'shows': watchedShows
-			});
+			if (watchedShows.length > 0) {
+				models.TrackShow.watchedSeasons(models, req.user.id, watchedShows[0].id).success(function(watchedSeasons) {
+					models.TrackShow.unwatchedEpisodes(models, req.user.id, watchedShows[0].id, watchedSeasons[0].season).success(function(watchedEpisodes) {
+						return res.json({
+							'type': 'shows',
+							'shows': watchedShows,
+							'seasons': watchedSeasons,
+							'episodes': watchedEpisodes
+						});
+					}).error(function(err) {
+						log.error('GET /watched/shows watchedEpisodes DB: ' + err);
+						next();
+					});
+				}).error(function(err) {
+					log.error('GET /watched/shows watchedSeasons DB: ' + err);
+					next();
+				});
+			}
+			else {
+				res.status(404);
+				res.json({
+					'type': 'error',
+					'code': 404,
+					'message': 'You have no watched shows'
+				});
+			}
 		}).error(function(err) {
-			log.error('GET /shows/unwatched DB: ' + err);
+			log.error('GET /watched/shows watchedShows DB: ' + err);
 			next();
 		});
 	});
