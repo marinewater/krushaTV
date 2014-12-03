@@ -8860,3 +8860,8 @@ a, .pointer {
 .mark-watched {
   margin-top: 30px;
 }
+
+/* line 69, ../../resource/stylesheets/style.scss */
+unwatched > .row {
+  margin-bottom: 30px;
+}
