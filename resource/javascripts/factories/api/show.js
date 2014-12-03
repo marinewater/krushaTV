@@ -170,7 +170,7 @@ krusha.factory('apiShow', ['$http', function($http) {
          * @returns {HttpPromise} HttpPromise
          */
         markSeasonNotWatched: function (showid, season_nr) {
-            return $http.delete('/api/watched/season/' + season_nr + '/' + showid);
+            return $http.delete('/api/watched/season/' + showid + '/' + season_nr);
         },
 
         /**
@@ -236,6 +236,45 @@ krusha.factory('apiShow', ['$http', function($http) {
          */
         getUnwatchedEpisodes: function(showid, season) {
             return $http.get('/api/unwatched/shows/' + showid + '/seasons/' + season + '/episodes');
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getWatchedShows
+         * @description
+         * gets shows with watched episodes from the api
+         * @returns {HttpPromise} HttpPromise
+         */
+        getWatchedShows: function() {
+            return $http.get('/api/watched/shows');
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getWatchedSeasons
+         * @description
+         * gets seasons with watched episodes for specific show from the api
+         * @param {Number} showid show id
+         * @returns {HttpPromise} HttpPromise
+         */
+        getWatchedSeasons: function(showid) {
+            return $http.get('/api/watched/shows/' + showid + '/seasons');
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getWatchedEpisodes
+         * @description
+         * gets  watched episodes for specific show and season from the api
+         * @param {Number} showid show id
+         * @param {Number} season season number
+         * @returns {HttpPromise} HttpPromise
+         */
+        getWatchedEpisodes: function(showid, season) {
+            return $http.get('/api/watched/shows/' + showid + '/seasons/' + season + '/episodes');
         }
     }
 }]);

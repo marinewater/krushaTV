@@ -10,6 +10,7 @@
  */
 krusha.controller('unwatchedCtrl', ['$scope', '$filter', 'apiShow', function($scope, $filter, apiShow) {
 	$scope.$parent.title = 'Unwatched Episodes';
+	$scope.watched = false;
 
 
 	var getUnwatchedShows = function() {

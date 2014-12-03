@@ -53,7 +53,7 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
             })
             .when('/watched', {
                 templateUrl: '/static/templates/watched.html',
-                controller: 'watchtedCtrl'
+                controller: 'watchedCtrl'
             }).
             otherwise({
                 redirectTo: '/'

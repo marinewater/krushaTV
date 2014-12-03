@@ -145,6 +145,9 @@ krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, logged
                 return !!season.active;
             });
         };
+
+        $scope.watched_text = $scope.watched ? 'unwatched' : 'watched';
+        $scope.watched_text_cap = $scope.watched ? 'Unwatched' : 'Watched';
     };
 
     return {
@@ -159,7 +162,8 @@ krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, logged
             getEpisodes: '=getEpisodes',
             markEpisodeWatched: '=markEpisodeWatched',
             markSeasonWatched: '=markSeasonWatched',
-            markShowWatched: '=markShowWatched'
+            markShowWatched: '=markShowWatched',
+            watched: '=watched'
         }
     }
 }]);
