@@ -129,8 +129,10 @@ krusha.directive('watched', ['$cookies', 'loggedin', function($cookies, loggedin
  */
 krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, loggedin) {
     var link = function($scope) {
-        $scope.shows = [];
-        $scope.seasons = [];
+        if (typeof $scope.shows === 'undefined')
+            $scope.shows = [];
+        if (typeof $scope.seasons === 'undefined')
+            $scope.seasons = [];
 
         $scope.dateFormat = loggedin.getDateFormat();
 
