@@ -6,28 +6,41 @@
         </div>
     </div>
 
-    <div class="col-lg-3">
-        <div class="card">
+    <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12 spacer">
+        <div class="card" id="shows">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="show in shows | orderByName track by show.id" ng-class="{active: show.active}"><a ng-click="getSeasons(show.id)">{{ ::show.name }}</a></li>
+                <li ng-repeat="show in shows | orderByName track by show.id" ng-class="{active: show.active}"><a ng-click="getSeasonsScroll(show.id)">{{ ::show.name }}</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="col-lg-2">
-        <div class="card">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 spacer">
+        <div class="card" id="seasons">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a ng-click="getEpisodes(getActiveShow().id, season.season)">Season {{ ::season.season }}</a></li>
+                <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a ng-click="getEpisodesScroll(getActiveShow().id, season.season)">Season {{ ::season.season }}</a></li>
             </ul>
+        </div>
+        <div class="card-small visible-xs">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="text-center">
+                        <button type="button" class="btn btn-default" ng-click="scrollShows()"><span class="glyphicon glyphicon-chevron-up"></span> Go to shows</button>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="col-lg-7">
-        <div class="card">
-            <h2 class="pull-left">{{ getActiveShow().name }} <small>Season {{ getActiveSeason().season }}</small></h2>
-            <div class="mark-watched" ng-if="episodes.length > 1 || seasons.length > 1">
-                <p class="text-right" ng-if="episodes.length > 1"><a ng-click="markSeasonWatched()">Mark all episodes of <em>Season {{ getActiveSeason().season }}</em> of <em>{{ getActiveShow().name }}</em> as {{ ::watched_text }}.</a></p>
-                <p class="text-right" ng-if="seasons.length > 1"><a ng-click="markShowWatched()">Mark <strong>all episodes</strong> of <em>{{ getActiveShow().name }}</em> as {{ ::watched_text }}.</a></p>
+    <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+        <div class="card" id="episodes">
+            <div class="row">
+                <div class="col-xs-12 col-lg-6">
+                    <h2>{{ getActiveShow().name }} <small>Season {{ getActiveSeason().season }}</small></h2>
+                </div>
+                <div class="col-xs-12 col-lg-6 mark-watched" ng-if="episodes.length > 1 || seasons.length > 1">
+                    <p class="text-right" ng-if="episodes.length > 1"><a ng-click="markSeasonWatched()">Mark all episodes of <em>Season {{ getActiveSeason().season }}</em> of <em>{{ getActiveShow().name }}</em> as {{ ::watched_text }}.</a></p>
+                    <p class="text-right" ng-if="seasons.length > 1"><a ng-click="markShowWatched()">Mark <strong>all episodes</strong> of <em>{{ getActiveShow().name }}</em> as {{ ::watched_text }}.</a></p>
+                </div>
             </div>
             <table class="table table-condensed table-striped table-hover">
                 <thead>
@@ -35,7 +48,8 @@
                     <th>Nr</th>
                     <th>Title</th>
                     <th>Airdate</th>
-                    <th>{{ ::watched_text_cap }}</th>
+                    <th class="hidden-xs">{{ ::watched_text_cap }}</th>
+                    <th class="visible-xs">{{ ::watched_text_cap_short }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,6 +64,15 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="card-small visible-xs visible-sm">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="text-center">
+                        <button type="button" class="btn btn-default" ng-click="scrollShows()"><span class="glyphicon glyphicon-chevron-up"></span> Go to shows</button>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
