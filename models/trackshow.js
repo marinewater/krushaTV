@@ -28,14 +28,6 @@ module.exports = function(sequelize, DataTypes) {
 						}
 				});
 			},
-			watchedEpisodes: function(models, userid) {
-				userid = parseInt(userid);
-				if (isNaN(userid))
-					return;
-
-				return sequelize
-					.query('SELECT t.showid, e.season, e.episode, e.title, e.airdate, w.episodeid FROM "' + TrackShow.tableName + '" t, "' + models.Episodes.tableName + '" e, "' + models.WatchedEpisodes.tableName + '" w WHERE t.userid = ' + userid + ' AND w.userid = ' + userid + ' AND t.showid = e.seriesid AND e.id = w.episodeid;')
-			},
 			watchedShows: function(models, userid) {
 				userid = parseInt(userid);
 				if (isNaN(userid))
@@ -63,11 +55,11 @@ module.exports = function(sequelize, DataTypes) {
 					return;
 
 				return sequelize
-					.query('SELECT e.season FROM "' + models.Episodes.tableName + '" e \
-						WHERE e.seriesid = ' + showid +
-						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE e.id = w.episodeid AND w.userid = ' + userid + ') \
-						GROUP BY e.season \
-						ORDER BY e.season;');
+					.query('SELECT e.season FROM "' + models.Episodes.tableName + '" e, "' + models.TrackShow.tableName + '" t \
+							WHERE e.seriesid = t.showid AND e.seriesid = ' + showid + ' AND t.userid = ' + userid +
+							' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE e.id = w.episodeid AND w.userid = t.userid) \
+							GROUP BY e.season \
+							ORDER BY e.season;');
 			},
 			unwatchedEpisodes: function(models, userid, showid, season) {
 				userid = parseInt(userid);
@@ -77,9 +69,9 @@ module.exports = function(sequelize, DataTypes) {
 					return;
 
 				return sequelize
-					.query('SELECT e.id, e.episode, e.title, e.airdate FROM "' + models.Episodes.tableName + '" e \
-						WHERE e.seriesid = ' + showid + ' AND e.season = ' + season +
-						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id AND w.userid = ' + userid + ') \
+					.query('SELECT e.id, e.episode, e.title, e.airdate FROM "' + models.Episodes.tableName + '" e, "' + models.TrackShow.tableName + '" t \
+						WHERE e.seriesid = t.showid AND t.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND e.season = ' + season +
+						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id AND w.userid = t.userid) \
 						ORDER BY e.episode;');
 			}
 		}

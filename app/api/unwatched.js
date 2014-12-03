@@ -1,28 +1,4 @@
 module.exports = function(router, log, models) {
-	router.get('/unwatched', isLoggedIn, function(req, res, next) {
-		models.TrackShow.unwatchedEpisodes(models, req.user.id).success(function(returning) {
-			res.json({
-				'type': 'unwatched',
-				'episodes': returning
-			});
-		}).error(function(err) {
-			log.error("GET /api/unwatched DB: " + err);
-			return next('error');
-		});
-	});
-
-	router.get('/watched', isLoggedIn, function(req, res, next) {
-		models.TrackShow.watchedEpisodes(models, req.user.id).success(function(returning) {
-			res.json({
-				'type': 'watched',
-				'episodes': returning
-			});
-		}).error(function(err) {
-			log.error("GET /api/watched DB: " + err);
-			return next('error');
-		});
-	});
-
 	router.get('/watched/shows', isLoggedIn, function(req, res, next) {
 		models.TrackShow.watchedShows(models, req.user.id).success(function(watchedShows) {
 			res.json({
