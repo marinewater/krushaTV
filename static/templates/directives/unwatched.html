@@ -43,7 +43,10 @@
                         <td>{{ ::episode.episode }}</td>
                         <td>{{ ::episode.title }}</td>
                         <td>{{ ::episode.airdate | date: dateFormat }}</td>
-                        <td><span class="glyphicon pointer glyphicon-remove text-danger" ng-click="markEpisodeWatched(episode)"></span></td>
+                        <td>
+                            <span class="glyphicon pointer glyphicon-remove text-danger" ng-click="markEpisodeWatched(episode)" ng-if="!watched"></span>
+                            <span class="glyphicon pointer glyphicon-plus text-success" ng-click="markEpisodeWatched(episode)" ng-if="watched"></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
