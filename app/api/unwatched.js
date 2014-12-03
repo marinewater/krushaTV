@@ -11,6 +11,79 @@ module.exports = function(router, log, models) {
 		});
 	});
 
+	router.get('/watched/shows/:showid/seasons', isLoggedIn, function(req, res, next) {
+		var showid = parseInt(req.params.showid);
+
+		if (isNaN(showid)) {
+			res.status(400);
+			return res.json({
+				'type': 'error',
+				'code': 400,
+				'message': 'showid has to be an integer'
+			});
+		}
+
+		models.TrackShow.watchedSeasons(models, req.user.id, showid).success(function(watchedSeasons) {
+			if (watchedSeasons.length > 0) {
+				models.TrackShow.watchedEpisodes(models, req.user.id, showid, watchedSeasons[0].season).success(function(watchedEpisodes) {
+					return res.json({
+						'type': 'seasons',
+						'seasons': watchedSeasons,
+						'episodes': watchedEpisodes
+					});
+				}).error(function(err) {
+					log.error('GET /watched/shows/' + showid + '/seasons watchedEpisodes DB: ' + err);
+					next();
+				});
+			}
+			else {
+				res.status(404);
+				return res.json({
+					'type': 'error',
+					'code': 404,
+					'message': 'No watched episodes for showid ' + showid
+				});
+			}
+		}).error(function(err) {
+			log.error('GET /watched/shows/' + showid + '/seasons watchedSeasons DB: ' + err);
+			next();
+		});
+	});
+
+	router.get('/watched/shows/:showid/seasons/:season/episodes', isLoggedIn, function(req, res, next) {
+		var showid = parseInt(req.params.showid);
+		var season = parseInt(req.params.season);
+
+		if (isNaN(showid) || isNaN(season)) {
+			res.status(400);
+			return res.json({
+				'type': 'error',
+				'code': 400,
+				'message': 'showid and season have to be an integer'
+			});
+		}
+
+		models.TrackShow.watchedEpisodes(models, req.user.id, showid, season).success(function(watchedEpisodes) {
+			if (watchedEpisodes.length > 0) {
+				return res.json({
+					'type': 'episodes',
+					'episodes': watchedEpisodes
+				});
+			}
+			else {
+				res.status(404);
+				return res.json({
+					'type': 'error',
+					'code': 404,
+					'message': 'No watched episodes for showid ' + showid + ' and season ' + season
+				});
+			}
+		}).error(function(err) {
+			log.error('GET /watched/shows/' + showid + '/seasons/' + season + '/episodes watchedEpisodes DB: ' + err);
+			next();
+		});
+	});
+
 	router.get('/unwatched/shows', isLoggedIn, function(req, res, next) {
 		models.TrackShow.unwatchedShows(models, req.user.id).success(function(unwatchedShows) {
 			if (unwatchedShows.length > 0) {
@@ -66,7 +139,7 @@ module.exports = function(router, log, models) {
 						'episodes': unwatchedEpisodes
 					});
 				}).error(function(err) {
-					log.error('GET /unwatched/shows unwatchedEpisodes DB: ' + err);
+					log.error('GET /unwatched/shows/' + showid + '/seasons unwatchedEpisodes DB: ' + err);
 					next();
 				});
 			}
@@ -79,7 +152,7 @@ module.exports = function(router, log, models) {
 				});
 			}
 		}).error(function(err) {
-			log.error('GET /unwatched/shows unwatchedSeasons DB: ' + err);
+			log.error('GET /unwatched/shows/' + showid + '/seasons unwatchedSeasons DB: ' + err);
 			next();
 		});
 	});
@@ -113,7 +186,7 @@ module.exports = function(router, log, models) {
 				});
 			}
 		}).error(function(err) {
-			log.error('GET /unwatched/shows unwatchedEpisodes DB: ' + err);
+			log.error('GET /unwatched/shows/' + showid + '/seasons/' + season + '/episodes unwatchedEpisodes DB: ' + err);
 			next();
 		});
 	});
