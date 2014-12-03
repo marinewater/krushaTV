@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
 					return;
 
 				return sequelize
-					.query('SELECT s.id, s.name FROM "' + TrackShow.tableName + '" t, "' + models.WatchedEpisodes.tableName + '" w, "' + models.Episodes.tableName + '" e, "' + models.Series.tableName + '" s WHERE t.showid = e.seriesid AND t.showid = s.id AND w.episodeid = e.id AND t.userid = ' + userid + ' AND w.userid = t.userid GROUP BY s.id, s.name ORDER BY substring(s.name from \'' + order_regex +' \');')
+					.query('SELECT s.id, s.name FROM "' + TrackShow.tableName + '" t, "' + models.WatchedEpisodes.tableName + '" w, "' + models.Episodes.tableName + '" e, "' + models.Series.tableName + '" s WHERE t.showid = e.seriesid AND t.showid = s.id AND w.episodeid = e.id AND t.userid = ' + userid + ' AND w.userid = t.userid GROUP BY s.id, s.name ORDER BY substring(s.name from \'' + order_regex + '\');')
 			},
 			watchedSeasons: function(models, userid, showid) {
 				userid = parseInt(userid);
