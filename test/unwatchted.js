@@ -321,6 +321,58 @@ describe('Unwatched Episodes', function() {
                                 done();
                             });
                     });
+
+                    describe('show is untracked', function() {
+                        before(function(done) {
+                            models.TrackShow.findOne({ where: { 'showid': show_id }})
+                                .success(function(show) {
+                                    show.destroy().success(function() {
+                                        models.WatchedEpisodes.find({ where: { 'userid': user_id } }).success(function(data) {
+                                            data.destroy().success(function() {
+                                                done();
+                                            }).error(function(err) {
+                                                done(err);
+                                            });
+                                        }).error(function(err) {
+                                            done(err);
+                                        });
+                                    }).error(function(err) {
+                                        done(err);
+                                    });
+                                })
+                                .error(function(err) {
+                                    done(err);
+                                });
+                        });
+
+                        it('should return an not found error for a season', function(done) {
+                            user
+                                .get('/api/unwatched/shows/' + show_id + '/seasons')
+                                .set('Content-Type', 'application/json')
+                                .expect(404)
+                                .end(function(err, res) {
+                                    should.not.exist(err);
+                                    res.body.should.have.property('type', 'error');
+                                    res.body.should.have.property('code', 404);
+                                    res.body.should.have.property('message', 'No unwatched episodes for showid ' + show_id);
+                                    done();
+                                });
+                        });
+
+                        it('should return an not found error for an episode', function(done) {
+                            user
+                                .get('/api/unwatched/shows/' + show_id + '/seasons/1/episodes')
+                                .set('Content-Type', 'application/json')
+                                .expect(404)
+                                .end(function(err, res) {
+                                    should.not.exist(err);
+                                    res.body.should.have.property('type', 'error');
+                                    res.body.should.have.property('code', 404);
+                                    res.body.should.have.property('message', 'No unwatched episodes for showid ' + show_id + ' and season 1');
+                                    done();
+                                });
+                        });
+                    });
                 });
             });
         });
