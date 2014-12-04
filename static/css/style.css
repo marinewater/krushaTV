@@ -8876,3 +8876,7 @@ unwatched > .row {
 unwatched > .row .spacer {
   margin-bottom: 30px;
 }
+/* line 78, ../../resource/stylesheets/style.scss */
+unwatched > .row #episodes h2 small {
+  display: inline-block;
+}

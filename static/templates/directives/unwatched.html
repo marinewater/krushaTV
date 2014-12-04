@@ -34,11 +34,12 @@
     <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
         <div class="card" id="episodes">
             <div class="row">
-                <div class="col-xs-12 col-lg-6">
+                <div class="col-xs-12 col-sm-6">
                     <h2>{{ getActiveShow().name }} <small>Season {{ getActiveSeason().season }}</small></h2>
                 </div>
-                <div class="col-xs-12 col-lg-6 mark-watched" ng-if="episodes.length > 1 || seasons.length > 1">
+                <div class="col-xs-12 col-sm-6 mark-watched" ng-if="episodes.length > 1 || seasons.length > 1">
                     <p class="text-right" ng-if="episodes.length > 1"><a ng-click="markSeasonWatched()">Mark all episodes of <em>Season {{ getActiveSeason().season }}</em> of <em>{{ getActiveShow().name }}</em> as {{ ::watched_text }}.</a></p>
+                    <hr class="visible-sm" ng-if="episodes.length > 1 && seasons.length > 1"/>
                     <p class="text-right" ng-if="seasons.length > 1"><a ng-click="markShowWatched()">Mark <strong>all episodes</strong> of <em>{{ getActiveShow().name }}</em> as {{ ::watched_text }}.</a></p>
                 </div>
             </div>
@@ -58,8 +59,9 @@
                         <td>{{ ::episode.title }}</td>
                         <td>{{ ::episode.airdate | date: dateFormat }}</td>
                         <td>
-                            <span class="glyphicon pointer glyphicon-remove text-danger" ng-click="markEpisodeWatched(episode)" ng-if="!watched"></span>
-                            <span class="glyphicon pointer glyphicon-plus text-success" ng-click="markEpisodeWatched(episode)" ng-if="watched"></span>
+                            <span class="glyphicon pointer"
+                                  ng-click="markEpisodeWatched(episode)"
+                                  ng-class="{'glyphicon-remove': !watched, 'text-danger': !watched, 'glyphicon-plus': watched, 'text-success': watched}"></span>
                         </td>
                     </tr>
                 </tbody>
