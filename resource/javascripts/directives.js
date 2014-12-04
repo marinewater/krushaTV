@@ -57,65 +57,6 @@ krusha.directive('loadingcontent',   ['$http' ,function ($http)
     }
 ]);
 
-/**
- * @ngdoc directive
- * @name krushaTV.directive:watched
- * @description displays all watched/unwatched episodes and lets the user mark them as unwatched/watched
- * @restrict E
- * @scope
- * @param {object} shows object containing watched/unwatched episodes
- * @param {function} markEpisodeWatched function that marks an episode as watched/unwatched
- * @param {function} markSeasonWatched function that marks a season and all of its episodes as watched/unwatched
- * @param {function} markShowWatched function that marks a show and all of its seasons and episodes as watched/unwatched
- * @param {boolean} watched displays the correct words (watched/unwatched): **true:** shows unwatched episodes, **false:** shows watched episodes
- */
-krusha.directive('watched', ['$cookies', 'loggedin', function($cookies, loggedin) {
-    var link = function ($scope) {
-        $scope.dateFormat = loggedin.getDateFormat();
-
-        if ($cookies.oneAtATime === undefined) {
-            $cookies.oneAtATime = true;
-        }
-        $scope.oneAtATime = $cookies.oneAtATime === 'true';
-
-        if ($scope.watched) {
-            $scope.watchedText = "unwatched";
-            $scope.notWatchedText = "watched";
-        }
-        else {
-            $scope.watchedText = "watched";
-            $scope.notWatchedText = "unwatched";
-        }
-
-        $scope.openAll = function(open) {
-            if (open)
-                $scope.oneAtATime = false;
-
-            for (var key in $scope.shows) {
-                if ($scope.shows.hasOwnProperty(key))
-                    $scope.shows[key].status = open;
-            }
-        };
-
-        $scope.SaveOneAtATime = function(oneAtATime) {
-            $cookies.oneAtATime = oneAtATime;
-        };
-    };
-
-    return {
-        restrict: 'E',
-        scope: {
-            shows: '=shows',
-            markEpisodeWatched: '=episodeWatched',
-            markSeasonWatched: '=seasonWatched',
-            markShowWatched: '=showWatched',
-            watched: '=watched'
-        },
-        link: link,
-        templateUrl: '/static/templates/directives/watched.html'
-    };
-}]);
-
 
 /**
  * @ngdoc directive

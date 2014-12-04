@@ -8849,34 +8849,29 @@ a, .pointer {
   text-decoration: underline;
 }
 
-/* line 52, ../../resource/stylesheets/style.scss */
-.watched .glyphicon {
-  cursor: pointer;
-}
-
-/* line 57, ../../resource/stylesheets/style.scss */
+/* line 51, ../../resource/stylesheets/style.scss */
 .github {
   color: #4F4F4F;
 }
-/* line 60, ../../resource/stylesheets/style.scss */
+/* line 54, ../../resource/stylesheets/style.scss */
 .github:hover {
   color: #363636;
 }
 
-/* line 65, ../../resource/stylesheets/style.scss */
+/* line 59, ../../resource/stylesheets/style.scss */
 .mark-watched {
   margin-top: 30px;
 }
 
-/* line 69, ../../resource/stylesheets/style.scss */
+/* line 63, ../../resource/stylesheets/style.scss */
 unwatched > .row {
   margin-bottom: 30px;
 }
-/* line 72, ../../resource/stylesheets/style.scss */
+/* line 66, ../../resource/stylesheets/style.scss */
 unwatched > .row .spacer {
   margin-bottom: 30px;
 }
-/* line 78, ../../resource/stylesheets/style.scss */
+/* line 72, ../../resource/stylesheets/style.scss */
 unwatched > .row #episodes h2 small {
   display: inline-block;
 }
