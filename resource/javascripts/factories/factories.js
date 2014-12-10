@@ -92,30 +92,6 @@ krusha.factory('helpers', function() {
     }
 });
 
-krusha.factory('notifications', ['$rootScope', function($rootScope) {
-    var notifications = [];
-
-    return {
-        // message: message that will be displaywed in the notification
-        // bg_class: can be success, warning, danger or info, determines the background color
-        // ttl: time in miliseconds the notification will be displayed
-        add: function(message, bg_class, ttl) {
-            notifications.push({
-                'message': message,
-                'class': bg_class,
-                'ttl': ttl
-            });
-
-            $rootScope.$broadcast('notification', true);
-        },
-        pop: function() {
-            var note_temp = notifications;
-            notifications = [];
-            return note_temp;
-        }
-    }
-}]);
-
 krusha.factory('loggedin', ['$rootScope', function($rootScope) {
     var loggedin = false;
     var user = null;
