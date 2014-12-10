@@ -64,19 +64,6 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
 	}
 ]);
 
-krusha.controller('notificationsCtrl', ['$scope', 'notifications', function($scope, notifications) {
-    $scope.notifications = {};
-    var index = 0;
-    var i;
-
-    $scope.$on('notification', function() {
-        notifications.pop().forEach(function(note) {
-            i = index++;
-            $scope.notifications[i] = note;
-        });
-    });
-}]);
-
 krusha.controller('navCtrl', [function() {
 }]);
 krusha.controller('parentCtrl', ['$scope', function($scope){
