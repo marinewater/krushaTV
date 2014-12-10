@@ -70,25 +70,31 @@
 }
 
 @media (min-width: $screen-lg-min) {
-  .col-lg-3:nth-child(4n+1){
-	clear: both;
-  }
-  .col-lg-4:nth-child(3n+1){
-	clear: both;
-  }
-  .col-lg-6:nth-child(2n+1){
-	clear: both;
+  .today {
+	.col-lg-3:nth-child(4n+1){
+	  clear: both;
+	}
+	.col-lg-4:nth-child(3n+1){
+	  clear: both;
+	}
+	.col-lg-6:nth-child(2n+1){
+	  clear: both;
+	}
   }
 }
 
 @media (min-width: $screen-md-min) and (max-width: $screen-lg-min) {
+  .today {
 	.col-md-3:nth-child(4n+1){
-		clear: both;
+	  clear: both;
 	}
+  }
 }
 
 @media (min-width: $screen-sm-min) and (max-width: $screen-md-min) {
+  .today {
 	.col-sm-4:nth-child(3n+1){
-		clear: both;
+	  clear: both;
 	}
+  }
 }

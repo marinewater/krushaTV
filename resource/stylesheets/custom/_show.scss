@@ -1,16 +1,13 @@
 .controls {
-  padding: 10px 20px 1px 20px;
-  margin-bottom: 10px;
+  padding: 24px 20px 15px 20px;
+  margin-bottom: 20px;
 
-  .list-inline {
-    li {
-      &:first-child {
-        padding-left: 25px;
-      }
-    }
+  li {
+    margin-left: 30px;
   }
-  .list-unstyled {
-    margin-left: 20px;
+
+  .checkbox {
+    margin: 0;
   }
 }
 
@@ -36,64 +33,29 @@
   }
 }
 
-.show-card {
-  background-color: $card-bg;
-  border: $card-border;
-  padding: 20px 50px;
+@media (min-width: $screen-sm-min) {
+  .show {
+    position: relative;
 
-  .season {
-    padding: 3px 20px;
-    margin-bottom: 10px;
-
-    &:hover {
-      background-color: $link-hover-color;
+    .seasons-fixed {
+      position: fixed;
     }
 
-    h3 {
-      margin-top: 10px;
-    }
-  }
-}
-
-.shows {
-  margin-bottom: 35px;
-
-  ul.nav {
-    float: left;
-    padding: 20px;
-    background-color: $card-bg;
-    border: $card-border;
-    position: fixed;
-  }
-
-  .tab-content {
-    float: right;
-    background-color: $card-bg;
-    border: $card-border;
-    padding: 20px 50px;
-  }
-}
-
-@media (min-width: $screen-md-min) and (max-width: $screen-lg-min) {
-  .shows {
-    ul.nav {
-      width: 20%;
+    .seasons-static {
+      position: absolute;
+      bottom: 0;
     }
 
-    .tab-content {
-      width: 78%;
+    #episodes {
+      float: right;
     }
   }
 }
 
-@media (min-width: $screen-lg-min) {
-  .shows {
-    ul.nav {
-      width: 32%;
-    }
-
-    .tab-content {
-      width: 66.666%;
+@media (max-width: $screen-sm-min) {
+  .show {
+    #seasons {
+      margin-bottom: 10px;
     }
   }
 }

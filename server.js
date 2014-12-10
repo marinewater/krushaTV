@@ -43,6 +43,7 @@ var redis = require("redis").createClient();
 
 // Modules
 var user = require('./app/modules/user.js')(log, models);
+var get_seasons = require('./app/modules/getSeasons.js')(log, models);
 
 // set up our express application
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -74,7 +75,7 @@ require('./app/auth.js')(auth_router, passport);
 
 require('./app/api/today.js')(router, log, models);
 require('./app/api/search.js')(router, log, models, redis);
-require('./app/api/show.js')(router, log, models);
+require('./app/api/show.js')(router, log, models, get_seasons);
 require('./app/api/trackshow.js')(router, log, models);
 require('./app/api/subreddit.js')(router, log, models);
 require('./app/api/imdb.js')(router, log, models);

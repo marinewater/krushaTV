@@ -2,7 +2,7 @@ var request = require('request');
 var libxmljs = require("libxmljs");
 var tvrage = require('../../config/tvrage.json');
 
-module.exports = function(router, log, models) {
+module.exports = function(router, log, models, get_seasons) {
 	/**
 	 * get show info from local database
 	 */
@@ -220,82 +220,160 @@ module.exports = function(router, log, models) {
 	});
 
 	/**
-	 * get episodes for show
+	 * get seasons for show
 	 */
-	router.get('/show/:showid/episodes', function(req, res) {
+	router.get('/show/:showid/season', function(req, res, next) {
+		function log_error(err) {
+			log.error('GET /show/' + showid + '/season DB: ' + err);
+			next();
+		}
+
 		/**
 		 * local show id
 		 * @type {Number}
 		 */
 		var showid = parseInt(req.params.showid);
+
 		if (isNaN(showid)) {
 			res.status(400);
-			res.json({
+			return res.json({
 				'type': 'error',
 				'code': 400,
 				'message': 'showid must be integer'
 			});
 		}
+
+		function return_json(seasons, episodes) {
+			for (var season in seasons) {
+				if (seasons.hasOwnProperty(season)) {
+					seasons[season].episode_count = parseInt(seasons[season].episode_count);
+
+					if (seasons[season].hasOwnProperty('watched_count')) {
+						seasons[season].watched_count = parseInt(seasons[season].watched_count);
+					}
+				}
+			}
+			return res.json({
+				'type': 'seasons',
+				'seasons': seasons,
+				'episodes': episodes,
+				'season': seasons[0].season
+			});
+		}
+
+		if (req.isAuthenticated() !== true) {
+			models.Episodes.getSeasons(models, showid)
+				.success(function(seasons) {
+					get_seasons.getEpisodes(showid, null, seasons[0].season, function(episodes) {
+						return return_json(seasons, episodes);
+					});
+				})
+				.error(log_error);
+		}
 		else {
-			/**
-			 * @type {{where: {seriesid: Number}, include: Array}}
-			 */
-			var query = {
-				where: { seriesid: showid }
-			};
-			if (req.isAuthenticated()) {
-				query.include = [models.WatchedEpisodes]
+			models.TrackShow.findOne({
+				where: {
+					userid: req.user.id,
+					showid: showid
+				},
+				attributes: ['id']
+			}).success(function(tracked) {
+				if (tracked !== null) {
+					models.Episodes.getSeasonsWatched(models, showid, req.user.id)
+						.success(function(seasons) {
+							get_seasons.getEpisodes(showid, req.user.id, seasons[0].season, function(episodes) {
+								return return_json(seasons, episodes);
+							});
+						})
+						.error(log_error);
+				}
+				else {
+					models.Episodes.getSeasons(models, showid)
+						.success(function(seasons) {
+							get_seasons.getEpisodes(showid, null, seasons[0].season, function(episodes) {
+								return return_json(seasons, episodes);
+							});
+						})
+						.error(log_error);
+				}
+			}).error(log_error);
+		}
+	});
+
+	/**
+	 * get episodes for show
+	 */
+	router.get('/show/:showid/season/:season/episodes', function(req, res, next) {
+		/**
+		 * local show id
+		 * @type {Number}
+		 */
+		var showid = parseInt(req.params.showid);
+
+		/**
+		 * season number
+		 * @type {Number}
+		 */
+		var season = parseInt(req.params.season);
+
+		function log_error(err) {
+			log.error('GET /show/' + showid + '/season/' + season + '/episodes DB: ' + err);
+			next();
+		}
+
+
+		if (isNaN(showid) || isNaN(season)) {
+			res.status(400);
+			return res.json({
+				'type': 'error',
+				'code': 400,
+				'message': 'showid and season must be integer'
+			});
+		}
+		else {
+			function return_json(season, episodes) {
+				if (episodes === null) {
+					res.status(404);
+					return res.json({
+						'type': 'error',
+						'code': 404,
+						'message': 'No episodes found.'
+					});
+				}
+				else {
+					return res.json({
+						'type': 'episodes',
+						'episodes': episodes,
+						'season': season
+					});
+				}
 			}
 
-			models.Episodes.findAll(query).success(function(returning) {
-				/**
-				 * Key: Season number, Value, list of episodes for season
-				 * @type {Object.<number, {episodes: Array.<{title: string, episode: number, airdate: string, watched: boolean, id: number}>}>}
-				 */
-				var seasons = {};
-
-				returning.forEach(function(ep) {
-					var episode = ep.dataValues;
-
-					if (req.isAuthenticated()) {
-						var watched = false;
-
-						if (episode.WatchedEpisodes.length > 0) {
-							watched = true;
-						}
-					}
-
-					if (!(episode.season in seasons)) {
-						seasons[episode.season] = {
-							'episodes': []
-						};
-					}
-
-					if (req.isAuthenticated()) {
-						seasons[episode.season].episodes.push({
-							'title': episode.title,
-							'episode': episode.episode,
-							'airdate': episode.airdate,
-							'watched': watched,
-							'id': episode.id
+			if (req.isAuthenticated() !== true) {
+				get_seasons.getEpisodes(showid, null, season, function(episodes) {
+					return return_json(season, episodes);
+				});
+			}
+			else {
+				models.TrackShow.findOne({
+					where: {
+						userid: req.user.id,
+						showid: showid
+					},
+					attributes: ['id']
+				}).success(function(tracked) {
+					if (tracked !== null) {
+						get_seasons.getEpisodes(showid, req.user.id, season, function(episodes) {
+							return return_json(season, episodes);
 						});
 					}
 					else {
-						seasons[episode.season].episodes.push({
-							'title': episode.title,
-							'episode': episode.episode,
-							'airdate': episode.airdate,
-							'id': episode.id
+						get_seasons.getEpisodes(showid, null, season, function(episodes) {
+							return return_json(season, episodes);
 						});
 					}
-				});
-
-				return res.json({
-					'type': 'episodes',
-					'resource': '/api/show/' + showid + '/episodes',
-					'seasons': seasons
-				});
-			});
+				}).error(log_error);
+			}
 		}
 	});
 };

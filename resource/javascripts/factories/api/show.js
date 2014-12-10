@@ -33,13 +33,26 @@ krusha.factory('apiShow', ['$http', function($http) {
         /**
          * @ngdoc apiShow.method
          * @methodOf krushaTV.service:apiShow
-         * @name apiShow#getEpisodes
-         * @description gets episodes for particular show
+         * @name apiShow#getSeasons
+         * @description gets seasons for particular show
          * @param {number} showid local show id
          * @returns {HttpPromise} HttpPromise
          */
-        getEpisodes: function (showid) {
-            return $http.get('/api/show/' + showid + '/episodes');
+        getSeasons: function (showid) {
+            return $http.get('/api/show/' + showid + '/season');
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getEpisodes
+         * @description gets episodes for particular show
+         * @param {number} showid local show id
+         * @param {number} season_nr season number
+         * @returns {HttpPromise} HttpPromise
+         */
+        getEpisodes: function (showid, season_nr) {
+            return $http.get('/api/show/' + showid + '/season/' + season_nr + '/episodes');
         },
 
         /**

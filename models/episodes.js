@@ -44,6 +44,37 @@ module.exports = function(sequelize, DataTypes) {
 
         var query = select + from + where;
         return sequelize.query(query);
+      },
+      getSeasons: function(models, show_id) {
+        show_id = parseInt(show_id);
+
+        if (isNaN(show_id)) {
+          return;
+        }
+
+        var query = 'SELECT e.season, count(e.id) AS episode_count\
+        FROM "Episodes" e\
+        WHERE e.seriesid = ' + show_id +
+        'GROUP BY e.season\
+        ORDER BY e.season';
+
+        return sequelize.query(query);
+      },
+      getSeasonsWatched: function(models, show_id, user_id) {
+        show_id = parseInt(show_id);
+        user_id = parseInt(user_id);
+
+        if (isNaN(show_id) || isNaN(user_id)) {
+          return;
+        }
+
+        var query = 'SELECT e.season, count(e.id) AS episode_count, count(w.id) AS watched_count\
+        FROM "Episodes" e LEFT OUTER JOIN "WatchedEpisodes" w ON (w.userid = ' + user_id + ' AND w.episodeid = e.id)\
+        WHERE e.seriesid = ' + show_id +
+        'GROUP BY e.season\
+        ORDER BY e.season;';
+
+        return sequelize.query(query);
       }
     }
   });

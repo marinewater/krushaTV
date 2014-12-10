@@ -2,27 +2,20 @@
  * scrollfix for season tabs in show.html template
  */
 function updateOffset() {
-    /**
-     * difference of height in pixels between season tab pills list and active tab pane
-     * @type {number}
-     */
-    var heightDifference = $('.shows .tab-pane.active').outerHeight() - $('.shows .col-md-12 .nav-pills').outerHeight();
+    var show = $('.show').first();
+    var seasons = show.find('#seasons').first();
 
-    if (heightDifference > 0 ) {
-        var scrollOffset = heightDifference +  + $('.show > .col-xs-12').outerHeight();
+    var height_difference = show.find('#episodes').first().outerHeight() - seasons.outerHeight();
 
-        if ($(this).scrollTop() < scrollOffset) {
-            $('.shows ul.nav').css('position', 'fixed');
-            $('.shows ul.nav').css('bottom','');
-        }
-        else {
-            $('.shows ul.nav').css('position', 'absolute');
-            $('.shows ul.nav').css('bottom', '0');
-        }
+    var scrollTop = $(this).scrollTop();
+
+    if (scrollTop < height_difference) {
+        seasons.addClass('seasons-fixed');
+        seasons.removeClass('seasons-static');
     }
     else {
-        $('.shows ul.nav').css('position', 'static');
-        $('.shows ul.nav').css('bottom','');
+        seasons.addClass('seasons-static');
+        seasons.removeClass('seasons-fixed');
     }
 }
 

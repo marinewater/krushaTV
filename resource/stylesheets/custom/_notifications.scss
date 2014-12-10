@@ -1,15 +1,11 @@
-@import "../../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/css3/border-radius";
+@import "compass/css3/box-shadow";
 
 growl-notifications {
 	position: fixed;
-	right: 10px;
   	z-index: 1000;
 }
 
 growl-notification {
-	@include border-radius(5px, 5px);
-	padding: 15px 30px;
-	margin-bottom: 15px;
   	z-index: 1000;
 
 	&.info {
@@ -50,4 +46,33 @@ growl-notification {
 	&.fading.ng-leave.ng-leave-active {
 	  opacity: 0;
 	}
+}
+
+@media (min-width: $screen-sm-min) {
+  growl-notifications {
+	right: 10px;
+	top: 80px;
+  }
+
+  growl-notification {
+	@include box-shadow(5px 5px 10px #DDD);
+	padding: 20px 30px;
+	margin-bottom: 15px;
+	margin-left: 10px;
+  }
+}
+
+@media (max-width: $screen-sm-min) {
+  growl-notifications {
+	width: 100%;
+	display: block;
+	top: 50px;
+  }
+
+  growl-notification {
+	width: 100%;
+	padding: 5px 5px 5px 15px;
+	display: block;
+	border: 1px solid #000;
+  }
 }
