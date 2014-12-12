@@ -55,14 +55,17 @@ krusha.controller('searchCtrl', ['$scope', '$location', '$rootScope', 'apiSearch
 		 * @type {string}
 		 */
 		var search_query = search_text.getText();
-		search_text.setText(null);
 
 		if (search_query !== null && search_query.length >= 2) {
-			apiSearch.searchLocal(search_query).then(function(res) {
-				$scope.shows = res.data.shows;
+			apiSearch.searchLocal(search_query).then(function(data) {
+				$scope.shows = data.data.shows;
+			}, function() {
+				$scope.shows = [];
 			});
-			apiSearch.searchRemote(search_query).then(function(res) {
-				$scope.shows_remote = res.data.shows;
+			apiSearch.searchRemote(search_query).then(function(data) {
+				$scope.shows_remote = data.data.shows;
+			}, function() {
+				$scope.shows_remote = [];
 			});
 		}
 	};

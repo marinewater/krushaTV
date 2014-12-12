@@ -1,0 +1,13 @@
+{
+  "development": {
+    "proxyDepth": 0
+  },
+
+  "test": {
+    "proxyDepth": 0
+  },
+
+  "production": {
+    "proxyDepth": 2
+  }
+}

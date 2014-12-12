@@ -1,10 +1,30 @@
+var env = process.env.NODE_ENV || "development";
 var request = require('request');
 var libxmljs = require("libxmljs");
 var tvrage = require('../../config/tvrage.json');
 
+// rate limiting
+var main_config = require('../../config/main.json')[env];
+var ExpressBrute = require('express-brute'),
+	RedisStore = require('express-brute-redis');
+
+var store = new RedisStore({
+	host: '127.0.0.1',
+	port: 6379
+});
+var bruteforce = new ExpressBrute(store, {
+	freeRetries: 20,
+	lifetime: 60, // 1 minute
+	proxyDepth: main_config.proxyDepth,
+	refreshTimeoutOnRequest: false,
+	attachResetToRequest: false,
+	minWait: 61000,
+	maxWait: 61000
+});
+
 module.exports = function(router, log, models, redis) {
 	// search for matching shows in local database
-	router.get('/search/:show', function(req, res) {
+	router.get('/search/:show', bruteforce.prevent, function(req, res) {
 		var shows = [];
 
 		var search_query = req.params.show.trim();
@@ -36,7 +56,7 @@ module.exports = function(router, log, models, redis) {
 	});
 
 	// search for matching shows in tvrage api
-	router.get('/search/:show/remote', function(req, res, next) {
+	router.get('/search/:show/remote', bruteforce.prevent, function(req, res, next) {
 		var redis_show_key = 'kTV:search:remote: ' + req.params.show;
 		redis.get(redis_show_key, function (err, redis_shows) {
 			if (err) {

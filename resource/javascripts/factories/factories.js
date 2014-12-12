@@ -37,7 +37,10 @@ krusha.factory('redirect', ['$location', function($location) {
  * @requires krushaTV.service:loggedin
  * @requires krushaTV.service:redirect
  */
-krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', function($q, loggedin, redirect) {
+krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', 'notifications', function($q, loggedin, redirect, notifications) {
+    var rateLimitGone = null;
+    var lastRateLimitNotificationShown = null;
+
     return {
         /**
          * @ngdoc interceptor.method
@@ -60,11 +63,32 @@ krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', function($q, logged
          * @returns {Promise} promise
          */
         responseError: function(response) {
+            // handle unauthorized users' requests to resources where a login is required
             if (response.status === 401) {
                 loggedin.setStatus(false);
 
                 if (!('login' in response.data)) {
                     redirect.login();
+                }
+            }
+
+            // handle rate limiting
+            if (response.status === 429) {
+                if (rateLimitGone === null || rateLimitGone < Date.parse(response.data.error.nextValidRequestDate) || lastRateLimitNotificationShown + 5000 < Date.now()) {
+                    rateLimitGone = Date.parse(response.data.error.nextValidRequestDate);
+                    var timeTillNextRequest = Math.floor((rateLimitGone - Date.now()) / 1000); // in seconds
+
+                    var minutes = Math.floor(timeTillNextRequest / 60);
+                    var seconds = timeTillNextRequest - minutes * 60;
+
+                    var message = 'You made to many requests. You can make next request in ';
+
+                    message += minutes > 0 ? minutes + ' minutes and ' : '';
+                    message += seconds + ' seconds.';
+
+                    lastRateLimitNotificationShown = Date.now();
+
+                    notifications.add(message, 'danger', 5000, true);
                 }
             }
 
