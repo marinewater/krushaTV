@@ -6,7 +6,8 @@ growl-notifications {
 }
 
 growl-notification {
-  	z-index: 1000;
+  	z-index: 1001;
+    display: block;
 
 	&.info {
 		background-color: $state-info-text;

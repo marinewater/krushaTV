@@ -94,7 +94,11 @@
             <growl-notifications>
                 <div ng-repeat="(id, n) in notifications track by id">
                     <growl-notification ttl="{{ n.ttl }}" ng-class="n.class" class="fading">
-                        {{ n.message }}
+                        <p>{{ n.message }}</p>
+                        <ul class="list-inline pull-right" ng-if="n.link || n.close">
+                            <li ng-if="n.link"><a href="#" ng-click="n.link.link_function(); $growlNotification.remove()">{{ n.link.text }}</a></li>
+                            <li ng-if="n.close"><a href="#" ng-click="$growlNotification.remove()">Close</a></li>
+                        </ul>
                     </growl-notification>
                 </div>
             </growl-notifications>

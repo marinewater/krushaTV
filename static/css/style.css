@@ -8249,29 +8249,30 @@ growl-notifications {
 
 /* line 8, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification {
-  z-index: 1000;
+  z-index: 1001;
+  display: block;
 }
-/* line 11, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 12, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.info {
   background-color: #31708f;
   border-color: #bce8f1;
 }
-/* line 16, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 17, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.success {
   background-color: #dff0d8;
   border-color: #d6e9c6;
 }
-/* line 21, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 22, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.warning {
   background-color: #fcf8e3;
   border-color: #faebcc;
 }
-/* line 26, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 27, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.danger {
   background-color: #f2dede;
   border-color: #ebccd1;
 }
-/* line 31, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 32, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.fading.ng-move {
   opacity: 0;
   -webkit-transition: 0.1s linear all;
@@ -8279,11 +8280,11 @@ growl-notification.fading.ng-move {
   transition: 0.1s linear all;
   /* All other modern browsers and IE10+ */
 }
-/* line 37, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 38, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.fading.ng-move.ng-move-active {
   opacity: 1;
 }
-/* line 40, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 41, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.fading.ng-leave {
   opacity: 1;
   -webkit-transition: 1s linear all;
@@ -8291,19 +8292,19 @@ growl-notification.fading.ng-leave {
   transition: 1s linear all;
   /* All other modern browsers and IE10+ */
 }
-/* line 46, ../../resource/stylesheets/custom/_notifications.scss */
+/* line 47, ../../resource/stylesheets/custom/_notifications.scss */
 growl-notification.fading.ng-leave.ng-leave-active {
   opacity: 0;
 }
 
 @media (min-width: 768px) {
-  /* line 52, ../../resource/stylesheets/custom/_notifications.scss */
+  /* line 53, ../../resource/stylesheets/custom/_notifications.scss */
   growl-notifications {
     right: 10px;
     top: 80px;
   }
 
-  /* line 57, ../../resource/stylesheets/custom/_notifications.scss */
+  /* line 58, ../../resource/stylesheets/custom/_notifications.scss */
   growl-notification {
     -moz-box-shadow: 5px 5px 10px #DDD;
     -webkit-box-shadow: 5px 5px 10px #DDD;
@@ -8314,14 +8315,14 @@ growl-notification.fading.ng-leave.ng-leave-active {
   }
 }
 @media (max-width: 768px) {
-  /* line 66, ../../resource/stylesheets/custom/_notifications.scss */
+  /* line 67, ../../resource/stylesheets/custom/_notifications.scss */
   growl-notifications {
     width: 100%;
     display: block;
     top: 50px;
   }
 
-  /* line 72, ../../resource/stylesheets/custom/_notifications.scss */
+  /* line 73, ../../resource/stylesheets/custom/_notifications.scss */
   growl-notification {
     width: 100%;
     padding: 5px 5px 5px 15px;

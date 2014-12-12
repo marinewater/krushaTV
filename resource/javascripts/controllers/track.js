@@ -5,9 +5,11 @@
  * Controller for track.html
  * shows shows the user is tracking and some additional information
  * @requires $scope
+ * @requires apiShow
+ * @requires notifications
  * @requires krushaTV.service:apiShow
  */
-krusha.controller('trackCtrl', ['$scope', 'apiShow', function($scope, apiShow) {
+krusha.controller('trackCtrl', ['$scope', 'apiShow', 'notifications', function($scope, apiShow, notifications) {
 	$scope.$parent.title = 'Tracked Shows';
 
 	/**
@@ -30,6 +32,20 @@ krusha.controller('trackCtrl', ['$scope', 'apiShow', function($scope, apiShow) {
 
 	/**
 	 * @ngdoc trackCtrl.method
+	 * @name trackCtrl#doTrack
+	 * @description readd a show to tracked shows
+	 * @methodOf krushaTV.controllers:trackCtrl
+	 * @param {object} show show object
+	 */
+	var doTrack = function(show) {
+		apiShow.addTracked(show.id).success(function() {
+			getTracked();
+			notifications.add('You are now tracking ' + show.name + ' again.', 'success', 10000, true);
+		});
+	};
+
+	/**
+	 * @ngdoc trackCtrl.method
 	 * @name trackCtrl#doNotTrack
 	 * @description remove a show from tracked shows
 	 * @methodOf krushaTV.controllers:trackCtrl
@@ -38,6 +54,15 @@ krusha.controller('trackCtrl', ['$scope', 'apiShow', function($scope, apiShow) {
 	$scope.doNotTrack = function(show) {
 		apiShow.deleteTracked(show.id).success(function() {
 			$scope.shows.splice($scope.shows.indexOf(show), 1);
+
+			var undo = {
+				link_function: function() {
+					doTrack(show);
+				},
+				text: 'Undo'
+			};
+
+			notifications.add('Removed ' + show.name + ' from tracked shows.', 'danger', 10000, true, undo);
 		});
 	};
 
