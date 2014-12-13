@@ -51,18 +51,29 @@ krusha.controller('signupCtrl', ['$scope', '$location', 'apiAuth', 'notification
 		 * @param {string} password password (has to be at least 6 characters long)
 		 */
 		$scope.signup = function(username, password) {
-			apiAuth.signup(username, password)
-				.success(function(data) {
-					loggedin.setStatus(true);
-					notifications.add('Welcome ' + data.user + '!', 'success', 5000);
-					$location.path("/");
-				})
-				.error(function(err) {
-					$scope.alerts.push({
-						'type': 'danger',
-						'msg': err.message
-					});
+			var captcha = grecaptcha.getResponse();
+
+			if (captcha === '') {
+				$scope.alerts.push({
+					'type': 'danger',
+					'msg': 'You need to complete the captcha.'
 				});
+			}
+			else {
+				apiAuth.signup(username, password, captcha)
+					.success(function(data) {
+						loggedin.setStatus(true);
+						notifications.add('Welcome ' + data.user + '!', 'success', 5000);
+						$location.path("/");
+					})
+					.error(function(err) {
+						grecaptcha.reset();
+						$scope.alerts.push({
+							'type': 'danger',
+							'msg': err.message
+						});
+					});
+			}
 		};
 
 		loggedin_func();

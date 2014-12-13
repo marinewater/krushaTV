@@ -3,6 +3,7 @@
 /config/auth.js
 /config/config.json
 /config/tvrage.json
+/config/recaptcha.json
 /log/*
 *.tmp
 /.idea

@@ -37,10 +37,11 @@ krusha.factory('apiAuth', ['$http', function($http) {
          * @description registers a new user
          * @param {string} username username
          * @param {string} password password (has to be at least 6 characters long)
+         * @param {string} captcha recaptcha's response
          * @returns {HttpPromise} HttpPromise
          */
-        signup: function (username, password) {
-            return $http.post('/api/signup', {'username': username, 'password': password});
+        signup: function (username, password, captcha) {
+            return $http.post('/api/signup', {'username': username, 'password': password, 'captcha': captcha});
         },
 
         /**

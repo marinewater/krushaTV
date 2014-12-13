@@ -1,3 +1,8 @@
+var request = require('request');
+var url = require('url');
+var recaptcha_config = require('../../config/recaptcha');
+var env = process.env.NODE_ENV || "development";
+
 module.exports = function(router, log, models, passport) {
 	// api endpoint to handle logins
 	router.post('/login', function(req, res, next) {
@@ -64,48 +69,77 @@ module.exports = function(router, log, models, passport) {
 			});
 		}
 		else {
-			passport.authenticate('local-signup', function(err, user, info) {
-				if (err) { return next(err); }
-				if (!user) {
-					switch (info) {
-						case 'pw_too_short':
-							res.status(400);
-							return res.json({
-								'type': 'error',
-								'code': 400,
-								'message': 'The provided password is too short.',
-								'error': 'pw_too_short'
-							});
-							break;
-
-						case 'user_exists':
-							res.status(409);
-							return res.json({
-								'type': 'error',
-								'code': 409,
-								'message': 'There is already a user with that name.',
-								'error': 'user_exists'
-							});
-							break;
-
-						default:
-							res.status(400);
-							return res.json({
-								'type': 'error',
-								'code': 400,
-								'message': 'No credentials provided'
-							});
-					}
+			var url_obj = {
+				protocol: 'https',
+				host: 'www.google.com',
+				pathname: 'recaptcha/api/siteverify',
+				query: {
+					secret: recaptcha_config.secret,
+					response: req.body.captcha
 				}
+			};
 
-				req.logIn(user, function(err) {
-					if (err) { return next(err); }
+			if (env === 'production') {
+				url_obj.query.remoteip = req.ip;
+			}
+
+			// check captcha
+			request(url.format(url_obj), function(error, response, body) {
+				if (!error && response.statusCode == 200 && !!JSON.parse(body).success) {
+
+					// sign up
+					passport.authenticate('local-signup', function(err, user, info) {
+						if (err) { return next(err); }
+						if (!user) {
+							switch (info) {
+								case 'pw_too_short':
+									res.status(400);
+									return res.json({
+										'type': 'error',
+										'code': 400,
+										'message': 'The provided password is too short.',
+										'error': 'pw_too_short'
+									});
+									break;
+
+								case 'user_exists':
+									res.status(409);
+									return res.json({
+										'type': 'error',
+										'code': 409,
+										'message': 'There is already a user with that name.',
+										'error': 'user_exists'
+									});
+									break;
+
+								default:
+									res.status(400);
+									return res.json({
+										'type': 'error',
+										'code': 400,
+										'message': 'No credentials provided'
+									});
+							}
+						}
+
+						req.logIn(user, function(err) {
+							if (err) { return next(err); }
+							return res.json({
+								'type': 'authenticated',
+								'user': user.username
+							});
+						});
+					})(req, res, next);
+				}
+				else {
+					res.status(409);
 					return res.json({
-						'type': 'authenticated',
-						'user': user.username
+						'type': 'error',
+						'code': 409,
+						'message': 'Captcha failed!'
 					});
-				});
-			})(req, res, next);
+				}
+			});
 		}
 	});
 

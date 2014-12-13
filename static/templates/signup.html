@@ -18,6 +18,11 @@
 	                    <span class="help-block" ng-show="signupForm.password.$touched && signupForm.password.$error.minlength">Password needs to be at least 6 characters long.</span>
 	                </div>
                 </div>
+				<div class="form-group">
+					<div class="col-md-10 col-md-offset-2">
+						<div id="recaptcha"></div>
+					</div>
+				</div>
 		        <div class="form-group">
 		            <div class="col-md-10 col-md-offset-2">
                 		<button type="submit" class="btn btn-primary">Sign up</button>
@@ -45,3 +50,4 @@
 		</div>
 	</div>
 </div>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>

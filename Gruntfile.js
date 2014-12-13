@@ -30,6 +30,7 @@ module.exports = function(grunt) {
                     'static/javascripts/krusha.min.js': [
                         'resource/javascripts/polyfills.js',
                         'resource/javascripts/scrollfix.js',
+                        'resource/javascripts/recaptcha.js',
                         'resource/javascripts/krusha.js',
                         'resource/javascripts/filter.js',
                         'resource/javascripts/validators.js',
