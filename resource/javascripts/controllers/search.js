@@ -57,6 +57,9 @@ krusha.controller('searchCtrl', ['$scope', '$location', '$rootScope', 'apiSearch
 		var search_query = search_text.getText();
 
 		if (search_query !== null && search_query.length >= 2) {
+			$scope.shows = [];
+			$scope.shows_remote = [];
+			
 			apiSearch.searchLocal(search_query).then(function(data) {
 				$scope.shows = data.data.shows;
 			}, function() {
