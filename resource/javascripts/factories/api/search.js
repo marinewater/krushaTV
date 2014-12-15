@@ -5,7 +5,7 @@
  * @requires $http
  * @requires $q
  */
-krusha.factory('apiSearch', ['$http', '$q', function($http, $q) {
+krusha.factory('apiSearch', ['$http', '$q', 'loggedin', function($http, $q, loggedin) {
     return {
         /**
          * @ngdoc apiSearch.method
@@ -16,8 +16,14 @@ krusha.factory('apiSearch', ['$http', '$q', function($http, $q) {
          * @returns {HttpPromise|Promise} HttpPromise
          */
         searchLocal: function (search_input) {
+            /**
+             * cache search queries only if the user is not loggedin, because search results my change if the user tracks new shows
+             * @type {boolean}
+             */
+            var cache = !loggedin.getStatus();
+
             if (search_input.length >= 2) {
-                return $http.get('/api/search/' + search_input, {cache: true}).then(function(data) {
+                return $http.get('/api/search/' + search_input, {cache: cache}).then(function(data) {
                     return data;
                 }, function(err) {
                     return $q(function(resolve, reject) {
