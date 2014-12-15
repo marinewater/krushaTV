@@ -78,7 +78,7 @@ module.exports = function(sequelize, DataTypes) {
 								console.log(err);
 						});
 				}).error(function(err){
-						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: column "PostText" of relation "Series" already exists')) {
+						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'column "' + vectorName + '" of relation "' + Series.tableName + '" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
 						}
@@ -117,7 +117,7 @@ module.exports = function(sequelize, DataTypes) {
 				sequelize
 					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_subreddit" CHECK (subreddit ~* \'^/r/[A-Za-z0-9]+$\'::text)')
 					.error(function(err){
-						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: constraint "' + Series.tableName + '_check_subreddit" for relation "' + Series.tableName + '" already exists')) {
+						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + Series.tableName + '_check_subreddit" for relation "' + Series.tableName + '" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
 						}
@@ -126,7 +126,7 @@ module.exports = function(sequelize, DataTypes) {
 				sequelize
 					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_imdb_id" CHECK (imdbid ~* \'^tt[0-9]{7}$\'::text)')
 					.error(function(err){
-						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'error: constraint "' + Series.tableName + '_check_imdb_id" for relation "' + Series.tableName + '" already exists')) {
+						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + Series.tableName + '_check_imdb_id" for relation "' + Series.tableName + '" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
 						}
