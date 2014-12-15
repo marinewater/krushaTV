@@ -1,7 +1,11 @@
 <div class="row">
 	<div class="col-xs-12">
-		<input type="search" class="form-control visible-xs search-input" placeholder="Search" ng-model="mobSearchText" ng-change="mobileSearch(mobSearchText)" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }"/>
-		<div class="page-header" ng-show="(shows.length + shows_remote.length) > 0">
+		<div class="form-group">
+			<label for="mobileSearch" class="sr-only">Search</label>
+			<input type="search" id="mobileSearch" name="mobileSearch" class="form-control visible-xs search-input" placeholder="Search" ng-model="mobSearchText" ng-change="mobileSearch(mobSearchText)" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }"/>
+		</div>
+		<button class="btn btn-default visible-xs" ng-click="clearSearch(mobSearchText)">Clear</button>
+		<div class="page-header hidden-xs" ng-show="result.length > 0">
 			<h1>Search Results</h1>
 		</div>
 	</div>

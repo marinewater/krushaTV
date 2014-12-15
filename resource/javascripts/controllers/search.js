@@ -146,6 +146,11 @@ krusha.controller('searchCtrl', ['$scope', '$location', '$rootScope', 'apiSearch
 		}
 	};
 
+	$scope.clearSearch = function() {
+		$scope.mobSearchText = '';
+		$('#mobileSearch').focus();
+	};
+
 	// the search field is in a different controller, we have to listen if a change is broadcasted
 	$scope.$on('search_input', function() {
 		getResults();
