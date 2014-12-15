@@ -1,5 +1,5 @@
-module.exports = function(router, log, models) {
-	router.get('/watched/shows', isLoggedIn, function(req, res, next) {
+module.exports = function(router, log, models, user) {
+	router.get('/watched/shows', user.isLoggedIn, function(req, res, next) {
 		models.TrackShow.watchedShows(models, req.user.id).success(function(watchedShows) {
 			if (watchedShows.length > 0) {
 				models.TrackShow.watchedSeasons(models, req.user.id, watchedShows[0].id).success(function(watchedSeasons) {
@@ -33,7 +33,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.get('/watched/shows/:showid/seasons', isLoggedIn, function(req, res, next) {
+	router.get('/watched/shows/:showid/seasons', user.isLoggedIn, function(req, res, next) {
 		var showid = parseInt(req.params.showid);
 
 		if (isNaN(showid)) {
@@ -72,7 +72,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.get('/watched/shows/:showid/seasons/:season/episodes', isLoggedIn, function(req, res, next) {
+	router.get('/watched/shows/:showid/seasons/:season/episodes', user.isLoggedIn, function(req, res, next) {
 		var showid = parseInt(req.params.showid);
 		var season = parseInt(req.params.season);
 
@@ -106,7 +106,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.get('/unwatched/shows', isLoggedIn, function(req, res, next) {
+	router.get('/unwatched/shows', user.isLoggedIn, function(req, res, next) {
 		models.TrackShow.unwatchedShows(models, req.user.id).success(function(unwatchedShows) {
 			if (unwatchedShows.length > 0) {
 				models.TrackShow.unwatchedSeasons(models, req.user.id, unwatchedShows[0].id).success(function(unwatchedSeasons) {
@@ -140,7 +140,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.get('/unwatched/shows/:showid/seasons', isLoggedIn, function(req, res, next) {
+	router.get('/unwatched/shows/:showid/seasons', user.isLoggedIn, function(req, res, next) {
 		var showid = parseInt(req.params.showid);
 
 		if (isNaN(showid)) {
@@ -179,7 +179,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.get('/unwatched/shows/:showid/seasons/:season/episodes', isLoggedIn, function(req, res, next) {
+	router.get('/unwatched/shows/:showid/seasons/:season/episodes', user.isLoggedIn, function(req, res, next) {
 		var showid = parseInt(req.params.showid);
 		var season = parseInt(req.params.season);
 
@@ -212,21 +212,4 @@ module.exports = function(router, log, models) {
 			next();
 		});
 	});
-
-
-	// route middleware to make sure a user is logged in
-	function isLoggedIn(req, res, next) {
-
-		// if user is authenticated in the session, carry on 
-		if (req.isAuthenticated())
-			return next();
-
-		// if they aren't redirect them to the home page
-		res.status(401);
-		return res.json({
-			'type': 'error',
-			'code': 401,
-			'message': 'not logged in'
-		});
-	}
 };

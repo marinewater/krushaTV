@@ -1,6 +1,6 @@
-module.exports = function(router, log, models) {
+module.exports = function(router, log, models, user) {
 	// add show to list of tracked shows
-	router.post('/subreddit', isLoggedIn, function(req, res, next) {
+	router.post('/subreddit', user.isLoggedIn, function(req, res, next) {
 		var showid = parseInt(req.body.showid);
 		if (isNaN(showid)) {
 			res.status(400);
@@ -91,20 +91,4 @@ module.exports = function(router, log, models) {
 			});
 		})
 	});
-
-	// route middleware to make sure a user is logged in
-	function isLoggedIn(req, res, next) {
-
-		// if user is authenticated in the session, carry on 
-		if (req.isAuthenticated())
-			return next();
-
-		// if they aren't redirect them to the home page
-		res.status(401);
-		return res.json({
-			'type': 'error',
-			'code': 401,
-			'message': 'not logged in'
-		});
-	}
 };

@@ -34,6 +34,61 @@ module.exports = function(log, models) {
             }).error(function(err){
                 return done(err);
             });
+        },
+
+        /**
+         * route middleware to make sure a user is logged in
+         * @param req
+         * @param res
+         * @param next
+         * @returns {*}
+         */
+        isLoggedIn: function (req, res, next) {
+
+            // if user is authenticated in the session, carry on
+            if (req.isAuthenticated())
+                return next();
+
+            // if they aren't redirect them to the home page
+            res.status(401);
+            return res.json({
+                'type': 'error',
+                'code': 401,
+                'message': 'not logged in'
+            });
+        },
+
+        /**
+         * route middleware to make sure a user is an admin
+         * @param req
+         * @param res
+         * @param next
+         * @returns {*}
+         */
+        isAdmin: function(req, res, next) {
+
+            // if user is authenticated in the session, carry on
+            if (req.isAuthenticated())
+                if (req.user.admin === true) {
+                    return next();
+                }
+                else {
+                    res.status(403);
+                    return res.json({
+                        'type': 'error',
+                        'code': 403,
+                        'message': 'you do not have access to this resource'
+                    });
+                }
+            else {
+                // if they aren't redirect them to the home page
+                res.status(401);
+                return res.json({
+                    'type': 'error',
+                    'code': 401,
+                    'message': 'not logged in'
+                });
+            }
         }
     };
 };

@@ -68,7 +68,9 @@ describe('Admin - IMDb', function() {
                         .set('Content-Type', 'application/json')
                         .send(newAdmin)
                         .end(function() {
-                            models.User.update({ 'admin': true }, { where: { 'username': 'admin' } }).success(function() { done(); });
+                            models.User.update({ 'admin': true }, { where: { 'username': 'admin' } })
+                                .success(function() { done(); })
+                                .error(function(err) { done(err); });
                         });
                 });
         });

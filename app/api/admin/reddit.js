@@ -1,7 +1,7 @@
-module.exports = function(router, log, models) {
+module.exports = function(router, log, models, user) {
 
 	// return a list of all subreddits the users have submitted
-	router.get('/subreddit', isAdmin, function(req, res, next) {
+	router.get('/subreddit', user.isAdmin, function(req, res, next) {
 		models.Subreddits.findAll({ include: [models.Series]}).success(function(returning) {
 			if (returning.length === 0) {
 				res.status(404);
@@ -36,7 +36,7 @@ module.exports = function(router, log, models) {
 	});
 
 	// accept a submission for a subreddit and delete all the submissions connected to the show
-	router.put('/subreddit/:submission_id', isAdmin, function(req, res, next) {
+	router.put('/subreddit/:submission_id', user.isAdmin, function(req, res, next) {
 		var submission_id = parseInt(req.params.submission_id);
 		if (isNaN(submission_id)) {
 			res.status(400);
@@ -90,31 +90,4 @@ module.exports = function(router, log, models) {
 			next();
 		});
 	});
-
-	// route middleware to make sure a user is an admin
-	function isAdmin(req, res, next) {
-
-		// if user is authenticated in the session, carry on 
-		if (req.isAuthenticated())
-			if (req.user.admin === true) {
-				return next();
-			}
-			else {
-				res.status(403);
-				return res.json({
-					'type': 'error',
-					'code': 403,
-					'message': 'you do not have access to this resource'
-				});
-			}
-		else {
-			// if they aren't redirect them to the home page
-			res.status(401);
-			return res.json({
-				'type': 'error',
-				'code': 401,
-				'message': 'not logged in'
-			});
-		}
-	}
 };

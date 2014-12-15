@@ -1,6 +1,6 @@
-module.exports = function(router, log, models) {
+module.exports = function(router, log, models, user) {
 	// add show to list of tracked shows
-	router.post('/track', isLoggedIn, function(req, res, next) {
+	router.post('/track', user.isLoggedIn, function(req, res, next) {
 		showid = parseInt(req.body.showid);
 		if (isNaN(showid)) {
 			res.status(400);
@@ -57,7 +57,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.get('/track', isLoggedIn, function(req, res, next) {
+	router.get('/track', user.isLoggedIn, function(req, res, next) {
 		models.TrackShow.findAll({
 			where: {
 				'userid': req.user.id
@@ -127,7 +127,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.delete('/track/:showid', isLoggedIn, function(req, res, next) {
+	router.delete('/track/:showid', user.isLoggedIn, function(req, res, next) {
 		showid = parseInt(req.params.showid);
 		if (isNaN(showid)) {
 			res.status(400);
@@ -162,7 +162,7 @@ module.exports = function(router, log, models) {
 
 	});
 
-	router.delete('/watched/episode/:episodeid', isLoggedIn, function(req, res, next) {
+	router.delete('/watched/episode/:episodeid', user.isLoggedIn, function(req, res, next) {
 		episodeid = parseInt(req.params.episodeid);
 		if (isNaN(episodeid)) {
 			res.status(400);
@@ -190,7 +190,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.post('/watched/episode', isLoggedIn, function(req, res, next) {
+	router.post('/watched/episode', user.isLoggedIn, function(req, res, next) {
 		episodeid = parseInt(req.body.episodeid);
 		if (isNaN(episodeid)) {
 			res.status(400);
@@ -219,7 +219,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.post('/watched/season', isLoggedIn, function(req, res, next) {
+	router.post('/watched/season', user.isLoggedIn, function(req, res, next) {
 		showid = parseInt(req.body.showid);
 		season_nr = parseInt(req.body.season_nr);
 		if (isNaN(showid) || isNaN(season_nr)) {
@@ -250,7 +250,7 @@ module.exports = function(router, log, models) {
 
 	});
 
-	router.post('/watched/show', isLoggedIn, function(req, res, next) {
+	router.post('/watched/show', user.isLoggedIn, function(req, res, next) {
 		showid = parseInt(req.body.showid);
 		if (isNaN(showid)) {
 			res.status(400);
@@ -280,7 +280,7 @@ module.exports = function(router, log, models) {
 
 	});
 
-	router.delete('/watched/show/:showid', isLoggedIn, function(req, res, next) {
+	router.delete('/watched/show/:showid', user.isLoggedIn, function(req, res, next) {
 		showid = parseInt(req.params.showid);
 		if (isNaN(showid)) {
 			res.status(400);
@@ -308,7 +308,7 @@ module.exports = function(router, log, models) {
 		});
 	});
 
-	router.delete('/watched/season/:showid/:seasonnr', isLoggedIn, function(req, res, next) {
+	router.delete('/watched/season/:showid/:seasonnr', user.isLoggedIn, function(req, res, next) {
 		showid = parseInt(req.params.showid);
 		seasonnr = parseInt(req.params.seasonnr);
 		if (isNaN(showid) || isNaN(seasonnr)) {
@@ -336,21 +336,4 @@ module.exports = function(router, log, models) {
 			});
 		});
 	});
-
-
-	// route middleware to make sure a user is logged in
-	function isLoggedIn(req, res, next) {
-
-		// if user is authenticated in the session, carry on 
-		if (req.isAuthenticated())
-			return next();
-
-		// if they aren't redirect them to the home page
-		res.status(401);
-		return res.json({
-			'type': 'error',
-			'code': 401,
-			'message': 'not logged in'
-		});
-	}
 };

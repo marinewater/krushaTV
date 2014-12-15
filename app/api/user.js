@@ -3,7 +3,7 @@ var url = require('url');
 var recaptcha_config = require('../../config/recaptcha');
 var env = process.env.NODE_ENV || "development";
 
-module.exports = function(router, log, models, passport) {
+module.exports = function(router, log, models, passport, user) {
 	// api endpoint to handle logins
 	router.post('/login', function(req, res, next) {
 		// reject if user is already loggedin
@@ -146,7 +146,7 @@ module.exports = function(router, log, models, passport) {
 	/**
 	 * return the users profile as json, includeing the user's name, a total count of watched episodes and tracked shows and settings
 	 */
-	router.get('/profile', isLoggedIn, function(req, res, next) {
+	router.get('/profile', user.isLoggedIn, function(req, res, next) {
 		models.WatchedEpisodes.count({
 			where: { 'userid': req.user.id }
 		}).success(function(total_watched_episodes) {
@@ -181,7 +181,7 @@ module.exports = function(router, log, models, passport) {
 	 * sets setting "episode offset" for a user: the user wants to be notified of a new episode ahead or behind of time
 	 * (the episode airs on the 13. of march, but the wants it to show up at the 14., the offset will be (+)1 day
 	 */
-	router.put('/profile/settings/episode-offset', isLoggedIn, function(req, res, next) {
+	router.put('/profile/settings/episode-offset', user.isLoggedIn, function(req, res, next) {
 		/**
 		 * episode offset days
 		 * @type {Number}
@@ -229,7 +229,7 @@ module.exports = function(router, log, models, passport) {
 	/**
 	 * sets how dates are displayed for a user
 	 */
-	router.put('/profile/settings/date-format', isLoggedIn, function(req, res, next) {
+	router.put('/profile/settings/date-format', user.isLoggedIn, function(req, res, next) {
 		/**
 		 * date format RegExp
 		 * @type {RegExp}
@@ -296,27 +296,4 @@ module.exports = function(router, log, models, passport) {
 			});
 		}
 	});
-
-
-	/**
-	 * route middleware to make sure a user is logged in
-	 * @param req
-	 * @param res
-	 * @param next
-	 * @returns {*}
-	 */
-	function isLoggedIn(req, res, next) {
-
-		// if user is authenticated in the session, carry on 
-		if (req.isAuthenticated())
-			return next();
-
-		// if they aren't redirect them to the home page
-		res.status(401);
-		return res.json({
-			'type': 'error',
-			'code': 401,
-			'message': 'not logged in'
-		});
-	}
 };

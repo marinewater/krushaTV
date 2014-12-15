@@ -70,18 +70,18 @@ require('./config/passport.js')(passport, log, models, user);
 app.use("/static", express.static(__dirname + '/static')); // serve static files
 // api =========================================================================
 // auth
-require('./app/api/user.js')(router, log, models, passport);
+require('./app/api/user.js')(router, log, models, passport, user);
 require('./app/auth.js')(auth_router, passport);
 
 require('./app/api/today.js')(router, log, models);
 require('./app/api/search.js')(router, log, models, redis);
 require('./app/api/show.js')(router, log, models, get_seasons);
-require('./app/api/trackshow.js')(router, log, models);
-require('./app/api/subreddit.js')(router, log, models);
-require('./app/api/imdb.js')(router, log, models);
-require('./app/api/unwatched.js')(router, log, models);
-require('./app/api/admin/reddit.js')(admin_router, log, models);
-require('./app/api/admin/imdb.js')(admin_router, log, models);
+require('./app/api/trackshow.js')(router, log, models, user);
+require('./app/api/subreddit.js')(router, log, models, user);
+require('./app/api/imdb.js')(router, log, models, user, user);
+require('./app/api/unwatched.js')(router, log, models, user);
+require('./app/api/admin/reddit.js')(admin_router, log, models, user);
+require('./app/api/admin/imdb.js')(admin_router, log, models, user);
 require('./app/api.js')(router);
 
 app.use('/api', router);
