@@ -116,37 +116,6 @@ krusha.factory('helpers', function() {
     }
 });
 
-krusha.factory('loggedin', ['$rootScope', function($rootScope) {
-    var loggedin = false;
-    var user = null;
-    var dateFormat = 'yyyy-MM-dd';
-
-    return {
-        getStatus: function() {
-            return loggedin;
-        },
-        setStatus: function(status) {
-            loggedin = status;
-            $rootScope.$broadcast('loggedin');
-        },
-        setUser: function(username) {
-            user = username;
-        },
-        getUser: function() {
-            return user;
-        },
-        getDateFormat: function() {
-            return dateFormat;
-        },
-        setDateFormat: function(format) {
-            if (format)
-                dateFormat = format;
-            else
-                dateFormat = 'yyyy-MM-dd';
-        }
-    }
-}]);
-
 krusha.factory('parse', [function() {
     var show_cache = {};
     var season_cache = {};
