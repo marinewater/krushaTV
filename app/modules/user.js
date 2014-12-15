@@ -89,6 +89,52 @@ module.exports = function(log, models) {
                     'message': 'not logged in'
                 });
             }
+        },
+
+        signUp: function(passport, req, res, next) {
+            // sign up
+            passport.authenticate('local-signup', function(err, user, info) {
+                if (err) { return next(err); }
+                if (!user) {
+                    switch (info) {
+                        case 'pw_too_short':
+                            res.status(400);
+                            return res.json({
+                                'type': 'error',
+                                'code': 400,
+                                'message': 'The provided password is too short.',
+                                'error': 'pw_too_short'
+                            });
+                            break;
+
+                        case 'user_exists':
+                            res.status(409);
+                            return res.json({
+                                'type': 'error',
+                                'code': 409,
+                                'message': 'There is already a user with that name.',
+                                'error': 'user_exists'
+                            });
+                            break;
+
+                        default:
+                            res.status(400);
+                            return res.json({
+                                'type': 'error',
+                                'code': 400,
+                                'message': 'No credentials provided'
+                            });
+                    }
+                }
+
+                req.logIn(user, function(err) {
+                    if (err) { return next(err); }
+                    return res.json({
+                        'type': 'authenticated',
+                        'user': user.username
+                    });
+                });
+            })(req, res, next);
         }
     };
 };
