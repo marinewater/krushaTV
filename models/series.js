@@ -86,19 +86,31 @@ module.exports = function(sequelize, DataTypes) {
 
 			},
 
-			search: function(query) {
+			search: function(query, user_id) {
+				user_id = parseInt(user_id);
+				if (isNaN(user_id)) {
+					user_id = null;
+				}
+
 				if(sequelize.options.dialect !== 'postgres') {
 					console.log('Search is only implemented on POSTGRES database');
 					return;
 				}
 
-				var Post = this;
-
 				query += ':*';
 				query = sequelize.getQueryInterface().escape(query).replace(/\s/gi, "|");
 
-				return sequelize
-					.query('SELECT * FROM "' + Post.tableName + '" WHERE "' + Post.getSearchVector() + '" @@ to_tsquery(\'english\', ' + query + ')', Post);
+
+				if (user_id === null) {
+					return sequelize
+						.query('SELECT * FROM "' + Series.tableName + '" WHERE "' + Series.getSearchVector() + '" @@ to_tsquery(\'english\', ' + query + ');', Series);
+				}
+				else {
+					return sequelize
+						.query('SELECT s.id, s.showid, s.name, EXISTS(SELECT 1 FROM "' + sequelize.models.TrackShow.tableName + '" t ' +
+								'WHERE t.userid = ' + user_id + ' AND t.showid = s.id) AS tracked FROM "' + Series.tableName + '" s ' +
+								'WHERE "' + Series.getSearchVector() + '" @@ to_tsquery(\'english\', ' + query + ');', Series);
+				}
 			},
 
 			addConstraints: function(models) {

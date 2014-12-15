@@ -8163,12 +8163,12 @@ button.close {
   }
 }
 /* line 3, ../../resource/stylesheets/custom/_search.scss */
-.search li > span {
+.search li > .show-text {
   cursor: pointer;
   color: #5179D0;
 }
 /* line 7, ../../resource/stylesheets/custom/_search.scss */
-.search li > span:hover {
+.search li > .show-text:hover {
   color: #2d54a7;
   text-decoration: underline;
 }

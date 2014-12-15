@@ -29,12 +29,17 @@ module.exports = function(router, log, models, redis) {
 
 		var search_query = req.params.show.trim();
 
-		models.Series.search(search_query).success(function(query_results) {
+		var user_id = null;
+		if (req.isAuthenticated()) {
+			user_id = req.user.id;
+		}
+
+		models.Series.search(search_query, user_id).success(function(query_results) {
 
 			query_results.forEach(function(sh) {
 				var show = sh.dataValues;
 
-				shows.push({
+				var show_json = {
 					'type': 'show',
 					'location': 'local',
 					'id': show.id,
@@ -42,7 +47,13 @@ module.exports = function(router, log, models, redis) {
 					'name': show.name,
 					'genre': show.genre,
 					'resource': '/api/show/' + show.id
-				})
+				};
+
+				if (typeof show.tracked !== 'undefined') {
+					show_json.tracked = show.tracked;
+				}
+
+				shows.push(show_json);
 			});
 
 			return res.json({

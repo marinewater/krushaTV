@@ -10,7 +10,7 @@
 	<div class="col-lg-4 col-lg-offset-4 search" ng-show="result.length > 0">
 		<div class="card seasons">
 			<ul class="list list-unstyled">
-				<li ng-repeat="show in result" ng-click="getShow(show)"><span>{{ show.name }}</span></li>
+				<li ng-repeat="show in result track by show.showid" ng-click="getShow(show)"><span class="show-text">{{ ::show.name }}</span> <span class="glyphicon glyphicon-ok text-success" tooltip="tracked" ng-if="show.tracked"></span></li>
 			</ul>
 		</div>
 		<loadingspinner/>
