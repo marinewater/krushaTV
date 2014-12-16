@@ -22,6 +22,12 @@ krusha.factory('apiSearch', ['$http', '$q', 'loggedin', function($http, $q, logg
              */
             var cache = !loggedin.getStatus();
 
+            /**
+             * remove unnecessary whitespace
+             * @type {string}
+             */
+            search_input = search_input.trim();
+
             if (search_input.length >= 2) {
                 return $http.get('/api/search/' + search_input, {cache: cache}).then(function(data) {
                     return data;
@@ -51,7 +57,12 @@ krusha.factory('apiSearch', ['$http', '$q', 'loggedin', function($http, $q, logg
          * @returns {HttpPromise|Promise} HttpPromise
          */
         searchRemote: function (search_input) {
+            /**
+             * remove unnecessary whitespace
+             * @type {string}
+             */
             search_input = search_input.trim();
+
             if (search_input.length >= 3) {
                 return $http.get('/api/search/' + search_input + '/remote', {
                     cache: true,

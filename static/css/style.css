@@ -8163,21 +8163,60 @@ button.close {
   }
 }
 /* line 3, ../../resource/stylesheets/custom/_search.scss */
-.search li > .show-text {
+.search .search-result-item {
+  margin-bottom: 10px;
+}
+/* line 6, ../../resource/stylesheets/custom/_search.scss */
+.search .search-result-item > .show-text {
   cursor: pointer;
   color: #5179D0;
 }
-/* line 7, ../../resource/stylesheets/custom/_search.scss */
-.search li > .show-text:hover {
+/* line 10, ../../resource/stylesheets/custom/_search.scss */
+.search .search-result-item > .show-text:hover {
   color: #2d54a7;
   text-decoration: underline;
 }
 
-/* line 14, ../../resource/stylesheets/custom/_search.scss */
+/* line 18, ../../resource/stylesheets/custom/_search.scss */
 .search-input {
   margin-bottom: 20px;
 }
 
+/* line 23, ../../resource/stylesheets/custom/_search.scss */
+genre-labels .label {
+  margin-right: 7px;
+}
+/* line 26, ../../resource/stylesheets/custom/_search.scss */
+genre-labels .label:last-child {
+  margin-right: 0;
+}
+
+@media (max-width: 768px) {
+  /* line 33, ../../resource/stylesheets/custom/_search.scss */
+  genre-labels {
+    display: block;
+  }
+  /* line 37, ../../resource/stylesheets/custom/_search.scss */
+  genre-labels .label:nth-child(n+4) {
+    display: none;
+  }
+
+  /* line 44, ../../resource/stylesheets/custom/_search.scss */
+  .search .search-result-item > .show-text {
+    font-size: 18px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 52, ../../resource/stylesheets/custom/_search.scss */
+  .search {
+    margin-bottom: 20px;
+  }
+
+  /* line 56, ../../resource/stylesheets/custom/_search.scss */
+  genre-labels {
+    float: right;
+  }
+}
 /* line 1, ../../resource/stylesheets/custom/_show.scss */
 .controls {
   padding: 24px 20px 15px 20px;

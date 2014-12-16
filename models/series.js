@@ -103,11 +103,11 @@ module.exports = function(sequelize, DataTypes) {
 
 				if (user_id === null) {
 					return sequelize
-						.query('SELECT * FROM "' + Series.tableName + '" WHERE "' + Series.getSearchVector() + '" @@ to_tsquery(\'english\', ' + query + ');', Series);
+						.query('SELECT s.id, s.showid, s.name, s.genre FROM "' + Series.tableName + '" s WHERE s."' + Series.getSearchVector() + '" @@ to_tsquery(\'english\', ' + query + ');', Series);
 				}
 				else {
 					return sequelize
-						.query('SELECT s.id, s.showid, s.name, EXISTS(SELECT 1 FROM "' + sequelize.models.TrackShow.tableName + '" t ' +
+						.query('SELECT s.id, s.showid, s.name, s.genre, EXISTS(SELECT 1 FROM "' + sequelize.models.TrackShow.tableName + '" t ' +
 								'WHERE t.userid = ' + user_id + ' AND t.showid = s.id) AS tracked FROM "' + Series.tableName + '" s ' +
 								'WHERE "' + Series.getSearchVector() + '" @@ to_tsquery(\'english\', ' + query + ');', Series);
 				}

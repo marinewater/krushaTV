@@ -166,5 +166,22 @@ krusha.directive('success', ['$timeout', function($timeout) {
         },
         template: '<span class="text-success glyphicon glyphicon-ok" ng-if="success === true"></span><span class="text-danger" ng-if="success === false">Error</span>',
         link: link
-    }
+    };
+}]);
+
+krusha.directive('genreLabels', [function() {
+    var link = function($scope, element, attrs) {
+        var unwatch = $scope.$watch(attrs.genres, function(value) {
+            if (typeof value !== 'undefined') {
+                $scope.genres = value.split(', ');
+                unwatch();
+            }
+        });
+    };
+
+    return {
+        restrict: 'E',
+        link: link,
+        template: '<span class="label label-default" ng-repeat="genre in ::genres">{{ ::genre }}</span>'
+    };
 }]);
