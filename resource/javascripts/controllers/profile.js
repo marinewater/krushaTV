@@ -89,7 +89,7 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 				$scope.total_episodes = data.total_episodes;
 				$scope.admin = data.admin;
 				$scope.offset = data.settings.episode_offset;
-				$scope.computeOffset($scope.offset);
+				computeOffset($scope.offset);
 				$scope.dateFormat = data.settings.date_format;
 			});
 		};
@@ -103,32 +103,36 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 		 * displays a checkmark if the change was successful or error if the request failed
 		 * @param {number} offset episode offset in days
 		 */
-		$scope.setOffset = function(days, hours) {
-			apiSettings.setEpisodeOffset(parseInt(days), parseInt(hours)).success(function() {
+		$scope.setOffset = function(offset) {
+			apiSettings.setEpisodeOffset(parseInt(offset.days), parseInt(offset.hours)).success(function() {
 				$scope.setOffsetSuccess.value = true;
 			}).error(function() {
 				$scope.setOffsetSuccess.value = false;
 			});
 		};
 
-		$scope.computeOffset = function(offset) {
-			var total_hours = offset.days*24 + offset.hours;
+		var computeOffset = function(offset) {
+			if (typeof offset !== 'undefined') {
+				var total_hours = offset.days*24 + offset.hours;
 
-			var hours = total_hours % 24;
-			var days = (total_hours - hours) / 24;
+				var hours = total_hours % 24;
+				var days = (total_hours - hours) / 24;
 
-			$scope.days = days;
-			$scope.hours = hours;
+				$scope.days = days;
+				$scope.hours = hours;
 
-			var dateDisplayed = new Date();
-			dateDisplayed.setHours(0);
-			dateDisplayed.setMinutes(0);
-			dateDisplayed.setSeconds(0);
-			dateDisplayed.setMilliseconds(0);
-			dateDisplayed.setDate($scope.now.getDate() + days);
-			dateDisplayed.setHours($scope.now.getHours() + hours);
-			$scope.dateDisplayed = dateDisplayed;
+				var dateDisplayed = new Date();
+				dateDisplayed.setHours(0);
+				dateDisplayed.setMinutes(0);
+				dateDisplayed.setSeconds(0);
+				dateDisplayed.setMilliseconds(0);
+				dateDisplayed.setDate($scope.now.getDate() + days);
+				dateDisplayed.setHours($scope.now.getHours() + hours);
+				$scope.dateDisplayed = dateDisplayed;
+			}
 		};
+
+		$scope.$watch('offset', computeOffset, true);
 
 		// IMDB
 		/**

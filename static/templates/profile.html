@@ -35,17 +35,17 @@
 				<hr/>
 				<div>
 					<h2>Episode Offset</h2>
-					Offset: <span ng-if="days"><strong>{{ days }}</strong> days </span><span ng-if="hours"><strong>{{ hours }}</strong> hours</span> <success timeout="5000" success="setOffsetSuccess.value"/>
+					Offset: <span><strong>{{ days }}</strong> days </span><span ng-if="hours"><strong>{{ hours }}</strong> hours</span> <success timeout="5000" success="setOffsetSuccess.value"/>
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="row">
 								<div class="col-xs-12">
 									Days: <strong>{{ offset.days }}</strong>
-									<div><slider ng-model="offset.days" min="-7" max="7" on-slide="computeOffset(offset)" on-stop-slide="setOffset(days, hours)"></slider></div>
+									<div><slider min="-7" max="7" step="1" ng-model="offset.days" on-slide-stop="setOffset(offset)"></slider></div>
 								</div>
 								<div class="col-xs-12">
 									Hours:  <strong>{{ offset.hours }}</strong>
-									<div><slider tooltipdirection="bottom" ng-model="offset.hours" min="-23" max="23" on-slide="computeOffset(offset)" on-stop-slide="setOffset(days, hours)"></slider></div>
+									<div><slider min="-23" max="23" step="1" ng-model="offset.hours" on-slide-stop="setOffset(offset)"></slider></div>
 								</div>
 							</div>
 						</div>

@@ -4,7 +4,7 @@
  *
  * @description krushaTV: episode tracking app
  */
-var krusha = angular.module('krushaTV', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ui.bootstrap', 'growlNotifications', 'ui.bootstrap-slider']);
+var krusha = angular.module('krushaTV', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ui.bootstrap', 'growlNotifications']);
 
 
 krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$locationProvider',

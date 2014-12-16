@@ -8615,232 +8615,30 @@ footer li {
   left: 5px;
 }
 
-/*! =======================================================
-                      VERSION  4.1.0              
-========================================================= */
-/*! =========================================================
- * bootstrap-slider.js
- *
- * Maintainers: 
- *		Kyle Kemp 
- *			- Twitter: @seiyria
- *			- Github:  seiyria
- *		Rohit Kalkur
- *			- Twitter: @Rovolutionary
- *			- Github:  rovolution
- *
- * =========================================================
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================= */
-/*! =========================================================
- *   modified
- * ========================================================= */
-/* line 40, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
+/* line 7, ../../resource/stylesheets/custom/_slider.scss */
+slider {
+  margin: 10px;
 }
-
-/* line 45, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-horizontal {
-  width: 210px;
-  height: 20px;
-}
-
-/* line 49, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-horizontal .slider-track {
+/* line 10, ../../resource/stylesheets/custom/_slider.scss */
+slider .bar {
+  width: 100%;
   height: 10px;
-  width: 100%;
-  margin-top: -5px;
-  top: 50%;
-  left: 0;
+  background-color: #aaa;
+  -moz-border-radius: 3px / 3px;
+  -webkit-border-radius: 3px 3px;
+  border-radius: 3px / 3px;
 }
-
-/* line 56, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-horizontal .slider-selection {
-  height: 100%;
-  top: 0;
-  bottom: 0;
-}
-
-/* line 61, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-horizontal .slider-handle {
-  margin-left: -10px;
-  margin-top: -5px;
-}
-
-/* line 65, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-horizontal .slider-handle.triangle {
-  border-width: 0 10px 10px 10px;
-  width: 0;
-  height: 0;
-  border-bottom-color: #3d6acb;
-  margin-top: 0;
-}
-
-/* line 72, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-vertical {
-  height: 210px;
-  width: 20px;
-}
-
-/* line 76, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-vertical .slider-track {
-  width: 10px;
-  height: 100%;
-  margin-left: -5px;
-  left: 50%;
-  top: 0;
-}
-
-/* line 83, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-vertical .slider-selection {
-  width: 100%;
-  left: 0;
-  top: 0;
-  bottom: 0;
-}
-
-/* line 89, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-vertical .slider-handle {
-  margin-left: -5px;
-  margin-top: -10px;
-}
-
-/* line 93, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-vertical .slider-handle.triangle {
-  border-width: 10px 0 10px 10px;
-  width: 1px;
-  height: 1px;
-  border-left-color: #3d6acb;
-  margin-left: 0;
-}
-
-/* line 100, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-disabled .slider-handle {
-  background-image: -webkit-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
-  background-image: -o-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
-  background-image: linear-gradient(to bottom, #dfdfdf 0%, #bebebe 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdfdfdf', endColorstr='#ffbebebe', GradientType=0);
-}
-
-/* line 107, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider.slider-disabled .slider-track {
-  background-image: -webkit-linear-gradient(top, #e5e5e5 0%, #e9e9e9 100%);
-  background-image: -o-linear-gradient(top, #e5e5e5 0%, #e9e9e9 100%);
-  background-image: linear-gradient(to bottom, #e5e5e5 0%, #e9e9e9 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe5e5e5', endColorstr='#ffe9e9e9', GradientType=0);
-  cursor: not-allowed;
-}
-
-/* line 115, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider input {
-  display: none;
-}
-
-/* line 118, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider .tooltip.top {
-  margin-top: -36px;
-}
-
-/* line 121, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider .tooltip-inner {
-  white-space: nowrap;
-}
-
-/* line 124, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider .hide {
-  display: none;
-}
-
-/* line 127, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider-track {
-  position: absolute;
-  cursor: pointer;
-  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
-  background-image: -o-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
-  background-image: linear-gradient(to bottom, #f5f5f5 0%, #f9f9f9 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-}
-
-/* line 139, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider-selection {
-  position: absolute;
-  background-image: -webkit-linear-gradient(top, #848484 0%, #A8A8A8 100%);
-  background-image: -o-linear-gradient(top, #848484 0%, #A8A8A8 100%);
-  background-image: linear-gradient(to bottom, #848484 0%, #A8A8A8 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#fff5f5f5', GradientType=0);
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 4px;
-}
-
-/* line 153, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider-handle {
-  position: absolute;
+/* line 17, ../../resource/stylesheets/custom/_slider.scss */
+slider .handle {
   width: 20px;
   height: 20px;
-  background-color: #3a94a5;
-  background-image: -webkit-linear-gradient(top, #5179D0 0%, #3d6acb 100%);
-  background-image: -o-linear-gradient(top, #5179D0 0%, #3d6acb 100%);
-  background-image: linear-gradient(to bottom, #5179D0 0%, #3d6acb 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
-  filter: none;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  opacity: 0.8;
-  border: 0px solid transparent;
-}
-
-/* line 169, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider-handle.round {
-  border-radius: 50%;
-}
-
-/* line 172, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider-handle.triangle {
-  background: transparent none;
-}
-
-/* line 175, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider-handle.custom {
-  background: transparent none;
-}
-
-/* line 178, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.slider-handle.custom::before {
-  line-height: 20px;
-  font-size: 20px;
-  content: '\2605';
-  color: #726204;
-}
-
-/* line 185, ../../resource/stylesheets/custom/_bootstrap-slider.scss */
-.tooltip.tooltip-main.bottom {
-  top: 18px;
+  -moz-border-radius: 10px / 10px;
+  -webkit-border-radius: 10px 10px;
+  border-radius: 10px / 10px;
+  background-color: #f00;
+  position: relative;
+  left: 0;
+  top: -5px;
 }
 
 /* line 20, ../../resource/stylesheets/style.scss */

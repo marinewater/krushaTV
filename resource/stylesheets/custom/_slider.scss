@@ -1,0 +1,26 @@
+$bar-height: 10px;
+$handle-height: 20px;
+$handle-width: $handle-height;
+
+@import "compass/css3/border-radius";
+
+slider {
+  margin: 10px;
+
+  .bar {
+    width: 100%;
+    height: $bar-height;
+    background-color: #aaa;
+    @include border-radius(3px, 3px);
+  }
+
+  .handle {
+    width: $handle-width;
+    height: $handle-height;
+    @include border-radius(10px, 10px);
+    background-color: #f00;
+    position: relative;
+    left: 0;
+    top: -$bar-height/2;
+  }
+}
