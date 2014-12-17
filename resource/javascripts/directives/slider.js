@@ -33,8 +33,8 @@ krusha.directive('slider', function($timeout) {
             if (bar.is(":visible")) {
                 barWidth = bar.width();
                 barPositionLeft = bar.offset().left;
-                barPositionRight = barPositionLeft + barWidth;
                 handleWidth = handle.width();
+                barPositionRight = barPositionLeft + barWidth - handleWidth;
 
                 $scope.$watch('model', function(model) {
                     // update tooltip position if handle is moved
@@ -47,7 +47,7 @@ krusha.directive('slider', function($timeout) {
                     var perc = (barWidth - handleWidth) / barWidth;
                     var step = (model - $scope.min) / ($scope.max - $scope.min) * 100 * perc;
 
-                    element.find(".handle").css("left", step + "%");
+                    handle.css("left", step + "%");
                 });
             }
             else {
@@ -62,6 +62,8 @@ krusha.directive('slider', function($timeout) {
             $timeout(function() {
                 handle.trigger('slideStartEvent');
             });
+
+            handle.addClass('active');
 
             if (typeof $scope.onSlideStart !== "undefined") {
                 $scope.onSlideStart();
@@ -79,6 +81,8 @@ krusha.directive('slider', function($timeout) {
             $timeout(function() {
                 handle.trigger('slideStopEvent');
             });
+
+            handle.removeClass('active');
 
             body.unbind("mouseup touchend", stopSlide);
             body.unbind("mousemove", slideMouse);
