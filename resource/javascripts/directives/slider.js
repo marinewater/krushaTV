@@ -15,15 +15,17 @@ krusha.directive('slider', function($timeout) {
     var body = $("body");
 
     var link = function($scope, element) {
+        var slideStart = false;
 
         var bar = element.find(".bar");
         var barWidth = null;
         var barPositionLeft = null;
         var barPositionRight = null;
+        var handle = element.find(".handle");
         var handleWidth = null;
 
         function addListeners(element) {
-            element.find(".handle").bind("mousedown touchstart", startSlide);
+            handle.bind("mousedown touchstart", startSlide);
         }
 
         function init() {
@@ -32,9 +34,16 @@ krusha.directive('slider', function($timeout) {
                 barWidth = bar.width();
                 barPositionLeft = bar.offset().left;
                 barPositionRight = barPositionLeft + barWidth;
-                handleWidth = element.find('.handle').width();
+                handleWidth = handle.width();
 
                 $scope.$watch('model', function(model) {
+                    // update tooltip position if handle is moved
+                    if (!!slideStart) {
+                        $timeout(function() {
+                            handle.trigger('slideStartEvent');
+                        });
+                    }
+
                     var perc = (barWidth - handleWidth) / barWidth;
                     var step = (model - $scope.min) / ($scope.max - $scope.min) * 100 * perc;
 
@@ -48,6 +57,11 @@ krusha.directive('slider', function($timeout) {
 
         function startSlide(event) {
             event.preventDefault();
+            slideStart = true;
+
+            $timeout(function() {
+                handle.trigger('slideStartEvent');
+            });
 
             if (typeof $scope.onSlideStart !== "undefined") {
                 $scope.onSlideStart();
@@ -60,6 +74,12 @@ krusha.directive('slider', function($timeout) {
 
         function stopSlide(event) {
             event.preventDefault();
+            slideStart = false;
+
+            $timeout(function() {
+                handle.trigger('slideStopEvent');
+            });
+
             body.unbind("mouseup touchend", stopSlide);
             body.unbind("mousemove", slideMouse);
             body.unbind("touchmove", slideTouch);
@@ -102,6 +122,10 @@ krusha.directive('slider', function($timeout) {
         init();
 
         addListeners(element);
+
+        if (typeof $scope.tooltipPlacement === "undefined") {
+            $scope.tooltipPlacement = 'top';
+        }
     };
 
     return {
@@ -113,8 +137,9 @@ krusha.directive('slider', function($timeout) {
             step: '@',
             model: '=ngModel',
             onSlideStart: '&',
-            onSlideStop: '&'
+            onSlideStop: '&',
+            tooltipPlacement: '@'
         },
-        template: '<div class="bar"><div class="handle"></div></div>'
+        template: '<div class="bar"><div class="handle" tooltip="{{ model }}" tooltip-placement="{{ tooltipPlacement }}" tooltip-trigger="slideStartEvent"></div></div>'
     }
 });

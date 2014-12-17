@@ -7,8 +7,8 @@
 var krusha = angular.module('krushaTV', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ui.bootstrap', 'growlNotifications']);
 
 
-krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$locationProvider',
-	function($routeProvider, $httpProvider, $compileProvider, $locationProvider) {
+krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$locationProvider', '$tooltipProvider',
+	function ($routeProvider, $httpProvider, $compileProvider, $locationProvider, $tooltipProvider) {
         // Routes
 		$routeProvider
             .when('/', {
@@ -58,9 +58,11 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
             otherwise({
                 redirectTo: '/'
             });
-            $httpProvider.interceptors.push('interceptor');
-            $compileProvider.debugInfoEnabled(true);  // change to false for production
-            $locationProvider.html5Mode(true);
+
+        $httpProvider.interceptors.push('interceptor');
+        $compileProvider.debugInfoEnabled(true);  // change to false for production
+        $locationProvider.html5Mode(true);
+        $tooltipProvider.setTriggers({'slideStartEvent': 'slideStopEvent'});
 	}
 ]);
 
