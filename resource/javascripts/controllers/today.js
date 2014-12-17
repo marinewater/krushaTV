@@ -13,6 +13,10 @@
 krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShow', function($scope, $filter, $location, apiShow) {
 	$scope.$parent.title = 'New Episodes';
 
+
+	$scope.stopClick = function(event) {
+		event.stopPropagation();
+	};
 	/**
 	 * @ngdoc todayCtrl.method
 	 * @name todayCtrl#getTodaysEpisodes

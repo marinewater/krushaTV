@@ -4,11 +4,11 @@
  *
  * @description krushaTV: episode tracking app
  */
-var krusha = angular.module('krushaTV', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ui.bootstrap', 'growlNotifications']);
+var krusha = angular.module('krushaTV', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ui.bootstrap', 'growlNotifications', 'ngClipboard']);
 
 
-krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$locationProvider', '$tooltipProvider',
-	function ($routeProvider, $httpProvider, $compileProvider, $locationProvider, $tooltipProvider) {
+krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$locationProvider', '$tooltipProvider', 'ngClipProvider',
+	function ($routeProvider, $httpProvider, $compileProvider, $locationProvider, $tooltipProvider, ngClipProvider) {
         // Routes
 		$routeProvider
             .when('/', {
@@ -63,6 +63,7 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
         $compileProvider.debugInfoEnabled(true);  // change to false for production
         $locationProvider.html5Mode(true);
         $tooltipProvider.setTriggers({'slideStartEvent': 'slideStopEvent'});
+        ngClipProvider.setPath("/static/javascripts/bower_components/zeroclipboard/dist/ZeroClipboard.swf");
 	}
 ]);
 

@@ -33,6 +33,12 @@ krusha.filter('formatEpisode', function() {
 	};
 });
 
+krusha.filter('copyEpisode', ['$filter', function($filter) {
+	return function(episode) {
+		return episode.showname + ' ' + $filter('formatEpisode')(episode.episode, episode.season);
+	}
+}]);
+
 krusha.filter('countUnwatched', function() {
 	var countUnwatched = function(show) {
 		return !!show.find(function (season) {

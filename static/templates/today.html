@@ -13,7 +13,8 @@
 							<div ng-click="changeLocation(episode.showid)">
 								<h3><a ng-href="/show/{{ episode.showid }}">{{ episode.showname }}</a></h3>
 								<p><strong>{{ episode.title }}</strong></p>
-								<p>{{ episode.episode | formatEpisode: episode.season }}</p>
+								<p class="pull-left-lg">{{ episode.episode | formatEpisode: episode.season }}</p>
+								<i class="fa fa-files-o pull-right visible-lg" ng-click="stopClick($event)" clip-copy="episode | copyEpisode" tooltip="copy to clipboard"></i>
 							</div>
 						</div>
 					</div>
@@ -28,7 +29,8 @@
 							<div ng-click="changeLocation(episode.showid)">
 								<h3><a ng-href="/show/{{ episode.showid }}">{{ episode.showname }}</a></h3>
 								<p><strong>{{ episode.title }}</strong></p>
-								<p>{{ episode.episode | formatEpisode: episode.season }}</p>
+								<p class="pull-left-lg">{{ episode.episode | formatEpisode: episode.season }}</p>
+								<i class="fa fa-files-o pull-right visible-lg" ng-click="stopClick($event)" clip-copy="episode | copyEpisode" tooltip="copy to clipboard"></i>
 							</div>
 						</div>
 					</div>
@@ -41,9 +43,10 @@
 					<div class="row-flex" ng-if="yesterdays_episodes.length > 0">
 						<div class="col-lg-6 col-md-3 col-sm-4 col-xs-12" ng-repeat="episode in yesterdays_episodes | orderByName: 'showname'">
 							<div ng-click="changeLocation(episode.showid)">
-								<h3><a nq-path="/show/{{ episode.showid }}">{{ episode.showname }}</a></h3>
+								<h3><a ng-href="/show/{{ episode.showid }}">{{ episode.showname }}</a></h3>
 								<p><strong>{{ episode.title }}</strong></p>
-								<p>{{ episode.episode | formatEpisode: episode.season }}</p>
+								<p class="pull-left-lg">{{ episode.episode | formatEpisode: episode.season }}</p>
+								<i class="fa fa-files-o pull-right visible-lg" ng-click="stopClick($event)" clip-copy="episode | copyEpisode" tooltip="copy to clipboard"></i>
 							</div>
 						</div>
 					</div>
