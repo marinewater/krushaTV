@@ -1,5 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+$fa-font-path:   "../fonts/FontAwesome";
 
+@import "font-awesome/font-awesome";
 @import "custom/variables";
 @import "custom/card";
 @import "bootstrap";
@@ -15,7 +17,6 @@
 @import "custom/profile";
 @import "custom/navbar";
 @import "custom/slider";
-
 
 body {
   padding-top: 70px;
@@ -73,5 +74,11 @@ unwatched >.row {
 		display: inline-block;
 	  }
 	}
+  }
+}
+
+@media(min-width: $screen-lg-min) {
+  .pull-left-lg {
+	float: left;
   }
 }
