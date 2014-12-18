@@ -8081,16 +8081,19 @@ genre-labels .label:last-child {
   }
   /* line 44, ../../resource/stylesheets/custom/_show.scss */
   .show .seasons-static {
-    position: absolute;
     bottom: 0;
   }
-  /* line 49, ../../resource/stylesheets/custom/_show.scss */
+  /* line 48, ../../resource/stylesheets/custom/_show.scss */
+  .show .seasons-relative {
+    position: relative;
+  }
+  /* line 52, ../../resource/stylesheets/custom/_show.scss */
   .show #episodes {
     float: right;
   }
 }
 @media (max-width: 768px) {
-  /* line 57, ../../resource/stylesheets/custom/_show.scss */
+  /* line 60, ../../resource/stylesheets/custom/_show.scss */
   .show #seasons {
     margin-bottom: 10px;
   }

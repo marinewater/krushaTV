@@ -42,8 +42,11 @@
     }
 
     .seasons-static {
-      position: absolute;
       bottom: 0;
+    }
+
+    .seasons-relative {
+      position: relative;
     }
 
     #episodes {

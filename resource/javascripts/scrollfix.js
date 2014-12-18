@@ -9,13 +9,21 @@ function updateOffset() {
 
     var scrollTop = $(this).scrollTop();
 
-    if (scrollTop < height_difference) {
+
+    if (height_difference < 0) {
+        seasons.removeClass('seasons-static');
+        seasons.removeClass('seasons-fixed');
+        seasons.addClass('seasons-relative');
+    }
+    else if (scrollTop < height_difference) {
         seasons.addClass('seasons-fixed');
         seasons.removeClass('seasons-static');
+        seasons.removeClass('seasons-relative');
     }
     else {
         seasons.addClass('seasons-static');
         seasons.removeClass('seasons-fixed');
+        seasons.removeClass('seasons-relative');
     }
 }
 
