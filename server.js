@@ -73,9 +73,9 @@ app.use("/static", express.static(__dirname + '/static')); // serve static files
 require('./app/api/user.js')(router, log, models, passport, user);
 require('./app/auth.js')(auth_router, passport);
 
-require('./app/api/today.js')(router, log, models);
+require('./app/api/today.js')(router, log, models, redis);
 require('./app/api/search.js')(router, log, models, redis);
-require('./app/api/show.js')(router, log, models, get_seasons);
+require('./app/api/show.js')(router, log, models, get_seasons, redis);
 require('./app/api/trackshow.js')(router, log, models, user);
 require('./app/api/subreddit.js')(router, log, models, user);
 require('./app/api/imdb.js')(router, log, models, user, user);

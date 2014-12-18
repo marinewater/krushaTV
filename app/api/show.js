@@ -2,7 +2,7 @@ var request = require('request');
 var libxmljs = require("libxmljs");
 var tvrage = require('../../config/tvrage.json');
 
-module.exports = function(router, log, models, get_seasons) {
+module.exports = function(router, log, models, get_seasons, redis) {
 	/**
 	 * get show info from local database
 	 */
@@ -184,6 +184,7 @@ module.exports = function(router, log, models, get_seasons) {
 								});
 
 								models.Episodes.bulkCreate(episodes).success(function() {
+									redis.del('kTV:today');
 									res.json({
 										'type': 'show',
 										'id': id,
