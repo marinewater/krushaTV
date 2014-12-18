@@ -8243,7 +8243,7 @@ footer li {
 }
 
 /* line 22, ../../resource/stylesheets/custom/_today.scss */
-dailyepisodes {
+.dailyepisodes {
   background-color: #F5F5F5;
   margin: 1px;
   padding-left: 15px;
@@ -8251,12 +8251,12 @@ dailyepisodes {
   width: 100%;
 }
 /* line 29, ../../resource/stylesheets/custom/_today.scss */
-dailyepisodes:hover {
+.dailyepisodes:hover {
   background-color: #DAE3FD;
   cursor: pointer;
 }
 /* line 33, ../../resource/stylesheets/custom/_today.scss */
-dailyepisodes:hover a {
+.dailyepisodes:hover a {
   text-decoration: underline;
 }
 

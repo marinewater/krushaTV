@@ -1,8 +1,9 @@
-<div ng-click="changeLocation(episode.showid)">
+<div ng-click="changeLocation(episode.showid)" class="dailyepisodes">
     <h3><a ng-href="/show/{{ ::episode.showid }}">{{ ::episode.showname }}</a></h3>
     <p><strong>{{ ::episode.title }}</strong></p>
     <p class="pull-left-lg">{{ ::episode.episode | formatEpisode: episode.season }}</p>
     <i class="fa fa-files-o pull-right visible-lg"
        ng-click="stopClick($event)" clip-copy="::episode | copyEpisode"
        tooltip="copy to clipboard"></i>
+    <div class="clearfix"></div>
 </div>

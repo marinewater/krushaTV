@@ -27,6 +27,7 @@ module.exports = function(sequelize, DataTypes) {
         var select = 'SELECT e.title, e.season, e.episode, s.name as showname, s.id as showid,';
         var from = 'FROM "' + Episodes.tableName + '" e, "' + models.Series.tableName + '" s';
         var where = '';
+        var limit = ' LIMIT 50;';
 
         if (typeof userid !== 'undefined') {
           userid = parseInt(userid);
@@ -35,14 +36,14 @@ module.exports = function(sequelize, DataTypes) {
           }
           select +=  ' EXTRACT(epoch FROM (age(e.airdate) - user_interval.episode_offset))/86400::int as age ';
           from += ', "' + models.TrackShow.tableName + '" t, (SELECT u.episode_offset FROM "' + models.User.tableName + '" u';
-          where = ' WHERE u.id = ' + userid + ' LIMIT 1) as user_interval WHERE e.seriesid = s.id AND s.id = t.showid AND t.userid = ' + userid + ' AND age(e.airdate) <= (user_interval.episode_offset + interval \'1 day\') AND age(e.airdate) >= (user_interval.episode_offset - interval \'1 day\');'
+          where = ' WHERE u.id = ' + userid + ' LIMIT 1) as user_interval WHERE e.seriesid = s.id AND s.id = t.showid AND t.userid = ' + userid + ' AND age(e.airdate) <= (user_interval.episode_offset + interval \'1 day\') AND age(e.airdate) >= (user_interval.episode_offset - interval \'1 day\')';
         }
         else {
           select +=  ' EXTRACT(epoch FROM age(e.airdate))/86400::int as age ';
-          where = ' WHERE e.seriesid = s.id AND age(e.airdate) <= interval \'1 days\' AND age(e.airdate) >= interval \'-1 days\';';
+          where = ' WHERE e.seriesid = s.id AND age(e.airdate) <= interval \'1 days\' AND age(e.airdate) >= interval \'-1 days\'';
         }
 
-        var query = select + from + where;
+        var query = select + from + where + limit;
         return sequelize.query(query);
       },
       getSeasons: function(models, show_id) {
