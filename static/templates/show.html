@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="page-header">
-			<h1>{{ show.name }} <small>{{ show.genre }}</small></h1>
+			<h1>{{ ::show.name }} <small>{{ ::show.genre }}</small></h1>
 		</div>
 	</div>
 </div>
@@ -15,7 +15,7 @@
 									 ng-class="{'fa-plus': !tracked, 'text-success': !tracked, 'fa-minus': tracked, 'text-danger': tracked}"
 									 ></i> Track Show</a>
 				</li>
-				<li ng-show="tracked">
+				<li ng-if="tracked">
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" ng-model="showWatched" ng-change="SaveShowWatched(showWatched)"> Show watched episodes
@@ -39,7 +39,7 @@
 	</div>
 	<div class="col-sm-8 col-xs-12" id="episodes">
 		<div class="card">
-			<h2 class="visible-xs">{{ show.name }} <small>Season {{ active_season }}</small></h2>
+			<h2 class="visible-xs">{{ ::show.name }} <small>Season {{ active_season }}</small></h2>
 			<table class="table table-condensed table-striped table-hover">
 				<thead>
 					<tr>
@@ -52,9 +52,9 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="episode in episodes | orderBy: 'episode'" ng-if="showWatched || !episode.watched" ng-class="{'success': lessThanAWeek(episode.airdate)}">
-						<td>{{ episode.episode }}</td>
-						<td>{{ episode.title }}</td>
-						<td>{{ episode.airdate | date: dateFormat }}</td>
+						<td>{{ ::episode.episode }}</td>
+						<td>{{ ::episode.title }}</td>
+						<td>{{ ::episode.airdate | date: dateFormat }}</td>
 						<td ng-if="tracked">
 							<i class="fa pointer"
 								  ng-class="{ 'fa-check': episode.watched, 'text-success': episode.watched, 'fa-minus': !episode.watched, 'text-danger': !episode.watched}"
@@ -77,7 +77,7 @@
 <div class="row" ng-if="!unwatchedSeasons()">
 	<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
 		<div class="card">
-			<p class="text-center">No unwatched episodes for <em>{{ show.name }}</em>.</p>
+			<p class="text-center">No unwatched episodes for <em>{{ ::show.name }}</em>.</p>
 
 			<p class="text-center">
 				<button class="btn btn-primary" ng-click="SaveShowWatched(true)">Show watched episodes</button>
@@ -91,12 +91,12 @@
 
 
 		<div class="card info">
-			<h2>{{ show.name }}</h2>
+			<h2>{{ ::show.name }}</h2>
 			<ul class="list-unstyled">
-				<li><span ng-if="omdb.imdbRating">Runtime: <strong>{{ omdb.Runtime }}</strong>, </span>Genres: <strong>{{ show.genre }}</strong></li>
-				<li ng-if="omdb.imdbRating">Rating: <strong>{{ omdb.imdbRating }}</strong>/10 at <a ng-href="http://www.imdb.com/title/{{ show.imdbid }}/" target="_blank">IMDb</a></li>
-				<li ng-if="omdb.imdbRating"><a ng-href="http://www.imdb.com/title/{{ show.imdbid }}/epdate?ref_=ttep_ql_4" target="_blank">List of episodes at IMDb</a></li>
-				<li ng-if="omdb.imdbRating"><a ng-href="http://graphtv.kevinformatics.com/{{ show.imdbid }}" target="_blank">Graph ratings at graphTV</a></li>
+				<li><span ng-if="omdb.imdbRating">Runtime: <strong>{{ ::omdb.Runtime }}</strong>, </span>Genres: <strong>{{ ::show.genre }}</strong></li>
+				<li ng-if="omdb.imdbRating">Rating: <strong>{{ ::omdb.imdbRating }}</strong>/10 at <a ng-href="http://www.imdb.com/title/{{ ::show.imdbid }}/" target="_blank">IMDb</a></li>
+				<li ng-if="omdb.imdbRating"><a ng-href="http://www.imdb.com/title/{{ ::show.imdbid }}/epdate?ref_=ttep_ql_4" target="_blank">List of episodes at IMDb</a></li>
+				<li ng-if="omdb.imdbRating"><a ng-href="http://graphtv.kevinformatics.com/{{ ::show.imdbid }}" target="_blank">Graph ratings at graphTV</a></li>
 			</ul>
 
 			<div ng-show="loggedin && !show.imdbid && show.imdb_submitted !== false">
@@ -130,8 +130,8 @@
 		<h2>{{ reddit.length }} hot reddit links</h2>
 		<ul class="list list-unstyled">
 			<li ng-repeat="r in reddit">
-				<h3><a href="{{ r.data.url }}" target="_blank" ng-class="{ 'text-success': r.data.stickied }" ng-bind-html="r.data.title"></a> <small>{{ r.data.domain }}</small></h3>
-				<p><a href="//reddit.com{{ r.data.permalink }}" target="_blank">{{ r.data.num_comments }} comments</a></p>
+				<h3><a ng-href="{{ ::r.data.url }}" target="_blank" ng-class="{ 'text-success': r.data.stickied }" ng-bind-html="::r.data.title"></a> <small>{{ ::r.data.domain }}</small></h3>
+				<p><a href="http://reddit.com{{ ::r.data.permalink }}" target="_blank">{{ ::r.data.num_comments }} comments</a></p>
 			</li>
 		</ul>
 		<p class="text-center pointer" ng-click="nextFive()">Show 5 more</p>

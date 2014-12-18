@@ -144,6 +144,6 @@ krusha.directive('slider', function($timeout) {
             onSlideStop: '&',
             tooltipPlacement: '@'
         },
-        template: '<div class="bar"><div class="handle" tooltip="{{ model }}" tooltip-placement="{{ tooltipPlacement }}" tooltip-trigger="slideStartEvent"></div></div>'
+        template: '<div class="bar"><div class="handle" tooltip="{{ model }}" tooltip-placement="{{ ::tooltipPlacement }}" tooltip-trigger="slideStartEvent"></div></div>'
     }
 });

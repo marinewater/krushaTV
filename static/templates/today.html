@@ -9,7 +9,7 @@
 				<div class="card">
 					<h2>Today's Episodes</h2>
 					<div class="row-flex" ng-if="todays_episodes.length > 0">
-						<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12" ng-repeat="episode in todays_episodes | orderByName: 'showname'">
+						<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12" ng-repeat="episode in ::todays_episodes | orderByName: 'showname'">
 							<dailyepisodes></dailyepisodes>
 						</div>
 					</div>
@@ -20,7 +20,7 @@
 				<div class="card">
 					<h2>Tomorrow's Episodes</h2>
 					<div class="row-flex" ng-if="tomorrows_episodes.length > 0">
-						<div class="col-lg-6 col-md-3 col-sm-4 col-xs-12" ng-repeat="episode in tomorrows_episodes | orderByName: 'showname'">
+						<div class="col-lg-6 col-md-3 col-sm-4 col-xs-12" ng-repeat="episode in ::tomorrows_episodes | orderByName: 'showname'">
 							<dailyepisodes></dailyepisodes>
 						</div>
 					</div>

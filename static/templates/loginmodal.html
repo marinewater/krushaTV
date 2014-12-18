@@ -6,7 +6,7 @@
     <form role="form" class="form-horizontal" ng-submit="modalLoginForm.$valid && login(username, password)" name="modalLoginForm">
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2" ng-show="alerts.length>0">
-                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                <alert ng-repeat="alert in alerts" type="{{ ::alert.type }}" close="closeAlert($index)">{{ ::alert.msg }}</alert>
             </div>
         </div>
         <div class="form-group" ng-class="{'has-error': modalLoginForm.username.$touched && modalLoginForm.username.$error.required}">
