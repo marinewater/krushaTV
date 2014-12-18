@@ -1,11 +1,11 @@
 .navbar {
   a {
-    .glyphicon {
+    .fa {
       color: $navbar-glyphicon-color;
     }
 
     &:hover {
-      .glyphicon {
+      .fa {
         color: $navbar-glyphicon-hover-color;
       }
     }

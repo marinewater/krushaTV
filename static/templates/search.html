@@ -6,7 +6,7 @@
 				<input type="search" id="mobileSearch" name="mobileSearch" class="form-control search-input" placeholder="Search" ng-model="mobSearchText" ng-change="mobileSearch(mobSearchText)" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }"/>
 			</div>
 			<div class="col-xs-4">
-				<button class="btn btn-default pull-right" ng-click="clearSearch(mobSearchText)">Clear <span class="glyphicon glyphicon-remove"></span></button>
+				<button class="btn btn-default pull-right" ng-click="clearSearch(mobSearchText)">Clear <i class="fa fa-times"></i></button>
 			</div>
 		</div>
 		<div class="page-header hidden-xs" ng-show="result.length > 0">
@@ -19,7 +19,7 @@
 		<div class="card">
 			<div ng-repeat="show in result track by show.showid" class="search-result-item">
 				<span class="show-text" ng-click="getShow(show)">{{ ::show.name }}</span>
-				<span class="glyphicon glyphicon-ok text-success" tooltip="tracked" ng-if="show.tracked"></span>
+				<i class="fa fa-check text-success" tooltip="tracked" ng-if="show.tracked"></i>
 				<genre-labels genres="show.genre"></genre-labels>
 				<hr/>
 			</div>

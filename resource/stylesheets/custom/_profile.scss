@@ -27,15 +27,15 @@ $tab-nav-width: 0.2;
     width: percentage($tab-nav-width);
     float: left;
 
-    .glyphicon {
+    .fa {
       margin-right: 5px;
     }
 
-    .glyphicon-user {
+    .fa-user {
       color: $navbar-inverse-brand-color;
     }
 
-    .glyphicon-calendar {
+    .fa-calendar {
       color: $nav-date-color;
     }
 
@@ -47,7 +47,7 @@ $tab-nav-width: 0.2;
       color: $reddit-color;
     }
 
-    .glyphicon-eye-open {
+    .fa-eye {
       color: $display-color;
     }
 

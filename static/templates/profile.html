@@ -3,13 +3,13 @@
 		<tabset vertical="true" type="pills">
 			<tab>
 				<tab-heading>
-					<span class="glyphicon glyphicon-user"></span> Profile
+					<i class="fa fa-user"></i> Profile
 				</tab-heading>
-				<h1><span class="glyphicon glyphicon-user"></span> Profile</h1>
+				<h1><i class="fa fa-user"></i> Profile</h1>
 				<hr/>
 				<div class="row">
 					<div class="col-lg-3 col-md-4 col-sm-6">
-						<h2><span class="glyphicon glyphicon-book"></span> Info</h2>
+						<h2><i class="fa fa-book"></i> Info</h2>
 						<ul class="list-unstyled">
 							<li>Username: <strong>{{ username }}</strong></li>
 							<li>Total tracked shows: <strong>{{ total_shows }}</strong></li>
@@ -17,7 +17,7 @@
 						</ul>
 					</div>
 					<div class="col-lg-3 col-md-4 col-sm-6">
-						<h2><span class="glyphicon glyphicon-globe"></span> Links</h2>
+						<h2><i class="fa fa-globe"></i> Links</h2>
 						<ul class="list-unstyled">
 							<li><a href="/track">Look at the shows you are tracking.</a></li>
 							<li><a href="/unwatched">Look at your unwatched episodes.</a></li>
@@ -28,10 +28,10 @@
 			</tab>
 			<tab>
 				<tab-heading>
-					<span class="glyphicon glyphicon-calendar"></span> Date
+					<i class="fa fa-calendar"></i> Date
 				</tab-heading>
 
-				<h1><span class="glyphicon glyphicon-calendar"></span> Date Settings</h1>
+				<h1><i class="fa fa-calendar"></i> Date Settings</h1>
 				<hr/>
 				<div>
 					<h2>Episode Offset</h2>
@@ -86,10 +86,10 @@
 			</tab>
 			<tab>
 				<tab-heading>
-					<span class="glyphicon glyphicon-eye-open"></span> Display
+					<i class="fa fa-eye"></i> Display
 				</tab-heading>
 
-				<h1><span class="glyphicon glyphicon-eye-open"></span> Display</h1>
+				<h1><i class="fa fa-eye"></i> Display</h1>
 
 				<hr/>
 
@@ -113,9 +113,9 @@
 			</tab>
 			<tab ng-if="admin" select="getIMDbIds()">
 				<tab-heading>
-					<span class="glyphicon glyphicon-pencil imdb"></span> IMDb id submissions
+					<i class="fa fa-pencil imdb"></i> IMDb id submissions
 				</tab-heading>
-				<h1><span class="glyphicon glyphicon-pencil"></span> IMDb id submissions</h1>
+				<h1><i class="fa fa-pencil"></i> IMDb id submissions</h1>
 				<hr/>
 				<table class="table" ng-if="imdb_ids">
 					<thead>
@@ -129,7 +129,7 @@
 					<tr ng-repeat="imdb in imdb_ids | orderBy:'showid'">
 						<td>{{ imdb.showname }}</td>
 						<td><a ng-href="//www.imdb.com/title/{{ imdb.imdb_id }}/" target="_blank">{{ imdb.imdb_id }}</a></td>
-						<td><span class="glyphicon glyphicon-ok text-success pointer" ng-click="acceptIMDbId(imdb.id)"></span></td>
+						<td><i class="fa fa-check text-success pointer" ng-click="acceptIMDbId(imdb.id)"></i></td>
 					</tr>
 					</tbody>
 				</table>
@@ -138,9 +138,9 @@
 			</tab>
 			<tab ng-if="admin" select="getSubreddits()">
 				<tab-heading>
-					<span class="glyphicon glyphicon-pencil reddit-color"></span> subreddit submissions
+					<i class="fa fa-pencil reddit-color"></i> subreddit submissions
 				</tab-heading>
-				<h1><span class="glyphicon glyphicon-pencil"></span> subreddit submissions</h1>
+				<h1><i class="fa fa-pencil"></i> subreddit submissions</h1>
 				<hr/>
 				<table class="table" ng-show="subreddits">
 					<thead>
@@ -154,7 +154,7 @@
 					<tr ng-repeat="sub in subreddits | orderBy:'showid'">
 						<td>{{ sub.showname }}</td>
 						<td><a ng-href="//www.reddit.com{{ sub.subreddit }}" target="_blank">{{ sub.subreddit }}</a></td>
-						<td><span class="glyphicon glyphicon-ok text-success pointer" ng-click="acceptSub(sub.id)"></span></td>
+						<td><i class="fa fa-check text-success pointer" ng-click="acceptSub(sub.id)"></i></td>
 					</tr>
 					</tbody>
 				</table>

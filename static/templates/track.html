@@ -22,11 +22,11 @@
 				<tbody>
 					<tr ng-repeat="show in shows | orderBy: order: reverse">
 						<td><a ng-href="/show/{{ show.id }}">{{ show.name }}</a></td>
-						<td><span class="glyphicon glyphicon-ok text-success" ng-if="!show.ended"></span><span class="glyphicon glyphicon-remove" ng-if="show.ended"></span></td>
+						<td><i class="fa" ng-class="{'fa-check text-success': !show.ended, 'fa-times': show.ended}"></i></td>
 						<td class="hidden-xs">{{ show.season_count }}</td>
 						<td class="hidden-xs">{{ show.episode_count }}</td>
 						<td ng-init="show.unwatched = show.episode_count - show.watched_count">{{ show.unwatched }}</td>
-						<td><span class="glyphicon glyphicon-minus text-danger pointer" ng-click="doNotTrack(show)"></span></td>
+						<td><i class="fa fa-minus text-danger pointer" ng-click="doNotTrack(show)"></i></td>
 					</tr>
 				</tbody>
 			</table>

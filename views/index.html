@@ -51,7 +51,7 @@
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search show" ng-model="search_input" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }" ng-change="getResults(search_input)">
                     </div>
-                    <button type="submit" class="btn btn-default hidden-sm">Search <span class="glyphicon glyphicon-search"></span></button>
+                    <button type="submit" class="btn btn-default hidden-sm">Search <i class="fa fa-search"></i></button>
                 </form>
 
                 <ul class="nav navbar-nav navbar-left">
@@ -74,14 +74,14 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-show="!loggedin">
-                        <li><a href="/signup" ng-click="col.isCollapsed = true"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
-                        <li><a href="" ng-click="loginButton(); col.isCollapsed = true" class="visible-xs visible-sm"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                        <li><a href="" ng-click="open()" class="visible-md visible-lg"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="/signup" ng-click="col.isCollapsed = true"><i class="fa fa-lg fa-pencil"></i> Sign Up</a></li>
+                        <li><a href="" ng-click="loginButton(); col.isCollapsed = true" class="visible-xs visible-sm"><i class="fa fa-lg fa-sign-in"></i> Login</a></li>
+                        <li><a href="" ng-click="open()" class="visible-md visible-lg"><i class="fa fa-lg fa-sign-in"></i> Login</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right" ng-show="loggedin">
-                        <li ng-if="user.name"><a href="/profile" ng-click="col.isCollapsed = true"><span class="glyphicon glyphicon-user"></span> {{ user.name }}<span class="hidden-sm hidden-md"> - Settings</span></a></li>
-                        <li><a href="" ng-click="logout(); col.isCollapsed = true"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        <li ng-if="user.name"><a href="/profile" ng-click="col.isCollapsed = true"><i class="fa fa-lg fa-user"></i> {{ user.name }}<span class="hidden-sm hidden-md"> - Settings</span></a></li>
+                        <li><a href="" ng-click="logout(); col.isCollapsed = true"><i class="fa fa-lg fa-sign-out"></i> Logout</a></li>
                     </ul>
                 </div>
 
@@ -109,12 +109,12 @@
 
         <footer>
             <ul class="list-inline pull-right hidden-xs">
-                <li><a href="http://www.github.com" target="_blank" class="github">View on <strong>Github</strong></a></li>
+                <li><a href="http://www.github.com" target="_blank" class="github">View source on <strong><i class="fa fa-github"></i> Github</strong></a></li>
                 <li><a href="">krushaTV</a></li>
             </ul>
             <ul class="list-unstyled visible-xs">
                 <li><a href="/">krushaTV</a></li>
-                <li><a href="http://www.github.com" target="_blank" class="github">View on <strong>Github</strong></a></li>
+                <li><a href="http://www.github.com" target="_blank" class="github">View source on <strong><i class="fa fa-github"></i> Github</strong></a></li>
             </ul>
         </footer>
         <script src="/static/javascripts/bower_components/angular-growl-notifications/dist/angular-growl-notifications.js"></script>
