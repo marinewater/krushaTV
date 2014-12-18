@@ -8237,73 +8237,74 @@ footer li {
   padding: 0;
   display: flex;
 }
-/* line 18, ../../resource/stylesheets/custom/_today.scss */
-.today .row-flex > div > div {
+
+/* line 22, ../../resource/stylesheets/custom/_today.scss */
+dailyepisodes {
   background-color: #F5F5F5;
   margin: 1px;
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;
 }
-/* line 25, ../../resource/stylesheets/custom/_today.scss */
-.today .row-flex > div > div:hover {
+/* line 29, ../../resource/stylesheets/custom/_today.scss */
+dailyepisodes:hover {
   background-color: #DAE3FD;
   cursor: pointer;
 }
-/* line 29, ../../resource/stylesheets/custom/_today.scss */
-.today .row-flex > div > div:hover a {
+/* line 33, ../../resource/stylesheets/custom/_today.scss */
+dailyepisodes:hover a {
   text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  /* line 42, ../../resource/stylesheets/custom/_today.scss */
+  /* line 43, ../../resource/stylesheets/custom/_today.scss */
   .today .row-flex .col-xs-12 > div {
     padding: 5px 0;
     margin: 5px 0;
   }
-  /* line 48, ../../resource/stylesheets/custom/_today.scss */
+  /* line 49, ../../resource/stylesheets/custom/_today.scss */
   .today h3 {
     font-size: 14px;
     display: inline;
     margin-top: 0;
   }
-  /* line 54, ../../resource/stylesheets/custom/_today.scss */
+  /* line 55, ../../resource/stylesheets/custom/_today.scss */
   .today p {
     display: inline;
   }
-  /* line 57, ../../resource/stylesheets/custom/_today.scss */
+  /* line 58, ../../resource/stylesheets/custom/_today.scss */
   .today p::before {
     content: " - ";
   }
 }
 @media (min-width: 768px) {
-  /* line 66, ../../resource/stylesheets/custom/_today.scss */
+  /* line 67, ../../resource/stylesheets/custom/_today.scss */
   .today h3 {
     font-size: 16px;
   }
 }
 @media (min-width: 1200px) {
-  /* line 74, ../../resource/stylesheets/custom/_today.scss */
+  /* line 75, ../../resource/stylesheets/custom/_today.scss */
   .today .col-lg-3:nth-child(4n+1) {
     clear: both;
   }
-  /* line 77, ../../resource/stylesheets/custom/_today.scss */
+  /* line 78, ../../resource/stylesheets/custom/_today.scss */
   .today .col-lg-4:nth-child(3n+1) {
     clear: both;
   }
-  /* line 80, ../../resource/stylesheets/custom/_today.scss */
+  /* line 81, ../../resource/stylesheets/custom/_today.scss */
   .today .col-lg-6:nth-child(2n+1) {
     clear: both;
   }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
-  /* line 88, ../../resource/stylesheets/custom/_today.scss */
+  /* line 89, ../../resource/stylesheets/custom/_today.scss */
   .today .col-md-3:nth-child(4n+1) {
     clear: both;
   }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-  /* line 96, ../../resource/stylesheets/custom/_today.scss */
+  /* line 97, ../../resource/stylesheets/custom/_today.scss */
   .today .col-sm-4:nth-child(3n+1) {
     clear: both;
   }

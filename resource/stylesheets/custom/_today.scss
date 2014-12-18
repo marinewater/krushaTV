@@ -15,22 +15,23 @@
 	> div {
 	  padding: 0;
 	  display: flex;
-	  > div {
-		background-color: #F5F5F5;
-		margin: 1px;
-		padding-left: 15px;
-		padding-right: 15px;
-		width: 100%;
+	}
+  }
+}
 
-		&:hover {
-		  background-color: #DAE3FD;
-		  cursor: pointer;
+dailyepisodes {
+  background-color: #F5F5F5;
+  margin: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
 
-		  a {
-			text-decoration: underline;
-		  }
-		}
-	  }
+  &:hover {
+	background-color: #DAE3FD;
+	cursor: pointer;
+
+	a {
+	  text-decoration: underline;
 	}
   }
 }
