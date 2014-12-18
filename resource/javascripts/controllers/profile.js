@@ -6,25 +6,9 @@
  * @requires $scope
  * @requires krushaTV.service:apiSettings
  */
-krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications', 'loggedin',
-	function($scope, apiSettings, apiImdb, apiReddit, notifications, loggedin) {
+krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications', 'loggedin',
+	function($scope, $cookieStore, apiSettings, apiImdb, apiReddit, notifications, loggedin) {
 		$scope.$parent.title = 'Profile';
-
-		/**
-		 * username
-		 * @type {string}
-		 */
-		$scope.username = null;
-		/**
-		 * total amount of shows the user is tracking
-		 * @type {number}
-		 */
-		$scope.total_shows = null;
-		/**
-		 * total amount of episodes the user has watched
-		 * @type {number}
-		 */
-		$scope.total_episodes = null;
 		/**
 		 * **true:** user is admin
 		 * @type {boolean}
@@ -58,6 +42,19 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 			'dd.MM.yyyy': 'dd.MM.yyyy (31.12.2010)',
 			'MM/dd/yyyy': 'MM/dd/yyyy (12/31/2010)'
 		};
+
+		/**
+		 * display settings
+		 * @type {{reddit: boolean, imdb: boolean}}
+		 */
+		$scope.display = {
+			reddit: true,
+			imdb: true
+		};
+
+		if (typeof $cookieStore.get('display') !== 'undefined') {
+			$scope.display = $cookieStore.get('display');
+		}
 
 		/**
 		 * selected date format
@@ -210,6 +207,10 @@ krusha.controller('profileCtrl', ['$scope', 'apiSettings', 'apiImdb', 'apiReddit
 				$scope.changeDateFormatSuccess.value = true;
 				loggedin.setDateFormat(date_format);
 			});
+		};
+
+		$scope.changeDisplaySetting = function(display) {
+			$cookieStore.put('display', display);
 		};
 
 		getProfile();

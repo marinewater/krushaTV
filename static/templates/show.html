@@ -86,7 +86,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row" ng-if="display.imdb">
 	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
 
@@ -125,7 +125,7 @@
 	</div>
 </div>
 
-<div class="row reddit" ng-show="reddit.length>0">
+<div class="row reddit" ng-if="display.reddit && reddit.length >0 ">
 	<div class="col-lg-8 col-lg-push-2">
 		<h2>{{ reddit.length }} hot reddit links</h2>
 		<ul class="list list-unstyled">
@@ -141,7 +141,7 @@
 
 <loadingspinner></loadingspinner>
 
-<div class="row reddit" ng-show="reddit.length==0 && loggedin && show.subreddit !== false">
+<div class="row reddit" ng-if="display.reddit && reddit.length==0 && loggedin && show.subreddit !== false">
 	<div class="col-lg-6 col-lg-push-3">
 		<h2>reddit</h2>
 		<p ng-show="!submittedRedditText">You know the subreddit for this show? Past the link here:</p>
@@ -164,7 +164,7 @@
 	</div>
 </div>
 
-<div class="row reddit" ng-show="show.subreddit === false && loggedin">
+<div class="row reddit" ng-if="display.reddit && show.subreddit === false && loggedin">
 	<div class="col-lg-6 col-lg-push-3">
 		<h2>reddit</h2>
 		<p>The subreddit you submitted is awaiting verification.</p>

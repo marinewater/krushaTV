@@ -97,7 +97,7 @@
 
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> display reddit threads
+						<input type="checkbox" ng-model="display.reddit" ng-change="changeDisplaySetting(display)"> display reddit threads
 					</label>
 				</div>
 
@@ -107,7 +107,7 @@
 
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> display IMDb info
+						<input type="checkbox" ng-model="display.imdb" ng-change="changeDisplaySetting(display)"> display IMDb info
 					</label>
 				</div>
 			</tab>

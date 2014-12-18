@@ -10,8 +10,8 @@
  * @requires krushaTV.service:redirect
  * @requires krushaTV.service:loggedin
  */
-krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$timeout', 'apiShow', 'apiReddit', 'apiImdb', 'notifications', 'loggedin',
-	function($scope, $routeParams, $cookies, $timeout, apiShow, apiReddit, apiImdb, notifications, loggedin) {
+krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieStore', '$timeout', 'apiShow', 'apiReddit', 'apiImdb', 'notifications', 'loggedin',
+	function($scope, $routeParams, $cookies, $cookieStore, $timeout, apiShow, apiReddit, apiImdb, notifications, loggedin) {
 		$scope.show = {};
 		$scope.seasons = {};
 		$scope.tracked = null;
@@ -30,7 +30,18 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$timeout',
 		oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 		var today = new Date();
 
-		
+		/**
+		 * display settings
+		 * @type {{reddit: boolean, imdb: boolean}}
+		 */
+		$scope.display = {
+			reddit: true,
+			imdb: true
+		};
+
+		if (typeof $cookieStore.get('display') !== 'undefined') {
+			$scope.display = $cookieStore.get('display');
+		}
 
 		$scope.$on('loggedin', function() {
 			$scope.loggedin = loggedin.getStatus();
@@ -115,11 +126,11 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$timeout',
 					else
 						$scope.tracked = null;
 
-					if (data.subreddit) {
+					if (data.subreddit && $scope.display.reddit) {
 						reddit_get(data.subreddit);
 					}
 
-					if (data.imdbid) {
+					if (data.imdbid && $scope.display.imdb) {
 						omdb_get(data.imdbid);
 					}
 				})
