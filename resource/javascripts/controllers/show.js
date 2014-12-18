@@ -30,18 +30,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 		var today = new Date();
 
-		/**
-		 * display settings
-		 * @type {{reddit: boolean, imdb: boolean}}
-		 */
-		$scope.display = {
-			reddit: true,
-			imdb: true
-		};
-
-		if (typeof $cookieStore.get('display') !== 'undefined') {
-			$scope.display = $cookieStore.get('display');
-		}
+		$scope.display = typeof $cookieStore.get('display') !== 'undefined' ? $cookieStore.get('display') : { reddit: true,imdb: true };
 
 		$scope.$on('loggedin', function() {
 			$scope.loggedin = loggedin.getStatus();

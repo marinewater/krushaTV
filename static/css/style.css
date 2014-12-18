@@ -8070,31 +8070,42 @@ genre-labels .label:last-child {
   font-size: 18px;
 }
 
+/* line 37, ../../resource/stylesheets/custom/_show.scss */
+.reddit .card {
+  padding: 30px 50px;
+}
+/* line 41, ../../resource/stylesheets/custom/_show.scss */
+.reddit h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #dedede;
+}
+
 @media (min-width: 768px) {
-  /* line 37, ../../resource/stylesheets/custom/_show.scss */
+  /* line 49, ../../resource/stylesheets/custom/_show.scss */
   .show {
     position: relative;
   }
-  /* line 40, ../../resource/stylesheets/custom/_show.scss */
+  /* line 52, ../../resource/stylesheets/custom/_show.scss */
   .show .seasons-fixed {
     position: fixed;
   }
-  /* line 44, ../../resource/stylesheets/custom/_show.scss */
+  /* line 56, ../../resource/stylesheets/custom/_show.scss */
   .show .seasons-static {
     position: absolute;
     bottom: 0;
   }
-  /* line 49, ../../resource/stylesheets/custom/_show.scss */
+  /* line 61, ../../resource/stylesheets/custom/_show.scss */
   .show .seasons-relative {
     position: relative;
   }
-  /* line 53, ../../resource/stylesheets/custom/_show.scss */
+  /* line 65, ../../resource/stylesheets/custom/_show.scss */
   .show #episodes {
     float: right;
   }
 }
 @media (max-width: 768px) {
-  /* line 61, ../../resource/stylesheets/custom/_show.scss */
+  /* line 73, ../../resource/stylesheets/custom/_show.scss */
   .show #seasons {
     margin-bottom: 10px;
   }

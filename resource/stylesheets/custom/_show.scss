@@ -33,6 +33,18 @@
   }
 }
 
+.reddit {
+  .card {
+    padding: 30px 50px;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: $card-border;
+  }
+}
+
 @media (min-width: $screen-sm-min) {
   .show {
     position: relative;
