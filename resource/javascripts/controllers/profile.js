@@ -6,8 +6,8 @@
  * @requires $scope
  * @requires krushaTV.service:apiSettings
  */
-krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications', 'loggedin',
-	function($scope, $cookieStore, apiSettings, apiImdb, apiReddit, notifications, loggedin) {
+krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications', 'loggedin', 'hotkeys',
+	function($scope, $cookieStore, apiSettings, apiImdb, apiReddit, notifications, loggedin, hotkeys) {
 		$scope.$parent.title = 'Profile';
 		/**
 		 * **true:** user is admin
@@ -44,6 +44,12 @@ krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiI
 		};
 
 		/**
+		 * selected date format
+		 * @type {{value: string}}
+		 */
+		$scope.dateFormat = '';
+
+		/**
 		 * display settings
 		 * @type {{reddit: boolean, imdb: boolean}}
 		 */
@@ -56,11 +62,7 @@ krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiI
 			$scope.display = $cookieStore.get('display');
 		}
 
-		/**
-		 * selected date format
-		 * @type {{value: string}}
-		 */
-		$scope.dateFormat = '';
+		var hotkey_list = ['h', 'm', 't', 'u', 'w', 'p', 's'];
 
 		var now = new Date();
 		now.setHours(0);
@@ -89,6 +91,19 @@ krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiI
 				computeOffset($scope.offset);
 				$scope.dateFormat = data.settings.date_format;
 			});
+
+			getShortcuts();
+		};
+
+		var getShortcuts = function() {
+			var shortcuts = [];
+			for (var idx in hotkey_list) {
+				if (hotkey_list.hasOwnProperty(idx)) {
+					shortcuts.push(hotkeys.get(hotkey_list[idx]));
+				}
+			}
+
+			$scope.shortcuts = shortcuts;
 		};
 
 		/**

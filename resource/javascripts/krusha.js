@@ -111,7 +111,7 @@ krusha.controller('navCtrl', ['$location', 'hotkeys', function($location, hotkey
 
     hotkeys.add({
         combo: 's',
-        description: 'Go to profile',
+        description: 'Search shows',
         action: 'keyup',
         callback: function() {
             var search_field = $('#navbar_search');

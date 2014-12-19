@@ -111,6 +111,18 @@
 					</label>
 				</div>
 			</tab>
+			<tab>
+				<tab-heading>
+					<i class="fa fa-keyboard-o"></i> Shortcuts
+				</tab-heading>
+				<h1><i class="fa fa-keyboard-o"></i> Shortcuts</h1>
+				<hr/>
+				<ul class="list-unstyled shortcuts">
+					<li ng-repeat="key in ::shortcuts">
+						<kbd>{{ ::key.combo[0] }}</kbd> {{ :: key.description }}
+					</li>
+				</ul>
+			</tab>
 			<tab ng-if="admin" select="getIMDbIds()">
 				<tab-heading>
 					<i class="fa fa-pencil imdb"></i> IMDb id submissions
