@@ -17,6 +17,7 @@ $fa-font-path:   "../fonts/FontAwesome";
 @import "custom/profile";
 @import "custom/navbar";
 @import "custom/slider";
+@import "../../static/javascripts/bower_components/angular-hotkeys/build/hotkeys.css";
 
 body {
   padding-top: 70px;

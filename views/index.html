@@ -49,7 +49,7 @@
             <div class="collapse navbar-collapse" id="krusha-navbar" collapse="col.isCollapsed">
                 <form class="navbar-form navbar-left hidden-xs" role="search" ng-controller="mainCtrl" ng-submit="getResults(search_input)">
                     <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search show" ng-model="search_input" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }" ng-change="getResults(search_input)">
+                        <input type="search" id="navbar_search" class="form-control" placeholder="Search show" ng-model="search_input" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }" ng-change="getResults(search_input)">
                     </div>
                     <button type="submit" class="btn btn-default hidden-sm">Search <i class="fa fa-search"></i></button>
                 </form>
@@ -120,6 +120,7 @@
         <script src="/static/javascripts/bower_components/angular-growl-notifications/dist/angular-growl-notifications.js"></script>
         <script src="/static/javascripts/bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
         <script src="/static/javascripts/bower_components/ng-clip/dest/ng-clip.min.js"></script>
+        <script src="/static/javascripts/bower_components/angular-hotkeys/build/hotkeys.js"></script>
         <script src="/static/javascripts/krusha.min.js"></script>
     </body>
 </html>

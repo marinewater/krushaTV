@@ -6,6 +6,7 @@
  */
 /* FONT PATH
  * -------------------------- */
+@import url(../../static/javascripts/bower_components/angular-hotkeys/build/hotkeys.css);
 @font-face {
   font-family: 'FontAwesome';
   src: url("../fonts/FontAwesome/fontawesome-webfont.eot?v=4.2.0");
@@ -8477,71 +8478,71 @@ slider .handle.active {
   background-color: #2d54a7;
 }
 
-/* line 21, ../../resource/stylesheets/style.scss */
+/* line 22, ../../resource/stylesheets/style.scss */
 body {
   padding-top: 70px;
 }
 
-/* line 24, ../../resource/stylesheets/style.scss */
+/* line 25, ../../resource/stylesheets/style.scss */
 a, .pointer {
   cursor: pointer;
 }
 
-/* line 28, ../../resource/stylesheets/style.scss */
+/* line 29, ../../resource/stylesheets/style.scss */
 .jumbotron {
   background-color: #fff;
   border: 1px solid #ddd;
 }
-/* line 32, ../../resource/stylesheets/style.scss */
+/* line 33, ../../resource/stylesheets/style.scss */
 .jumbotron h1 {
   margin-top: 0;
   font-size: 3em;
 }
-/* line 36, ../../resource/stylesheets/style.scss */
+/* line 37, ../../resource/stylesheets/style.scss */
 .jumbotron h1 span {
   font-size: 0.8em;
 }
 
-/* line 42, ../../resource/stylesheets/style.scss */
+/* line 43, ../../resource/stylesheets/style.scss */
 .link {
   cursor: pointer;
   color: #5179D0;
 }
-/* line 46, ../../resource/stylesheets/style.scss */
+/* line 47, ../../resource/stylesheets/style.scss */
 .link:hover {
   color: #2d54a7;
   text-decoration: underline;
 }
 
-/* line 52, ../../resource/stylesheets/style.scss */
+/* line 53, ../../resource/stylesheets/style.scss */
 .github {
   color: #4F4F4F;
 }
-/* line 55, ../../resource/stylesheets/style.scss */
+/* line 56, ../../resource/stylesheets/style.scss */
 .github:hover {
   color: #363636;
 }
 
-/* line 60, ../../resource/stylesheets/style.scss */
+/* line 61, ../../resource/stylesheets/style.scss */
 .mark-watched {
   margin-top: 30px;
 }
 
-/* line 64, ../../resource/stylesheets/style.scss */
+/* line 65, ../../resource/stylesheets/style.scss */
 unwatched > .row {
   margin-bottom: 30px;
 }
-/* line 67, ../../resource/stylesheets/style.scss */
+/* line 68, ../../resource/stylesheets/style.scss */
 unwatched > .row .spacer {
   margin-bottom: 30px;
 }
-/* line 73, ../../resource/stylesheets/style.scss */
+/* line 74, ../../resource/stylesheets/style.scss */
 unwatched > .row #episodes h2 small {
   display: inline-block;
 }
 
 @media (min-width: 1200px) {
-  /* line 81, ../../resource/stylesheets/style.scss */
+  /* line 82, ../../resource/stylesheets/style.scss */
   .pull-left-lg {
     float: left;
   }
