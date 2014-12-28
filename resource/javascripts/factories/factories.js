@@ -1,3 +1,8 @@
+/**
+ * @ngdoc service
+ * @name krushaTV.service:search_text
+ * @description stores a user's search query
+ */
 krusha.service('search_text', [function () {
     var search = null;
 
@@ -11,13 +16,37 @@ krusha.service('search_text', [function () {
     };
 }]);
 
+/**
+ * @ngdoc service
+ * @name krushaTV.service:redirect
+ * @description stores the last known url and redirects back to it after logging in
+ * @requires $location
+ */
 krusha.factory('redirect', ['$location', function($location) {
+    /**
+     * last known location/url before login
+     * @type {null|string}
+     */
     var last_location = null;
+
+    /**
+     * @ngdoc redirect.method
+     * @methodOf krushaTV.service:redirect
+     * @name redirect#login
+     * @description stores the current location and redirects to the login page
+     */
     return {
         login: function() {
             last_location = $location.path();
             $location.path('/login');
         },
+
+        /**
+         * @ngdoc redirect.method
+         * @methodOf krushaTV.service:redirect
+         * @name redirect#back
+         * @description redirects to the last known location
+         */
         back: function() {
             if (last_location != null && last_location != 'login') {
                 $location.path(last_location);
