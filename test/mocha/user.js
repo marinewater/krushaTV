@@ -4,10 +4,10 @@ var request = require('supertest');
 var env 	= process.env.NODE_ENV || "test";
 process.env.NODE_ENV = env;
 
-var app 	= require('../server').app;
+var app 	= require('../../server').app;
 
 var Sequelize = require("sequelize");
-var config    = require(__dirname + '/../config/config.json')[env];
+var config    = require('../../config/config.json')[env];
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 describe('User', function() {
@@ -69,7 +69,7 @@ describe('User', function() {
 				.set('Content-Type', 'application/json')
 				.send(newUser)
 				.expect(200)
-				.end(function(err, res) {
+				.end(function(err) {
 					should.not.exist(err);
 
 					request(app)
@@ -145,17 +145,12 @@ describe('User', function() {
 				'password': 'testtest'
 			};
 
-			var newUser2 = {
-				'username': 'test2',
-				'password': 'testtest2'
-			};
-
 			user
 				.post('/api/signup')
 				.set('Content-Type', 'application/json')
 				.send(newUser)
 				.expect(200)
-				.end(function(err, res) {
+				.end(function(err) {
 					should.not.exist(err);
 					user
 						.post('/api/signup')
@@ -308,7 +303,7 @@ describe('User', function() {
 				.set('Content-Type', 'application/json')
 				.send(newUser)
 				.expect(200)
-				.end(function(err, res) {
+				.end(function(err) {
 					should.not.exist(err);
 
 					user
@@ -338,7 +333,7 @@ describe('User', function() {
 				.set('Content-Type', 'application/json')
 				.send(newUser)
 				.expect(200)
-				.end(function(err, res) {
+				.end(function(err) {
 					should.not.exist(err);
 
 					user

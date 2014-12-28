@@ -4,9 +4,9 @@ var request = require('supertest');
 var env 	= process.env.NODE_ENV || "test";
 process.env.NODE_ENV = env;
 
-var app 	= require('../server').app;
+var app 	= require('../../server').app;
 
-var models = require('../models/index');
+var models = require('../../models/index');
 
 describe('Unwatched Episodes', function() {
     describe('logged out', function () {

@@ -4,9 +4,9 @@ var request = require('supertest');
 var env 	= process.env.NODE_ENV || "test";
 process.env.NODE_ENV = env;
 
-var app 	= require('../server').app;
+var app 	= require('../../server').app;
 
-var models = require('../models');
+var models = require('../../models/index');
 
 describe('IMDb', function() {
     describe('logged out', function() {
