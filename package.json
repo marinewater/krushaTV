@@ -3,6 +3,9 @@
   "description": "episode tracking app",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.9.0",
