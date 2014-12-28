@@ -4,10 +4,14 @@
  * @description
  * Controller for show.html template
  * @requires $scope
- * @requires $location
- * @requires krushaTV.service:apiAuth
+ * @requires $routeParams
+ * @requires $cookies
+ * @requires $cookieStore
+ * @requires $timeout
+ * @requires krushaTV.service:apiShow
+ * @requires krushaTV.service:apiReddit
+ * @requires krushaTV.service:apiImdb
  * @requires krushaTV.service:notifications
- * @requires krushaTV.service:redirect
  * @requires krushaTV.service:loggedin
  */
 krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieStore', '$timeout', 'apiShow', 'apiReddit', 'apiImdb', 'notifications', 'loggedin',
@@ -327,7 +331,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		 * @ngdoc showCtrl.method
 		 * @name showCtrl#getNextUnwatchedSeason
 		 * @description checks if the active season has any unwatched seasons and loads up the next or previous season if it doesn't
-		 * methodOf krushaTV.controllers:showCtrl
+		 * @methodOf krushaTV.controllers:showCtrl
 		 */
 		var getNextUnwatchedSeason = function() {
 			if ($scope.showWatched !== true) {
@@ -363,7 +367,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		 * @ngdoc showCtrl.method
 		 * @name showCtrl#scrollToSeasons
 		 * @description scrolls to season navigation
-		 * methodOf krushaTV.controllers:showCtrl
+		 * @methodOf krushaTV.controllers:showCtrl
 		 */
 		$scope.scrollToSeasons = function() {
 			$(document.body).animate({
@@ -375,7 +379,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		 * @ngdoc showCtrl.method
 		 * @name showCtrl#scrollToEpisodes
 		 * @description scrolls to episodes
-		 * methodOf krushaTV.controllers:showCtrl
+		 * @methodOf krushaTV.controllers:showCtrl
 		 */
 		$scope.scrollToEpisodes = function() {
 			$(document.body).animate({

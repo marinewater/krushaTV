@@ -4,7 +4,13 @@
  * @description
  * Controller for profile.html template
  * @requires $scope
+ * @requires $cookieStore
  * @requires krushaTV.service:apiSettings
+ * @requires krushaTV.service:apiImdb
+ * @requires krushaTV.service:apiReddit
+ * @requires krushaTV.service:notifications
+ * @requires krushaTV.service:loggedin
+ * @requires hotkeys
  */
 krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications', 'loggedin', 'hotkeys',
 	function($scope, $cookieStore, apiSettings, apiImdb, apiReddit, notifications, loggedin, hotkeys) {

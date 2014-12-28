@@ -5,9 +5,8 @@
  * Controller for track.html
  * shows shows the user is tracking and some additional information
  * @requires $scope
- * @requires apiShow
- * @requires notifications
  * @requires krushaTV.service:apiShow
+ * @requires krushaTV.service:notifications
  */
 krusha.controller('trackCtrl', ['$scope', 'apiShow', 'notifications', function($scope, apiShow, notifications) {
 	$scope.$parent.title = 'Tracked Shows';

@@ -16,7 +16,7 @@ krusha.service('search_text', [function () {
          * @methodOf krushaTV.service:search_text
          * @name search_text#getText
          * @description retrieves stored search query
-         * @returns {null|string} search search query
+         * @returns {null|string} search query
          */
         getText: function () {
             return search

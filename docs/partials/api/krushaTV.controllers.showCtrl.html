@@ -9,31 +9,44 @@
 <h2 id="dependencies">Dependencies</h2>
 <ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$scope">$scope</a></code>
 </li>
-<li><code ng:non-bindable=""><a href="#/api/ng.$location">$location</a></code>
+<li><code ng:non-bindable=""><a href="#/api/ng.$routeParams">$routeParams</a></code>
 </li>
-<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiAuth">apiAuth</a></code>
+<li><code ng:non-bindable=""><a href="#/api/ng.$cookies">$cookies</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$cookieStore">$cookieStore</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$timeout">$timeout</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiShow">apiShow</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiReddit">apiReddit</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiImdb">apiImdb</a></code>
 </li>
 <li><code ng:non-bindable=""><a href="#/api/krushaTV.service:notifications">notifications</a></code>
-</li>
-<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:redirect">redirect</a></code>
 </li>
 <li><code ng:non-bindable=""><a href="#/api/krushaTV.service:loggedin">loggedin</a></code>
 </li>
 </ul>
 <div class="member method"><h2 id="methods">Methods</h2>
-<ul class="methods"><li><h3 id="methods_saveoneatatime">SaveOneAtATime(oneAtATime)</h3>
-<div class="saveoneatatime"><div class="showctrl-saveoneatatime-page"><p>stores user setting (if the user wants only one accordion to stay open at a time) to a cookie</p>
-</div><h5 id="methods_saveoneatatime_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>oneAtATime</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="showctrl-saveoneatatime-page"><p>true: only one accordion stays open</p>
-</div></td></tr></tbody></table></div>
-</li>
-<li><h3 id="methods_saveshowwatched">SaveShowWatched(showWatched)</h3>
+<ul class="methods"><li><h3 id="methods_saveshowwatched">SaveShowWatched(showWatched)</h3>
 <div class="saveshowwatched"><div class="showctrl-saveshowwatched-page"><p>stores user setting (if the user wants watched episodes to be displayed) to a cookie</p>
 </div><h5 id="methods_saveshowwatched_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showWatched</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="showctrl-saveshowwatched-page"><p>true: show watched episodes</p>
 </div></td></tr></tbody></table></div>
 </li>
-<li><h3 id="methods_getepisodes">getEpisodes(show_id)</h3>
+<li><h3 id="methods_getepisodes">getEpisodes(show_id, season_nr)</h3>
 <div class="getepisodes"><div class="showctrl-getepisodes-page"><p>gets episodes for show from api</p>
 </div><h5 id="methods_getepisodes_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>show_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="showctrl-getepisodes-page"><p>local show id</p>
+</div></td></tr><tr><td>season_nr</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="showctrl-getepisodes-page"><p>season number</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_getnextunwatchedseason">getNextUnwatchedSeason()</h3>
+<div class="getnextunwatchedseason"><div class="showctrl-getnextunwatchedseason-page"><p>checks if the active season has any unwatched seasons and loads up the next or previous season if it doesn&#39;t</p>
+</div></div>
+</li>
+<li><h3 id="methods_getseasons">getSeasons(show_id)</h3>
+<div class="getseasons"><div class="showctrl-getseasons-page"><p>gets seasons for show and episodes for first season from api</p>
+</div><h5 id="methods_getseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>show_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="showctrl-getseasons-page"><p>local show id</p>
 </div></td></tr></tbody></table></div>
 </li>
 <li><h3 id="methods_getshow">getShow(show_id)</h3>
@@ -51,19 +64,9 @@
 <div class="nextfive"><div class="showctrl-nextfive-page"><p>gets the next 5 reddit threads, needs an &quot;after&quot; string from a previous request</p>
 </div></div>
 </li>
-<li><h3 id="methods_notwatchedepisode">notWatchedEpisode(episode)</h3>
-<div class="notwatchedepisode"><div class="showctrl-notwatchedepisode-page"><p>marks an episode as unwatched and sends an update to the api</p>
-</div><h5 id="methods_notwatchedepisode_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>episode</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="showctrl-notwatchedepisode-page"><p>unwatched episode</p>
-</div></td></tr></tbody></table></div>
-</li>
 <li><h3 id="methods_omdb_get">omdb_get(imdb_id)</h3>
 <div class="omdb_get"><div class="showctrl-omdb-get-page"><p>gets imdb rating</p>
 </div><h5 id="methods_omdb_get_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>imdb_id</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="showctrl-omdb-get-page"><p>A valid IMDb ID (e.g. tt1285016)</p>
-</div></td></tr></tbody></table></div>
-</li>
-<li><h3 id="methods_openall">openAll(open)</h3>
-<div class="openall"><div class="showctrl-openall-page"><p>opens or closes all season accordions</p>
-</div><h5 id="methods_openall_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>open</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="showctrl-openall-page"><p>true: open, false: close</p>
 </div></td></tr></tbody></table></div>
 </li>
 <li><h3 id="methods_reddit_get">reddit_get(subreddit)</h3>
@@ -71,11 +74,13 @@
 </div><h5 id="methods_reddit_get_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>subreddit</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="showctrl-reddit-get-page"><p>subreddit (e.g. /r/firefly)</p>
 </div></td></tr></tbody></table></div>
 </li>
-<li><h3 id="methods_showseasons">showSeasons(episodes, showWatched)</h3>
-<div class="showseasons"><div class="showctrl-showseasons-page"><p>determines if a season accordion should be displayed</p>
-</div><h5 id="methods_showseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>episodes</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="showctrl-showseasons-page"><p>episodes of one particular season</p>
-</div></td></tr><tr><td>showWatched</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="showctrl-showseasons-page"><p><strong>true:</strong> show all episodes, <strong>false:</strong> show only unwatched episodes</p>
-</div></td></tr></tbody></table></div>
+<li><h3 id="methods_scrolltoepisodes">scrollToEpisodes()</h3>
+<div class="scrolltoepisodes"><div class="showctrl-scrolltoepisodes-page"><p>scrolls to episodes</p>
+</div></div>
+</li>
+<li><h3 id="methods_scrolltoseasons">scrollToSeasons()</h3>
+<div class="scrolltoseasons"><div class="showctrl-scrolltoseasons-page"><p>scrolls to season navigation</p>
+</div></div>
 </li>
 <li><h3 id="methods_submitimdb">submitIMDB(imdb_url, show_id)</h3>
 <div class="submitimdb"><div class="showctrl-submitimdb-page"><p>submits a imdb id for a show</p>
@@ -89,15 +94,20 @@
 </div></td></tr><tr><td>show_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="showctrl-submitsubreddit-page"><p>local show id</p>
 </div></td></tr></tbody></table></div>
 </li>
-<li><h3 id="methods_track">track(show)</h3>
+<li><h3 id="methods_track">track(show, tracked)</h3>
 <div class="track"><div class="showctrl-track-page"><p>adds show to tracked shows and displays a notification</p>
 </div><h5 id="methods_track_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>show</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="showctrl-track-page"><p>show</p>
+</div></td></tr><tr><td>tracked</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="showctrl-track-page"><p>true: show is tracked</p>
 </div></td></tr></tbody></table></div>
 </li>
-<li><h3 id="methods_untrack">untrack(show)</h3>
-<div class="untrack"><div class="showctrl-untrack-page"><p>removes show from tracked shows and displays a notification</p>
-</div><h5 id="methods_untrack_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>show</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="showctrl-untrack-page"><p>show</p>
-</div></td></tr></tbody></table></div>
+<li><h3 id="methods_unwatchedseasons">unwatchedSeasons()</h3>
+<div class="unwatchedseasons"><div class="showctrl-unwatchedseasons-page"><p>checks if there are seasons wih unwatched episodes</p>
+</div><h5 id="methods_unwatchedseasons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="showctrl-unwatchedseasons-page"><p>unwatchedSeasons true: there are seasons with unwatched episodes</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_updatescrolloffset">updateScrollOffset()</h3>
+<div class="updatescrolloffset"><div class="showctrl-updatescrolloffset-page"><p>updates scrollfix offset</p>
+</div></div>
 </li>
 <li><h3 id="methods_updateshowwatched">updateShowWatched()</h3>
 <div class="updateshowwatched"><div class="showctrl-updateshowwatched-page"><p>updates setting that indicates if the user wants to see already watched episodes</p>

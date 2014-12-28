@@ -1,7 +1,7 @@
 /**
  * @ngdoc directive
  * @name krushaTV.directive:slider
- * @description displays an symbol for a specified amount of time to indicate if a action has failed or succeeded
+ * @description displays a slider, lets the user easly choose a value in a specified range
  * @restrict E
  * @scope
  * @param {number} min slider's floor

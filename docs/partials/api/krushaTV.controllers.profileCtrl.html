@@ -9,12 +9,47 @@
 <h2 id="dependencies">Dependencies</h2>
 <ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$scope">$scope</a></code>
 </li>
+<li><code ng:non-bindable=""><a href="#/api/ng.$cookieStore">$cookieStore</a></code>
+</li>
 <li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiSettings">apiSettings</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiImdb">apiImdb</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:apiReddit">apiReddit</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:notifications">notifications</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/krushaTV.service:loggedin">loggedin</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/api/hotkeys">hotkeys</a></code>
 </li>
 </ul>
 <div class="member method"><h2 id="methods">Methods</h2>
-<ul class="methods"><li><h3 id="methods_getprofile">getProfile()</h3>
+<ul class="methods"><li><h3 id="methods_acceptimdbid">acceptIMDbId(submission_id)</h3>
+<div class="acceptimdbid"><div class="profilectrl-acceptimdbid-page"><p>accepts a user submission for a imdb id</p>
+</div><h5 id="methods_acceptimdbid_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>submission_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="profilectrl-acceptimdbid-page"><p>unique id for the imdb id that will be accepted</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_acceptsub">acceptSub(submission_id)</h3>
+<div class="acceptsub"><div class="profilectrl-acceptsub-page"><p>accepts a user submission for a subreddit</p>
+</div><h5 id="methods_acceptsub_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>submission_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="profilectrl-acceptsub-page"><p>unique id for the subreddit that will be accepted</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_changedateformat">changeDateFormat(date_format)</h3>
+<div class="changedateformat"><div class="profilectrl-changedateformat-page"><p>change date format</p>
+</div><h5 id="methods_changedateformat_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>date_format</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="profilectrl-changedateformat-page"><p>date format</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_getimdbids">getIMDbIds()</h3>
+<div class="getimdbids"><div class="profilectrl-getimdbids-page"><p>gets all user submitted imdb_ids from the api</p>
+</div></div>
+</li>
+<li><h3 id="methods_getprofile">getProfile()</h3>
 <div class="getprofile"><div class="profilectrl-getprofile-page"><p>gets the user profile from the api</p>
+</div></div>
+</li>
+<li><h3 id="methods_getsubreddits">getSubreddits()</h3>
+<div class="getsubreddits"><div class="profilectrl-getsubreddits-page"><p>gets all user submitted subreddits from the api</p>
 </div></div>
 </li>
 <li><h3 id="methods_setoffset">setOffset(offset)</h3>

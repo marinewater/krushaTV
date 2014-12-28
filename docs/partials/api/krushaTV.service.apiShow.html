@@ -29,10 +29,17 @@
 </div></td></tr></tbody></table><h5 id="methods_deletetracked_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-deletetracked-page"><p>HttpPromise</p>
 </div></td></tr></table></div>
 </li>
-<li><h3 id="methods_getepisodes">getEpisodes(showid)</h3>
+<li><h3 id="methods_getepisodes">getEpisodes(showid, season_nr)</h3>
 <div class="getepisodes"><div class="apishow-getepisodes-page"><p>gets episodes for particular show</p>
 </div><h5 id="methods_getepisodes_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishow-getepisodes-page"><p>local show id</p>
+</div></td></tr><tr><td>season_nr</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishow-getepisodes-page"><p>season number</p>
 </div></td></tr></tbody></table><h5 id="methods_getepisodes_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getepisodes-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getseasons">getSeasons(showid)</h3>
+<div class="getseasons"><div class="apishow-getseasons-page"><p>gets seasons for particular show</p>
+</div><h5 id="methods_getseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishow-getseasons-page"><p>local show id</p>
+</div></td></tr></tbody></table><h5 id="methods_getseasons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getseasons-page"><p>HttpPromise</p>
 </div></td></tr></table></div>
 </li>
 <li><h3 id="methods_getshow">getShow(showid)</h3>
@@ -57,9 +64,45 @@ if the user is loggedin, gets only episodes from tracked shows</p>
 </div><h5 id="methods_getunwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getunwatched-page"><p>HttpPromise</p>
 </div></td></tr></table></div>
 </li>
+<li><h3 id="methods_getunwatchedepisodes">getUnwatchedEpisodes(showid, season)</h3>
+<div class="getunwatchedepisodes"><div class="apishow-getunwatchedepisodes-page"><p>gets  unwatched episodes for specific show and season from the api</p>
+</div><h5 id="methods_getunwatchedepisodes_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishow-getunwatchedepisodes-page"><p>show id</p>
+</div></td></tr><tr><td>season</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishow-getunwatchedepisodes-page"><p>season number</p>
+</div></td></tr></tbody></table><h5 id="methods_getunwatchedepisodes_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getunwatchedepisodes-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getunwatchedseasons">getUnwatchedSeasons(showid)</h3>
+<div class="getunwatchedseasons"><div class="apishow-getunwatchedseasons-page"><p>gets seasons with unwatched episodes for specific show from the api</p>
+</div><h5 id="methods_getunwatchedseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishow-getunwatchedseasons-page"><p>show id</p>
+</div></td></tr></tbody></table><h5 id="methods_getunwatchedseasons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getunwatchedseasons-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getunwatchedshows">getUnwatchedShows()</h3>
+<div class="getunwatchedshows"><div class="apishow-getunwatchedshows-page"><p>gets shows with unwatched episodes from the api</p>
+</div><h5 id="methods_getunwatchedshows_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getunwatchedshows-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
 <li><h3 id="methods_getwatched">getWatched()</h3>
 <div class="getwatched"><div class="apishow-getwatched-page"><p>retrieves all watched episodes from tracked shows</p>
 </div><h5 id="methods_getwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getwatched-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getwatchedepisodes">getWatchedEpisodes(showid, season)</h3>
+<div class="getwatchedepisodes"><div class="apishow-getwatchedepisodes-page"><p>gets  watched episodes for specific show and season from the api</p>
+</div><h5 id="methods_getwatchedepisodes_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishow-getwatchedepisodes-page"><p>show id</p>
+</div></td></tr><tr><td>season</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishow-getwatchedepisodes-page"><p>season number</p>
+</div></td></tr></tbody></table><h5 id="methods_getwatchedepisodes_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getwatchedepisodes-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getwatchedseasons">getWatchedSeasons(showid)</h3>
+<div class="getwatchedseasons"><div class="apishow-getwatchedseasons-page"><p>gets seasons with watched episodes for specific show from the api</p>
+</div><h5 id="methods_getwatchedseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishow-getwatchedseasons-page"><p>show id</p>
+</div></td></tr></tbody></table><h5 id="methods_getwatchedseasons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getwatchedseasons-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getwatchedshows">getWatchedShows()</h3>
+<div class="getwatchedshows"><div class="apishow-getwatchedshows-page"><p>gets shows with watched episodes from the api</p>
+</div><h5 id="methods_getwatchedshows_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishow-getwatchedshows-page"><p>HttpPromise</p>
 </div></td></tr></table></div>
 </li>
 <li><h3 id="methods_getomdb">getomdb(imdb_id)</h3>
