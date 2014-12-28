@@ -4,12 +4,31 @@
  * @description stores a user's search query
  */
 krusha.service('search_text', [function () {
+    /**
+     * search query
+     * @type {null|string}
+     */
     var search = null;
 
     return {
+        /**
+         * @ngdoc search_text.method
+         * @methodOf krushaTV.service:search_text
+         * @name search_text#getText
+         * @description retrieves stored search query
+         * @returns {null|string} search search query
+         */
         getText: function () {
             return search
         },
+
+        /**
+         * @ngdoc search_text.method
+         * @methodOf krushaTV.service:search_text
+         * @name search_text#setText
+         * @description returns stored search query
+         * @param {null|string} value search query
+         */
         setText: function(value) {
             search = value;
         }
@@ -65,6 +84,7 @@ krusha.factory('redirect', ['$location', function($location) {
  * @requires $q
  * @requires krushaTV.service:loggedin
  * @requires krushaTV.service:redirect
+ * @requires krushaTV.service:notifications
  */
 krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', 'notifications', function($q, loggedin, redirect, notifications) {
     var rateLimitGone = null;
