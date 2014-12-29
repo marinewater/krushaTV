@@ -1,5 +1,9 @@
 krushaTV
 ========
+Docs
+--------
+[Angular](http://marinewater.github.io/krushaTV/docs/index.html#/api)
+
 ToDo
 --------
 * Tests, tests, tests
