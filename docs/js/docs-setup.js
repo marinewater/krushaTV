@@ -153,7 +153,7 @@ NG_DOCS={
       "shortName": "loadingcontent",
       "type": "directive",
       "moduleName": "krushaTV",
-      "shortDescription": "hides the element it is attributed to if any $http request is in process",
+      "shortDescription": "hides the element, which it is attributed to, if any $http request is in process",
       "keywords": "$http api attributed directive element hides krushatv process request"
     },
     {
@@ -180,8 +180,8 @@ NG_DOCS={
       "shortName": "slider",
       "type": "directive",
       "moduleName": "krushaTV",
-      "shortDescription": "displays a slider, lets the user easly choose a value in a specified range",
-      "keywords": "api callback called ceiling choose directive displays easly floor grabs handle krushatv max min model ngmodel onslidestart onslidestop range releases slider step steps user values"
+      "shortDescription": "displays a slider, lets the user easily choose a value in a specified range",
+      "keywords": "api callback called ceiling choose directive displays easily floor grabs handle krushatv max min model ngmodel onslidestart onslidestop range releases slider step steps user values"
     },
     {
       "section": "api",
@@ -199,7 +199,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "krushaTV",
       "shortDescription": "displays all watched/unwatched episodes and lets the user mark them as unwatched/watched",
-      "keywords": "api directive displays episodes krushatv mark object seasons unwatched user watched"
+      "keywords": "api determined directive displays episode episodes function getepisodes getseasons krushatv mark markepisodewatched marks markseasonwatched markshowwatched object receives season seasons single template unwatched user watched watchted"
     },
     {
       "section": "api",
@@ -316,7 +316,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "displays notifications",
-      "keywords": "$rootscope add api background bg_class close color custom danger determines display displayed displays info krushatv link message method milliseconds notification notifications option pop removes return service success time ttl warning"
+      "keywords": "$rootscope add api background bg_class close color custom danger determines display displayed displays info krushatv link message method milliseconds notification notifications option pop removes returns service success time ttl warning"
     },
     {
       "section": "api",

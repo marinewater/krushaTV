@@ -7,6 +7,12 @@
  * @param {object} shows object containing shows with watched/unwatched episodes
  * @param {object} seasons object containing seasons with watched/unwatched episodes
  * @param {object} episodes object containing watched/unwatched episodes
+ * @param {function} getSeasons function that receives all seasons for a specified show
+ * @param {function} getEpisodes function that receives all episodes for a specified season
+ * @param {function} markShowWatched function that marks all episodes of a show as watchted/unwatched
+ * @param {function} markSeasonWatched function that marks all episodes of a season as watchted/unwatched
+ * @param {function} markEpisodeWatched function that marks a single episode as watchted/unwatched
+ * @param {boolean} watched determined if this template shows watched or unwatched episodes
  */
 krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, loggedin) {
     var link = function($scope) {
