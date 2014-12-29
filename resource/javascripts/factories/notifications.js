@@ -42,7 +42,7 @@ krusha.factory('notifications', ['$rootScope', function($rootScope) {
          * @ngdoc notifications.method
          * @methodOf krushaTV.service:notifications
          * @name notifications#pop
-         * @description removes and return notifications
+         * @description removes and returns notifications
          * @returns {Array} notifications
          */
         pop: function() {

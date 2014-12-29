@@ -29,7 +29,7 @@ krusha.directive('loadingspinner',   ['$http' ,function ($http) {
 /**
  * @ngdoc directive
  * @name krushaTV.directive:loadingcontent
- * @description hides the element it is attributed to if any $http request is in process
+ * @description hides the element, which it is attributed to, if any $http request is in process
  * @restrict A
  */
 krusha.directive('loadingcontent',   ['$http' ,function ($http) {

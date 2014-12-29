@@ -1,7 +1,7 @@
 /**
  * @ngdoc directive
  * @name krushaTV.directive:slider
- * @description displays a slider, lets the user easly choose a value in a specified range
+ * @description displays a slider, lets the user easily choose a value in a specified range
  * @restrict E
  * @scope
  * @param {number} min slider's floor
