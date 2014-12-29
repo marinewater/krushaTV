@@ -35,7 +35,7 @@ krusha.factory('notifications', ['$rootScope', function($rootScope) {
                 'link': link
             });
 
-            $rootScope.$broadcast('notification', true);
+            $rootScope.$broadcast('notification');
         },
 
         /**
