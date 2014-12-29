@@ -67,7 +67,7 @@ krusha.factory('redirect', ['$location', function($location) {
          * @description redirects to the last known location
          */
         back: function() {
-            if (last_location != null && last_location != 'login') {
+            if (last_location != null && last_location != '/login') {
                 $location.path(last_location);
             }
             else {
