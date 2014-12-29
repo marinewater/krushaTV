@@ -16,8 +16,8 @@ krusha.factory('notifications', ['$rootScope', function($rootScope) {
          * @param {String} message message that will be displayed in the notification
          * @param {String} bg_class can be success, warning, danger or info, determines the background color
          * @param {Number} ttl time in milliseconds the notification will be displayed
-         * @param {Boolean} close option to display a link to close the notification
-         * @param {object} link custom link to add to the notification
+         * @param {Boolean=} close option to display a link to close the notification
+         * @param {object=} link custom link to add to the notification
          */
         add: function(message, bg_class, ttl, close, link) {
             if (typeof close === 'undefined') {
@@ -35,7 +35,7 @@ krusha.factory('notifications', ['$rootScope', function($rootScope) {
                 'link': link
             });
 
-            $rootScope.$broadcast('notification', true);
+            $rootScope.$broadcast('notification');
         },
 
         /**
