@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 			addConstraints: function() {
 				sequelize
 					.query('ALTER TABLE "' + WatchedEpisodes.tableName + '" ADD CONSTRAINT episode_user_unique UNIQUE (episodeid, userid);')
-					.error(function(err){
+					.catch(function(err){
 						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'relation "episode_user_unique" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);

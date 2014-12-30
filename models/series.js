@@ -56,28 +56,28 @@ module.exports = function(sequelize, DataTypes) {
 				var vectorName = Post.getSearchVector();
 				sequelize
 					.query('ALTER TABLE "' + Post.tableName + '" ADD COLUMN "' + vectorName + '" TSVECTOR')
-					.success(function() {
+					.then(function() {
 						return sequelize
 						.query('UPDATE "' + Post.tableName + '" SET "' + vectorName + '" = to_tsvector(\'english\', ' + searchFields.join(' || \' \' || ') + ')')
-						.error(function(err){
+						.catch(function(err){
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
 						});
-					}).success(function() {
+					}).then(function() {
 						return sequelize
 						.query('CREATE INDEX post_search_idx ON "' + Post.tableName + '" USING gin("' + vectorName + '");')
-						.error(function(err){
+						.catch(function(err){
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
 						});
-					}).success(function() {
+					}).then(function() {
 						return sequelize
 						.query('CREATE TRIGGER post_vector_update BEFORE INSERT OR UPDATE ON "' + Post.tableName + '" FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger("' + vectorName + '", \'pg_catalog.english\', ' + searchFields.join(', ') + ')')
-						.error(function(err){
+						.catch(function(err){
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
 						});
-				}).error(function(err){
+				}).catch(function(err){
 						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'column "' + vectorName + '" of relation "' + Series.tableName + '" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
@@ -116,7 +116,7 @@ module.exports = function(sequelize, DataTypes) {
 			addConstraints: function(models) {
 				sequelize
 					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_subreddit" CHECK (subreddit ~* \'^/r/[A-Za-z0-9]+$\'::text)')
-					.error(function(err){
+					.catch(function(err){
 						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + Series.tableName + '_check_subreddit" for relation "' + Series.tableName + '" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
@@ -125,7 +125,7 @@ module.exports = function(sequelize, DataTypes) {
 
 				sequelize
 					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_imdb_id" CHECK (imdbid ~* \'^tt[0-9]{7}$\'::text)')
-					.error(function(err){
+					.catch(function(err){
 						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + Series.tableName + '_check_imdb_id" for relation "' + Series.tableName + '" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);

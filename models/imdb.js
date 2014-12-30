@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       addConstraints: function(models) {
           sequelize
             .query('ALTER TABLE "' + Imdb.tableName + '" ADD CONSTRAINT "' + Imdb.tableName + '_show_user_unique" UNIQUE (showid, userid);')
-            .error(function(err){
+            .catch(function(err){
                   if (!(err.name === 'SequelizeDatabaseError' && err.message === 'relation "' + Imdb.tableName + '_show_user_unique" already exists')) {
                       if ((process.env.NODE_ENV || "development") === 'development')
                           console.log(err);
@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
 
           sequelize
               .query('ALTER TABLE "' + Imdb.tableName + '" ADD CONSTRAINT "' + Imdb.tableName + '_check_imdb_id" CHECK (imdb_id ~* \'^tt[0-9]{7}$\'::text)')
-              .error(function(err){
+              .catch(function(err){
                   if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + Imdb.tableName + '_check_imdb_id" for relation "' + Imdb.tableName + '" already exists')) {
                       if ((process.env.NODE_ENV || "development") === 'development')
                           console.log(err);

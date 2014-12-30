@@ -55,7 +55,7 @@ module.exports = function(sequelize, DataTypes) {
       addConstraints: function(models) {
         sequelize
             .query('ALTER TABLE "' + User.tableName + '" ADD CONSTRAINT "' + User.tableName + '_check_date_format" CHECK (date_format ~ \'^((d|M){2}|y{4})[./-]((d|M){2}|y{4})[./-]((d|M){2}|y{4})$\'::text)')
-            .error(function(err){
+            .catch(function(err){
               if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + User.tableName + '_check_date_format" for relation "' + User.tableName + '" already exists')) {
                 if ((process.env.NODE_ENV || "development") === 'development')
                   console.log(err);
