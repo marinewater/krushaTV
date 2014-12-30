@@ -44,8 +44,8 @@ describe('IMDb', function() {
                 .post('/api/signup')
                 .set('Content-Type', 'application/json')
                 .send(newUser)
-                .end(function() {
-                    done();
+                .end(function(err) {
+                    done(err);
                 });
         });
 
@@ -116,7 +116,7 @@ describe('IMDb', function() {
                     });
             });
 
-            it('should return an error tat the imdb id is not valid', function(done) {
+            it('should return an error that the imdb id is not valid', function(done) {
                 user
                     .post('/api/imdb')
                     .set('Content-Type', 'application/json')
