@@ -4,21 +4,21 @@
 module.exports = {
 
     'facebookAuth' : {
-        'clientID'      : '', // your App ID
-        'clientSecret'  : '', // your App Secret
-        'callbackURL'   : ''
+        'clientID'      : 'a', // your App ID
+        'clientSecret'  : 'a', // your App Secret
+        'callbackURL'   : '0.0.0.0'
     },
 
     'redditAuth' : {
-        'clientID'       : '',
-        'clientSecret'    : '',
-        'callbackURL'       : ''
+        'clientID'       : 'a',
+        'clientSecret'    : 'a',
+        'callbackURL'       : '0.0.0.0'
     },
 
     'googleAuth' : {
-        'clientID'      : '',
-        'clientSecret'  : '',
-        'callbackURL'   : ''
+        'clientID'      : 'a',
+        'clientSecret'  : 'a',
+        'callbackURL'   : '0.0.0.0'
     }
 
 };
