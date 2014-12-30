@@ -44,6 +44,7 @@ describe('IMDb', function() {
                 .post('/api/signup')
                 .set('Content-Type', 'application/json')
                 .send(newUser)
+                .expect(200)
                 .end(function(err) {
                     done(err);
                 });
