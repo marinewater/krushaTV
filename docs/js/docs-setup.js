@@ -212,15 +212,6 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "krushaTV.filter:countUnwatched",
-      "shortName": "countUnwatched",
-      "type": "filter",
-      "moduleName": "krushaTV",
-      "shortDescription": "&quot;countUnwatched&quot; checks if the supplied array contains unwatched episodes if watched episodes should not be displayed.",
-      "keywords": "api array checks countunwatched determines displayed episodes filter krushatv navigation remove seasons showwatched supplied unawtched unwatched watched"
-    },
-    {
-      "section": "api",
       "id": "krushaTV.filter:formatEpisode",
       "shortName": "formatEpisode",
       "type": "filter",

@@ -61,28 +61,3 @@ krusha.filter('copyEpisode', ['$filter', function($filter) {
 		return episode.showname + ' ' + $filter('formatEpisode')(episode.episode, episode.season);
 	}
 }]);
-
-/**
- * @ngdoc filter
- * @name krushaTV.filter:countUnwatched
- * @description
- * "countUnwatched" checks if the supplied array contains unwatched episodes if watched episodes should not be displayed.
- * This is used to remove seasons and shows from navigation if they only contain watched episodes and only unawtched episodes should be displayed.
- * @param {Array} show shows
- * @param {Boolean} showWatched determines if watched episodes should be displayed
- */
-krusha.filter('countUnwatched', function() {
-	var countUnwatched = function(show) {
-		return !!show.find(function (season) {
-			if (season.episodes.find(function (episode) {
-					return episode.watched === false;
-				})) {
-				return true;
-			}
-		});
-
-	};
-	return function(show, showWatched) {
-		return showWatched ? true : countUnwatched(show);
-	}
-});
