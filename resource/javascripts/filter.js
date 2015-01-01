@@ -34,6 +34,9 @@ krusha.filter('formatEpisode', function() {
 		if (n < 10) {
 			return '0' + n.toString();
 		}
+		else if (isNaN(n)) {
+			return '00';
+		}
 		else {
 			return n.toString();
 		}
