@@ -16,7 +16,7 @@ describe('loadingspinner', function() {
         expect(element.children("div:first").hasClass('ng-hide')).toBeTruthy();
     });
 
-    it('should be visible', inject(function($httpBackend, $http) {
+    it('should become visible', inject(function($httpBackend, $http) {
         $httpBackend.when('GET', '/api/test').respond(200, {name: 'test' });
         var element = $compile("<loadingspinner></loadingspinner>")($rootScope);
         $http.get('/api/test');
