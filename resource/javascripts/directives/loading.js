@@ -9,20 +9,14 @@ krusha.directive('loadingspinner',   ['$http' ,function ($http) {
         restrict: 'E',
         link: function ($scope, elm)
         {
-            $scope.isLoading = function () {
+            $scope.$watch(function() {
                 return $http.pendingRequests.length > 0;
-            };
-
-            $scope.$watch($scope.isLoading, function (v)
-            {
-                if (v) {
-                    elm.show();
-                } else {
-                    elm.hide();
-                }
+            }, function (pendingRequests) {
+                $scope.show_spinner = pendingRequests;
             });
         },
-        template: '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        scope: {},
+        template: '<div class="spinner" ng-show="show_spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
     };
 }]);
 
