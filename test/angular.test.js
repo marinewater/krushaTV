@@ -15,9 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'static/javascripts/bower_components/jquery/dist/jquery.js',
       'static/javascripts/bower_components/angular/angular.js',
       'static/javascripts/bower_components/angular-mocks/angular-mocks.js',
-      'static/javascripts/bower_components/jquery/dist/jquery.js',
       'static/javascripts/bower_components/angular-animate/angular-animate.js',
       'static/javascripts/bower_components/angular-cookies/angular-cookies.js',
       'static/javascripts/bower_components/angular-route/angular-route.js',
