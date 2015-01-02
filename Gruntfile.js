@@ -34,6 +34,7 @@ module.exports = function(grunt) {
                         'resource/javascripts/krusha.js',
                         'resource/javascripts/filter.js',
                         'resource/javascripts/validators.js',
+                        'resource/javascripts/animation.js',
                         'resource/javascripts/directives/*.js',
                         'resource/javascripts/factories/*.js',
                         'resource/javascripts/factories/api/*.js',
