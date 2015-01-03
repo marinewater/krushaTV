@@ -28,6 +28,7 @@ module.exports = function(config) {
       'static/javascripts/bower_components/zeroclipboard/dist/ZeroClipboard.js',
       'static/javascripts/bower_components/ng-clip/dest/ng-clip.min.js',
       'static/javascripts/bower_components/angular-hotkeys/build/hotkeys.js',
+      'static/templates/**/*.html',
       'static/javascripts/krusha.min.js',
       'test/angular/**/*.js'
     ],
@@ -41,6 +42,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'static/templates/directives/*.html': ['ng-html2js']
     },
 
 
@@ -74,6 +76,14 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: true,
+
+    ngHtml2JsPreprocessor: {
+      prependPrefix: '/',
+
+      // setting this option will create only a single module that contains templates
+      // from all the files, so you can load them all with module('foo')
+      moduleName: 'templates'
+    }
   });
 };
