@@ -4,9 +4,9 @@ var request = require('supertest');
 var env 	= process.env.NODE_ENV || "test";
 process.env.NODE_ENV = env;
 
-var app 	= require('../server').app;
+var app 	= require('../../server').app;
 
-var models = require('../models');
+var models = require('../../models/index');
 
 describe('IMDb', function() {
     describe('logged out', function() {
@@ -44,8 +44,9 @@ describe('IMDb', function() {
                 .post('/api/signup')
                 .set('Content-Type', 'application/json')
                 .send(newUser)
-                .end(function() {
-                    done();
+                .expect(200)
+                .end(function(err) {
+                    done(err);
                 });
         });
 
@@ -116,7 +117,7 @@ describe('IMDb', function() {
                     });
             });
 
-            it('should return an error tat the imdb id is not valid', function(done) {
+            it('should return an error that the imdb id is not valid', function(done) {
                 user
                     .post('/api/imdb')
                     .set('Content-Type', 'application/json')

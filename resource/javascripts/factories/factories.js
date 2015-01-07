@@ -1,25 +1,73 @@
+/**
+ * @ngdoc service
+ * @name krushaTV.service:search_text
+ * @description stores a user's search query
+ */
 krusha.service('search_text', [function () {
+    /**
+     * search query
+     * @type {null|string}
+     */
     var search = null;
 
     return {
+        /**
+         * @ngdoc search_text.method
+         * @methodOf krushaTV.service:search_text
+         * @name search_text#getText
+         * @description retrieves stored search query
+         * @returns {null|string} search query
+         */
         getText: function () {
             return search
         },
+
+        /**
+         * @ngdoc search_text.method
+         * @methodOf krushaTV.service:search_text
+         * @name search_text#setText
+         * @description returns stored search query
+         * @param {null|string} value search query
+         */
         setText: function(value) {
             search = value;
         }
     };
 }]);
 
+/**
+ * @ngdoc service
+ * @name krushaTV.service:redirect
+ * @description stores the last known url and redirects back to it after logging in
+ * @requires $location
+ */
 krusha.factory('redirect', ['$location', function($location) {
+    /**
+     * last known location/url before login
+     * @type {null|string}
+     */
     var last_location = null;
+
+    /**
+     * @ngdoc redirect.method
+     * @methodOf krushaTV.service:redirect
+     * @name redirect#login
+     * @description stores the current location and redirects to the login page
+     */
     return {
         login: function() {
             last_location = $location.path();
             $location.path('/login');
         },
+
+        /**
+         * @ngdoc redirect.method
+         * @methodOf krushaTV.service:redirect
+         * @name redirect#back
+         * @description redirects to the last known location
+         */
         back: function() {
-            if (last_location != null && last_location != 'login') {
+            if (last_location != null && last_location != '/login') {
                 $location.path(last_location);
             }
             else {
@@ -36,6 +84,7 @@ krusha.factory('redirect', ['$location', function($location) {
  * @requires $q
  * @requires krushaTV.service:loggedin
  * @requires krushaTV.service:redirect
+ * @requires krushaTV.service:notifications
  */
 krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', 'notifications', function($q, loggedin, redirect, notifications) {
     var rateLimitGone = null;
@@ -95,125 +144,4 @@ krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', 'notifications', fu
             return $q.reject(response);
         }
     };
-}]);
-
-krusha.factory('helpers', function() {
-    return {
-        lastOpen: function(arr) {
-            var keylist = [];
-
-            for (var key in arr) {
-                if (arr.hasOwnProperty(key))
-                    keylist.push(key);
-            }
-
-            var last = Math.max.apply(Math, keylist);
-
-            arr[last].status = true;
-
-            return arr;
-        }
-    }
-});
-
-krusha.factory('parse', [function() {
-    var show_cache = {};
-    var season_cache = {};
-
-    var findShow = function(shows, showid) {
-        if (show_cache.hasOwnProperty(showid)) {
-            // show has already been stored in cache
-            return show_cache[showid];
-        }
-        else {
-            // search for show and store it in cache
-            for (var i = 0, len = shows.length; i < len; i++) {
-                if (shows[i].showid === showid) {
-                    show_cache[showid] = i;
-                    return i;
-                }
-            }
-            return null;
-        }
-    };
-    var findSeason = function(seasons, season_nr, show_index) {
-        if (!season_cache.hasOwnProperty(show_index)) {
-            season_cache[show_index] = {};
-        }
-        if (season_cache[show_index].hasOwnProperty(season_nr)) {
-            return season_cache[show_index][season_nr];
-        }
-        else {
-            for (var i = 0, len = seasons.length; i < len; i++) {
-                if (parseInt(seasons[i].season) == parseInt(season_nr)) {
-                    season_cache[show_index][season_nr] = i;
-                    return i;
-                }
-            }
-            return null;
-        }
-    };
-
-    var removeUnnecessary = function(shows) {
-        for (var i = shows.length-1; i >= 0; i--) {
-            if (shows[i].seasons.length === 0) {
-                shows.splice(i, 1);
-            }
-        }
-    };
-
-    return {
-        unwatched: function(data, shows) {
-            data.episodes.forEach(function(episode) {
-                var show_index = findShow(shows, episode.showid);
-
-                var season_index = findSeason(shows[show_index].seasons, episode.season, show_index);
-
-                if (season_index === null) {
-                    shows[show_index].seasons.push({
-                        'season': episode.season,
-                        'episodes': []
-                    });
-                    season_index = findSeason(shows[show_index].seasons, episode.season, show_index);
-                }
-                shows[show_index].seasons[season_index].episodes.push(episode);
-            });
-
-            removeUnnecessary(shows);
-
-            // clean up
-            show_cache = {};
-            season_cache = {};
-        },
-        watchedEpisode: function(shows, episode, season, show) {
-            var show_index = shows.indexOf(show);
-            var season_index = shows[show_index].seasons.indexOf(season);
-            var episode_index = shows[show_index].seasons[season_index].episodes.indexOf(episode);
-
-            shows[show_index].seasons[season_index].episodes.splice(episode_index, 1);
-
-            if (shows[show_index].seasons[season_index].episodes.length === 0) {
-                shows[show_index].seasons.splice(season_index, 1);
-
-                if (shows[show_index].seasons.length === 0) {
-                    shows.splice(show_index, 1);
-                }
-            }
-        },
-        watchedSeason: function(shows, season, show) {
-            var show_index = shows.indexOf(show);
-            var season_index = shows[show_index].seasons.indexOf(season);
-
-            shows[show_index].seasons.splice(season_index, 1);
-
-            if (shows[show_index].seasons.length === 0) {
-                shows.splice(show_index, 1);
-            }
-        },
-        watchedShow: function(shows, show) {
-            var show_index = shows.indexOf(show);
-
-            shows.splice(show_index, 1);
-        }
-    }
 }]);

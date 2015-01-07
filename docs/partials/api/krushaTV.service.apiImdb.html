@@ -11,7 +11,19 @@
 </li>
 </ul>
 <div class="member method"><h2 id="methods">Methods</h2>
-<ul class="methods"><li><h3 id="methods_submitimdbid">submitIMDbId(imdb_id, show_id)</h3>
+<ul class="methods"><li><h3 id="methods_acceptsubmittedimdbid">acceptSubmittedIMDbID(submission_id)</h3>
+<div class="acceptsubmittedimdbid"><div class="apiimdb-acceptsubmittedimdbid-page"><p>accepts a user submission for a imdb id;
+once a submission is accepted, all submitted imdb ids for this show will be deleted</p>
+</div><h5 id="methods_acceptsubmittedimdbid_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>submission_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apiimdb-acceptsubmittedimdbid-page"><p>unique id for the imdb id that will be accepted</p>
+</div></td></tr></tbody></table><h5 id="methods_acceptsubmittedimdbid_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apiimdb-acceptsubmittedimdbid-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getsubmittedimdbids">getSubmittedIMDbIds()</h3>
+<div class="getsubmittedimdbids"><div class="apiimdb-getsubmittedimdbids-page"><p>gets all submitted imdb ids, needs admin permissions</p>
+</div><h5 id="methods_getsubmittedimdbids_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apiimdb-getsubmittedimdbids-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_submitimdbid">submitIMDbId(imdb_id, show_id)</h3>
 <div class="submitimdbid"><div class="apiimdb-submitimdbid-page"><p>a user can submit an imdb id if none has been accepted yet, an admin will need to verify it</p>
 </div><h5 id="methods_submitimdbid_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>imdb_id</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="apiimdb-submitimdbid-page"><p>imdb id (e.g. tt1234567 or <a href="http://www.imdb.com/title/tt1234567/">http://www.imdb.com/title/tt1234567/</a>)</p>
 </div></td></tr><tr><td>show_id</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="apiimdb-submitimdbid-page"><p>local show id for the submitted subreddit</p>

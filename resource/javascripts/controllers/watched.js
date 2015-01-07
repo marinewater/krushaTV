@@ -4,9 +4,8 @@
  * @description
  * Controller for watched.html template
  * @requires $scope
- * @requires $cookies
+ * @requires $filter
  * @requires krushaTV.service:apiShow
- * @requires krushaTV.service:parse
  */
 krusha.controller('watchedCtrl', ['$scope', '$filter', 'apiShow', function($scope, $filter, apiShow) {
 	$scope.$parent.title = 'Watched Episodes';

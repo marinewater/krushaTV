@@ -4,9 +4,8 @@
  * @description
  * Controller for unwatched.html template
  * @requires $scope
- * @requires $cookies
+ * @requires $filter
  * @requires krushaTV.service:apiShow
- * @requires krushaTV.service:parse
  */
 krusha.controller('unwatchedCtrl', ['$scope', '$filter', 'apiShow', function($scope, $filter, apiShow) {
 	$scope.$parent.title = 'Unwatched Episodes';

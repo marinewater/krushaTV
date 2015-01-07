@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "0.10"
+services:
+  - redis-server
+addons:
+    postgresql: "9.1"
+before_script:
+  - psql -c 'create database "krushaTV_test";' -U postgres
+  - NODE_ENV=test node sync.js

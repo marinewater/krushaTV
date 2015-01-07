@@ -95,20 +95,5 @@ app.use(function(req, res) {
 });
 
 // launch ======================================================================
-models.sequelize.sync()
-	.done(function() {
-        models.Series.addFullTextIndex();
-		models.Series.addConstraints();
-		models.User.addConstraints();
-        models.WatchedEpisodes.addConstraints();
-        models.TrackShow.addConstraints();
-        models.Subreddits.addConstraints();
-		models.Imdb.addConstraints();
-    })
-    .success(function () {
-		var server = app.listen(port);
-		log.info("Server is listening on port " + port);
-	})
-	.error(function(err){
-		log.error(err);
-	});
+var server = app.listen(port);
+log.info("Server is listening on port " + port);

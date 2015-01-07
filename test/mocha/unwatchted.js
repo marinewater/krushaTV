@@ -4,9 +4,9 @@ var request = require('supertest');
 var env 	= process.env.NODE_ENV || "test";
 process.env.NODE_ENV = env;
 
-var app 	= require('../server').app;
+var app 	= require('../../server').app;
 
-var models = require('../models/index');
+var models = require('../../models/index');
 
 describe('Unwatched Episodes', function() {
     describe('logged out', function () {
@@ -145,8 +145,12 @@ describe('Unwatched Episodes', function() {
                             'userid': user.id
                         }).success(function() {
                             done();
+                        }).catch(function(err) {
+                            done(err);
                         });
                     });
+                }).catch(function(err) {
+                    done(err);
                 });
             });
 
@@ -217,7 +221,7 @@ describe('Unwatched Episodes', function() {
                             res.body.episodes[0].should.have.property('id');
                             res.body.episodes[0].should.have.property('episode', 1);
                             res.body.episodes[0].should.have.property('title', 'nanana');
-                            res.body.episodes[0].should.have.property('airdate', '2013-12-30T23:00:00.000Z');
+                            res.body.episodes[0].should.have.property('airdate', '2013-12-31T00:00:00.000Z');
                             done();
                         });
                 });
@@ -236,7 +240,7 @@ describe('Unwatched Episodes', function() {
                             res.body.episodes[0].should.have.property('id');
                             res.body.episodes[0].should.have.property('episode', 1);
                             res.body.episodes[0].should.have.property('title', 'nanana');
-                            res.body.episodes[0].should.have.property('airdate', '2013-12-30T23:00:00.000Z');
+                            res.body.episodes[0].should.have.property('airdate', '2013-12-31T00:00:00.000Z');
                             done();
                         });
                 });
@@ -253,7 +257,7 @@ describe('Unwatched Episodes', function() {
                             res.body.episodes[0].should.have.property('id');
                             res.body.episodes[0].should.have.property('episode', 1);
                             res.body.episodes[0].should.have.property('title', 'nanana');
-                            res.body.episodes[0].should.have.property('airdate', '2013-12-30T23:00:00.000Z');
+                            res.body.episodes[0].should.have.property('airdate', '2013-12-31T00:00:00.000Z');
                             done();
                         });
                 });

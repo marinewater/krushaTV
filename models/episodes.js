@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
 		season: { type: DataTypes.INTEGER, allowNull: false },
 		episode: { type: DataTypes.INTEGER, allowNull: false },
 		title: { type: DataTypes.TEXT, allowNull: false },
-		airdate: { type: 'DATE' },
+		airdate: { type: DataTypes.DATE },
         update: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }
 	},
   	{

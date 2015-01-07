@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         ngdocs: {
             all: ['resource/javascripts/**/**.js'],
             options: {
-                scripts: ['static/javascripts/libs/angular-1.3.0/angular.js', 'static/javascripts/libs/angular-1.3.0/angular-animate.js'],
+                scripts: ['static/javascripts/bower_components/angular/angular.js', 'static/javascripts/bower_components/angular-animate/angular-animate.js'],
                 html5Mode: false
             }
         },
@@ -34,6 +34,7 @@ module.exports = function(grunt) {
                         'resource/javascripts/krusha.js',
                         'resource/javascripts/filter.js',
                         'resource/javascripts/validators.js',
+                        'resource/javascripts/animation.js',
                         'resource/javascripts/directives/*.js',
                         'resource/javascripts/factories/*.js',
                         'resource/javascripts/factories/api/*.js',
