@@ -1,0 +1,38 @@
+.calendar {
+  td.inactive {
+    background-color: #D2E1FC !important;
+  }
+
+  &.table {
+    td {
+      padding: 0;
+    }
+  }
+
+  .date {
+    background-color: #F7F7F7;
+    padding: 3px;
+  }
+
+  ul.list-unstyled {
+    margin: 10px;
+  }
+}
+
+calendar {
+  .spinner {
+    margin: 20px auto 0;
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .calendar-heading {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .calendar-heading {
+    text-align: right;
+  }
+}

@@ -54,3 +54,15 @@ krusha.filter('countUnwatched', function() {
 		return showWatched ? true : countUnwatched(show);
 	}
 });
+
+krusha.filter('monthName', function() {
+	var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	return function(month) {
+		if (month < 1 || month > 12) {
+			return null;
+		}
+		else {
+			return monthNames[month-1];
+		}
+	}
+})

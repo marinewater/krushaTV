@@ -8350,7 +8350,7 @@ footer li {
 /* line 9, ../../resource/stylesheets/custom/_profile.scss */
 .profile .shortcuts kbd {
   padding: 6px 8px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 /* line 14, ../../resource/stylesheets/custom/_profile.scss */
 .profile .shortcuts li {
@@ -8491,71 +8491,106 @@ slider .handle.active {
   background-color: #2d54a7;
 }
 
-/* line 22, ../../resource/stylesheets/style.scss */
+/* line 2, ../../resource/stylesheets/custom/_calendar.scss */
+.calendar td.inactive {
+  background-color: #D2E1FC !important;
+}
+/* line 7, ../../resource/stylesheets/custom/_calendar.scss */
+.calendar.table td {
+  padding: 0;
+}
+/* line 12, ../../resource/stylesheets/custom/_calendar.scss */
+.calendar .date {
+  background-color: #F7F7F7;
+  padding: 3px;
+}
+/* line 17, ../../resource/stylesheets/custom/_calendar.scss */
+.calendar ul.list-unstyled, .calendar ul.list-inline {
+  margin: 10px;
+}
+
+/* line 23, ../../resource/stylesheets/custom/_calendar.scss */
+calendar .spinner {
+  margin: 20px auto 0;
+}
+
+@media (max-width: 767px) {
+  /* line 29, ../../resource/stylesheets/custom/_calendar.scss */
+  .calendar-heading {
+    font-size: 30px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 35, ../../resource/stylesheets/custom/_calendar.scss */
+  .calendar-heading {
+    text-align: right;
+  }
+}
+/* line 23, ../../resource/stylesheets/style.scss */
 body {
   padding-top: 70px;
 }
 
-/* line 25, ../../resource/stylesheets/style.scss */
+/* line 26, ../../resource/stylesheets/style.scss */
 a, .pointer {
   cursor: pointer;
 }
 
-/* line 29, ../../resource/stylesheets/style.scss */
+/* line 30, ../../resource/stylesheets/style.scss */
 .jumbotron {
   background-color: #fff;
   border: 1px solid #ddd;
 }
-/* line 33, ../../resource/stylesheets/style.scss */
+/* line 34, ../../resource/stylesheets/style.scss */
 .jumbotron h1 {
   margin-top: 0;
   font-size: 3em;
 }
-/* line 37, ../../resource/stylesheets/style.scss */
+/* line 38, ../../resource/stylesheets/style.scss */
 .jumbotron h1 span {
   font-size: 0.8em;
 }
 
-/* line 43, ../../resource/stylesheets/style.scss */
+/* line 44, ../../resource/stylesheets/style.scss */
 .link {
   cursor: pointer;
   color: #5179D0;
 }
-/* line 47, ../../resource/stylesheets/style.scss */
+/* line 48, ../../resource/stylesheets/style.scss */
 .link:hover {
   color: #2d54a7;
   text-decoration: underline;
 }
 
-/* line 53, ../../resource/stylesheets/style.scss */
+/* line 54, ../../resource/stylesheets/style.scss */
 .github {
   color: #4F4F4F;
 }
-/* line 56, ../../resource/stylesheets/style.scss */
+/* line 57, ../../resource/stylesheets/style.scss */
 .github:hover {
   color: #363636;
 }
 
-/* line 61, ../../resource/stylesheets/style.scss */
+/* line 62, ../../resource/stylesheets/style.scss */
 .mark-watched {
   margin-top: 30px;
 }
 
-/* line 65, ../../resource/stylesheets/style.scss */
+/* line 66, ../../resource/stylesheets/style.scss */
 unwatched > .row {
   margin-bottom: 30px;
 }
-/* line 68, ../../resource/stylesheets/style.scss */
+/* line 69, ../../resource/stylesheets/style.scss */
 unwatched > .row .spacer {
   margin-bottom: 30px;
 }
-/* line 74, ../../resource/stylesheets/style.scss */
+/* line 75, ../../resource/stylesheets/style.scss */
 unwatched > .row #episodes h2 small {
   display: inline-block;
 }
 
 @media (min-width: 1200px) {
-  /* line 82, ../../resource/stylesheets/style.scss */
+  /* line 83, ../../resource/stylesheets/style.scss */
   .pull-left-lg {
     float: left;
   }

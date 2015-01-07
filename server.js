@@ -80,6 +80,7 @@ require('./app/api/trackshow.js')(router, log, models, user);
 require('./app/api/subreddit.js')(router, log, models, user);
 require('./app/api/imdb.js')(router, log, models, user, user);
 require('./app/api/unwatched.js')(router, log, models, user);
+require('./app/api/calendar.js')(router, log, models, user);
 require('./app/api/admin/reddit.js')(admin_router, log, models, user);
 require('./app/api/admin/imdb.js')(admin_router, log, models, user);
 require('./app/api.js')(router);

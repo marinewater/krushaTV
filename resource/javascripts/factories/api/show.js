@@ -288,6 +288,10 @@ krusha.factory('apiShow', ['$http', function($http) {
          */
         getWatchedEpisodes: function(showid, season) {
             return $http.get('/api/watched/shows/' + showid + '/seasons/' + season + '/episodes');
+        },
+
+        getEpisodesMonth: function(month, year) {
+            return $http.get('/api/calendar/' + month + '/' + year);
         }
     }
 }]);
