@@ -77,23 +77,25 @@ krusha.directive('dates', ['$filter', function($filter) {
      * @param day
      */
     var addDay = function(row, day) {
-        var date_cell = $('<td/>');
-        $('<div/>').addClass('date').text(day.date.getDate()).appendTo(date_cell);
+        if (typeof day !== 'undefined') {
+            var date_cell = $('<td/>');
+            $('<div/>').addClass('date').text(day.date.getDate()).appendTo(date_cell);
 
-        var list = $('<ul/>').addClass('list-unstyled').appendTo(date_cell);
+            var list = $('<ul/>').addClass('list-unstyled').appendTo(date_cell);
 
-        var shows = $filter('orderByName')(day.shows);
+            var shows = $filter('orderByName')(day.shows);
 
-        shows.forEach(function(show) {
-            var show_item = $('<li/>').appendTo(list);
-            $('<a/>').attr('href', '/show/' + show.id).text(show.name).appendTo(show_item);
-            $('<span/>').text(' - ' + $filter('formatEpisode')(show.episode, show.season)).appendTo(show_item);
-        });
+            shows.forEach(function(show) {
+                var show_item = $('<li/>').appendTo(list);
+                $('<a/>').attr('href', '/show/' + show.id).text(show.name).appendTo(show_item);
+                $('<span/>').text(' - ' + $filter('formatEpisode')(show.episode, show.season)).appendTo(show_item);
+            });
 
-        if (!day.active) {
-            date_cell.addClass('inactive');
+            if (!day.active) {
+                date_cell.addClass('inactive');
+            }
+            row.append(date_cell);
         }
-        row.append(date_cell);
     };
 
     var link = function($scope, element) {
