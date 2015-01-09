@@ -117,9 +117,20 @@
 				</tab-heading>
 				<h1><i class="fa fa-keyboard-o"></i> Shortcuts</h1>
 				<hr/>
+				<h2>Global</h2>
 				<ul class="list-unstyled shortcuts">
 					<li ng-repeat="key in ::shortcuts">
 						<kbd>{{ ::key.combo[0] }}</kbd> {{ :: key.description }}
+					</li>
+				</ul>
+				<hr/>
+				<h2>Calendar</h2>
+				<ul class="list-unstyled shortcuts">
+					<li>
+						<kbd><i class="fa fa-long-arrow-left"></i></kbd> go to previous month
+					</li>
+					<li>
+						<kbd><i class="fa fa-long-arrow-right"></i></kbd> go to next month
 					</li>
 				</ul>
 			</tab>

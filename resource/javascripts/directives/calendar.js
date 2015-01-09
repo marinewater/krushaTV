@@ -1,4 +1,4 @@
-krusha.directive('calendar', ['calendar', function(calendar) {
+krusha.directive('calendar', ['calendar', 'hotkeys', function(calendar, hotkeys) {
     var link = function($scope) {
         var today = new Date();
 
@@ -56,6 +56,23 @@ krusha.directive('calendar', ['calendar', function(calendar) {
 
             $scope.changeMonth($scope.year, $scope.month);
         };
+
+        // bind hotkeys
+        hotkeys.bindTo($scope)
+            .add({
+                combo: 'right',
+                description: 'go to next month',
+                callback: function() {
+                    $scope.monthForward();
+                }
+            })
+            .add({
+                combo: 'left',
+                description: 'go to previous month',
+                callback: function() {
+                    $scope.monthBack();
+                }
+            });
 
         $scope.changeMonth();
     };
