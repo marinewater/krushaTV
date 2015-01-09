@@ -71,6 +71,11 @@ krusha.directive('calendar', ['calendar', function(calendar) {
 }]);
 
 krusha.directive('dates', ['$filter', function($filter) {
+    /**
+     * create a table cell for each day of the week and fill it with the corresponding episodes
+     * @param row
+     * @param day
+     */
     var addDay = function(row, day) {
         var date_cell = $('<td/>');
         $('<div/>').addClass('date').text(day.date.getDate()).appendTo(date_cell);
@@ -96,6 +101,7 @@ krusha.directive('dates', ['$filter', function($filter) {
             element.empty();
 
             if (typeof $scope.days !== 'undefined') {
+                // add row for every week
                 for (var i = 0; i < $scope.days.length; i += 7) {
                     var row = $('<tr/>');
                     for (var j = i; j < i + 7; j++) {

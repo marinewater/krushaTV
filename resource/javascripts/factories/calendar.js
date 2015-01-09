@@ -19,14 +19,14 @@ krusha.factory('calendar', [function() {
 
         if (firstDay.getDay() !== 1) {
             for (var i=0; i>-7; i--) {
-                var day = new Date(year, month-1, i);
+                var day_date = new Date(year, month-1, i);
                 days.push({
-                    'date': day,
+                    'date': day_date,
                     'active': false,
                     'shows': []
                 });
 
-                if (day.getDay() === 1) {
+                if (day_date.getDay() === 1) {
                     break;
                 }
             }
