@@ -202,7 +202,6 @@ describe('Calendar', function() {
                     .expect(200)
                     .end(function(err, res) {
                         should.not.exist(err);
-                        console.log(res.body);
                         res.body.should.have.property('episodes', []);
                         res.body.should.have.property('type', 'episodes');
                         done();
@@ -220,7 +219,6 @@ describe('Calendar', function() {
                         .expect(200)
                         .end(function(err, res) {
                             should.not.exist(err);
-                            console.log(res.body);
                             res.body.should.have.property('type', 'episodes');
                             res.body.should.have.property('episodes');
                             res.body.episodes[0].should.have.property('airdate', '2014-12-31T23:59:59.000Z');
