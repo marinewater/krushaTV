@@ -76,7 +76,7 @@ describe('Calendar', function() {
 
         it('should return a Bad Request error for month < 0', function(done) {
             user
-                .get('/api/calendar/-1/2014')
+                .get('/api/calendar/2014/-1')
                 .set('Content-Type', 'application/json')
                 .expect(400)
                 .end(function(err, res) {
@@ -90,7 +90,7 @@ describe('Calendar', function() {
 
         it('should return a Bad Request error for month = 0', function(done) {
             user
-                .get('/api/calendar/0/2014')
+                .get('/api/calendar/2014/0')
                 .set('Content-Type', 'application/json')
                 .expect(400)
                 .end(function(err, res) {
@@ -104,7 +104,7 @@ describe('Calendar', function() {
 
         it('should return a Bad Request error for month > 12', function(done) {
             user
-                .get('/api/calendar/13/2014')
+                .get('/api/calendar/2014/13')
                 .set('Content-Type', 'application/json')
                 .expect(400)
                 .end(function(err, res) {
@@ -118,7 +118,7 @@ describe('Calendar', function() {
 
         it('should return a Bad Request error for years < 1900', function(done) {
             user
-                .get('/api/calendar/12/1899')
+                .get('/api/calendar/1899/12')
                 .set('Content-Type', 'application/json')
                 .expect(400)
                 .end(function(err, res) {
@@ -132,7 +132,7 @@ describe('Calendar', function() {
 
         it('should return a Bad Request error for years > 3000', function(done) {
             user
-                .get('/api/calendar/12/3001')
+                .get('/api/calendar/3001/12')
                 .set('Content-Type', 'application/json')
                 .expect(400)
                 .end(function(err, res) {
@@ -146,7 +146,7 @@ describe('Calendar', function() {
 
         it('should return an empty response', function(done) {
             user
-                .get('/api/calendar/12/2014')
+                .get('/api/calendar/2014/12')
                 .set('Content-Type', 'application/json')
                 .expect(200)
                 .end(function(err, res) {
@@ -197,7 +197,7 @@ describe('Calendar', function() {
 
             it('should return an empty response', function(done) {
                 user
-                    .get('/api/calendar/12/2014')
+                    .get('/api/calendar/2014/12')
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .end(function(err, res) {
@@ -227,7 +227,7 @@ describe('Calendar', function() {
 
                 it('should return one episode', function(done) {
                     user
-                        .get('/api/calendar/12/2014')
+                        .get('/api/calendar/2014/12')
                         .set('Content-Type', 'application/json')
                         .expect(200)
                         .end(function(err, res) {

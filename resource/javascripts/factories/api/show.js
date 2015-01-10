@@ -291,7 +291,7 @@ krusha.factory('apiShow', ['$http', function($http) {
         },
 
         getEpisodesMonth: function(month, year) {
-            return $http.get('/api/calendar/' + month + '/' + year);
+            return $http.get('/api/calendar/' + year + '/' + month);
         }
     }
 }]);

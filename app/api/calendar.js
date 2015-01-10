@@ -1,5 +1,5 @@
 module.exports = function(router, log, models, user) {
-    router.get('/calendar/:month/:year', user.isLoggedIn, function(req, res, next) {
+    router.get('/calendar/:year/:month', user.isLoggedIn, function(req, res, next) {
         var month = parseInt(req.params.month);
         var year = parseInt(req.params.year);
 
@@ -15,6 +15,7 @@ module.exports = function(router, log, models, user) {
         models.TrackShow.monthEpisodes(req.user.id, year, month).then(function(db_episodes) {
             return res.json({
                 'type': 'episodes',
+                'span': 'month',
                 'episodes': db_episodes
             });
         }).catch(function(err) {
