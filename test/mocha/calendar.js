@@ -208,11 +208,24 @@ describe('Calendar', function() {
                     });
             });
 
-            it('should return one episode', function(done) {
-                models.TrackShow.create({
-                    userid: userid,
-                    showid: showid
-                }).then(function() {
+            describe('tracked', function() {
+                var track;
+
+                before(function(done) {
+                    models.TrackShow.create({
+                        userid: userid,
+                        showid: showid
+                    }).then(function(_track_) {
+                        track = _track_;
+                        done();
+                    }).catch(done);
+                });
+
+                after(function(done) {
+                    track.destroy().then(function() { done(); }).catch(done);
+                });
+
+                it('should return one episode', function(done) {
                     user
                         .get('/api/calendar/12/2014')
                         .set('Content-Type', 'application/json')
@@ -229,7 +242,7 @@ describe('Calendar', function() {
                             res.body.episodes[0].should.have.property('title', 'test episode');
                             done();
                         });
-                }).catch(done);
+                });
             });
         });
     });
