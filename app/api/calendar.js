@@ -1,3 +1,6 @@
+var sequelize = require('sequelize');
+var Promise = require("bluebird");
+
 module.exports = function(router, log, models, user) {
     router.get('/calendar/:year/:month', user.isLoggedIn, function(req, res, next) {
         var month = parseInt(req.params.month);
@@ -44,10 +47,20 @@ module.exports = function(router, log, models, user) {
             });
         }
 
-        models.TrackShow.weekEpisodes(req.user.id, year, month, day).then(function(db_episodes) {
+        var queries = [];
+
+        queries.push(models.TrackShow.weekEpisodes(req.user.id, year, month, day));
+        queries.push(models.TrackShow.weekSpan(year, month, day));
+
+        Promise.all(queries).then(function(results) {
+            var db_episodes = results[0];
+
             return res.json({
                 'type': 'episodes',
-                'span': 'week',
+                'span': {
+                    'type': 'week',
+                    'frame': results[1]
+                },
                 'episodes': db_episodes
             });
         }).catch(function(err) {
