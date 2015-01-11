@@ -290,8 +290,33 @@ krusha.factory('apiShow', ['$http', function($http) {
             return $http.get('/api/watched/shows/' + showid + '/seasons/' + season + '/episodes');
         },
 
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getEpisodesMonth
+         * @description
+         * gets all tracked episodes for the specified month
+         * @param {Number} month month
+         * @param {Number} year year
+         * @returns {HttpPromise} HttpPromise
+         */
         getEpisodesMonth: function(month, year) {
             return $http.get('/api/calendar/' + year + '/' + month);
+        },
+
+        /**
+         * @ngdoc apiShow.method
+         * @methodOf krushaTV.service:apiShow
+         * @name apiShow#getEpisodesWeek
+         * @description
+         * gets all tracked episodes for the week the specified date is in
+         * @param {Number} day day
+         * @param {Number} month month
+         * @param {Number} year year
+         * @returns {HttpPromise} HttpPromise
+         */
+        getEpisodesWeek: function(day, month, year) {
+            return $http.get('/api/calendar/' + year + '/' + month + '/' + day + '/week');
         }
     }
 }]);
