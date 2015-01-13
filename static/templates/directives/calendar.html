@@ -25,12 +25,14 @@
             </div>
         </div>
         <div class="row" ng-show="active_mode === 'week'">
-            <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{date_format}}" ng-model="dt" ng-change="changeWeek(dt.getFullYear(), dt.getMonth()+1, dt.getDate())" is-open="opened" ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
-                </span>
-            </p>
+            <div class="col-xs-12">
+                <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{date_format}}" ng-model="dt" ng-change="changeWeek(dt.getFullYear(), dt.getMonth()+1, dt.getDate())" is-open="opened" ng-required="true" close-text="Close" datepicker-append-to-body="true" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
         </div>
     </div>
     <div class="col-lg-3">
