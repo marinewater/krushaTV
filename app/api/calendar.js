@@ -59,7 +59,7 @@ module.exports = function(router, log, models, user) {
                 'type': 'episodes',
                 'span': {
                     'type': 'week',
-                    'frame': results[1]
+                    'frame': results[1][0]
                 },
                 'episodes': db_episodes
             });

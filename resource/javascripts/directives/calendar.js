@@ -1,6 +1,10 @@
-krusha.directive('calendar', ['calendar', 'hotkeys', function(calendar, hotkeys) {
+krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calendar, hotkeys, loggedin) {
     var link = function($scope) {
         var today = new Date();
+
+        $scope.date_format = loggedin.getDateFormat();
+
+        $scope.active_mode = 'month';
 
         $scope.year = today.getFullYear();
         $scope.month = today.getMonth()+1;
@@ -25,6 +29,17 @@ krusha.directive('calendar', ['calendar', 'hotkeys', function(calendar, hotkeys)
             }
         };
 
+        /**
+         * shows DatePicker
+         * @param $event
+         */
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+
         $scope.changeMonth = function(year, month) {
             if (typeof year === 'undefined' || typeof month === 'undefined') {
                 var today = new Date();
@@ -33,7 +48,25 @@ krusha.directive('calendar', ['calendar', 'hotkeys', function(calendar, hotkeys)
             }
             var days = calendar.getDays(year, month);
 
-            $scope.getShows()(year, month).success(function(data) {
+            $scope.getShowsMonth()(year, month).success(function(data) {
+                addShows(days, data.episodes);
+                $scope.days = days;
+            });
+        };
+
+        $scope.changeWeek = function(year, month, day) {
+            if (typeof year === 'undefined' || typeof month === 'undefined' || typeof day === 'undefined') {
+                var today = new Date();
+                year = today.getFullYear();
+                month = today.getMonth()+1;
+                day = today.getDate();
+            }
+
+            $scope.getShowsWeek()(year, month, day).success(function(data) {
+                $scope.first_day = new Date(data.span.frame.from);
+                $scope.last_day = new Date(data.span.frame.to);
+
+                var days = calendar.getDaysWeek($scope.first_day, $scope.last_day);
                 addShows(days, data.episodes);
                 $scope.days = days;
             });
@@ -55,6 +88,10 @@ krusha.directive('calendar', ['calendar', 'hotkeys', function(calendar, hotkeys)
             }
 
             $scope.changeMonth($scope.year, $scope.month);
+        };
+
+        $scope.changeMode = function(mode) {
+            $scope.active_mode = mode;
         };
 
         // bind hotkeys
@@ -82,7 +119,8 @@ krusha.directive('calendar', ['calendar', 'hotkeys', function(calendar, hotkeys)
         link: link,
         templateUrl: '/static/templates/directives/calendar.html',
         scope: {
-            getShows: '&'
+            getShowsMonth: '&',
+            getShowsWeek: '&'
         }
     }
 }]);
