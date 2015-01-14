@@ -37,6 +37,20 @@ describe('Calendar', function() {
                     done();
                 });
         });
+
+        it('should return an unauthorized error (day)', function (done) {
+            request(app)
+                .get('/api/calendar/2014/1/1')
+                .set('Content-Type', 'application/json')
+                .expect(401)
+                .end(function (err, res) {
+                    should.not.exist(err);
+                    res.body.should.have.property('type', 'error');
+                    res.body.should.have.property('code', 401);
+                    res.body.should.have.property('message', 'not logged in');
+                    done();
+                });
+        });
     });
 
     describe('logged in', function() {
@@ -314,6 +328,147 @@ describe('Calendar', function() {
             });
         });
 
+        describe('day', function() {
+            it('should return a Bad Request error for non integers', function(done) {
+                user
+                    .get('/api/calendar/a/b/c')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for month < 0', function(done) {
+                user
+                    .get('/api/calendar/2014/-1/1')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for month = 0', function(done) {
+                user
+                    .get('/api/calendar/2014/0/1')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for month > 12', function(done) {
+                user
+                    .get('/api/calendar/2014/13/1')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for years < 1900', function(done) {
+                user
+                    .get('/api/calendar/1899/12/1')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for years > 3000', function(done) {
+                user
+                    .get('/api/calendar/3001/12/1')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for days < 0', function(done) {
+                user
+                    .get('/api/calendar/2014/12/-1')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for days < 1', function(done) {
+                user
+                    .get('/api/calendar/2014/12/0')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return a Bad Request error for days > 31', function(done) {
+                user
+                    .get('/api/calendar/2014/12/32')
+                    .set('Content-Type', 'application/json')
+                    .expect(400)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('type', 'error');
+                        res.body.should.have.property('code', 400);
+                        res.body.should.have.property('message', 'day, month and year have to be integers (1 <= day <= 31; 1 <= month <= 12; 1900 <= year <= 3000)');
+                        done();
+                    });
+            });
+
+            it('should return an empty response', function(done) {
+                user
+                    .get('/api/calendar/2014/12/1')
+                    .set('Content-Type', 'application/json')
+                    .expect(200)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('episodes', []);
+                        res.body.should.have.property('type', 'episodes');
+                        done();
+                    });
+            });
+        });
+
         describe('with data', function() {
             var showid;
 
@@ -352,7 +507,7 @@ describe('Calendar', function() {
                 });
             });
 
-            it('should return an empty response (month)npm tes', function(done) {
+            it('should return an empty response (month)', function(done) {
                 user
                     .get('/api/calendar/2014/12')
                     .set('Content-Type', 'application/json')
@@ -368,6 +523,19 @@ describe('Calendar', function() {
             it('should return an empty response (week)', function(done) {
                 user
                     .get('/api/calendar/2014/12/30/week')
+                    .set('Content-Type', 'application/json')
+                    .expect(200)
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property('episodes', []);
+                        res.body.should.have.property('type', 'episodes');
+                        done();
+                    });
+            });
+
+            it('should return an empty response (day)', function(done) {
+                user
+                    .get('/api/calendar/2014/12/30')
                     .set('Content-Type', 'application/json')
                     .expect(200)
                     .end(function(err, res) {
@@ -417,6 +585,25 @@ describe('Calendar', function() {
                 it('should return one episode (week)', function(done) {
                     user
                         .get('/api/calendar/2014/12/30/week')
+                        .set('Content-Type', 'application/json')
+                        .expect(200)
+                        .end(function(err, res) {
+                            should.not.exist(err);
+                            res.body.should.have.property('type', 'episodes');
+                            res.body.should.have.property('episodes');
+                            res.body.episodes[0].should.have.property('airdate', '2014-12-31T23:59:59.000Z');
+                            res.body.episodes[0].should.have.property('episode', 2);
+                            res.body.episodes[0].should.have.property('id', showid);
+                            res.body.episodes[0].should.have.property('name', 'test');
+                            res.body.episodes[0].should.have.property('season', 3);
+                            res.body.episodes[0].should.have.property('title', 'test episode');
+                            done();
+                        });
+                });
+
+                it('should return one episode (day)', function(done) {
+                    user
+                        .get('/api/calendar/2014/12/31')
                         .set('Content-Type', 'application/json')
                         .expect(200)
                         .end(function(err, res) {
