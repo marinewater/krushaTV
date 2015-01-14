@@ -8949,51 +8949,51 @@ slider .handle.active {
   display: none;
 }
 @media (max-width: 767px) {
-  /* line 16, ../../resource/stylesheets/custom/_calendar.scss */
-  .calendar .date span {
+  /* line 23, ../../resource/stylesheets/custom/_calendar.scss */
+  .calendar.week .date span {
     display: inline;
     text-align: right;
     float: right;
     font-weight: bold;
   }
 }
-/* line 28, ../../resource/stylesheets/custom/_calendar.scss */
+/* line 34, ../../resource/stylesheets/custom/_calendar.scss */
 .calendar ul.list-unstyled, .calendar ul.list-inline {
   margin: 10px;
 }
 @media (max-width: 767px) {
-  /* line 34, ../../resource/stylesheets/custom/_calendar.scss */
+  /* line 40, ../../resource/stylesheets/custom/_calendar.scss */
   .calendar.week thead {
     display: none;
   }
-  /* line 39, ../../resource/stylesheets/custom/_calendar.scss */
+  /* line 45, ../../resource/stylesheets/custom/_calendar.scss */
   .calendar.week tbody td {
     display: block;
   }
 }
 
-/* line 48, ../../resource/stylesheets/custom/_calendar.scss */
+/* line 54, ../../resource/stylesheets/custom/_calendar.scss */
 calendar .spinner {
   margin: 20px auto 0;
 }
-/* line 52, ../../resource/stylesheets/custom/_calendar.scss */
+/* line 58, ../../resource/stylesheets/custom/_calendar.scss */
 calendar .calendar-mode {
   padding-bottom: 10px;
 }
 
-/* line 58, ../../resource/stylesheets/custom/_calendar.scss */
+/* line 64, ../../resource/stylesheets/custom/_calendar.scss */
 .calendar-heading.week {
   font-size: 20px;
 }
 
 @media (max-width: 767px) {
-  /* line 64, ../../resource/stylesheets/custom/_calendar.scss */
+  /* line 70, ../../resource/stylesheets/custom/_calendar.scss */
   .calendar-heading {
     font-size: 30px;
   }
 }
 @media (min-width: 768px) {
-  /* line 70, ../../resource/stylesheets/custom/_calendar.scss */
+  /* line 76, ../../resource/stylesheets/custom/_calendar.scss */
   .calendar-heading {
     text-align: right;
     margin-top: 0;

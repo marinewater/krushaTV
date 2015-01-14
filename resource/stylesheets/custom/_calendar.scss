@@ -15,12 +15,18 @@
 
     span {
       display: none;
+    }
+  }
 
-      @media (max-width: $screen-xs-max) {
-        display: inline;
-        text-align: right;
-        float: right;
-        font-weight: bold;
+  &.week {
+    .date {
+      span {
+        @media (max-width: $screen-xs-max) {
+          display: inline;
+          text-align: right;
+          float: right;
+          font-weight: bold;
+        }
       }
     }
   }

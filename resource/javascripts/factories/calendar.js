@@ -125,7 +125,7 @@ krusha.factory('calendar', [function() {
      * weekdays
      * @type {string[]}
      */
-    var allWeekdays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+    var allWeekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
     return {
         getAllMonth: getAllMonth,
