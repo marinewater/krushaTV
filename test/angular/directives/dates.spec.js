@@ -39,7 +39,8 @@ describe('dates', function() {
             expect(element.children('tbody:first').children().length).toBe(1);
 
             var date_cell = element.find('tbody:first tr:first td:first');
-            expect(date_cell.find('div.date').text()).toBe('1');
+            expect(date_cell.find('div.date').text()).toContain('1');
+            expect(date_cell.find('div.date > span').length).toBe(1);
             expect(date_cell.find('li').length).toBe(1);
 
             var show = date_cell.find('li:first');
