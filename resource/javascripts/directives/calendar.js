@@ -4,13 +4,15 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
 
         $scope.date_format = loggedin.getDateFormat();
 
-        $scope.active_mode = 'month';
+        $scope.active_mode = 'week';
 
         $scope.year = today.getFullYear();
         $scope.month = today.getMonth()+1;
 
         $scope.allMonth = calendar.getAllMonth();
         $scope.allWeekdays = calendar.allWeekdays;
+
+        $scope.dt = new Date();
 
         var addShows = function(days, shows) {
             for (var show in shows) {
@@ -148,7 +150,7 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
                 }
             });
 
-        $scope.changeMonth();
+        $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
     };
 
     return {
