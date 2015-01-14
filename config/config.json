@@ -1,15 +1,15 @@
 {
   "development": {
-    "username": "",
-    "password": "",
-    "database": "",
-    "host": "",
+    "username": "database",
+    "password": "database",
+    "database": "krushaTV",
+    "host": "0.0.0.0",
     "dialect": "postgres",
     "logging": false
   },
   "test": {
-    "username": "postgres",
-    "password": null,
+    "username": "database",
+    "password": "database",
     "database": "krushaTV_test",
     "host": "0.0.0.0",
     "dialect": "postgres",

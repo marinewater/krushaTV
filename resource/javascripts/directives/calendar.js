@@ -40,20 +40,6 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.opened = true;
         };
 
-        $scope.changeMonth = function(year, month) {
-            if (typeof year === 'undefined' || typeof month === 'undefined') {
-                var today = new Date();
-                year = today.getFullYear();
-                month = today.getMonth()+1;
-            }
-            var days = calendar.getDays(year, month);
-
-            $scope.getShowsMonth()(year, month).success(function(data) {
-                addShows(days, data.episodes);
-                $scope.days = days;
-            });
-        };
-
         $scope.changeWeek = function(year, month, day) {
             if (typeof year === 'undefined' || typeof month === 'undefined' || typeof day === 'undefined') {
                 var today = new Date();
@@ -63,10 +49,25 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             }
 
             $scope.getShowsWeek()(year, month, day).success(function(data) {
+
                 $scope.first_day = new Date(data.span.frame.from);
                 $scope.last_day = new Date(data.span.frame.to);
 
                 var days = calendar.getDaysWeek($scope.first_day, $scope.last_day);
+                addShows(days, data.episodes);
+                $scope.days = days;
+            });
+        };
+
+        $scope.changeMonth = function(year, month) {
+            if (typeof year === 'undefined' || typeof month === 'undefined') {
+                var today = new Date();
+                year = today.getFullYear();
+                month = today.getMonth()+1;
+            }
+            var days = calendar.getDays(year, month);
+
+            $scope.getShowsMonth()(year, month).success(function(data) {
                 addShows(days, data.episodes);
                 $scope.days = days;
             });
@@ -91,7 +92,35 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
         };
 
         $scope.changeMode = function(mode) {
+            var now = new Date();
             $scope.active_mode = mode;
+
+            if (mode !== 'month') {
+
+                if ((typeof $scope.year === 'undefined' || typeof $scope.month === 'undefined') || ($scope.year === now.getFullYear() && $scope.month === now.getMonth()+1)) {
+                    $scope.dt = now;
+                }
+                else {
+                    $scope.dt = new Date($scope.year, $scope.month-1, 1);
+                }
+
+                if (mode === 'week') {
+                    $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate())
+                }
+            }
+
+            else {
+                if (typeof $scope.dt === 'undefined') {
+                    $scope.year = now.getFullYear();
+                    $scope.month = now.getMonth()+1;
+                }
+                else {
+                    $scope.year = $scope.dt.getFullYear();
+                    $scope.month = $scope.dt.getMonth()+1;
+                }
+
+                $scope.changeMonth($scope.year, $scope.month);
+            }
         };
 
         // bind hotkeys
