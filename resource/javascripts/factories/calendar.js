@@ -93,7 +93,7 @@ krusha.factory('calendar', [function() {
     var getDaysWeek = function(first_day, last_day) {
         var days = [];
 
-        for (var day = first_day; day <= last_day; day.setDate(day.getDate() + 1)) {
+        for (var day = new Date(first_day); day <= last_day; day.setDate(day.getDate() + 1)) {
             days.push({
                 'date': new Date(day), // without new Date every day ends up being the last day
                 'active': true,
