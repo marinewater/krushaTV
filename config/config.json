@@ -8,8 +8,8 @@
     "logging": false
   },
   "test": {
-    "username": "database",
-    "password": "database",
+    "username": "postgres",
+    "password": null,
     "database": "krushaTV_test",
     "host": "0.0.0.0",
     "dialect": "postgres",
