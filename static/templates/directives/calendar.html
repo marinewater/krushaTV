@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col-xs-12 col-lg-3 col-lg-push-5 text-center">
-        <div class="btn-group" role="group" aria-label="...">
+    <div class="col-xs-12 col-lg-3 col-lg-push-5 text-center calendar-mode">
+        <div class="btn-group" role="group" aria-label="calendar mode">
             <button type="button" class="btn btn-default" ng-class="{active: active_mode==='day'}" ng-click="changeMode('day')">Day</button>
             <button type="button" class="btn btn-default" ng-class="{active: active_mode==='week'}" ng-click="changeMode('week')">Week</button>
             <button type="button" class="btn btn-default" ng-class="{active: active_mode==='month'}" ng-click="changeMode('month')">Month</button>
@@ -32,13 +32,19 @@
             </div>
         </div>
         <div class="row" ng-show="active_mode === 'week'">
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-sm-8 col-sm-push-2">
                 <p class="input-group">
                     <input type="text" class="form-control" datepicker-popup="{{date_format}}" ng-model="dt" ng-change="changeWeek(dt.getFullYear(), dt.getMonth()+1, dt.getDate())" is-open="opened" ng-required="true" close-text="Close" datepicker-append-to-body="true" />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
                     </span>
                 </p>
+            </div>
+            <div class="col-xs-6 col-sm-2 col-sm-pull-8 text-right">
+                <button class="btn btn-default" ng-click="changeDay(-7)" value="previous week"><i class="fa fa-angle-left"></i></button>
+            </div>
+            <div class="col-xs-6 col-sm-2">
+                <button class="btn btn-default" ng-click="changeDay(7)" value="next week"><i class="fa fa-angle-right"></i></button>
             </div>
         </div>
     </div>
@@ -50,8 +56,8 @@
         <h1 class="calendar-heading week" ng-show="active_mode==='week'">{{ first_day | date: date_format }} - {{ last_day | date: date_format }}</h1>
     </div>
 </div>
-<div class="table-responsive">
-<table class="table table-striped table-bordered calendar">
+<div ng-class="{'table-responsive': active_mode !== 'week'}">
+<table class="table table-striped table-bordered calendar" ng-class="{'week': active_mode === 'week'}">
     <thead>
     <tr>
         <th ng-repeat="weekday in ::allWeekdays">{{ ::weekday }}</th>

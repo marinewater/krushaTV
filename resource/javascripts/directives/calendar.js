@@ -91,6 +91,14 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.changeMonth($scope.year, $scope.month);
         };
 
+        $scope.changeDay = function(days) {
+            $scope.dt = new Date($scope.dt.setDate($scope.dt.getDate() + days));
+
+            if ($scope.active_mode === 'week') {
+                $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
+            }
+        };
+
         $scope.changeMode = function(mode) {
             var now = new Date();
             $scope.active_mode = mode;
@@ -105,7 +113,7 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
                 }
 
                 if (mode === 'week') {
-                    $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate())
+                    $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
                 }
             }
 
@@ -154,7 +162,17 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
     }
 }]);
 
-krusha.directive('dates', ['$filter', function($filter) {
+krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
+    var getWeekDay = function(day) {
+        day -= 1;
+
+        if (day < 0) {
+            day = 6;
+        }
+
+        return calendar.allWeekdays[day];
+    };
+
     /**
      * create a table cell for each day of the week and fill it with the corresponding episodes
      * @param row
@@ -163,7 +181,11 @@ krusha.directive('dates', ['$filter', function($filter) {
     var addDay = function(row, day) {
         if (typeof day !== 'undefined') {
             var date_cell = $('<td/>');
-            $('<div/>').addClass('date').text(day.date.getDate()).appendTo(date_cell);
+            var date = $('<div/>');
+
+            date.addClass('date').text(day.date.getDate()).appendTo(date_cell);
+
+            $('<span/>').text(getWeekDay(day.date.getDay())).appendTo(date);
 
             var list = $('<ul/>').addClass('list-unstyled').appendTo(date_cell);
 

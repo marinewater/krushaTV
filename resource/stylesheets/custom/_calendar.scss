@@ -12,16 +12,51 @@
   .date {
     background-color: #F7F7F7;
     padding: 3px;
+
+    span {
+      display: none;
+
+      @media (max-width: $screen-xs-max) {
+        display: inline;
+        text-align: right;
+        float: right;
+        font-weight: bold;
+      }
+    }
   }
 
   ul.list-unstyled {
     margin: 10px;
+  }
+
+  @media (max-width: $screen-xs-max) {
+    &.week {
+      thead {
+        display: none;
+      }
+
+      tbody {
+        td {
+          display: block;
+        }
+      }
+    }
   }
 }
 
 calendar {
   .spinner {
     margin: 20px auto 0;
+  }
+
+  .calendar-mode {
+    padding-bottom: 10px;
+  }
+}
+
+.calendar-heading {
+  &.week {
+    font-size: 20px;
   }
 }
 
@@ -35,9 +70,5 @@ calendar {
   .calendar-heading {
     text-align: right;
     margin-top: 0;
-
-    &.week {
-      font-size: 20px;
-    }
   }
 }
