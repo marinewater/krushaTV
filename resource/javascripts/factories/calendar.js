@@ -107,6 +107,26 @@ krusha.factory('calendar', [function() {
     /**
      * @ngdoc calendar.method
      * @methodOf krushaTV.service:calendar
+     * @name calendar#getDaysDay
+     * @description creates an array with an entry for one day
+     * @param {Date} day day
+     * @return {Array} contains an entry for one day
+     */
+    var getDaysDay = function(day) {
+        var days = [];
+
+        days.push({
+            'date': new Date(day), // without new Date every day ends up being the last day
+            'active': true,
+            'shows': []
+        });
+
+        return days;
+    };
+
+    /**
+     * @ngdoc calendar.method
+     * @methodOf krushaTV.service:calendar
      * @name calendar#getAllMonth
      * @description returns array containing numbers one to twelve
      * @return {Array} month
@@ -122,6 +142,24 @@ krusha.factory('calendar', [function() {
     };
 
     /**
+     * @ngdoc calendar.method
+     * @methodOf krushaTV.service:calendar
+     * @name calendar#getWeekDay
+     * @description returns the the name for a day of the week
+     * @param {Number} day javascript's day of the week
+     * @return {String} name of the weekday
+     */
+    var getWeekDay = function(day) {
+        day -= 1;
+
+        if (day < 0) {
+            day = 6;
+        }
+
+        return allWeekdays[day];
+    };
+
+    /**
      * weekdays
      * @type {string[]}
      */
@@ -131,6 +169,8 @@ krusha.factory('calendar', [function() {
         getAllMonth: getAllMonth,
         allWeekdays: allWeekdays,
         getDays: getDays,
-        getDaysWeek: getDaysWeek
+        getDaysWeek: getDaysWeek,
+        getWeekDay: getWeekDay,
+        getDaysDay: getDaysDay
     }
 }]);

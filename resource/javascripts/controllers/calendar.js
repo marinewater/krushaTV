@@ -8,4 +8,8 @@ krusha.controller('calendarCtrl', ['$scope', 'apiShow', function($scope, apiShow
     $scope.getShowsWeek = function(year, month, day) {
         return apiShow.getEpisodesWeek(day, month, year);
     };
+
+    $scope.getShowsDay = function(year, month, day) {
+        return apiShow.getEpisodesDay(day, month, year);
+    };
 }]);

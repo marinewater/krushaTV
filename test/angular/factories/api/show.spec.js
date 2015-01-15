@@ -158,4 +158,10 @@ describe('apiShow', function() {
         apiShow.getEpisodesWeek(31, 12, 2014);
         $httpBackend.flush();
     });
+
+    it('should get tracked episodes for a day', function() {
+        $httpBackend.expectGET('/api/calendar/2014/12/31').respond(200, {});
+        apiShow.getEpisodesDay(31, 12, 2014);
+        $httpBackend.flush();
+    });
 });

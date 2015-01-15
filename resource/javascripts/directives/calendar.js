@@ -4,13 +4,17 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
 
         $scope.date_format = loggedin.getDateFormat();
 
+        $scope.$on('loggedin', function() {
+            $scope.date_format = loggedin.getDateFormat();
+        });
+
         $scope.active_mode = 'week';
 
         $scope.year = today.getFullYear();
         $scope.month = today.getMonth()+1;
 
         $scope.allMonth = calendar.getAllMonth();
-        $scope.allWeekdays = calendar.allWeekdays;
+        $scope.allWeekdays = null;
 
         $scope.dt = new Date();
 
@@ -42,26 +46,9 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.opened = true;
         };
 
-        $scope.changeWeek = function(year, month, day) {
-            if (typeof year === 'undefined' || typeof month === 'undefined' || typeof day === 'undefined') {
-                var today = new Date();
-                year = today.getFullYear();
-                month = today.getMonth()+1;
-                day = today.getDate();
-            }
-
-            $scope.getShowsWeek()(year, month, day).success(function(data) {
-
-                $scope.first_day = new Date(data.span.frame.from);
-                $scope.last_day = new Date(data.span.frame.to);
-
-                var days = calendar.getDaysWeek($scope.first_day, $scope.last_day);
-                addShows(days, data.episodes);
-                $scope.days = days;
-            });
-        };
-
         $scope.changeMonth = function(year, month) {
+            $scope.allWeekdays = calendar.allWeekdays;
+
             if (typeof year === 'undefined' || typeof month === 'undefined') {
                 var today = new Date();
                 year = today.getFullYear();
@@ -93,29 +80,90 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.changeMonth($scope.year, $scope.month);
         };
 
+        $scope.changeWeek = function(year, month, day) {
+            $scope.allWeekdays = calendar.allWeekdays;
+
+            if (typeof year === 'undefined' || typeof month === 'undefined' || typeof day === 'undefined') {
+                var today = new Date();
+                year = today.getFullYear();
+                month = today.getMonth()+1;
+                day = today.getDate();
+            }
+
+            $scope.getShowsWeek()(year, month, day).success(function(data) {
+                $scope.first_day = new Date(data.span.frame.from);
+                $scope.last_day = new Date(data.span.frame.to);
+
+                var days = calendar.getDaysWeek($scope.first_day, $scope.last_day);
+                addShows(days, data.episodes);
+                $scope.days = days;
+            });
+        };
+
+        $scope.changeDayDisplay = function(year, month, day) {
+            if (typeof year === 'undefined' || typeof month === 'undefined' || typeof day === 'undefined') {
+                var today = new Date();
+                year = today.getFullYear();
+                month = today.getMonth()+1;
+                day = today.getDate();
+            }
+
+            var weekday = new Date(year, month-1, day);
+            $scope.allWeekdays = [calendar.getWeekDay(weekday.getDay())];
+
+            $scope.getShowsDay()(year, month, day).success(function(data) {
+                $scope.thisDay = new Date(data.span.date);
+
+                var days = calendar.getDaysDay($scope.thisDay);
+                addShows(days, data.episodes);
+                $scope.days = days;
+            });
+        };
+
         $scope.changeDay = function(days) {
             $scope.dt = new Date($scope.dt.setDate($scope.dt.getDate() + days));
 
             if ($scope.active_mode === 'week') {
                 $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
             }
+            else {
+                $scope.changeDayDisplay($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
+            }
+        };
+
+        $scope.changeDate = function(date) {
+            var year = date.getFullYear();
+            var month = date.getMonth()+1;
+            var day = date.getDate();
+
+            if ($scope.active_mode === 'week') {
+                $scope.changeWeek(year, month, day);
+            }
+            else {
+                $scope.changeDayDisplay(year, month, day);
+            }
         };
 
         $scope.changeMode = function(mode) {
             var now = new Date();
+            var mode_before = $scope.active_mode;
             $scope.active_mode = mode;
 
             if (mode !== 'month') {
-
-                if ((typeof $scope.year === 'undefined' || typeof $scope.month === 'undefined') || ($scope.year === now.getFullYear() && $scope.month === now.getMonth()+1)) {
-                    $scope.dt = now;
-                }
-                else {
-                    $scope.dt = new Date($scope.year, $scope.month-1, 1);
+                if (mode_before === 'month') {
+                    if ((typeof $scope.year === 'undefined' || typeof $scope.month === 'undefined') || ($scope.year === now.getFullYear() && $scope.month === now.getMonth()+1)) {
+                        $scope.dt = now;
+                    }
+                    else {
+                        $scope.dt = new Date($scope.year, $scope.month-1, 1);
+                    }
                 }
 
                 if (mode === 'week') {
                     $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
+                }
+                else if (mode === 'day') {
+                    $scope.changeDayDisplay($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
                 }
             }
 
@@ -159,22 +207,13 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
         templateUrl: '/static/templates/directives/calendar.html',
         scope: {
             getShowsMonth: '&',
-            getShowsWeek: '&'
+            getShowsWeek: '&',
+            getShowsDay: '&'
         }
     }
 }]);
 
 krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
-    var getWeekDay = function(day) {
-        day -= 1;
-
-        if (day < 0) {
-            day = 6;
-        }
-
-        return calendar.allWeekdays[day];
-    };
-
     /**
      * create a table cell for each day of the week and fill it with the corresponding episodes
      * @param row
@@ -187,7 +226,7 @@ krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
 
             date.addClass('date').text(day.date.getDate()).appendTo(date_cell);
 
-            $('<span/>').text(getWeekDay(day.date.getDay())).appendTo(date);
+            $('<span/>').text(calendar.getWeekDay(day.date.getDay())).appendTo(date);
 
             var list = $('<ul/>').addClass('list-unstyled').appendTo(date_cell);
 

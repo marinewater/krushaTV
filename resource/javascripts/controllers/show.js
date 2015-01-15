@@ -29,7 +29,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		$scope.$on('loggedin', function() {
 			$scope.dateFormat = loggedin.getDateFormat();
 		});
-		
+
 		$scope.active_season = 1;
 		var reddit_info = {};
 
