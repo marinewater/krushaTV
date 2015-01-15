@@ -122,6 +122,7 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
 
         $scope.changeToDay = function(year, month, day) {
             $scope.active_mode = 'day';
+            bindHotkeys();
             $scope.dt = new Date(year, month-1, day);
             $scope.changeDayDisplay(year, month, day);
         };
@@ -154,6 +155,7 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             var now = new Date();
             var mode_before = $scope.active_mode;
             $scope.active_mode = mode;
+            bindHotkeys();
 
             if (mode !== 'month') {
                 if (mode_before === 'month') {
@@ -187,23 +189,65 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             }
         };
 
-        // bind hotkeys
-        hotkeys.bindTo($scope)
-            .add({
-                combo: 'right',
-                description: 'go to next month',
-                callback: function() {
-                    $scope.monthForward();
-                }
-            })
-            .add({
-                combo: 'left',
-                description: 'go to previous month',
-                callback: function() {
-                    $scope.monthBack();
-                }
-            });
+        var bindHotkeys = function() {
+            hotkeys.del('right');
+            hotkeys.del('left');
 
+            switch($scope.active_mode) {
+                case 'month':
+                    hotkeys.bindTo($scope)
+                        .add({
+                            combo: 'right',
+                            description: 'go to next month',
+                            callback: function() {
+                                $scope.monthForward();
+                            }
+                        })
+                        .add({
+                            combo: 'left',
+                            description: 'go to previous month',
+                            callback: function() {
+                                $scope.monthBack();
+                            }
+                        });
+                    break;
+                case 'day':
+                    hotkeys.bindTo($scope)
+                        .add({
+                            combo: 'right',
+                            description: 'go to next day',
+                            callback: function() {
+                                $scope.changeDay(1);
+                            }
+                        })
+                        .add({
+                            combo: 'left',
+                            description: 'go to previous day',
+                            callback: function() {
+                                $scope.changeDay(-1);
+                            }
+                        });
+                    break;
+                case 'week':
+                    hotkeys.bindTo($scope)
+                        .add({
+                            combo: 'right',
+                            description: 'go to next week',
+                            callback: function() {
+                                $scope.changeDay(7);
+                            }
+                        })
+                        .add({
+                            combo: 'left',
+                            description: 'go to previous week',
+                            callback: function() {
+                                $scope.changeDay(-7);
+                            }
+                        });
+            }
+        };
+
+        bindHotkeys();
         $scope.changeWeek($scope.dt.getFullYear(), $scope.dt.getMonth()+1, $scope.dt.getDate());
     };
 
