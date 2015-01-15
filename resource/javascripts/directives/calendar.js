@@ -120,6 +120,12 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             });
         };
 
+        $scope.changeToDay = function(year, month, day) {
+            $scope.active_mode = 'day';
+            $scope.dt = new Date(year, month-1, day);
+            $scope.changeDayDisplay(year, month, day);
+        };
+
         $scope.changeDay = function(days) {
             $scope.dt = new Date($scope.dt.setDate($scope.dt.getDate() + days));
 
@@ -219,23 +225,37 @@ krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
      * @param row
      * @param day
      */
-    var addDay = function(row, day) {
+    var addDay = function(row, day, changeToDay) {
         if (typeof day !== 'undefined') {
             var date_cell = $('<td/>');
             var date = $('<div/>');
 
-            date.addClass('date').text(day.date.getDate()).appendTo(date_cell);
+            date.addClass('date')
+                .text(day.date.getDate())
+                .on('click', function() {
+                    changeToDay()(day.date.getFullYear(), day.date.getMonth()+1, day.date.getDate());
+                })
+                .appendTo(date_cell);
 
-            $('<span/>').text(calendar.getWeekDay(day.date.getDay())).appendTo(date);
+            $('<span/>')
+                .text(calendar.getWeekDay(day.date.getDay()))
+                .appendTo(date);
 
-            var list = $('<ul/>').addClass('list-unstyled').appendTo(date_cell);
+            var list = $('<ul/>')
+                .addClass('list-unstyled')
+                .appendTo(date_cell);
 
             var shows = $filter('orderByName')(day.shows);
 
             shows.forEach(function(show) {
                 var show_item = $('<li/>').appendTo(list);
-                $('<a/>').attr('href', '/show/' + show.id).text(show.name).appendTo(show_item);
-                $('<span/>').text(' - ' + $filter('formatEpisode')(show.episode, show.season)).appendTo(show_item);
+                $('<a/>')
+                    .attr('href', '/show/' + show.id)
+                    .text(show.name)
+                    .appendTo(show_item);
+                $('<span/>')
+                    .text(' - ' + $filter('formatEpisode')(show.episode, show.season))
+                    .appendTo(show_item);
             });
 
             if (!day.active) {
@@ -254,7 +274,7 @@ krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
                 for (var i = 0; i < $scope.days.length; i += 7) {
                     var row = $('<tr/>');
                     for (var j = i; j < i + 7; j++) {
-                        addDay(row, $scope.days[j]);
+                        addDay(row, $scope.days[j], $scope.changeToDay);
                     }
                     element.append(row);
                 }
@@ -266,7 +286,8 @@ krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
         restrict: 'A',
         link: link,
         scope: {
-            days: '='
+            days: '=',
+            changeToDay: '&'
         }
     }
 }]);
