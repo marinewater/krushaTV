@@ -57,6 +57,7 @@ krusha.controller('loginCtrl', ['$scope', '$location', 'apiAuth', 'notifications
 					notifications.add('Welcome ' + data.user + '!', 'success', 5000);
 					loggedin.setUser(data.user);
 					loggedin.setStatus(true);
+					loggedin.setDateFormat(data.dateFormat);
 					redirect.back();
 				})
 				.error(function(data, code) {

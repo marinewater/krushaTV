@@ -24,7 +24,12 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		$scope.loggedin = loggedin.getStatus();
 		$scope.submittedRedditText = false;
 		$scope.submittedImdbId = false;
+
 		$scope.dateFormat = loggedin.getDateFormat();
+		$scope.$on('loggedin', function() {
+			$scope.dateFormat = loggedin.getDateFormat();
+		});
+		
 		$scope.active_season = 1;
 		var reddit_info = {};
 
