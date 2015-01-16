@@ -10,8 +10,8 @@ describe('apiImdb', function() {
     }));
 
     it('should send imdb id to api', function() {
-        $httpBackend.expectPOST('/api/imdb', {'imdb_id': 'tt1234567', 'showid': '1234'}).respond(200, {});
-        apiImdb.submitIMDbId('tt1234567', '1234');
+        $httpBackend.expectPOST('/api/imdb', {'imdb_id': 'tt1234567', 'showid': 1234}).respond(200, {});
+        apiImdb.submitIMDbId('tt1234567', 1234);
         $httpBackend.flush();
     });
 

@@ -61,3 +61,15 @@ krusha.filter('copyEpisode', ['$filter', function($filter) {
 		return episode.showname + ' ' + $filter('formatEpisode')(episode.episode, episode.season);
 	}
 }]);
+
+krusha.filter('monthName', function() {
+	var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	return function(month) {
+		if (month < 1 || month > 12) {
+			return null;
+		}
+		else {
+			return monthNames[month-1];
+		}
+	}
+});

@@ -39,7 +39,8 @@ module.exports = function(router, log, models, passport, user) {
 				}
 				return res.json({
 					'type': 'authenticated',
-					'user': user.username
+					'user': user.username,
+					'dateFormat': user.date_format
 				});
 			});
 		})(req, res, next);

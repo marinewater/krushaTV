@@ -54,8 +54,12 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
             .when('/watched', {
                 templateUrl: '/static/templates/watched.html',
                 controller: 'watchedCtrl'
-            }).
-            otherwise({
+            })
+            .when('/calendar', {
+                templateUrl: '/static/templates/calendar.html',
+                controller: 'calendarCtrl'
+            })
+            .otherwise({
                 redirectTo: '/'
             });
 

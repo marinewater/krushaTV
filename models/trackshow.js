@@ -97,6 +97,58 @@ module.exports = function(sequelize, DataTypes) {
 						WHERE e.seriesid = t.showid AND t.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND e.season = ' + season +
 						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id AND w.userid = t.userid) \
 						ORDER BY e.episode;');
+			},
+
+			monthEpisodes: function(userid, year, month) {
+				userid = parseInt(userid);
+				year = parseInt(year);
+				month = parseInt(month);
+				if (isNaN(userid) || isNaN(year) || isNaN(month) || year < 1900 || year > 3000 || month < 1 || month > 12)
+					return;
+
+				var date = year + '-' + month + '-01';
+
+				return sequelize
+					.query('SELECT s.id, s.name, e.episode, e.season, e.title, e.airdate ' +
+					'FROM "' + sequelize.models.TrackShow.tableName + '" t, "' + sequelize.models.Series.tableName + '" s, "' + sequelize.models.Episodes.tableName + '" e ' +
+					'WHERE t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
+					'AND e.airdate >= date_trunc(\'month\', date(\'' + date + '\'))' +
+					'AND e.airdate <= date_trunc(\'month\', date(\'' + date + '\')) + \'1month\'::interval - \'1sec\'::interval;');
+			},
+
+			weekEpisodes: function(userid, year, month, day) {
+				userid = parseInt(userid);
+				year = parseInt(year);
+				month = parseInt(month);
+				day = parseInt(day);
+				if (isNaN(userid) || isNaN(year) || isNaN(month) || isNaN(day) || year < 1900 || year > 3000 || month < 1 || month > 12 || day < 1 || day > 31)
+					return;
+
+				var date_parsed = new Date(year, month-1, day);
+				var date = date_parsed.getFullYear() + '-' + (date_parsed.getMonth() + 1) + '-' + date_parsed.getDate();
+
+				return sequelize
+					.query('SELECT s.id, s.name, s.genre, e.episode, e.season, e.title, e.airdate ' +
+					'FROM "' + sequelize.models.TrackShow.tableName + '" t, "' + sequelize.models.Series.tableName + '" s, "' + sequelize.models.Episodes.tableName + '" e ' +
+					'WHERE t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
+					'AND e.airdate >= date_trunc(\'week\', \'' + date + '\'::timestamp)' +
+					'AND e.airdate <= (date_trunc(\'week\', \'' + date + '\'::timestamp)+ \'6 days\'::interval)::date;');
+			},
+
+			weekSpan: function(year, month, day) {
+				year = parseInt(year);
+				month = parseInt(month);
+				day = parseInt(day);
+				if (isNaN(year) || isNaN(month) || isNaN(day) || year < 1900 || year > 3000 || month < 1 || month > 12 || day < 1 || day > 31)
+					return;
+
+				var date_parsed = new Date(year, month-1, day);
+				var date = date_parsed.getFullYear() + '-' + (date_parsed.getMonth() + 1) + '-' + date_parsed.getDate();
+
+				return sequelize
+					.query('SELECT ' +
+					'date_trunc(\'week\', \'' + date + '\'::timestamp) as from, ' +
+					'(date_trunc(\'week\', \'' + date + '\'::timestamp)+ \'6 days\'::interval)::date as to;');
 			}
 		}
 	});
