@@ -97,3 +97,26 @@ $tab-nav-width: 0.2;
     border: $card-border;
   }
 }
+
+@media (max-width: $screen-md-min) {
+  .profile {
+    &.col-md-12 {
+      padding-right: 0;
+    }
+
+    ul.nav.nav-pills.nav-stacked {
+      float: none;
+      width: 100%;
+    }
+
+    .tab-content {
+      width: 100%;
+    }
+  }
+}
+
+.up {
+  margin: auto;
+  position: relative;
+  top: 15px;
+}

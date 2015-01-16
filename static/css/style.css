@@ -8350,7 +8350,7 @@ footer li {
 /* line 9, ../../resource/stylesheets/custom/_profile.scss */
 .profile .shortcuts kbd {
   padding: 6px 8px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 /* line 14, ../../resource/stylesheets/custom/_profile.scss */
 .profile .shortcuts li {
@@ -8439,6 +8439,28 @@ footer li {
   padding: 15px 30px 30px 30px;
   background-color: #FFF;
   border: 1px solid #dedede;
+}
+
+@media (max-width: 992px) {
+  /* line 103, ../../resource/stylesheets/custom/_profile.scss */
+  .profile.col-md-12 {
+    padding-right: 0;
+  }
+  /* line 107, ../../resource/stylesheets/custom/_profile.scss */
+  .profile ul.nav.nav-pills.nav-stacked {
+    float: none;
+    width: 100%;
+  }
+  /* line 112, ../../resource/stylesheets/custom/_profile.scss */
+  .profile .tab-content {
+    width: 100%;
+  }
+}
+/* line 118, ../../resource/stylesheets/custom/_profile.scss */
+.up {
+  margin: auto;
+  position: relative;
+  top: 15px;
 }
 
 /* line 3, ../../resource/stylesheets/custom/_navbar.scss */
