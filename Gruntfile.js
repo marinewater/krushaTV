@@ -20,14 +20,15 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 sourceMap: true,
-                compress: false,
-                beautify: true,
-                mangle: false,
+                compress: true,
+                beautify: false,
+                mangle: true,
                 preserveComments: false
             },
             my_target: {
                 files: {
                     'static/javascripts/krusha.min.js': [
+                        'static/javascripts/bower_components/angular-growl-notifications/dist/angular-growl-notifications.js',
                         'resource/javascripts/polyfills.js',
                         'resource/javascripts/scrollfix.js',
                         'resource/javascripts/recaptcha.js',

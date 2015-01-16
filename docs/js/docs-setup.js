@@ -280,7 +280,16 @@ NG_DOCS={
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "Rest API calls for shows and episodes",
-      "keywords": "$http adds addshow addtracked api apishow calls database deletetracked episode episode_id episodes external getepisodes getomdb getseasons getshow gettodaysepisodes gettracked getunwatched getunwatchedepisodes getunwatchedseasons getunwatchedshows getwatched getwatchedepisodes getwatchedseasons getwatchedshows httppromise imdb imdb_id krushatv local loggedin marks markseasonnotwatched markseasonwatched markshownotwatched markshowwatched method notwatchedepisode number omdb rating remote removes rest retrieves season season_nr seasons service showid specific stores today tomorrow tracked tracking tt1285016 unwatched user valid watched watchedepisode yesterday"
+      "keywords": "$http adds addshow addtracked api apishow calls database day deletetracked episode episode_id episodes external getepisodes getepisodesday getepisodesmonth getepisodesweek getomdb getseasons getshow gettodaysepisodes gettracked getunwatched getunwatchedepisodes getunwatchedseasons getunwatchedshows getwatched getwatchedepisodes getwatchedseasons getwatchedshows httppromise imdb imdb_id krushatv local loggedin marks markseasonnotwatched markseasonwatched markshownotwatched markshowwatched method month notwatchedepisode number omdb rating remote removes rest retrieves season season_nr seasons service showid specific stores today tomorrow tracked tracking tt1285016 unwatched user valid watched watchedepisode week year yesterday"
+    },
+    {
+      "section": "api",
+      "id": "krushaTV.service:calendar",
+      "shortName": "calendar",
+      "type": "service",
+      "moduleName": "krushaTV",
+      "shortDescription": "helper functions for calendar directive",
+      "keywords": "api array calendar creates day days december directive entries entry first_day functions getallmonth getdays getdaysday getdaysweek getweekday helper javascript krushatv last_day lastdayofmonth method monday month november numbers previous returns service sunday twelve week weekday weeks year"
     },
     {
       "section": "api",
