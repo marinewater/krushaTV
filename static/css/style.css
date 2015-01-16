@@ -8784,72 +8784,77 @@ footer li {
 }
 
 /* line 7, ../../resource/stylesheets/custom/_profile.scss */
+.profile .username {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
+/* line 12, ../../resource/stylesheets/custom/_profile.scss */
 .profile .shortcuts {
   font-size: 18px;
 }
-/* line 9, ../../resource/stylesheets/custom/_profile.scss */
+/* line 14, ../../resource/stylesheets/custom/_profile.scss */
 .profile .shortcuts kbd {
   padding: 6px 8px;
   margin-right: 20px;
 }
-/* line 14, ../../resource/stylesheets/custom/_profile.scss */
+/* line 19, ../../resource/stylesheets/custom/_profile.scss */
 .profile .shortcuts li {
   margin-bottom: 20px;
 }
-/* line 19, ../../resource/stylesheets/custom/_profile.scss */
+/* line 24, ../../resource/stylesheets/custom/_profile.scss */
 .profile .example {
   padding-top: 15px;
 }
-/* line 23, ../../resource/stylesheets/custom/_profile.scss */
+/* line 28, ../../resource/stylesheets/custom/_profile.scss */
 .profile.col-md-12 {
   padding-left: 0;
 }
-/* line 28, ../../resource/stylesheets/custom/_profile.scss */
+/* line 33, ../../resource/stylesheets/custom/_profile.scss */
 .profile .date-format .col-lg-2 {
   padding-left: 0;
 }
-/* line 31, ../../resource/stylesheets/custom/_profile.scss */
+/* line 36, ../../resource/stylesheets/custom/_profile.scss */
 .profile .date-format success {
   line-height: 34px;
   vertical-align: middle;
 }
-/* line 36, ../../resource/stylesheets/custom/_profile.scss */
+/* line 41, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills {
   background-color: #222;
   color: #F2F1F1;
   width: 20%;
   float: left;
 }
-/* line 42, ../../resource/stylesheets/custom/_profile.scss */
+/* line 47, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .fa, .profile .nav-pills .glyphicon {
   margin-right: 5px;
 }
-/* line 46, ../../resource/stylesheets/custom/_profile.scss */
+/* line 51, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .fa-user {
   color: #5179D0;
 }
-/* line 50, ../../resource/stylesheets/custom/_profile.scss */
+/* line 55, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .fa-calendar {
   color: #33B265;
 }
-/* line 54, ../../resource/stylesheets/custom/_profile.scss */
+/* line 59, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .imdb {
   color: #ECCC4A;
 }
-/* line 58, ../../resource/stylesheets/custom/_profile.scss */
+/* line 63, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .reddit-color {
   color: #ff5700;
 }
-/* line 62, ../../resource/stylesheets/custom/_profile.scss */
+/* line 67, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills .fa-eye {
   color: #79EEFD;
 }
-/* line 66, ../../resource/stylesheets/custom/_profile.scss */
+/* line 71, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li {
   padding: 0;
   margin: 0;
 }
-/* line 70, ../../resource/stylesheets/custom/_profile.scss */
+/* line 75, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li a {
   padding: 15px 20px;
   -moz-border-radius: 0 / 0;
@@ -8858,7 +8863,7 @@ footer li {
   font-size: 18px;
   color: #F2F1F1;
 }
-/* line 76, ../../resource/stylesheets/custom/_profile.scss */
+/* line 81, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li a:hover {
   padding-left: 30px;
   background-color: #3D3D3D;
@@ -8867,12 +8872,12 @@ footer li {
   -webkit-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-/* line 84, ../../resource/stylesheets/custom/_profile.scss */
+/* line 89, ../../resource/stylesheets/custom/_profile.scss */
 .profile .nav-pills > li.active > a, .profile .nav-pills > li.active > a:hover, .profile .nav-pills > li.active > a:focus {
   background-color: #303030;
   padding-left: 30px;
 }
-/* line 92, ../../resource/stylesheets/custom/_profile.scss */
+/* line 97, ../../resource/stylesheets/custom/_profile.scss */
 .profile .tab-content {
   width: 80%;
   float: right;
@@ -8882,21 +8887,21 @@ footer li {
 }
 
 @media (max-width: 992px) {
-  /* line 103, ../../resource/stylesheets/custom/_profile.scss */
+  /* line 108, ../../resource/stylesheets/custom/_profile.scss */
   .profile.col-md-12 {
     padding-right: 0;
   }
-  /* line 107, ../../resource/stylesheets/custom/_profile.scss */
+  /* line 112, ../../resource/stylesheets/custom/_profile.scss */
   .profile ul.nav.nav-pills.nav-stacked {
     float: none;
     width: 100%;
   }
-  /* line 112, ../../resource/stylesheets/custom/_profile.scss */
+  /* line 117, ../../resource/stylesheets/custom/_profile.scss */
   .profile .tab-content {
     width: 100%;
   }
 }
-/* line 118, ../../resource/stylesheets/custom/_profile.scss */
+/* line 123, ../../resource/stylesheets/custom/_profile.scss */
 .up {
   margin: auto;
   position: relative;
@@ -9090,4 +9095,13 @@ unwatched > .row #episodes h2 small {
   .pull-left-lg {
     float: left;
   }
+}
+/* line 89, ../../resource/stylesheets/style.scss */
+.profile-link {
+  max-width: 135px;
+  overflow: hidden;
+}
+/* line 93, ../../resource/stylesheets/style.scss */
+.profile-link > a {
+  white-space: nowrap;
 }

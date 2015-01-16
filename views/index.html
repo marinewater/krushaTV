@@ -63,6 +63,7 @@
                         <li><a href="/track" ng-click="col.isCollapsed = true">Tracked Shows</a></li>
                         <li><a href="/unwatched" ng-click="col.isCollapsed = true">Unwatched Episodes</a></li>
                         <li><a href="/watched" ng-click="col.isCollapsed = true">Watched Episodes</a></li>
+                        <li><a href="/calendar" ng-click="col.isCollapsed = true">Calendar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-left visible-sm visible-md" ng-show="loggedin">
                         <li class="dropdown"><a href class="dropdown-toggle">Your Shows <span class="caret"></span></a>
@@ -70,6 +71,7 @@
                                 <li><a href="/track">Tracked Shows</a></li>
                                 <li><a href="/unwatched">Unwatched Episodes</a></li>
                                 <li><a href="/watched">Watched Episodes</a></li>
+                                <li><a href="/calendar">Calendar</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -80,7 +82,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right" ng-show="loggedin">
-                        <li ng-if="user.name"><a href="/profile" ng-click="col.isCollapsed = true"><i class="fa fa-lg fa-user"></i> {{ user.name }}<span class="hidden-sm hidden-md"> - Settings</span></a></li>
+                        <li ng-if="user.name" class="profile-link"><a href="/profile" ng-click="col.isCollapsed = true"><i class="fa fa-lg fa-user"></i> {{ user.name }}<span class="hidden-sm hidden-md"> - Settings</span></a></li>
                         <li><a href="" ng-click="logout(); col.isCollapsed = true"><i class="fa fa-lg fa-sign-out"></i> Logout</a></li>
                     </ul>
                 </div>

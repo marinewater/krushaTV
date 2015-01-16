@@ -4,6 +4,11 @@
 $tab-nav-width: 0.2;
 
 .profile {
+  .username {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+  }
+
   .shortcuts {
     font-size: $font-size-large;
     kbd {
