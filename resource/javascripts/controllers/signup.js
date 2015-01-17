@@ -62,6 +62,7 @@ krusha.controller('signupCtrl', ['$scope', '$location', 'apiAuth', 'notification
 			else {
 				apiAuth.signup(username, password, captcha)
 					.success(function(data) {
+						loggedin.setUser(data.user);
 						loggedin.setStatus(true);
 						notifications.add('Welcome ' + data.user + '!', 'success', 5000);
 						$location.path("/");
