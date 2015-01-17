@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
               });
 
           sequelize
-              .query('ALTER TABLE "' + Subreddits.tableName + '" ADD CONSTRAINT "' + Subreddits.tableName + '_check_subreddit" CHECK (subreddit ~* \'^/r/[A-Za-z0-9]+$\'::text)')
+              .query('ALTER TABLE "' + Subreddits.tableName + '" ADD CONSTRAINT "' + Subreddits.tableName + '_check_subreddit" CHECK (subreddit ~* \'^/r/[A-Za-z0-9_]+$\'::text)')
               .catch(function(err){
                   if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + Subreddits.tableName + '_check_subreddit" for relation "Subreddits" already exists')) {
                       if ((process.env.NODE_ENV || "development") === 'development')

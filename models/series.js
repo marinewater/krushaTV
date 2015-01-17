@@ -115,7 +115,7 @@ module.exports = function(sequelize, DataTypes) {
 
 			addConstraints: function(models) {
 				sequelize
-					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_subreddit" CHECK (subreddit ~* \'^/r/[A-Za-z0-9]+$\'::text)')
+					.query('ALTER TABLE "' + Series.tableName + '" ADD CONSTRAINT "' + Series.tableName + '_check_subreddit" CHECK (subreddit ~* \'^/r/[A-Za-z0-9_]+\'::text)')
 					.catch(function(err){
 						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'constraint "' + Series.tableName + '_check_subreddit" for relation "' + Series.tableName + '" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
