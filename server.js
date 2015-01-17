@@ -39,8 +39,10 @@ var models = require('./models');
 
 // redis cache
 var redis = require("redis").createClient();
-var RedisStore = require ( 'connect-redis' ) ( express );
-var sessionStore = new RedisStore ();
+var RedisStore = require('connect-redis')(session);
+var sessionStore = new RedisStore ({
+	client: redis
+});
 
 
 // Modules
