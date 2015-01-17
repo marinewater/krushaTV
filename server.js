@@ -39,6 +39,8 @@ var models = require('./models');
 
 // redis cache
 var redis = require("redis").createClient();
+var RedisStore = require ( 'connect-redis' ) ( express );
+var sessionStore = new RedisStore ();
 
 
 // Modules
@@ -59,7 +61,9 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(session({
 	secret: 'zJoOCuFay8zKjEMDDN40yPC6rvNK7r', // session secret
 	saveUninitialized: true,
-	resave: true
+	resave: true,
+	store: sessionStore,
+	key: 'session:'
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
