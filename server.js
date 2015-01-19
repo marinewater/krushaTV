@@ -26,6 +26,12 @@ if (env === 'production') {
 }
 var log		= bunyan.createLogger(log_options);
 
+var secure_cookie = true;
+
+if (env !== 'production') {
+	secure_cookie = false;
+}
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router(); 				// get an instance of the express Router
@@ -67,7 +73,7 @@ app.use(session({
 	store: sessionStore,
 	key: 'session:',
 	cookie: {
-		secure: true
+		secure: secure_cookie
 	}
 }));
 app.use(passport.initialize());
