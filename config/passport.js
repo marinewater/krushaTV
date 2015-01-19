@@ -29,9 +29,9 @@ module.exports = function(passport, log, models, user) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        models.User.find({ where: { 'id': id } }).success(function(user) {
+        models.User.find({ where: { 'id': id } }).then(function(user) {
             done(null, user);
-        }).error(function(err) {
+        }).catch(function(err) {
             done(err, null);
         });
     });
@@ -53,7 +53,7 @@ module.exports = function(passport, log, models, user) {
 
         // find a user whose username is the same as the forms username
         // we are checking to see if the user trying to login already exists
-        models.User.find({ where: { 'username' :  username } }).success(function(user) {
+        models.User.find({ where: { 'username' :  username } }).then(function(user) {
             // if the user is found but the password is wrong
             if (!user || !user.validPassword(password))
                 return done(null, false, req.flash('loginMessage', 'User and password combination not found.')); // create the loginMessage and save it to session as flashdata
@@ -61,7 +61,7 @@ module.exports = function(passport, log, models, user) {
             // all is well, return successful user
             return done(null, user.dataValues);
 
-        }).error(function(err) {
+        }).catch(function(err) {
             log.error('local-login: ' + err);
             return done(err);
         });
@@ -105,7 +105,7 @@ module.exports = function(passport, log, models, user) {
             // find the user in the database based on their facebook id
             models.User.find({
                 where: { 'facebookid' : profile.id }
-            }).success(function(user) {
+            }).then(function(user) {
                 if (user !== null) {
                     return done(null, user);
                 }
@@ -117,18 +117,18 @@ module.exports = function(passport, log, models, user) {
                     });
 
                     // save the user
-                    newUser.save().success(function() {
+                    newUser.save().then(function() {
                         return done(null, newUser);
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         if (err.name === 'SequelizeUniqueConstraintError') {
                             var id_base = generator.next();
                             var uuid = intformat(id_base, 'dec');
                             newUser.username += ' ' + uuid;
 
                             // save the user
-                            newUser.save().success(function() {
+                            newUser.save().then(function() {
                                 return done(null, newUser);
-                            }).error(function(err) {
+                            }).catch(function(err) {
                                 log.error('Facebook Auth: ' + err);
                                 return done(err);
                             });
@@ -139,7 +139,7 @@ module.exports = function(passport, log, models, user) {
                         }
                     });
                 }
-            }).error(function(err) {
+            }).catch(function(err) {
                 log.error('Facebook Auth: ' + err);
                 return done(err);
             });
@@ -165,7 +165,7 @@ module.exports = function(passport, log, models, user) {
             // find the user in the database based on their google id
             models.User.find({
                 where: { 'googleid' : profile.id }
-            }).success(function(user) {
+            }).then(function(user) {
                 if (user !== null) {
                     return done(null, user);
                 }
@@ -177,18 +177,18 @@ module.exports = function(passport, log, models, user) {
                     });
 
                     // save the user
-                    newUser.save().success(function() {
+                    newUser.save().then(function() {
                         return done(null, newUser);
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         if (err.name === 'SequelizeUniqueConstraintError') {
                             var id_base = generator.next();
                             var uuid = intformat(id_base, 'dec');
                             newUser.username += ' ' + uuid;
 
                             // save the user
-                            newUser.save().success(function() {
+                            newUser.save().then(function() {
                                 return done(null, newUser);
-                            }).error(function(err) {
+                            }).catch(function(err) {
                                 log.error('Google Auth: ' + err);
                                 return done(err);
                             });
@@ -199,7 +199,7 @@ module.exports = function(passport, log, models, user) {
                         }
                     });
                 }
-            }).error(function(err) {
+            }).catch(function(err) {
                 log.error('Google Auth: ' + err);
                 return done(err);
             });
@@ -225,7 +225,7 @@ module.exports = function(passport, log, models, user) {
             // find the user in the database based on their reddit id
             models.User.find({
                 where: { 'redditid' : profile.id }
-            }).success(function(user) {
+            }).then(function(user) {
                 if (user !== null) {
                     return done(null, user);
                 }
@@ -237,18 +237,18 @@ module.exports = function(passport, log, models, user) {
                     });
 
                     // save the user
-                    newUser.save().success(function() {
+                    newUser.save().then(function() {
                         return done(null, newUser);
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         if (err.name === 'SequelizeUniqueConstraintError') {
                             var id_base = generator.next();
                             var uuid = intformat(id_base, 'dec');
                             newUser.username += ' ' + uuid;
 
                             // save the user
-                            newUser.save().success(function() {
+                            newUser.save().then(function() {
                                 return done(null, newUser);
-                            }).error(function(err) {
+                            }).catch(function(err) {
                                 log.error('Google Auth: ' + err);
                                 return done(err);
                             });
@@ -259,7 +259,7 @@ module.exports = function(passport, log, models, user) {
                         }
                     });
                 }
-            }).error(function(err) {
+            }).catch(function(err) {
                 log.error('Google Auth: ' + err);
                 return done(err);
             });
