@@ -63,9 +63,12 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(session({
 	secret: 'zJoOCuFay8zKjEMDDN40yPC6rvNK7r', // session secret
 	saveUninitialized: true,
-	resave: true,
+	resave: false,
 	store: sessionStore,
-	key: 'session:'
+	key: 'session:',
+	cookie: {
+		secure: true
+	}
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
