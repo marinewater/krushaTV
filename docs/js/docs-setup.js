@@ -244,7 +244,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "Rest API calls for authentication",
-      "keywords": "$http api apilogin authentication calls captcha characters check credentials httppromise krushatv logged login loginstatus logout logs long method password provided recaptcha registers response rest service signup user username"
+      "keywords": "$http api apilogin authentication calls captcha characters check credentials defines httppromise keep_logged_in krushatv logged login loginstatus logout logs long method password provided recaptcha registers response rest service session signup user username"
     },
     {
       "section": "api",

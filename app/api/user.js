@@ -37,6 +37,11 @@ module.exports = function(router, log, models, passport, user) {
 					log.error('GET /api/login Login: ' + err);
 					return next();
 				}
+
+				if (!!req.body.keep_logged_in) {
+					req.session.cookie.maxAge = 31536000000; // 1 year
+				}
+
 				return res.json({
 					'type': 'authenticated',
 					'user': user.username,

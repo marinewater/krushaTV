@@ -121,6 +121,14 @@ krusha.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'apiAuth', '
 		$scope.alerts = [];
 
 		/**
+		 * defines if a user is logged out after the session or keeps being logged in
+		 * false: cookie expires after the session ends
+		 * true: user keeps being logged in
+		 * @type {boolean}
+		 */
+		$scope.keep_logged_in = false;
+
+		/**
 		 * @ngdoc ModalInstanceCtrl.method
 		 * @name ModalInstanceCtrl#cancel
 		 * @description
@@ -140,8 +148,8 @@ krusha.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'apiAuth', '
 		 * @param {string} username username
 		 * @param {string} password password (has to be at least 6 characters long)
 		 */
-		$scope.login = function(username, password) {
-			apiAuth.login(username, password)
+		$scope.login = function(username, password, keep_logged_in) {
+			apiAuth.login(username, password, keep_logged_in)
 				.success(function(data) {
 					notifications.add('Welcome ' + data.user + '!', 'success', 5000);
 					loggedin.setUser(data.user);
