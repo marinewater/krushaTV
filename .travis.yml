@@ -6,5 +6,6 @@ services:
 addons:
     postgresql: "9.1"
 before_script:
+  - psql -U postgres -c "create extension hstore"
   - psql -c 'create database "krushaTV_test";' -U postgres
   - NODE_ENV=test node sync.js
