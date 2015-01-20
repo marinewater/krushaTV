@@ -75,7 +75,8 @@ app.use(session({
 	store: sessionStore,
 	key: 'session:',
 	cookie: {
-		secure: secure_cookie
+		secure: secure_cookie,
+		proxy: true
 	}
 }));
 app.use(passport.initialize());
