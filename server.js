@@ -28,12 +28,6 @@ if (env === 'production') {
 }
 var log		= bunyan.createLogger(log_options);
 
-var secure_cookie = true;
-
-if (env !== 'production') {
-	secure_cookie = false;
-}
-
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router(); 				// get an instance of the express Router
@@ -73,11 +67,7 @@ app.use(session({
 	saveUninitialized: true,
 	resave: false,
 	store: sessionStore,
-	key: 'session:',
-	cookie: {
-		secure: secure_cookie,
-		proxy: true
-	}
+	key: 'session:'
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
