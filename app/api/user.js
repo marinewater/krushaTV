@@ -118,10 +118,10 @@ module.exports = function(router, log, models, passport, user) {
 	router.get('/profile', user.isLoggedIn, function(req, res, next) {
 		models.WatchedEpisodes.count({
 			where: { 'userid': req.user.id }
-		}).success(function(total_watched_episodes) {
+		}).then(function(total_watched_episodes) {
 			models.TrackShow.count({
 				where: { 'userid': req.user.id }
-			}).success(function(total_watched_shows) {
+			}).then(function(total_watched_shows) {
 				return res.json({
 					'type': 'profile',
 					'user': req.user.username,
@@ -136,11 +136,11 @@ module.exports = function(router, log, models, passport, user) {
 						'date_format': req.user.date_format
 					}
 				});
-			}).error(function(err) {
+			}).catch(function(err) {
 				log.error('GET /api/profile DB: ' + err);
 				return next();
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('GET /api/profile DB: ' + err);
 			return next();
 		});
@@ -179,12 +179,12 @@ module.exports = function(router, log, models, passport, user) {
 				where: {
 					'id': req.user.id
 				}
-			}).success(function() {
+			}).then(function() {
 				return res.json({
 					'type': 'settings',
 					'success': true
 				});
-			}).error(function(err) {
+			}).catch(function(err) {
 				log.error('PUT /profile/settings/episode-offset DB: ' + err);
 				res.status(400);
 				return res.json({
@@ -227,12 +227,12 @@ module.exports = function(router, log, models, passport, user) {
 				where: {
 					'id': req.user.id
 				}
-			}).success(function() {
+			}).then(function() {
 				return res.json({
 					'type': 'settings',
 					'success': true
 				});
-			}).error(function(err) {
+			}).catch(function(err) {
 				log.error('PUT /profile/settings/date-format DB: ' + err);
 				res.status(400);
 				return res.json({

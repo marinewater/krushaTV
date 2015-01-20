@@ -21,7 +21,7 @@ module.exports = function(router, log, models, get_seasons, redis) {
 			});
 		}
 		else {
-			models.Series.find({ where: { 'id': showid } }).success(function(data) {
+			models.Series.find({ where: { 'id': showid } }).then(function(data) {
 				/**
 				 * json result
 				 * @type {{type: string, location: string, id: number, showid: number, name: string, genre: string, subreddit: string, resource: string, imdbid: (string|null), imdb_submitted: Boolean}}
@@ -39,24 +39,24 @@ module.exports = function(router, log, models, get_seasons, redis) {
 				};
 
 				if (req.isAuthenticated()) {
-					models.TrackShow.find({ where: { 'userid': req.user.id, 'showid': showid }}).success(function(returning) {
+					models.TrackShow.find({ where: { 'userid': req.user.id, 'showid': showid }}).then(function(returning) {
 						result.tracked = !!returning;
 
 						if (data.subreddit === null) {
-							models.Subreddits.findOne({ where: { 'userid': req.user.id, 'showid': data.id }}).success(function(returning) {
+							models.Subreddits.findOne({ where: { 'userid': req.user.id, 'showid': data.id }}).then(function(returning) {
 								if (returning !== null) {
 									result.subreddit = false;
 								}
-								models.Imdb.findOne({ where: { 'userid': req.user.id, 'showid': data.id }}).success(function(returning) {
+								models.Imdb.findOne({ where: { 'userid': req.user.id, 'showid': data.id }}).then(function(returning) {
 									if (returning !== null) {
 										result.imdb_submitted = false;
 									}
 									return res.json(result);
-								}).error(function(err) {
+								}).catch(function(err) {
 									log.error('GET /api/show/' + showid + ' DB: ' + err);
 									next('error');
 								});
-							}).error(function(err) {
+							}).catch(function(err) {
 								log.error('GET /api/show/' + showid + ' DB: ' + err);
 								next('error');
 							});
@@ -70,7 +70,7 @@ module.exports = function(router, log, models, get_seasons, redis) {
 					return res.json(result);
 				}
 			})
-			.error(function(err) {
+			.catch(function(err) {
 				log.error('GET /api/show/' + req.params.showid + ' DB: ' + err);
 				res.status(404);
 				res.json({
@@ -101,8 +101,8 @@ module.exports = function(router, log, models, get_seasons, redis) {
 			});
 		}
 		else {
-			models.Series.find({ where: { 'showid': body_showid } }).error(function() {
-			}).success(function(returning) {
+			models.Series.find({ where: { 'showid': body_showid } }).catch(function() {
+			}).then(function(returning) {
 				if (returning !== null) {
 					// show is already in database, return id
 					id = returning.dataValues.id;
@@ -144,7 +144,7 @@ module.exports = function(router, log, models, get_seasons, redis) {
 									'genre': genres.substring(0, genres.length - 2),
 									'ended': (show.get('./status').text() === 'Ended' || show.get('./status').text() === 'Canceled')
 								}
-							}).success(function(returning) {
+							}).then(function(returning) {
 								/**
 								 * local show id
 								 * @type {Number}
@@ -183,17 +183,17 @@ module.exports = function(router, log, models, get_seasons, redis) {
 									});
 								});
 
-								models.Episodes.bulkCreate(episodes).success(function() {
+								models.Episodes.bulkCreate(episodes).then(function() {
 									redis.del('kTV:today');
 									res.json({
 										'type': 'show',
 										'id': id,
 										'resource': '/api/show/' + id
 									});
-								}).error(function(err) {
+								}).catch(function(err) {
 										log.error('/api/show DB (Episode): ' + err);
 								});
-							}).error(function(err) {
+							}).catch(function(err) {
 								log.error('/api/show DB (Series): ' + err);
 							});
 						}
@@ -264,12 +264,12 @@ module.exports = function(router, log, models, get_seasons, redis) {
 
 		if (req.isAuthenticated() !== true) {
 			models.Episodes.getSeasons(models, showid)
-				.success(function(seasons) {
+				.then(function(seasons) {
 					get_seasons.getEpisodes(showid, null, seasons[0].season, function(episodes) {
 						return return_json(seasons, episodes);
 					});
 				})
-				.error(log_error);
+				.catch(log_error);
 		}
 		else {
 			models.TrackShow.findOne({
@@ -278,26 +278,26 @@ module.exports = function(router, log, models, get_seasons, redis) {
 					showid: showid
 				},
 				attributes: ['id']
-			}).success(function(tracked) {
+			}).then(function(tracked) {
 				if (tracked !== null) {
 					models.Episodes.getSeasonsWatched(models, showid, req.user.id)
-						.success(function(seasons) {
+						.then(function(seasons) {
 							get_seasons.getEpisodes(showid, req.user.id, seasons[0].season, function(episodes) {
 								return return_json(seasons, episodes);
 							});
 						})
-						.error(log_error);
+						.catch(log_error);
 				}
 				else {
 					models.Episodes.getSeasons(models, showid)
-						.success(function(seasons) {
+						.then(function(seasons) {
 							get_seasons.getEpisodes(showid, null, seasons[0].season, function(episodes) {
 								return return_json(seasons, episodes);
 							});
 						})
-						.error(log_error);
+						.catch(log_error);
 				}
-			}).error(log_error);
+			}).catch(log_error);
 		}
 	});
 

@@ -33,7 +33,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.Series.findOne({ where: {'id': showid } }).success(function(returning) {
+		models.Series.findOne({ where: {'id': showid } }).then(function(returning) {
 			if (returning !== null) {
 				if (returning.dataValues.subreddit === null) {
 					models.Subreddits.findOrCreate({
@@ -82,7 +82,7 @@ module.exports = function(router, log, models, user) {
 					'message': 'showid does not exist'
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('POST /api/subreddit DB', err);
 			res.status(400);
 			return res.json({

@@ -1,20 +1,20 @@
 module.exports = function(router, log, models, user) {
 	router.get('/watched/shows', user.isLoggedIn, function(req, res, next) {
-		models.TrackShow.watchedShows(models, req.user.id).success(function(watchedShows) {
+		models.TrackShow.watchedShows(models, req.user.id).then(function(watchedShows) {
 			if (watchedShows.length > 0) {
-				models.TrackShow.watchedSeasons(models, req.user.id, watchedShows[0].id).success(function(watchedSeasons) {
-					models.TrackShow.watchedEpisodes(models, req.user.id, watchedShows[0].id, watchedSeasons[0].season).success(function(watchedEpisodes) {
+				models.TrackShow.watchedSeasons(models, req.user.id, watchedShows[0].id).then(function(watchedSeasons) {
+					models.TrackShow.watchedEpisodes(models, req.user.id, watchedShows[0].id, watchedSeasons[0].season).then(function(watchedEpisodes) {
 						return res.json({
 							'type': 'shows',
 							'shows': watchedShows,
 							'seasons': watchedSeasons,
 							'episodes': watchedEpisodes
 						});
-					}).error(function(err) {
+					}).catch(function(err) {
 						log.error('GET /watched/shows watchedEpisodes DB: ' + err);
 						next();
 					});
-				}).error(function(err) {
+				}).catch(function(err) {
 					log.error('GET /watched/shows watchedSeasons DB: ' + err);
 					next();
 				});
@@ -27,7 +27,7 @@ module.exports = function(router, log, models, user) {
 					'message': 'You have no watched shows'
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('GET /watched/shows watchedShows DB: ' + err);
 			next();
 		});
@@ -45,15 +45,15 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.watchedSeasons(models, req.user.id, showid).success(function(watchedSeasons) {
+		models.TrackShow.watchedSeasons(models, req.user.id, showid).then(function(watchedSeasons) {
 			if (watchedSeasons.length > 0) {
-				models.TrackShow.watchedEpisodes(models, req.user.id, showid, watchedSeasons[0].season).success(function(watchedEpisodes) {
+				models.TrackShow.watchedEpisodes(models, req.user.id, showid, watchedSeasons[0].season).then(function(watchedEpisodes) {
 					return res.json({
 						'type': 'seasons',
 						'seasons': watchedSeasons,
 						'episodes': watchedEpisodes
 					});
-				}).error(function(err) {
+				}).catch(function(err) {
 					log.error('GET /watched/shows/' + showid + '/seasons watchedEpisodes DB: ' + err);
 					next();
 				});
@@ -66,7 +66,7 @@ module.exports = function(router, log, models, user) {
 					'message': 'No watched episodes for showid ' + showid
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('GET /watched/shows/' + showid + '/seasons watchedSeasons DB: ' + err);
 			next();
 		});
@@ -85,7 +85,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.watchedEpisodes(models, req.user.id, showid, season).success(function(watchedEpisodes) {
+		models.TrackShow.watchedEpisodes(models, req.user.id, showid, season).then(function(watchedEpisodes) {
 			if (watchedEpisodes.length > 0) {
 				return res.json({
 					'type': 'episodes',
@@ -100,28 +100,28 @@ module.exports = function(router, log, models, user) {
 					'message': 'No watched episodes for showid ' + showid + ' and season ' + season
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('GET /watched/shows/' + showid + '/seasons/' + season + '/episodes watchedEpisodes DB: ' + err);
 			next();
 		});
 	});
 
 	router.get('/unwatched/shows', user.isLoggedIn, function(req, res, next) {
-		models.TrackShow.unwatchedShows(models, req.user.id).success(function(unwatchedShows) {
+		models.TrackShow.unwatchedShows(models, req.user.id).then(function(unwatchedShows) {
 			if (unwatchedShows.length > 0) {
-				models.TrackShow.unwatchedSeasons(models, req.user.id, unwatchedShows[0].id).success(function(unwatchedSeasons) {
-					models.TrackShow.unwatchedEpisodes(models, req.user.id, unwatchedShows[0].id, unwatchedSeasons[0].season).success(function(unwatchedEpisodes) {
+				models.TrackShow.unwatchedSeasons(models, req.user.id, unwatchedShows[0].id).then(function(unwatchedSeasons) {
+					models.TrackShow.unwatchedEpisodes(models, req.user.id, unwatchedShows[0].id, unwatchedSeasons[0].season).then(function(unwatchedEpisodes) {
 						return res.json({
 							'type': 'shows',
 							'shows': unwatchedShows,
 							'seasons': unwatchedSeasons,
 							'episodes': unwatchedEpisodes
 						});
-					}).error(function(err) {
+					}).catch(function(err) {
 						log.error('GET /unwatched/shows unwatchedEpisodes DB: ' + err);
 						next();
 					});
-				}).error(function(err) {
+				}).catch(function(err) {
 					log.error('GET /unwatched/shows unwatchedSeasons DB: ' + err);
 					next();
 				});
@@ -134,7 +134,7 @@ module.exports = function(router, log, models, user) {
 					'message': 'You have no unwatched shows'
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('GET /unwatched/shows unwatchedShows DB: ' + err);
 			next();
 		});
@@ -152,15 +152,15 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.unwatchedSeasons(models, req.user.id, showid).success(function(unwatchedSeasons) {
+		models.TrackShow.unwatchedSeasons(models, req.user.id, showid).then(function(unwatchedSeasons) {
 			if (unwatchedSeasons.length > 0) {
-				models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, unwatchedSeasons[0].season).success(function(unwatchedEpisodes) {
+				models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, unwatchedSeasons[0].season).then(function(unwatchedEpisodes) {
 					return res.json({
 						'type': 'seasons',
 						'seasons': unwatchedSeasons,
 						'episodes': unwatchedEpisodes
 					});
-				}).error(function(err) {
+				}).catch(function(err) {
 					log.error('GET /unwatched/shows/' + showid + '/seasons unwatchedEpisodes DB: ' + err);
 					next();
 				});
@@ -173,7 +173,7 @@ module.exports = function(router, log, models, user) {
 					'message': 'No unwatched episodes for showid ' + showid
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('GET /unwatched/shows/' + showid + '/seasons unwatchedSeasons DB: ' + err);
 			next();
 		});
@@ -192,7 +192,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, season).success(function(unwatchedEpisodes) {
+		models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, season).then(function(unwatchedEpisodes) {
 			if (unwatchedEpisodes.length > 0) {
 				return res.json({
 					'type': 'episodes',
@@ -207,7 +207,7 @@ module.exports = function(router, log, models, user) {
 					'message': 'No unwatched episodes for showid ' + showid + ' and season ' + season
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('GET /unwatched/shows/' + showid + '/seasons/' + season + '/episodes unwatchedEpisodes DB: ' + err);
 			next();
 		});

@@ -33,13 +33,13 @@ module.exports = function(router, log, models, user) {
             });
         }
 
-        models.Series.findOne({ where: { 'id': showid } }).success(function(show) {
+        models.Series.findOne({ where: { 'id': showid } }).then(function(show) {
             if (show !== null) {
                 if (show.dataValues.imdbid === null) {
                     models.Imdb.findOrCreate({
                         where: { 'userid': req.user.id, 'showid': showid},
                         defaults: { 'userid': req.user.id, 'showid': showid, 'imdb_id': match[1]}
-                    }).success(function(affected) {
+                    }).then(function(affected) {
                         if (affected[1]) {
                             res.status(201);
                             return res.json({
@@ -55,7 +55,7 @@ module.exports = function(router, log, models, user) {
                                 'message': 'user has already submitted an imdb id for this show'
                             });
                         }
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         log.error('POST /api/imdb DB: ' + err);
                         res.status(400);
                         return res.json({
@@ -82,7 +82,7 @@ module.exports = function(router, log, models, user) {
                     'message': 'show does not exist'
                 });
             }
-        }).error(function(err) {
+        }).catch(function(err) {
             log.error('POST /api/imdb DB: ' + err);
             res.status(400);
             return res.json({
