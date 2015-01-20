@@ -24,11 +24,19 @@
 
                 <div class="clearfix"></div>
 
-                <div>
+                <div class="login">
                     <p>or login with:</p>
 
-                    <ul class="list-inline" login-buttons>
+                    <ul class="list-inline hidden-xs" login-buttons>
                     </ul>
+                    <ul class="list-unstyled visible-xs" login-buttons>
+                    </ul>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="keep_logged_in"> Keep me logged in
+                    </label>
                 </div>
             </form>
         </div>

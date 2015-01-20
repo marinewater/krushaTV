@@ -4,9 +4,11 @@
     left: 20px;
   }
 
-  .list-unstyled {
-    li {
-      margin-bottom: 10px;
+  &, .login {
+    .list-unstyled {
+      li {
+        margin-bottom: 10px;
+      }
     }
   }
 }
