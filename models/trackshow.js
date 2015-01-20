@@ -67,7 +67,7 @@ module.exports = function(sequelize, DataTypes) {
 
 				return sequelize
 					.query('SELECT s.id, s.name FROM "' + TrackShow.tableName + '" t, "' + models.Series.tableName + '" s, "' + models.Episodes.tableName + '" e \
-						WHERE t.showid = s.id AND s.id = e.seriesid AND t.userid = ' + userid +
+						WHERE t.showid = s.id AND e.airdate <= now() AND s.id = e.seriesid AND t.userid = ' + userid +
 						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id AND w.userid = t.userid) \
 						GROUP BY s.id, s.name \
 						ORDER BY substring(s.name from \'' + order_regex + '\');')
@@ -80,7 +80,7 @@ module.exports = function(sequelize, DataTypes) {
 
 				return sequelize
 					.query('SELECT e.season FROM "' + models.Episodes.tableName + '" e, "' + models.TrackShow.tableName + '" t \
-							WHERE e.seriesid = t.showid AND e.seriesid = ' + showid + ' AND t.userid = ' + userid +
+							WHERE e.seriesid = t.showid AND e.airdate <= now() AND e.seriesid = ' + showid + ' AND t.userid = ' + userid +
 							' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE e.id = w.episodeid AND w.userid = t.userid) \
 							GROUP BY e.season \
 							ORDER BY e.season;');
