@@ -144,6 +144,24 @@ krusha.factory('calendar', [function() {
     /**
      * @ngdoc calendar.method
      * @methodOf krushaTV.service:calendar
+     * @name calendar#getAllYears
+     * @description returns array containing years from 1950 to next year
+     * @return {Array} years
+     */
+    var getAllYears = function() {
+        var years = [];
+        var nextYear = new Date().getFullYear()+1;
+
+        for (var i=nextYear; i>=1950; i--) {
+            years.push(i);
+        }
+
+        return years;
+    };
+
+    /**
+     * @ngdoc calendar.method
+     * @methodOf krushaTV.service:calendar
      * @name calendar#getWeekDay
      * @description returns the the name for a day of the week
      * @param {Number} day javascript's day of the week
@@ -167,6 +185,7 @@ krusha.factory('calendar', [function() {
 
     return {
         getAllMonth: getAllMonth,
+        getAllYears: getAllYears,
         allWeekdays: allWeekdays,
         getDays: getDays,
         getDaysWeek: getDaysWeek,

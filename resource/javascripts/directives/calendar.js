@@ -14,6 +14,7 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
         $scope.month = today.getMonth()+1;
 
         $scope.allMonth = calendar.getAllMonth();
+        $scope.allYears = calendar.getAllYears();
         $scope.allWeekdays = null;
 
         $scope.dt = new Date();
