@@ -28,7 +28,7 @@
 						<td><i class="fa" ng-class="{'fa-check text-success': !show.ended, 'fa-times': show.ended}"></i></td>
 						<td class="hidden-xs">{{ ::show.season_count }}</td>
 						<td class="hidden-xs">{{ ::show.episode_count }}</td>
-						<td ng-init="show.unwatched = show.episode_count - show.watched_count">{{ ::show.unwatched }}</td>
+						<td ng-init="show.unwatched = show.episode_count - show.watched_count >= 0 ? show.episode_count - show.watched_count : 0">{{ ::show.unwatched }}</td>
 						<td><i class="fa fa-minus text-danger pointer" ng-click="doNotTrack(show)"></i></td>
 					</tr>
 				</tbody>

@@ -362,7 +362,7 @@ module.exports = function(router, log, models, get_seasons, redis) {
 						showid: showid
 					},
 					attributes: ['id']
-				}).success(function(tracked) {
+				}).then(function(tracked) {
 					if (tracked !== null) {
 						get_seasons.getEpisodes(showid, req.user.id, season, function(episodes) {
 							return return_json(season, episodes);
@@ -373,7 +373,7 @@ module.exports = function(router, log, models, get_seasons, redis) {
 							return return_json(season, episodes);
 						});
 					}
-				}).error(log_error);
+				}).catch(log_error);
 			}
 		}
 	});

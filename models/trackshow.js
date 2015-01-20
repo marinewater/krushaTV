@@ -95,6 +95,7 @@ module.exports = function(sequelize, DataTypes) {
 				return sequelize
 					.query('SELECT e.id, e.episode, e.title, e.airdate FROM "' + models.Episodes.tableName + '" e, "' + models.TrackShow.tableName + '" t \
 						WHERE e.seriesid = t.showid AND t.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND e.season = ' + season +
+						' AND e.airdate <= now()' +
 						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id AND w.userid = t.userid) \
 						ORDER BY e.episode;');
 			},

@@ -21,7 +21,10 @@ module.exports = function(sequelize, DataTypes) {
       },
       countSeasons: function(show_ids) {
         var query = '(' + show_ids.join('), (') + ')';
-        return sequelize.query('select a.seriesid, count(DISTINCT b.season) as season_count, count(b.episode) as episode_count from (values ' + query + ') as a(seriesid) left outer join "' + Episodes.tableName + '" as b on b.seriesid = a.seriesid group by a.seriesid');
+        return sequelize.query('SELECT a.seriesid, COUNT(DISTINCT b.season) as season_count, COUNT(b.episode) as episode_count ' +
+        'FROM (VALUES ' + query + ') as a(seriesid) LEFT OUTER JOIN "' + Episodes.tableName + '" AS b on b.seriesid = a.seriesid ' +
+        'WHERE b.airdate <= now() ' +
+        'GROUP BY a.seriesid;');
       },
       getTodaysEpisodes: function(models, userid) {
         var select = 'SELECT e.title, e.season, e.episode, s.name as showname, s.id as showid,';

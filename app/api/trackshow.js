@@ -65,17 +65,17 @@ module.exports = function(router, log, models, user) {
 			include: [models.Series]
 		}).success(function(returning) {
 			if(returning.length !== 0) {
-				shows = [];
-				idlist = [];
+				var shows = [];
+				var id_list = [];
 
 				returning.forEach(function(show) {
-					idlist.push(show.Series.id);
+					id_list.push(show.Series.id);
 				});
 
 				// return a list with the amount of seasons for each season id
-				models.Episodes.countSeasons(idlist).success(function(season_counts) {
+				models.Episodes.countSeasons(id_list).success(function(season_counts) {
 
-					models.WatchedEpisodes.countWachtedEpisodes(models, req.user.id, idlist).success(function(watched_counts) {
+					models.WatchedEpisodes.countWachtedEpisodes(models, req.user.id, id_list).then(function(watched_counts) {
 
 						returning.forEach(function(show) {
 							var season_count = 0;
@@ -93,7 +93,7 @@ module.exports = function(router, log, models, user) {
 								if (wc.seriesid === show.Series.id) {
 									watched_count = wc.count;
 								}
-							})
+							});
 							shows.push({
 								'name': show.Series.name,
 								'id': show.Series.id,
@@ -111,8 +111,8 @@ module.exports = function(router, log, models, user) {
 						});
 						
 					});
-				}).error(function(err) {
-					log.error('GET /api/track DB: ' + err);
+				}).catch(function(err) {
+					log.error('GET /api/track DB', err);
 					return next();
 				});
 			}
@@ -261,14 +261,14 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.WatchedEpisodes.showWatched(models, req.user.id, showid).success(function() {
+		models.WatchedEpisodes.showWatched(models, req.user.id, showid).then(function() {
 			res.status(201);
 			return res.json({
 				'type': 'watched',
 				'medium': 'show'
 			});
-		}).error(function(err) {
-			log.error('POST /watched/show/ DB: ' + err);
+		}).catch(function(err) {
+			log.error('POST /watched/show/ DB', err);
 
 			res.status(400);
 			return res.json({
