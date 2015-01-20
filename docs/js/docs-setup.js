@@ -14,6 +14,15 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "krushaTV.controllers:calendarCtrl",
+      "shortName": "calendarCtrl",
+      "type": "controller",
+      "moduleName": "krushaTV",
+      "shortDescription": "Controller for calendar.html template",
+      "keywords": "$scope api calendar calendarctrl controller controllers day getshowsday getshowsmonth getshowsweek html krushatv method month service template week"
+    },
+    {
+      "section": "api",
       "id": "krushaTV.controllers:loginCtrl",
       "shortName": "loginCtrl",
       "type": "controller",
@@ -82,7 +91,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for show.html template",
-      "keywords": "$cookies $cookiestore $routeparams $scope $timeout active adds ago air airdate api checks controller controllers cookie determines displayed displays doesn episode episodes getepisodes getnextunwatchedseason getseasons getshow hot html imdb imdb_id imdb_url indicates krushatv lessthanaweek loads local marks method navigation nextfive notification number offset older omdb_get previous rating reddit reddit_get reddit_url request saveshowwatched scrollfix scrolls scrolltoepisodes scrolltoseasons season season_nr seasons sends service setting show_id showctrl showwatched stores string submitimdb submits submitsubreddit subreddit template threads track tracked true tt1234567 tt1285016 unwatched unwatchedseasons update updates updatescrolloffset updateshowwatched url user valid watched watchedepisode week wih"
+      "keywords": "$cookies $cookiestore $routeparams $scope $timeout active adds ago air airdate api checks controller controllers cookie determines displayed displays doesn episode episodes getepisodes getnextunwatchedseason getseasons getshow hot html imdb imdb_id imdb_url indicates krushatv lessthanaweek loads local marks method nextfive notification number offset older omdb_get previous rating reddit reddit_get reddit_url request saveshowwatched scrollfix scrolls scrolltoepisodes season season_nr seasons sends service setting show_id showctrl showwatched stores string submitimdb submits submitsubreddit subreddit template threads track tracked true tt1234567 tt1285016 unwatched unwatchedseasons update updates updatescrolloffset updateshowwatched url user valid watched watchedepisode week wih"
     },
     {
       "section": "api",
@@ -118,7 +127,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for unwatched.html template",
-      "keywords": "$filter $scope api controller controllers episode html krushatv markepisodewatched marks markseasonwatched markshowwatched method object season service template unwatched unwatchedctrl watched"
+      "keywords": "$filter $scope api controller controllers episode episodes getunwatchedepisodes getunwatchedseasons getunwatchedshows html krushatv markepisodewatched marks markseasonwatched markshowwatched method number object retrieve retrieves season season_nr seasons service showid template unwatched unwatchedctrl watched"
     },
     {
       "section": "api",
@@ -127,7 +136,16 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for watched.html template",
-      "keywords": "$filter $scope api controller controllers episode html krushatv markepisodewatched marks markseasonnotwatched markshownotwatched method object season service template unwatched watched watchedctrl"
+      "keywords": "$filter $scope api controller controllers episode episodes getwatchedepisodes getwatchedseasons getwatchedshows html krushatv markepisodewatched marks markseasonnotwatched markshownotwatched method number object retrieve retrieves season season_nr seasons service showid template unwatched watched watchedctrl"
+    },
+    {
+      "section": "api",
+      "id": "krushaTV.directive:calendar",
+      "shortName": "calendar",
+      "type": "directive",
+      "moduleName": "krushaTV",
+      "shortDescription": "calendar widget",
+      "keywords": "api calendar day directive getshowsday getshowsmonth getshowsweek krushatv month request week widget"
     },
     {
       "section": "api",
@@ -140,12 +158,30 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "krushaTV.directive:dates",
+      "shortName": "dates",
+      "type": "directive",
+      "moduleName": "krushaTV",
+      "shortDescription": "helper directive for calendar directive",
+      "keywords": "api array calendar called changetoday clicks day days directive function helper krushatv user"
+    },
+    {
+      "section": "api",
       "id": "krushaTV.directive:genreLabels",
       "shortName": "genreLabels",
       "type": "directive",
       "moduleName": "krushaTV",
       "shortDescription": "splits a string of genres up and creates a bootstrap label for each genre",
       "keywords": "api bootstrap creates directive genre genres krushatv label seperated splits string"
+    },
+    {
+      "section": "api",
+      "id": "krushaTV.directive:imdb",
+      "shortName": "imdb",
+      "type": "directive",
+      "moduleName": "krushaTV",
+      "shortDescription": "validator for imdb urls",
+      "keywords": "api directive imdb krushatv ngmodel urls validator"
     },
     {
       "section": "api",
@@ -167,6 +203,15 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "krushaTV.directive:loginButtons",
+      "shortName": "loginButtons",
+      "type": "directive",
+      "moduleName": "krushaTV",
+      "shortDescription": "displays buttons for social login",
+      "keywords": "api buttons directive displays krushatv login social"
+    },
+    {
+      "section": "api",
       "id": "krushaTV.directive:scrollfix",
       "shortName": "scrollfix",
       "type": "directive",
@@ -176,12 +221,30 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "krushaTV.directive:scrollTo",
+      "shortName": "scrollTo",
+      "type": "directive",
+      "moduleName": "krushaTV",
+      "shortDescription": "scrolls to a specified target if the element is clicked",
+      "keywords": "api clicked directive element krushatv scroll-to scrolls target"
+    },
+    {
+      "section": "api",
       "id": "krushaTV.directive:slider",
       "shortName": "slider",
       "type": "directive",
       "moduleName": "krushaTV",
       "shortDescription": "displays a slider, lets the user easily choose a value in a specified range",
       "keywords": "api callback called ceiling choose directive displays easily floor grabs handle krushatv max min model ngmodel onslidestart onslidestop range releases slider step steps user values"
+    },
+    {
+      "section": "api",
+      "id": "krushaTV.directive:subreddit",
+      "shortName": "subreddit",
+      "type": "directive",
+      "moduleName": "krushaTV",
+      "shortDescription": "validator for reddit urls",
+      "keywords": "api directive krushatv ngmodel reddit urls validator"
     },
     {
       "section": "api",
@@ -218,6 +281,15 @@ NG_DOCS={
       "moduleName": "krushaTV",
       "shortDescription": "&quot;formatEpisode&quot; creates a string like &quot;S02E03&quot; (stands for Season 2 Episode 3)",
       "keywords": "api creates episode filter formatepisode krushatv number s02e03 season string"
+    },
+    {
+      "section": "api",
+      "id": "krushaTV.filter:monthName",
+      "shortName": "monthName",
+      "type": "filter",
+      "moduleName": "krushaTV",
+      "shortDescription": "&quot;monthName&quot; returns the name of a month for a given integer",
+      "keywords": "api filter integer krushatv month monthname returns"
     },
     {
       "section": "api",
@@ -289,7 +361,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "helper functions for calendar directive",
-      "keywords": "api array calendar creates day days december directive entries entry first_day functions getallmonth getdays getdaysday getdaysweek getweekday helper javascript krushatv last_day lastdayofmonth method monday month november numbers previous returns service sunday twelve week weekday weeks year"
+      "keywords": "api array calendar creates day days december directive entries entry first_day functions getallmonth getallyears getdays getdaysday getdaysweek getweekday helper javascript krushatv last_day lastdayofmonth method monday month november numbers previous returns service sunday twelve week weekday weeks year years"
     },
     {
       "section": "api",

@@ -8,10 +8,23 @@
  * @requires krushaTV.service:apiShow
  */
 krusha.controller('unwatchedCtrl', ['$scope', '$filter', 'apiShow', function($scope, $filter, apiShow) {
+	/**
+	 * set title of html page
+	 * @type {string}
+	 */
 	$scope.$parent.title = 'Unwatched Episodes';
+	/**
+	 * needed to set correct wording in directive
+	 * @type {boolean}
+	 */
 	$scope.watched = false;
 
-
+	/**
+	 * @ngdoc unwatchedCtrl.method
+	 * @name unwatchedCtrl#getUnwatchedShows
+	 * @description retrieves unwatched shows from api
+	 * @methodOf krushaTV.controllers:unwatchedCtrl
+	 */
 	var getUnwatchedShows = function() {
 		apiShow.getUnwatchedShows().success(function(data) {
 			$scope.shows = data.shows;
@@ -22,6 +35,13 @@ krusha.controller('unwatchedCtrl', ['$scope', '$filter', 'apiShow', function($sc
 		});
 	};
 
+	/**
+	 * @ngdoc unwatchedCtrl.method
+	 * @name unwatchedCtrl#getUnwatchedSeasons
+	 * @description retrieves unwatched seasons from api
+	 * @methodOf krushaTV.controllers:unwatchedCtrl
+	 * @param {Number} showid id of the show to retrieve seasons from
+	 */
 	$scope.getUnwatchedSeasons = function(showid) {
 		apiShow.getUnwatchedSeasons(showid).success(function(data) {
 			var active_show = $scope.shows.find(function(show) {
@@ -40,6 +60,14 @@ krusha.controller('unwatchedCtrl', ['$scope', '$filter', 'apiShow', function($sc
 		});
 	};
 
+	/**
+	 * @ngdoc unwatchedCtrl.method
+	 * @name unwatchedCtrl#getUnwatchedEpisodes
+	 * @description retrieves unwatched episodes from api
+	 * @methodOf krushaTV.controllers:unwatchedCtrl
+	 * @param {Number} showid id of the show to retrieve episodes from
+	 * @param {Number} season_nr number of the season to retrieve seasons from
+	 */
 	$scope.getUnwatchedEpisodes = function(showid, season_nr) {
 		apiShow.getUnwatchedEpisodes(showid, season_nr).success(function(data) {
 			var active_season = $scope.seasons.find(function(season) {

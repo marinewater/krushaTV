@@ -7,7 +7,7 @@
 krusha.directive('loadingspinner',   ['$http' ,function ($http) {
     return {
         restrict: 'E',
-        link: function ($scope, elm)
+        link: function ($scope)
         {
             $scope.$watch(function() {
                 return $http.pendingRequests.length > 0;

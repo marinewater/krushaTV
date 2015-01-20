@@ -24,7 +24,7 @@ krusha.directive('slider', ['$timeout', function($timeout) {
         var handle = element.find(".handle");
         var handleWidth = null;
 
-        function addListeners(element) {
+        function addListeners() {
             handle.bind("mousedown touchstart", startSlide);
         }
 

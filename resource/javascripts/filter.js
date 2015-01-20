@@ -62,6 +62,12 @@ krusha.filter('copyEpisode', ['$filter', function($filter) {
 	}
 }]);
 
+/**
+ * @ngdoc filter
+ * @name krushaTV.filter:monthName
+ * @description "monthName" returns the name of a month for a given integer
+ * @param {Number} month month
+ */
 krusha.filter('monthName', function() {
 	var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 	return function(month) {

@@ -1,3 +1,13 @@
+/**
+ * @ngdoc directive
+ * @name krushaTV.directive:calendar
+ * @description calendar widget
+ * @restrict E
+ * @scope
+ * @param {function} getShowsMonth request shows for month
+ * @param {function} getShowsWeek request shows for week
+ * @param {function} getShowsDay request shows for day
+ */
 krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calendar, hotkeys, loggedin) {
     var link = function($scope) {
         var today = new Date();
@@ -47,6 +57,11 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.opened = true;
         };
 
+        /**
+         * select a month to display
+         * @param year
+         * @param month
+         */
         $scope.changeMonth = function(year, month) {
             $scope.allWeekdays = calendar.allWeekdays;
 
@@ -63,6 +78,9 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             });
         };
 
+        /**
+         * go to previous month
+         */
         $scope.monthBack = function() {
             $scope.month = $scope.month === 1 ? 12 : $scope.month - 1;
             if ($scope.month === 12) {
@@ -72,6 +90,9 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.changeMonth($scope.year, $scope.month);
         };
 
+        /**
+         * go to next month
+         */
         $scope.monthForward = function() {
             $scope.month = $scope.month === 12 ? 1 : $scope.month + 1;
             if ($scope.month === 1) {
@@ -81,6 +102,12 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.changeMonth($scope.year, $scope.month);
         };
 
+        /**
+         * select a week to display
+         * @param year
+         * @param month
+         * @param day
+         */
         $scope.changeWeek = function(year, month, day) {
             $scope.allWeekdays = calendar.allWeekdays;
 
@@ -101,6 +128,12 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             });
         };
 
+        /**
+         * select a day to display
+         * @param year
+         * @param month
+         * @param day
+         */
         $scope.changeDayDisplay = function(year, month, day) {
             if (typeof year === 'undefined' || typeof month === 'undefined' || typeof day === 'undefined') {
                 var today = new Date();
@@ -121,6 +154,12 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             });
         };
 
+        /**
+         * change to day mode in calendar
+         * @param year
+         * @param month
+         * @param day
+         */
         $scope.changeToDay = function(year, month, day) {
             $scope.active_mode = 'day';
             bindHotkeys();
@@ -128,6 +167,10 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             $scope.changeDayDisplay(year, month, day);
         };
 
+        /**
+         * move days forward or backwards
+         * @param days
+         */
         $scope.changeDay = function(days) {
             $scope.dt = new Date($scope.dt.setDate($scope.dt.getDate() + days));
 
@@ -139,6 +182,10 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             }
         };
 
+        /**
+         * select a specific date
+         * @param date
+         */
         $scope.changeDate = function(date) {
             var year = date.getFullYear();
             var month = date.getMonth()+1;
@@ -152,6 +199,10 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             }
         };
 
+        /**
+         * change calendar mode to month, week or day
+         * @param mode
+         */
         $scope.changeMode = function(mode) {
             var now = new Date();
             var mode_before = $scope.active_mode;
@@ -190,6 +241,9 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
             }
         };
 
+        /**
+         * rebind hotkeys if calendar mode is changed
+         */
         var bindHotkeys = function() {
             hotkeys.del('right');
             hotkeys.del('left');
@@ -264,11 +318,21 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
     }
 }]);
 
+/**
+ * @ngdoc directive
+ * @name krushaTV.directive:dates
+ * @description helper directive for calendar directive
+ * @restrict A
+ * @scope
+ * @param {Array} days array containing days and shows for each day
+ * @param {function} changeToDay function is called if the user clicks on a day
+ */
 krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
     /**
      * create a table cell for each day of the week and fill it with the corresponding episodes
      * @param row
      * @param day
+     * @param changeToDay
      */
     var addDay = function(row, day, changeToDay) {
         if (typeof day !== 'undefined') {

@@ -1,3 +1,9 @@
+/**
+ * @ngdoc directive
+ * @name krushaTV.directive:loginButtons
+ * @description displays buttons for social login
+ * @restrict A
+ */
 krusha.directive('loginButtons', function() {
     return {
         restrict: 'A',

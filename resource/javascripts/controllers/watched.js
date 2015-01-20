@@ -8,10 +8,24 @@
  * @requires krushaTV.service:apiShow
  */
 krusha.controller('watchedCtrl', ['$scope', '$filter', 'apiShow', function($scope, $filter, apiShow) {
+	/**
+	 * set title of html page
+	 * @type {string}
+	 */
 	$scope.$parent.title = 'Watched Episodes';
+	/**
+	 * needed to set correct wording in directive
+	 * @type {boolean}
+	 */
 	$scope.watched = true;
 
 
+	/**
+	 * @ngdoc watchedCtrl.method
+	 * @name watchedCtrl#getWatchedShows
+	 * @description retrieves watched shows from api
+	 * @methodOf krushaTV.controllers:watchedCtrl
+	 */
 	var getWatchedShows = function() {
 		apiShow.getWatchedShows().success(function(data) {
 			$scope.shows = data.shows;
@@ -22,6 +36,13 @@ krusha.controller('watchedCtrl', ['$scope', '$filter', 'apiShow', function($scop
 		});
 	};
 
+	/**
+	 * @ngdoc watchedCtrl.method
+	 * @name watchedCtrl#getWatchedSeasons
+	 * @description retrieves watched seasons from api
+	 * @methodOf krushaTV.controllers:watchedCtrl
+	 * @param {Number} showid id of the show to retrieve seasons from
+	 */
 	$scope.getWatchedSeasons = function(showid) {
 		apiShow.getWatchedSeasons(showid).success(function(data) {
 			var active_show = $scope.shows.find(function(show) {
@@ -40,6 +61,14 @@ krusha.controller('watchedCtrl', ['$scope', '$filter', 'apiShow', function($scop
 		});
 	};
 
+	/**
+	 * @ngdoc watchedCtrl.method
+	 * @name watchedCtrl#getWatchedEpisodes
+	 * @description retrieves watched episodes from api
+	 * @methodOf krushaTV.controllers:watchedCtrl
+	 * @param {Number} showid id of the show to retrieve episodes from
+	 * @param {Number} season_nr number of the season to retrieve seasons from
+	 */
 	$scope.getWatchedEpisodes = function(showid, season_nr) {
 		apiShow.getWatchedEpisodes(showid, season_nr).success(function(data) {
 			var active_season = $scope.seasons.find(function(season) {

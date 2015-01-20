@@ -1,6 +1,12 @@
 var reddit_regex = /^(?:http(?:s)?:\/\/)?(?:www\.)?(?:reddit\.com)?(\/r\/\w+)(?:[.?&/]{1}.*)?$/i;
 var imdb_regex = /^(?:https?:\/\/)?(?:www.)?(?:imdb.com\/title\/)?(tt\d{7})(?:\/.*)?$/i;
 
+/**
+ * @ngdoc directive
+ * @name krushaTV.directive:subreddit
+ * @description validator for reddit urls
+ * @requires ngModel
+ */
 krusha.directive('subreddit', function() {
   return {
     require: 'ngModel',
@@ -23,6 +29,12 @@ krusha.directive('subreddit', function() {
   };
 });
 
+/**
+ * @ngdoc directive
+ * @name krushaTV.directive:imdb
+ * @description validator for imdb urls
+ * @requires ngModel
+ */
 krusha.directive('imdb', function() {
   return {
     require: 'ngModel',
