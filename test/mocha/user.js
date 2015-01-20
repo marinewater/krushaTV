@@ -167,7 +167,7 @@ describe('User', function() {
 	});
 
 	describe('Login', function() {
-		it('should login a user', function(done) {
+		it('should login a user for the length of a session if no parameter is defined', function(done) {
 			var newUser = {
 				'username': 'test',
 				'password': 'testtest'
@@ -191,6 +191,69 @@ describe('User', function() {
 							res.body.should.have.property('type', 'authenticated');
 							res.body.should.have.property('user', 'test');
 							res.headers.should.have.property('set-cookie');
+							res.headers['set-cookie'][0].should.not.match(/expires/i);
+							done();
+						});
+				});
+		});
+
+		it('should login a user for the length of a session', function(done) {
+			var newUser = {
+				'username': 'test',
+				'password': 'testtest'
+			};
+
+			request(app)
+				.post('/api/signup')
+				.set('Content-Type', 'application/json')
+				.send(newUser)
+				.expect(200)
+				.end(function() {
+					var user = request.agent(app);
+					newUser.keep_logged_in = false;
+
+					user
+						.post('/api/login')
+						.set('Content-Type', 'application/json')
+						.send(newUser)
+						.expect(200)
+						.end(function(err, res) {
+							should.not.exist(err);
+							res.body.should.have.property('type', 'authenticated');
+							res.body.should.have.property('user', 'test');
+							res.headers.should.have.property('set-cookie');
+							res.headers['set-cookie'][0].should.not.match(/expires/i);
+							done();
+						});
+				});
+		});
+
+		it('should login a user for the a year', function(done) {
+			var newUser = {
+				'username': 'test',
+				'password': 'testtest'
+			};
+
+			request(app)
+				.post('/api/signup')
+				.set('Content-Type', 'application/json')
+				.send(newUser)
+				.expect(200)
+				.end(function() {
+					var user = request.agent(app);
+					newUser.keep_logged_in = true;
+
+					user
+						.post('/api/login')
+						.set('Content-Type', 'application/json')
+						.send(newUser)
+						.expect(200)
+						.end(function(err, res) {
+							should.not.exist(err);
+							res.body.should.have.property('type', 'authenticated');
+							res.body.should.have.property('user', 'test');
+							res.headers.should.have.property('set-cookie');
+							res.headers['set-cookie'][0].should.match(/expires.+?;/i);
 							done();
 						});
 				});

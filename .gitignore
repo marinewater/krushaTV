@@ -4,6 +4,7 @@
 /config/config.json
 /config/tvrage.json
 /config/recaptcha.json
+/config/session.json
 /log/*
 *.tmp
 /.idea

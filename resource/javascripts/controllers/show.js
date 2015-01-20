@@ -24,7 +24,12 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		$scope.loggedin = loggedin.getStatus();
 		$scope.submittedRedditText = false;
 		$scope.submittedImdbId = false;
+
 		$scope.dateFormat = loggedin.getDateFormat();
+		$scope.$on('loggedin', function() {
+			$scope.dateFormat = loggedin.getDateFormat();
+		});
+
 		$scope.active_season = 1;
 		var reddit_info = {};
 
@@ -179,7 +184,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 						return season.season === data.season;
 					}).active = true;
 					updateScrollOffset();
-					$scope.scrollToEpisodes();
+					scrollToEpisodes();
 				});
 		};
 
@@ -365,23 +370,11 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 
 		/**
 		 * @ngdoc showCtrl.method
-		 * @name showCtrl#scrollToSeasons
-		 * @description scrolls to season navigation
-		 * @methodOf krushaTV.controllers:showCtrl
-		 */
-		$scope.scrollToSeasons = function() {
-			$(document.body).animate({
-				'scrollTop':   $('#seasons').offset().top - 70
-			}, 200);
-		};
-
-		/**
-		 * @ngdoc showCtrl.method
 		 * @name showCtrl#scrollToEpisodes
 		 * @description scrolls to episodes
 		 * @methodOf krushaTV.controllers:showCtrl
 		 */
-		$scope.scrollToEpisodes = function() {
+		var scrollToEpisodes = function() {
 			$(document.body).animate({
 				'scrollTop':   $('#episodes').offset().top - 70
 			}, 200);

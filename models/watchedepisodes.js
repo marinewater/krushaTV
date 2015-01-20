@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 			addConstraints: function() {
 				sequelize
 					.query('ALTER TABLE "' + WatchedEpisodes.tableName + '" ADD CONSTRAINT episode_user_unique UNIQUE (episodeid, userid);')
-					.error(function(err){
+					.catch(function(err){
 						if (!(err.name === 'SequelizeDatabaseError' && err.message === 'relation "episode_user_unique" already exists')) {
 							if ((process.env.NODE_ENV || "development") === 'development')
 								console.log(err);
@@ -32,7 +32,9 @@ module.exports = function(sequelize, DataTypes) {
 			},
 			countWachtedEpisodes: function(models, userid, show_id_list) {
 				return sequelize
-					.query('select count(episodeid), seriesid from "' + WatchedEpisodes.tableName + '", "' + models.Episodes.tableName + '" where "' + WatchedEpisodes.tableName + '".episodeid = "' + models.Episodes.tableName + '".id AND "' + WatchedEpisodes.tableName + '".userid = ' + userid + ' group by seriesid');
+					.query('SELECT COUNT(episodeid), seriesid ' +
+					'FROM "' + WatchedEpisodes.tableName + '" w, "' + models.Episodes.tableName + '" e ' +
+					'WHERE w.episodeid = e.id AND w.userid = ' + userid + ' GROUP BY "seriesid";');
 			},
 			seasonWatched: function(models, userid, season_nr, show_id) {
 				userid = parseInt(userid);
@@ -43,7 +45,14 @@ module.exports = function(sequelize, DataTypes) {
 					return;
 
 				return sequelize
-					.query('INSERT INTO "' + WatchedEpisodes.tableName + '" ("createdAt", "updatedAt", episodeid, userid) SELECT now(), now(), "' + models.Episodes.tableName + '".id, ' + userid + ' FROM "' + models.Episodes.tableName + '" WHERE "' + models.Episodes.tableName + '".season=' + season_nr + ' AND "' + models.Episodes.tableName + '".seriesid = ' + show_id + ' AND NOT EXISTS(SELECT 1 FROM "' + WatchedEpisodes.tableName + '" WHERE "' + WatchedEpisodes.tableName + '".episodeid = "' + models.Episodes.tableName + '".id);');
+					.query('INSERT INTO "' + WatchedEpisodes.tableName + '" ("createdAt", "updatedAt", "episodeid", "userid") ' +
+					'SELECT now(), now(), e.id, ' + userid + ' FROM "' + models.Episodes.tableName + '" e ' +
+					'WHERE e.season = ' + season_nr +
+					' AND e.seriesid = ' + show_id +
+					' AND e.airdate <= now() ' +
+					' AND NOT EXISTS(SELECT 1 FROM "' + WatchedEpisodes.tableName + '" w ' +
+					'WHERE w.episodeid = e.id ' +
+					'AND w.userid = ' + userid + ');');
 			},
 			showWatched: function(models, userid, show_id) {
 				userid = parseInt(userid);
@@ -53,7 +62,12 @@ module.exports = function(sequelize, DataTypes) {
 					return;
 
 				return sequelize
-					.query('INSERT INTO "' + WatchedEpisodes.tableName + '" ("createdAt", "updatedAt", episodeid, userid) SELECT now(), now(), "' + models.Episodes.tableName + '".id, ' + userid + ' FROM "' + models.Episodes.tableName + '" WHERE "' + models.Episodes.tableName + '".seriesid = ' + show_id + ' AND NOT EXISTS(SELECT 1 FROM "' + WatchedEpisodes.tableName + '" WHERE "' + WatchedEpisodes.tableName + '".episodeid = "' + models.Episodes.tableName + '".id);');
+					.query('INSERT INTO "' + WatchedEpisodes.tableName + '" ("createdAt", "updatedAt", "episodeid", "userid") ' +
+					'SELECT now(), now(), e.id, ' + userid + ' FROM "' + models.Episodes.tableName + '" e ' +
+					'WHERE e.seriesid = ' + show_id +
+					' AND e.airdate <= now() ' +
+					'AND NOT EXISTS(SELECT 1 FROM "' + WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id ' +
+					'AND w.userid = ' + userid + ');');
 			},
 			deleteWatchedShow: function(models, userid, showid) {
 				userid = parseInt(userid);

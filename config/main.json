@@ -8,6 +8,6 @@
   },
 
   "production": {
-    "proxyDepth": 2
+    "proxyDepth": 1
   }
 }

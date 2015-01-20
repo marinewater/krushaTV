@@ -54,13 +54,17 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
             .when('/watched', {
                 templateUrl: '/static/templates/watched.html',
                 controller: 'watchedCtrl'
-            }).
-            otherwise({
+            })
+            .when('/calendar', {
+                templateUrl: '/static/templates/calendar.html',
+                controller: 'calendarCtrl'
+            })
+            .otherwise({
                 redirectTo: '/'
             });
 
         $httpProvider.interceptors.push('interceptor');
-        $compileProvider.debugInfoEnabled(true);  // change to false for production
+        $compileProvider.debugInfoEnabled(false);  // change to false for production
         $locationProvider.html5Mode(true);
         $tooltipProvider.setTriggers({'slideStartEvent': 'slideStopEvent'});
         ngClipProvider.setPath("/static/javascripts/bower_components/zeroclipboard/dist/ZeroClipboard.swf");

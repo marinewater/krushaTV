@@ -2,7 +2,7 @@ module.exports = function(router, log, models, user) {
 
 	// return a list of all subreddits the users have submitted
 	router.get('/subreddit', user.isAdmin, function(req, res, next) {
-		models.Subreddits.findAll({ include: [models.Series]}).success(function(returning) {
+		models.Subreddits.findAll({ include: [models.Series]}).then(function(returning) {
 			if (returning.length === 0) {
 				res.status(404);
 				return res.json({
@@ -29,7 +29,7 @@ module.exports = function(router, log, models, user) {
 				'type': 'submitted_subreddits',
 				'subreddits': imdb_ids
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error(' GET /api/admin/subreddit DB: ' + err);
 			next();
 		});
@@ -47,7 +47,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.Subreddits.find({ where: { 'id': submission_id }, include: [models.Series] }).success(function(returning) {
+		models.Subreddits.find({ where: { 'id': submission_id }, include: [models.Series] }).then(function(returning) {
 			// the submission does not exist
 			if (returning === null) {
 				res.status(404);
@@ -69,23 +69,23 @@ module.exports = function(router, log, models, user) {
 			}
 
 			models.Series.update({ 'subreddit': returning.dataValues.subreddit},
-				{ where: { 'id': returning.dataValues.showid }}).success(function() {
+				{ where: { 'id': returning.dataValues.showid }}).then(function() {
 
 				// delete all submissions for the show
-				models.Subreddits.destroy({ where: { 'showid': returning.dataValues.showid }}).success(function() {
+				models.Subreddits.destroy({ where: { 'showid': returning.dataValues.showid }}).then(function() {
 					return res.json({
 						'type': 'reddit_submission',
 						'result': 'accepted'
 					});
-				}).error(function(err) {
+				}).catch(function(err) {
 					log.error('PUT /api/admin/subreddit/' + submission_id + ' DB: ' + err);
 					next();
 				});
-			}).error(function(err) {
+			}).catch(function(err) {
 				log.error('PUT /api/admin/subreddit/' + submission_id + ' DB: ' + err);
 				next();
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('PUT /api/admin/subreddit/' + submission_id + ' DB: ' + err);
 			next();
 		});

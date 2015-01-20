@@ -20,7 +20,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		var reddit_regex = /^(?:http(?:s)?:\/\/)?(?:www\.)?(?:reddit\.com)?(\/r\/\w+)(?:[.?&/].*)?$/i;
+		var reddit_regex = /^(?:http(?:s)?:\/\/)?(?:www\.)?(?:reddit\.com)?(\/r\/\w+)(?:[.?&/]{1}.*)?$/i;
 
 		var match = req.body.subreddit.match(reddit_regex);
 
@@ -33,13 +33,13 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.Series.findOne({ where: {'id': showid } }).success(function(returning) {
+		models.Series.findOne({ where: {'id': showid } }).then(function(returning) {
 			if (returning !== null) {
 				if (returning.dataValues.subreddit === null) {
 					models.Subreddits.findOrCreate({
 						where: { 'userid': req.user.id, 'showid': showid},
 						defaults: { 'userid': req.user.id, 'showid': showid, 'subreddit': match[1]}
-					}).success(function(affected) {
+					}).then(function(affected) {
 						if (affected[1]) {
 							res.status(201);
 							return res.json({
@@ -55,7 +55,8 @@ module.exports = function(router, log, models, user) {
 								'message': 'user has already submitted a subreddit for this show'
 							});
 						}
-					}).error(function() {
+					}).catch(function(err) {
+						log.error('POST /api/subreddit DB', err);
 						res.status(400);
 						return res.json({
 							'type': 'error',
@@ -81,8 +82,8 @@ module.exports = function(router, log, models, user) {
 					'message': 'showid does not exist'
 				});
 			}
-		}).error(function(err) {
-			log.error('POST /api/subreddit DB:' + err);
+		}).catch(function(err) {
+			log.error('POST /api/subreddit DB', err);
 			res.status(400);
 			return res.json({
 				'type': 'error',

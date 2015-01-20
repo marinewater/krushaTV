@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+@import url(//fonts.googleapis.com/css?family=Lato:400,700,400italic);
 $fa-font-path:   "../fonts/FontAwesome";
 
 @import "font-awesome/font-awesome";
@@ -17,6 +17,8 @@ $fa-font-path:   "../fonts/FontAwesome";
 @import "custom/profile";
 @import "custom/navbar";
 @import "custom/slider";
+@import "custom/calendar";
+@import "custom/date_picker";
 @import "../../static/javascripts/bower_components/angular-hotkeys/build/hotkeys.css";
 
 body {
@@ -81,5 +83,14 @@ unwatched >.row {
 @media(min-width: $screen-lg-min) {
   .pull-left-lg {
 	float: left;
+  }
+}
+
+.profile-link {
+  max-width: 135px;
+  overflow: hidden;
+
+  > a {
+	white-space: nowrap;
   }
 }

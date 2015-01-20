@@ -15,9 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'static/javascripts/bower_components/jquery/dist/jquery.js',
       'static/javascripts/bower_components/angular/angular.js',
       'static/javascripts/bower_components/angular-mocks/angular-mocks.js',
-      'static/javascripts/bower_components/jquery/dist/jquery.js',
       'static/javascripts/bower_components/angular-animate/angular-animate.js',
       'static/javascripts/bower_components/angular-cookies/angular-cookies.js',
       'static/javascripts/bower_components/angular-route/angular-route.js',
@@ -28,6 +28,7 @@ module.exports = function(config) {
       'static/javascripts/bower_components/zeroclipboard/dist/ZeroClipboard.js',
       'static/javascripts/bower_components/ng-clip/dest/ng-clip.min.js',
       'static/javascripts/bower_components/angular-hotkeys/build/hotkeys.js',
+      'static/templates/**/*.html',
       'static/javascripts/krusha.min.js',
       'test/angular/**/*.js'
     ],
@@ -41,6 +42,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'static/templates/directives/*.html': ['ng-html2js']
     },
 
 
@@ -74,6 +76,14 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: true,
+
+    ngHtml2JsPreprocessor: {
+      prependPrefix: '/',
+
+      // setting this option will create only a single module that contains templates
+      // from all the files, so you can load them all with module('foo')
+      moduleName: 'templates'
+    }
   });
 };

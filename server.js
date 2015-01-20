@@ -15,6 +15,8 @@ var session      = require('express-session');
 // set environment variable
 var env       = process.env.NODE_ENV || "development";
 
+var session_settings = require('./config/session.json');
+
 // LOGGING
 var bunyan	= require('bunyan');
 var log_options = {name: 'krushaTV'};
@@ -39,6 +41,10 @@ var models = require('./models');
 
 // redis cache
 var redis = require("redis").createClient();
+var RedisStore = require('connect-redis')(session);
+var sessionStore = new RedisStore ({
+	client: redis
+});
 
 
 // Modules
@@ -57,9 +63,11 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-	secret: 'zJoOCuFay8zKjEMDDN40yPC6rvNK7r', // session secret
+	secret: session_settings.secret, // session secret
 	saveUninitialized: true,
-	resave: true
+	resave: false,
+	store: sessionStore,
+	key: 'session:'
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -80,9 +88,9 @@ require('./app/api/trackshow.js')(router, log, models, user);
 require('./app/api/subreddit.js')(router, log, models, user);
 require('./app/api/imdb.js')(router, log, models, user, user);
 require('./app/api/unwatched.js')(router, log, models, user);
+require('./app/api/calendar.js')(router, log, models, user);
 require('./app/api/admin/reddit.js')(admin_router, log, models, user);
 require('./app/api/admin/imdb.js')(admin_router, log, models, user);
-require('./app/api.js')(router);
 
 app.use('/api', router);
 app.use('/api/admin', admin_router);
@@ -94,20 +102,5 @@ app.use(function(req, res) {
 });
 
 // launch ======================================================================
-models.sequelize.sync()
-	.done(function() {
-        models.Series.addFullTextIndex();
-		models.Series.addConstraints();
-		models.User.addConstraints();
-        models.WatchedEpisodes.addConstraints();
-        models.TrackShow.addConstraints();
-        models.Subreddits.addConstraints();
-		models.Imdb.addConstraints();
-    })
-    .success(function () {
-		var server = app.listen(port);
-		log.info("Server is listening on port " + port);
-	})
-	.error(function(err){
-		log.error(err);
-	});
+var server = app.listen(port);
+log.info("Server is listening on port " + port);

@@ -34,6 +34,9 @@ krusha.filter('formatEpisode', function() {
 		if (n < 10) {
 			return '0' + n.toString();
 		}
+		else if (isNaN(n)) {
+			return '00';
+		}
 		else {
 			return n.toString();
 		}
@@ -61,25 +64,18 @@ krusha.filter('copyEpisode', ['$filter', function($filter) {
 
 /**
  * @ngdoc filter
- * @name krushaTV.filter:countUnwatched
- * @description
- * "countUnwatched" checks if the supplied array contains unwatched episodes if watched episodes should not be displayed.
- * This is used to remove seasons and shows from navigation if they only contain watched episodes and only unawtched episodes should be displayed.
- * @param {Array} show shows
- * @param {Boolean} showWatched determines if watched episodes should be displayed
+ * @name krushaTV.filter:monthName
+ * @description "monthName" returns the name of a month for a given integer
+ * @param {Number} month month
  */
-krusha.filter('countUnwatched', function() {
-	var countUnwatched = function(show) {
-		return !!show.find(function (season) {
-			if (season.episodes.find(function (episode) {
-					return episode.watched === false;
-				})) {
-				return true;
-			}
-		});
-
-	};
-	return function(show, showWatched) {
-		return showWatched ? true : countUnwatched(show);
+krusha.filter('monthName', function() {
+	var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	return function(month) {
+		if (month < 1 || month > 12) {
+			return null;
+		}
+		else {
+			return monthNames[month-1];
+		}
 	}
 });

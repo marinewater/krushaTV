@@ -3,7 +3,7 @@
         <div class="jumbotron">
             <h1><i class="fa fa-sign-in"></i> Login</h1>
             <alert ng-repeat="alert in alerts" type="{{ ::alert.type }}" close="closeAlert($index)">{{ ::alert.msg }}</alert>
-            <form role="form" ng-submit="loginForm.$valid && login_full(username, password)" name="loginForm">
+            <form role="form" ng-submit="loginForm.$valid && login_full(username, password, keep_logged_in)" name="loginForm">
                 <div class="form-group" ng-class="{'has-error': loginForm.username.$touched && loginForm.username.$error.required}">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" ng-model="username" ng-model-options="{ updateOn: 'blur' }" class="form-control" required/>
@@ -13,20 +13,30 @@
                     <input type="password" id="password" name="password" ng-model="password" ng-model-options="{ updateOn: 'blur' }" class="form-control" required ng-minlength="6"/>
                     <span class="help-block" ng-show="loginForm.password.$touched && loginForm.password.$error.minlength">Password needs to be at least 6 characters long.</span>
                 </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="keep_logged_in"> Keep me logged in
+                    </label>
+                </div>
                 <button type="submit" class="btn btn-primary">Login</button>
 
                 <p class="pull-right"><a href="/signup">Sign Up</a></p>
 
                 <div class="clearfix"></div>
 
-                <div>
+                <div class="login">
                     <p>or login with:</p>
 
-                    <ul class="list-inline">
-                        <li><a href="/auth/reddit" class="btn btn-default" target="_self">Reddit</a></li>
-                        <li><a href="/auth/google" class="btn btn-danger" target="_self">Google</a></li>
-                        <li><a href="/auth/facebook" class="btn btn-primary" target="_self">Facebook</a></li>
+                    <ul class="list-inline hidden-xs" login-buttons>
                     </ul>
+                    <ul class="list-unstyled visible-xs" login-buttons>
+                    </ul>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="keep_logged_in"> Keep me logged in
+                    </label>
                 </div>
             </form>
         </div>

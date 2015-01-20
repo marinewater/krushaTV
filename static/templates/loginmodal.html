@@ -3,7 +3,7 @@
     <h3 class="modal-title">Login</h3>
 </div>
 <div class="modal-body">
-    <form role="form" class="form-horizontal" ng-submit="modalLoginForm.$valid && login(username, password)" name="modalLoginForm">
+    <form role="form" class="form-horizontal" ng-submit="modalLoginForm.$valid && login(username, password, keep_logged_in)" name="modalLoginForm">
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2" ng-show="alerts.length>0">
                 <alert ng-repeat="alert in alerts" type="{{ ::alert.type }}" close="closeAlert($index)">{{ ::alert.msg }}</alert>
@@ -24,12 +24,21 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="keep_logged_in"> Keep me logged in
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">
-                <span class="help-block">Don't have an account yet? <a href="/signup">Sign up here!</a></span>
+                <span class="help-block">Don't have an account yet? <a href="/signup" ng-click="cancel()">Sign up here!</a></span>
             </div>
         </div>
 
@@ -37,11 +46,18 @@
             <div class="col-md-10 col-md-offset-2">
                 <p>or login with:</p>
 
-                <ul class="list-inline">
-                    <li><a href="/auth/reddit" class="btn btn-default" target="_self">Reddit</a></li>
-                    <li><a href="/auth/google" class="btn btn-danger" target="_self">Google</a></li>
-                    <li><a href="/auth/facebook" class="btn btn-primary" target="_self">Facebook</a></li>
+                <ul class="list-inline" login-buttons>
                 </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="keep_logged_in"> Keep me logged in
+                    </label>
+                </div>
             </div>
         </div>
     </form>

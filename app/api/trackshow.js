@@ -11,7 +11,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.Series.find({ where: { 'id': showid } }).success(function(returning) {
+		models.Series.find({ where: { 'id': showid } }).then(function(returning) {
 			if (returning) {
 				models.TrackShow.findOrCreate({
 					where: {
@@ -22,13 +22,13 @@ module.exports = function(router, log, models, user) {
 						'userid': req.user.id,
 						'showid': showid
 					}
-				}).success(function(returning) {
+				}).then(function(returning) {
 					res.status(201);
 					return res.json({
 						'type': 'track',
 						'showid': returning[0].dataValues.showid
 					});
-				}).error(function(err) {
+				}).catch(function(err) {
 					log.error('/api/track DB:' + err);
 					res.status(400);
 					return res.json({
@@ -46,7 +46,7 @@ module.exports = function(router, log, models, user) {
 					'message': 'Show id not found'
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('/api/track DB:' + err);
 			res.status(400);
 			return res.json({
@@ -63,19 +63,19 @@ module.exports = function(router, log, models, user) {
 				'userid': req.user.id
 			},
 			include: [models.Series]
-		}).success(function(returning) {
+		}).then(function(returning) {
 			if(returning.length !== 0) {
-				shows = [];
-				idlist = [];
+				var shows = [];
+				var id_list = [];
 
 				returning.forEach(function(show) {
-					idlist.push(show.Series.id);
+					id_list.push(show.Series.id);
 				});
 
 				// return a list with the amount of seasons for each season id
-				models.Episodes.countSeasons(idlist).success(function(season_counts) {
+				models.Episodes.countSeasons(id_list).then(function(season_counts) {
 
-					models.WatchedEpisodes.countWachtedEpisodes(models, req.user.id, idlist).success(function(watched_counts) {
+					models.WatchedEpisodes.countWachtedEpisodes(models, req.user.id, id_list).then(function(watched_counts) {
 
 						returning.forEach(function(show) {
 							var season_count = 0;
@@ -93,7 +93,7 @@ module.exports = function(router, log, models, user) {
 								if (wc.seriesid === show.Series.id) {
 									watched_count = wc.count;
 								}
-							})
+							});
 							shows.push({
 								'name': show.Series.name,
 								'id': show.Series.id,
@@ -111,8 +111,8 @@ module.exports = function(router, log, models, user) {
 						});
 						
 					});
-				}).error(function(err) {
-					log.error('GET /api/track DB: ' + err);
+				}).catch(function(err) {
+					log.error('GET /api/track DB', err);
 					return next();
 				});
 			}
@@ -141,7 +141,7 @@ module.exports = function(router, log, models, user) {
 		models.TrackShow.destroy({ where: {
 			'showid': showid,
 			'userid': req.user.id
-		}}).success(function(delete_count) {
+		}}).then(function(delete_count) {
 			if (delete_count > 0) {
 				return res.json({
 					'type': 'delete',
@@ -156,7 +156,7 @@ module.exports = function(router, log, models, user) {
 					'msg': 'show was not tracked anyway'
 				});
 			}
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.err('DELETE /track/' + req.params.showid + ' userid: ' + req.user.id + ' DB: ' + err);
 		});
 
@@ -173,12 +173,12 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.WatchedEpisodes.destroy({ where: { 'userid': req.user.id, 'episodeid': episodeid } }).success(function() {
+		models.WatchedEpisodes.destroy({ where: { 'userid': req.user.id, 'episodeid': episodeid } }).then(function() {
 			return res.json({
 				'type': 'watched',
 				'medium': 'episode'
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('DELETE /watched/episode/' + episodeid + " DB: " + err);
 
 			res.status(400);
@@ -201,13 +201,13 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.WatchedEpisodes.findOrCreate({ where: { 'userid': req.user.id, 'episodeid': episodeid} }).success(function() {
+		models.WatchedEpisodes.findOrCreate({ where: { 'userid': req.user.id, 'episodeid': episodeid} }).then(function() {
 			res.status(201);
 			return res.json({
 				'type': 'watched',
 				'medium': 'episode'
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('POST /watched/episode/ DB: ' + err);
 
 			res.status(400);
@@ -231,13 +231,13 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.WatchedEpisodes.seasonWatched(models, req.user.id, season_nr, showid).success(function() {
+		models.WatchedEpisodes.seasonWatched(models, req.user.id, season_nr, showid).then(function() {
 			res.status(201);
 			return res.json({
 				'type': 'watched',
 				'medium': 'season'
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('POST /watched/season/ DB: ' + err);
 
 			res.status(400);
@@ -261,14 +261,14 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.WatchedEpisodes.showWatched(models, req.user.id, showid).success(function() {
+		models.WatchedEpisodes.showWatched(models, req.user.id, showid).then(function() {
 			res.status(201);
 			return res.json({
 				'type': 'watched',
 				'medium': 'show'
 			});
-		}).error(function(err) {
-			log.error('POST /watched/show/ DB: ' + err);
+		}).catch(function(err) {
+			log.error('POST /watched/show/ DB', err);
 
 			res.status(400);
 			return res.json({
@@ -291,12 +291,12 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.WatchedEpisodes.deleteWatchedShow(models, req.user.id, showid).success(function() {
+		models.WatchedEpisodes.deleteWatchedShow(models, req.user.id, showid).then(function() {
 			return res.json({
 				'type': 'unwatched',
 				'medium': 'season'
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('DELETE /watched/show/' + showid + " DB: " + err);
 
 			res.status(400);
@@ -320,12 +320,12 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.WatchedEpisodes.deleteWatchedSeason(models, req.user.id, seasonnr, showid).success(function() {
+		models.WatchedEpisodes.deleteWatchedSeason(models, req.user.id, seasonnr, showid).then(function() {
 			return res.json({
 				'type': 'unwatched',
 				'medium': 'season'
 			});
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('DELETE /watched/season/' + showid + '/' + seasonnr + " DB: " + err);
 
 			res.status(400);

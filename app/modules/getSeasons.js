@@ -25,7 +25,7 @@ module.exports = function(log, models) {
             }
 
             models.Episodes.findAll(query)
-                .success(function(episode_results) {
+                .then(function(episode_results) {
                     if (episode_results.length > 0) {
                         var episodes = [];
 
@@ -60,7 +60,7 @@ module.exports = function(log, models) {
                         callback(null);
                     }
                 })
-                .error(function(err) {
+                .catch(function(err) {
                     log.error('module: getSeasons; function getEpisodes; DB: ' + err);
                     callback(false);
                 });

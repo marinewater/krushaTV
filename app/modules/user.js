@@ -7,7 +7,7 @@ module.exports = function(log, models) {
 
             // find a user whose username is the same as the forms username
             // we are checking to see if the user trying to login already exists
-            models.User.find({ where: { 'username' :  username } }).success(function(user) {
+            models.User.find({ where: { 'username' :  username } }).then(function(user) {
                 // check to see if theres already a user with that username
                 if (user) {
                     return done(null, false, 'user_exists');
@@ -22,16 +22,16 @@ module.exports = function(log, models) {
                     });
 
                     // save the user
-                    newUser.save().success(function() {
+                    newUser.save().then(function() {
                         return done(null, newUser);
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         if (err)
                             log.error('local-signup: ' + err);
                         return done(err);
                     });
                 }
 
-            }).error(function(err){
+            }).catch(function(err){
                 return done(err);
             });
         },

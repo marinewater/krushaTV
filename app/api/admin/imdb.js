@@ -2,7 +2,7 @@ module.exports = function(router, log, models, user) {
 
     // return a list of all imdb ids the users have submitted
     router.get('/imdb', user.isAdmin, function(req, res, next) {
-        models.Imdb.findAll({ include: [models.Series]}).success(function(returning) {
+        models.Imdb.findAll({ include: [models.Series]}).then(function(returning) {
             if (returning.length === 0) {
                 res.status(404);
                 return res.json({
@@ -29,7 +29,7 @@ module.exports = function(router, log, models, user) {
                 'type': 'submitted_imdb_ids',
                 'imdb_ids': imdb_ids
             });
-        }).error(function(err) {
+        }).catch(function(err) {
             log.error(' GET /api/admin/imdb DB: ' + err);
             next();
         });
@@ -47,7 +47,7 @@ module.exports = function(router, log, models, user) {
             });
         }
 
-        models.Imdb.find({ where: { 'id': submission_id }, include: [models.Series] }).success(function(returning) {
+        models.Imdb.find({ where: { 'id': submission_id }, include: [models.Series] }).then(function(returning) {
             // the submission does not exist
             if (returning === null) {
                 res.status(404);
@@ -69,19 +69,19 @@ module.exports = function(router, log, models, user) {
             }
 
             models.Series.update({ 'imdbid': returning.dataValues.imdb_id},
-                { where: { 'id': returning.dataValues.showid }}).success(function() {
+                { where: { 'id': returning.dataValues.showid }}).then(function() {
 
                     // delete all submissions for the show
-                    models.Imdb.destroy({ where: { 'showid': returning.dataValues.showid }}).success(function() {
+                    models.Imdb.destroy({ where: { 'showid': returning.dataValues.showid }}).then(function() {
                         return res.json({
                             'type': 'imdb_submission',
                             'result': 'accepted'
                         });
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         log.error('PUT /api/admin/imdb/' + submission_id + ' DB: ' + err);
                         next();
                     });
-                }).error(function(err) {
+                }).catch(function(err) {
                     if (err.name === 'SequelizeUniqueConstraintError' && err.fields.indexOf('imdbid' ) > -1) {
                         res.status(409);
                         return res.json({
@@ -95,7 +95,7 @@ module.exports = function(router, log, models, user) {
                         next();
                     }
                 });
-        }).error(function(err) {
+        }).catch(function(err) {
             log.error('PUT /api/admin/imdb/' + submission_id + ' DB: ' + err);
             next();
         });

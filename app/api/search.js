@@ -34,7 +34,7 @@ module.exports = function(router, log, models, redis) {
 			user_id = req.user.id;
 		}
 
-		models.Series.search(search_query, user_id).success(function(query_results) {
+		models.Series.search(search_query, user_id).then(function(query_results) {
 
 			query_results.forEach(function(sh) {
 				var show = sh.dataValues;
@@ -61,7 +61,7 @@ module.exports = function(router, log, models, redis) {
 				'shows': shows
 			});
 
-		}).error(function(err) {
+		}).catch(function(err) {
 			log.error('/api/search/'  + req.params.show + ' DB: ' + err);
 		});
 	});

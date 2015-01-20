@@ -13,10 +13,15 @@ krusha.factory('apiAuth', ['$http', function($http) {
          * @description logs an user in with the provided credentials
          * @param {string} username username
          * @param {string} password password (has to be at least 6 characters long)
+         * @param {boolean=} keep_logged_in defines if the user is logged out after the session
          * @returns {HttpPromise} HttpPromise
          */
-        login: function (username, password) {
-            return $http.post('/api/login', {'username': username, 'password': password});
+        login: function (username, password, keep_logged_in) {
+            if (typeof keep_logged_in === 'undefined') {
+                keep_logged_in = false;
+            }
+
+            return $http.post('/api/login', {'username': username, 'password': password, 'keep_logged_in': keep_logged_in});
         },
 
         /**

@@ -11,7 +11,7 @@
  * @param {function} onSlideStart callback, called when the user grabs the slider's handle
  * @param {function} onSlideStop callback, called when the user releases the slider's handle
  */
-krusha.directive('slider', function($timeout) {
+krusha.directive('slider', ['$timeout', function($timeout) {
     var body = $("body");
 
     var link = function($scope, element) {
@@ -24,7 +24,7 @@ krusha.directive('slider', function($timeout) {
         var handle = element.find(".handle");
         var handleWidth = null;
 
-        function addListeners(element) {
+        function addListeners() {
             handle.bind("mousedown touchstart", startSlide);
         }
 
@@ -146,4 +146,4 @@ krusha.directive('slider', function($timeout) {
         },
         template: '<div class="bar"><div class="handle" tooltip="{{ model }}" tooltip-placement="{{ ::tooltipPlacement }}" tooltip-trigger="slideStartEvent"></div></div>'
     }
-});
+}]);
