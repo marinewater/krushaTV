@@ -15,6 +15,8 @@ var session      = require('express-session');
 // set environment variable
 var env       = process.env.NODE_ENV || "development";
 
+var session_settings = require('./config/session.json');
+
 // LOGGING
 var bunyan	= require('bunyan');
 var log_options = {name: 'krushaTV'};
@@ -67,7 +69,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-	secret: 'zJoOCuFay8zKjEMDDN40yPC6rvNK7r', // session secret
+	secret: session_settings.secret, // session secret
 	saveUninitialized: true,
 	resave: false,
 	store: sessionStore,
