@@ -9,9 +9,21 @@ describe('apiAuth', function() {
         $httpBackend = _$httpBackend_;
     }));
 
-    it('should login', function() {
-        $httpBackend.expectPOST('/api/login', {'username': 'test', 'password': 'asd123456'}).respond(200, {});
+    it('should login for the length of a session if no keep_logged_in parameter is specified', function() {
+        $httpBackend.expectPOST('/api/login', {'username': 'test', 'password': 'asd123456', 'keep_logged_in': false}).respond(200, {});
         apiAuth.login('test', 'asd123456');
+        $httpBackend.flush();
+    });
+
+    it('should login session', function() {
+        $httpBackend.expectPOST('/api/login', {'username': 'test', 'password': 'asd123456', 'keep_logged_in': false}).respond(200, {});
+        apiAuth.login('test', 'asd123456', false);
+        $httpBackend.flush();
+    });
+
+    it('should login permanent', function() {
+        $httpBackend.expectPOST('/api/login', {'username': 'test', 'password': 'asd123456', 'keep_logged_in': true}).respond(200, {});
+        apiAuth.login('test', 'asd123456', true);
         $httpBackend.flush();
     });
 
