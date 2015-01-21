@@ -56,7 +56,7 @@ module.exports = function(router, log, models, user) {
                             });
                         }
                     }).catch(function(err) {
-                        log.error('POST /api/imdb DB: ' + err);
+                        log.error('POST /api/imdb DB', err);
                         res.status(400);
                         return res.json({
                             'type': 'error',
@@ -83,7 +83,7 @@ module.exports = function(router, log, models, user) {
                 });
             }
         }).catch(function(err) {
-            log.error('POST /api/imdb DB: ' + err);
+            log.error('POST /api/imdb DB', err);
             res.status(400);
             return res.json({
                 'type': 'error',
