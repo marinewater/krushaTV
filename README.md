@@ -7,10 +7,10 @@ Docs
 
 ToDo
 --------
-* Tests, tests, tests
-* ~~finish calendar~~
-* ~~make user panel responsive~~
-* ~~get rid of EventEmitter deprecation warnings~~
+- [ ] Tests, tests, tests
+- [x] finish calendar
+- [x] make user panel responsive
+- [x] get rid of EventEmitter deprecation warnings~~
 
 Requirements
 --------
