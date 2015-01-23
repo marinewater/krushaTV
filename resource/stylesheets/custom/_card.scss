@@ -2,6 +2,10 @@
   background-color: $card-bg;
   border: $card-border;
   padding: 30px;
+  
+  &:last-child {
+    margin-bottom: 20px;
+  }
 }
 
 .card-small {
