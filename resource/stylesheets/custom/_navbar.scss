@@ -20,4 +20,26 @@
       left: 5px;
     }
   }
+
+  .profile-link {
+    @media(min-width: $screen-lg-min) {
+      max-width: 135px;
+    }
+    
+    @media(min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      max-width: 170px;
+    }
+    
+    @media(min-width: $screen-md-min) and (max-width: $screen-md-max) {
+      max-width: 305px;
+    }
+
+    @media(min-width: $screen-sm-min) {
+      overflow: hidden;
+
+      > a {
+        white-space: nowrap;
+      }
+    }
+  }
 }

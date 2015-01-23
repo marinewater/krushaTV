@@ -86,7 +86,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right" ng-show="loggedin">
-                        <li ng-if="user.name" class="profile-link"><a href="/profile" ng-click="col.isCollapsed = true"><i class="fa fa-lg fa-user"></i> {{ user.name }}<span class="hidden-sm hidden-md"> - Settings</span></a></li>
+                        <li ng-if="user.name" class="profile-link"><a href="/profile" ng-click="col.isCollapsed = true"><i class="fa fa-lg fa-user"></i> {{ user.name }}</a></li>
                         <li><a href="" ng-click="logout(); col.isCollapsed = true"><i class="fa fa-lg fa-sign-out"></i> Logout</a></li>
                     </ul>
                 </div>
