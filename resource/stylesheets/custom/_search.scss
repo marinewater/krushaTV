@@ -29,6 +29,20 @@ genre-labels {
   }
 }
 
+.mobile-search {
+  .spinner {
+	margin-top: 5px;
+  }
+  
+  .form-group {
+	margin-bottom: 0;
+  }
+  
+  .buttons {
+	margin-bottom: 5px;
+  }
+}
+
 @media (max-width: $screen-sm-min) {
   genre-labels {
 	display: block;

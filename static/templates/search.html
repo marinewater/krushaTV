@@ -1,20 +1,28 @@
 <div class="row">
 	<div class="col-xs-12">
-		<div class="row visible-xs">
-			<div class="form-group col-xs-8">
-				<label for="mobileSearch" class="sr-only">Search</label>
-				<input type="search" id="mobileSearch" name="mobileSearch" class="form-control search-input" placeholder="Search" ng-model="mobSearchText" ng-change="mobileSearch(mobSearchText)" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }"/>
-			</div>
-			<div class="col-xs-4">
-				<button class="btn btn-default pull-right" ng-click="clearSearch(mobSearchText)">Clear <i class="fa fa-times"></i></button>
-			</div>
+		<div class="row visible-xs mobile-search">
+			<form ng-submit="mobileSearch(mobSearchText)">
+				<div class="form-group col-xs-12">
+					<label for="mobileSearch" class="sr-only">Search</label>
+					<input type="search" id="mobileSearch" name="mobileSearch" class="form-control search-input" placeholder="Search" ng-model="mobSearchText"/>
+				</div>
+				<div class="col-xs-4 buttons">
+					<button type="button" class="btn btn-default" ng-click="clearSearch(mobSearchText)">Clear <i class="fa fa-times"></i></button>
+				</div>
+				<div class="col-xs-4">
+					<loadingspinner/>
+				</div>
+				<div class="col-xs-4">
+					<button type="submit" class="btn btn-primary pull-right">Search <i class="fa fa-search"></i></button>
+				</div>
+			</form>
 		</div>
 		<div class="page-header hidden-xs" ng-show="result.length > 0">
 			<h1>Search Results</h1>
 		</div>
 	</div>
 </div>
-<loadingspinner/>
+
 <div class="row search">
 	<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3" ng-show="result.length > 0">
 		<div class="card">
