@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12 spacer">
+    <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12 spacer" ng-if="shows.length > 0">
         <div class="card" id="shows">
             <ul class="nav nav-pills nav-stacked">
                 <li ng-repeat="show in shows | orderByName track by show.id" ng-class="{active: show.active}"><a ng-click="getSeasonsScroll(show.id)">{{ ::show.name }}</a></li>
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 spacer">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 spacer" ng-if="seasons.length > 0">
         <div class="card" id="seasons">
             <ul class="nav nav-pills nav-stacked">
                 <li ng-repeat="season in seasons | orderBy: 'season'" ng-class="{active: season.active}"><a ng-click="getEpisodesScroll(getActiveShow().id, season.season)">Season {{ ::season.season }}</a></li>
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+    <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12" ng-if="episodes.length > 0">
         <div class="card" id="episodes">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
@@ -67,7 +67,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-small visible-xs visible-sm">
+        <div class="card-small visible-xs visible-sm" ng-if="shows.length > 0">
             <div class="row">
                 <div class="col-xs-12">
                     <p class="text-center">
@@ -75,6 +75,11 @@
                     </p>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4" ng-if="shows.length === 0">
+        <div class="card">
+            <p>You have no {{ ::watched_text_inv }} episodes.</p>
         </div>
     </div>
 </div>

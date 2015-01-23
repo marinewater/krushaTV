@@ -56,6 +56,7 @@ krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, logged
         };
 
         $scope.watched_text = $scope.watched ? 'unwatched' : 'watched';
+        $scope.watched_text_inv = $scope.watched ? 'watched' : 'unwatched';
         $scope.watched_text_cap = $scope.watched ? 'Unwatched' : 'Watched';
         $scope.watched_text_cap_short = $scope.watched ? 'Unw.' : 'W.';
     };
