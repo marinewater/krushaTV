@@ -91,6 +91,7 @@ require('./app/api/unwatched.js')(router, log, models, user);
 require('./app/api/calendar.js')(router, log, models, user);
 require('./app/api/admin/reddit.js')(admin_router, log, models, user);
 require('./app/api/admin/imdb.js')(admin_router, log, models, user);
+require('./app/api/omdb.js')(router, log, redis);
 
 app.use('/api', router);
 app.use('/api/admin', admin_router);

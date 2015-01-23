@@ -209,7 +209,7 @@ krusha.factory('apiShow', ['$http', function($http) {
          * @returns {HttpPromise} HttpPromise
          */
         getomdb: function(imdb_id) {
-            return $http.get('//www.omdbapi.com/?r=json&i=' + imdb_id)
+            return $http.get('/api/omdb/' + imdb_id);
         },
 
         /**

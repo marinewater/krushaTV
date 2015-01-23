@@ -106,7 +106,7 @@ describe('apiShow', function() {
     });
 
     it('should get omdb data', function() {
-        $httpBackend.expectGET('//www.omdbapi.com/?r=json&i=tt1234567').respond(200, {});
+        $httpBackend.expectGET('/api/omdb/tt1234567').respond(200, {});
         apiShow.getomdb('tt1234567');
         $httpBackend.flush();
     });
