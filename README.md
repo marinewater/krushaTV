@@ -10,7 +10,7 @@ ToDo
 - [ ] Tests, tests, tests
 - [x] finish calendar
 - [x] make user panel responsive
-- [x] get rid of EventEmitter deprecation warnings~~
+- [x] get rid of EventEmitter deprecation warnings
 
 Requirements
 --------
