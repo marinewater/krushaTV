@@ -99,7 +99,7 @@
 				<li ng-if="omdb.imdbRating"><a ng-href="http://graphtv.kevinformatics.com/{{ ::show.imdbid }}" target="_blank">Graph ratings at graphTV</a></li>
 			</ul>
 			
-			<p>Info by <a href="http://www.omdbapi.com" target="_blank">OMDb API</a> licenced under <a
+			<p ng-if="omdb.imdbRating">Info by <a href="http://www.omdbapi.com" target="_blank">OMDb API</a> licenced under <a
 					href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY 4.0</a>.</p>
 
 			<div ng-show="loggedin && !show.imdbid && show.imdb_submitted !== false">
