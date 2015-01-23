@@ -98,6 +98,9 @@
 				<li ng-if="omdb.imdbRating"><a ng-href="http://www.imdb.com/title/{{ ::show.imdbid }}/epdate?ref_=ttep_ql_4" target="_blank">List of episodes at IMDb</a></li>
 				<li ng-if="omdb.imdbRating"><a ng-href="http://graphtv.kevinformatics.com/{{ ::show.imdbid }}" target="_blank">Graph ratings at graphTV</a></li>
 			</ul>
+			
+			<p>Info by <a href="http://www.omdbapi.com" target="_blank">OMDb API</a> licenced under <a
+					href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY 4.0</a>.</p>
 
 			<div ng-show="loggedin && !show.imdbid && show.imdb_submitted !== false">
 				<p>Submit IMDb id:</p>
