@@ -65,22 +65,22 @@ var save_episodes = function(episodes, callback) {
 		'season': episode.season,
 		'episode': episode.episode,
 		'seriesid': episode.seriesid
-	}}).success(function(ep) {
+	}}).then(function(ep) {
 		if (!ep) {
 			models.Episodes.create(episode, {
 				fields: ['season', 'episode', 'title', 'airdate', 'seriesid']
-			}).success(function() {
+			}).then(function() {
 				next();
-			}).error(function(err) {
+			}).catch(function(err) {
 				log.error('Error in save_episodes', episode, err);
 				next();
 			});
 		}
 		else {
 			if (ep.dataValues.update === true) {
-				ep.updateAttributes(episode).success(function() {
+				ep.updateAttributes(episode).then(function() {
 					next();
-				}).error(function(err) {
+				}).catch(function(err) {
 					log.error('Failed to update episode', episode, err);
 					next();
 				});
@@ -91,7 +91,7 @@ var save_episodes = function(episodes, callback) {
 		}
 
 
-	}).error(function(err) {
+	}).catch(function(err) {
 		log.error('Error in save_episodes', episode, err);
 		next();
 	});
@@ -161,9 +161,9 @@ var get_show_info = function(shows, callback) {
 					models.Series.update(
 						{ 'ended': true },
 						{ where: { 'id': loc_showid } }
-					).success(function() {
+					).then(function() {
 						next();
-					}).error(function(err) {
+					}).catch(function(err) {
 						log.error({'local_showid': loc_showid, 'remote_showid': tvr_showid, 'type': 'show' }, 'Failed to update show (local showid: %d, tvRage showid: %d error: %s', loc_showid, tvr_showid, err);
 						next();
 					});
@@ -198,11 +198,11 @@ var update_all = function(callback) {
 		where: {
 			'ended': false
 		}
-	}).success(function(shows) {
+	}).then(function(shows) {
 		get_show_info(shows, function() {
 			next();
 		});
-	}).error(function(err) {
+	}).catch(function(err) {
 		log.error(err);
 		next();
 	});
