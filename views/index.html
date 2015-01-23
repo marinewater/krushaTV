@@ -50,6 +50,7 @@
               </a>
             </div>
 
+
             <div class="collapse navbar-collapse" id="krusha-navbar" collapse="col.isCollapsed">
                 <form class="navbar-form navbar-left hidden-xs" role="search" ng-controller="mainCtrl" ng-submit="getResults(search_input)">
                     <div class="form-group">
@@ -94,7 +95,7 @@
             </div>
           </div>
         </nav>
-
+        <a id="top"></a>
 
 
         <div ng-controller="notificationsCtrl">
@@ -114,13 +115,19 @@
         <div class="container-fluid" ng-view></div>
 
         <footer>
+            <ul class="list-inline hidden-xs pull-left">
+                <li>Show info by <a href="http://www.tvrage.com/" target="_blank">TVRage</a></li>
+                <li scroll-to="#top" class="pointer">Scroll to top</li>
+            </ul>
             <ul class="list-inline pull-right hidden-xs">
                 <li><a href="https://github.com/marinewater/krushaTV" target="_blank" class="github">View source on <strong><i class="fa fa-github"></i> Github</strong></a></li>
-                <li><a href="">krushaTV</a></li>
+                <li><a href="/">krushaTV</a></li>
             </ul>
             <ul class="list-unstyled visible-xs">
+                <li scroll-to="#top">Scroll to top</li>
                 <li><a href="/">krushaTV</a></li>
                 <li><a href="https://github.com/marinewater/krushaTV" target="_blank" class="github">View source on <strong><i class="fa fa-github"></i> Github</strong></a></li>
+                <li>Show info by <a href="http://www.tvrage.com/" target="_blank">TVRage</a></li>
             </ul>
         </footer>
     </body>
