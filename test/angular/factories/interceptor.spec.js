@@ -79,7 +79,7 @@ describe('interceptor', function() {
                 $httpBackend.flush();
 
                 expect(notifications.add).toHaveBeenCalled();
-                expect(notifications.add.calls.argsFor(0)[0]).toMatch(/^You made to many requests\. You can make next request in \d+ minutes and \d+ seconds\.$/);
+                expect(notifications.add.calls.argsFor(0)[0]).toMatch(/^You made to many requests\. You can make the next request in \d+ minutes and \d+ seconds\.$/);
             }));
 
             it('do not display the notification too often', inject(function($http, notifications) {
@@ -98,6 +98,25 @@ describe('interceptor', function() {
                 $http.get('/api/search');
                 $httpBackend.flush();
                 expect(notifications.add).not.toHaveBeenCalled();
+            }));
+        });
+        
+        describe('Service Unavailable', function() {
+            it('display notification if rate limited', inject(function($http, notifications) {
+                spyOn(notifications, 'add');
+                $httpBackend.when('POST', '/api/search/test/remote').respond(503, {
+                    type: 'error',
+                    code: 503,
+                    message: 'We cannot retrieve this show at the moment, please try again later.'
+                });
+                $http.post('/api/search/test/remote');
+                $httpBackend.flush();
+
+                expect(notifications.add).toHaveBeenCalled();
+                expect(notifications.add.calls.argsFor(0)[0]).toBe('We cannot retrieve this show at the moment, please try again later.');
+                expect(notifications.add.calls.argsFor(0)[1]).toBe('danger');
+                expect(notifications.add.calls.argsFor(0)[2]).toBe(20000);
+                expect(notifications.add.calls.argsFor(0)[1]).toBeTruthy();
             }));
         });
     });
