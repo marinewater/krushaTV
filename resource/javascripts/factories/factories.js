@@ -122,7 +122,7 @@ krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', 'notifications', fu
             }
 
             // handle rate limiting
-            if (response.status === 429) {
+            else if (response.status === 429) {
                 if (rateLimitGone === null || rateLimitGone < Date.parse(response.data.error.nextValidRequestDate) || lastRateLimitNotificationShown + 5000 < Date.now()) {
                     rateLimitGone = Date.parse(response.data.error.nextValidRequestDate);
                     var timeTillNextRequest = Math.floor((rateLimitGone - Date.now()) / 1000); // in seconds
@@ -130,7 +130,7 @@ krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', 'notifications', fu
                     var minutes = Math.floor(timeTillNextRequest / 60);
                     var seconds = timeTillNextRequest - minutes * 60;
 
-                    var message = 'You made to many requests. You can make next request in ';
+                    var message = 'You made to many requests. You can make the next request in ';
 
                     message += minutes > 0 ? minutes + ' minutes and ' : '';
                     message += seconds + ' seconds.';
@@ -139,6 +139,10 @@ krusha.factory('interceptor', ['$q', 'loggedin', 'redirect', 'notifications', fu
 
                     notifications.add(message, 'danger', 5000, true);
                 }
+            }
+            
+            else if (response.status === 503) {
+                notifications.add(response.data.message, 'danger', 20000, true);
             }
 
             return $q.reject(response);

@@ -66,7 +66,7 @@ krusha.factory('apiSearch', ['$http', '$q', 'loggedin', function($http, $q, logg
             if (search_input.length >= 3) {
                 return $http.get('/api/search/' + search_input + '/remote', {
                     cache: true,
-                    timeout: 10000
+                    timeout: 120000
                 }).then(function(data) {
                     return data;
                 }, function(err) {

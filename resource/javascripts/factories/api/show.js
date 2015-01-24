@@ -15,7 +15,7 @@ krusha.factory('apiShow', ['$http', function($http) {
          * @returns {HttpPromise} HttpPromise
          */
         addShow: function (showid) {
-            return $http.post('/api/show/', {'showid': showid});
+            return $http.post('/api/show/', {'showid': showid}, {timeout: 120000});
         },
 
         /**
