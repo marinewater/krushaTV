@@ -8,7 +8,7 @@
  * @requires krushaTV.service:apiShowFactory
  * @requires krushaTV.service:notificationsFactory
  */
-krusha.controller('trackCtrl', ['$scope', 'apiShow', 'notificationsFactory', function($scope, apiShowFactory, notificationsFactory) {
+krusha.controller('trackCtrl', ['$scope', 'apiShowFactory', 'notificationsFactory', function($scope, apiShowFactory, notificationsFactory) {
 	var apiShow = new apiShowFactory();
 	var notifications = new notificationsFactory();
 	
