@@ -102,7 +102,7 @@
 			<p ng-if="omdb.imdbRating">Info by <a href="http://www.omdbapi.com" target="_blank">OMDb API</a> licenced under <a
 					href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY 4.0</a>.</p>
 
-			<div ng-show="loggedin && !show.imdbid && show.imdb_submitted !== false">
+			<div ng-show="loggedin && !show.imdbid && show.imdb_submitted !== false && omdb !== false">
 				<p>Submit IMDb id:</p>
 				<form role="form" name="imdbForm" ng-submit="imdbForm.$valid && submitIMDB(imdb, show.id)" ng-show="!submittedImdbId">
 					<div class="row">
@@ -128,7 +128,7 @@
 	</div>
 </div>
 
-<div class="row reddit" ng-if="display.reddit && reddit.length >0 ">
+<div class="row reddit" ng-if="display.reddit && reddit.length > 0 ">
 	<div class="col-lg-8 col-lg-push-2">
 		<div class="card">
 			<h2>{{ reddit.length }} hot reddit links</h2>
@@ -146,7 +146,7 @@
 
 <loadingspinner></loadingspinner>
 
-<div class="row reddit" ng-if="display.reddit && reddit.length==0 && loggedin && show.subreddit !== false">
+<div class="row reddit" ng-if="reddit !== false display.reddit && reddit.length==0 && loggedin && show.subreddit !== false">
 	<div class="col-lg-6 col-lg-push-3">
 		<div class="card">
 			<h2>reddit</h2>

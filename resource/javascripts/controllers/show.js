@@ -76,6 +76,8 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		var omdb_get = function(imdb_id) {
 			apiShow.getomdb(imdb_id).success(function(data) {
 				$scope.omdb = data;
+			}).error(function() {
+				$scope.omdb = false;
 			});
 		};
 
@@ -94,6 +96,8 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 				data.data.children.forEach(function(thread) {
 					$scope.reddit.push(thread);
 				});
+			}).error(function() {
+				$scope.reddit = false;
 			});
 		};
 
