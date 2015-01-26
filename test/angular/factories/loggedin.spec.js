@@ -3,8 +3,8 @@ describe('loggedin', function() {
 
     var loggedin;
 
-    beforeEach(inject(function(_loggedin_) {
-        loggedin = _loggedin_;
+    beforeEach(inject(function(_loggedinFactory_) {
+        loggedin = new _loggedinFactory_();
     }));
 
     describe('no event broadcasting', function() {

@@ -14,7 +14,9 @@
  * @param {function} markEpisodeWatched function that marks a single episode as watchted/unwatched
  * @param {boolean} watched determined if this template shows watched or unwatched episodes
  */
-krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, loggedin) {
+krusha.directive('unwatched', ['$timeout', 'loggedinFactory', function($timeout, loggedinFactory) {
+    var loggedin = new loggedinFactory();
+    
     var link = function($scope) {
         if (typeof $scope.shows === 'undefined')
             $scope.shows = [];

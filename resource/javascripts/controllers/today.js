@@ -8,9 +8,11 @@
  * @requires $scope
  * @requires $filter
  * @requires $location
- * @requires krushaTV.service:apiShow
+ * @requires krushaTV.service:apiShowFactory
  */
-krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShow', function($scope, $filter, $location, apiShow) {
+krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactory', function($scope, $filter, $location, apiShowFactory) {
+	var apiShow = new apiShowFactory();
+	
 	$scope.$parent.title = 'New Episodes';
 
 

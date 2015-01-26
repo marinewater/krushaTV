@@ -1,10 +1,11 @@
 /**
  * @ngdoc service
- * @name krushaTV.service:loggedin
+ * @name krushaTV.service:loggedinFactory
  * @description handles user authentication
  * @requires $rootScope
  */
-krusha.factory('loggedin', ['$rootScope', function($rootScope) {
+
+krusha.factory('loggedinFactory', ['$rootScope', function($rootScope) {
     /**
      * true: user is authenticated
      * @type {boolean}
@@ -23,75 +24,77 @@ krusha.factory('loggedin', ['$rootScope', function($rootScope) {
      */
     var dateFormat = 'yyyy-MM-dd';
 
-    return {
-        /**
-         * @ngdoc loggedin.method
-         * @methodOf krushaTV.service:loggedin
-         * @name loggedin#getStatus
-         * @description gets the user's authentication status
-         * @return {Boolean} loggedin
-         */
-        getStatus: function() {
-            return loggedin;
-        },
+    var loggedinClass = function() {};
 
-        /**
-         * @ngdoc loggedin.method
-         * @methodOf krushaTV.service:loggedin
-         * @name loggedin#setStatus
-         * @description gets the user's authentication status
-         * @param {Boolean} status sets the user's authentication status; true: user is logged in
-         */
-        setStatus: function(status) {
-            loggedin = status;
-            $rootScope.$broadcast('loggedin');
-        },
+    /**
+     * @ngdoc loggedinFactory.method
+     * @methodOf krushaTV.service:loggedinFactory
+     * @name loggedinFactory#getStatus
+     * @description gets the user's authentication status
+     * @return {Boolean} loggedin
+     */
+    loggedinClass.prototype.getStatus = function() {
+        return loggedin;
+    };
 
-        /**
-         * @ngdoc loggedin.method
-         * @methodOf krushaTV.service:loggedin
-         * @name loggedin#setUser
-         * @description sets the username
-         * @param {String} username username
-         */
-        setUser: function(username) {
-            user = username;
-        },
+    /**
+     * @ngdoc loggedinFactory.method
+     * @methodOf krushaTV.service:loggedinFactory
+     * @name loggedinFactory#setStatus
+     * @description gets the user's authentication status
+     * @param {Boolean} status sets the user's authentication status; true: user is logged in
+     */
+    loggedinClass.prototype.setStatus = function(status) {
+        loggedin = status;
+        $rootScope.$broadcast('loggedin');
+    };
 
-        /**
-         * @ngdoc loggedin.method
-         * @methodOf krushaTV.service:loggedin
-         * @name loggedin#getUser
-         * @description returns username
-         * @return {String} user
-         */
-        getUser: function() {
-            return user;
-        },
+    /**
+     * @ngdoc loggedinFactory.method
+     * @methodOf krushaTV.service:loggedinFactory
+     * @name loggedinFactory#setUser
+     * @description sets the username
+     * @param {String} username username
+     */
+    loggedinClass.prototype.setUser = function(username) {
+        user = username;
+    };
 
-        /**
-         * @ngdoc loggedin.method
-         * @methodOf krushaTV.service:loggedin
-         * @name loggedin#getDateFormat
-         * @description returns date format
-         * @return {String} date format
-         */
-        getDateFormat: function() {
-            return dateFormat;
-        },
+    /**
+     * @ngdoc loggedinFactory.method
+     * @methodOf krushaTV.service:loggedinFactory
+     * @name loggedinFactory#getUser
+     * @description returns username
+     * @return {String} user
+     */
+    loggedinClass.prototype.getUser = function() {
+        return user;
+    };
 
-        /**
-         * @ngdoc loggedin.method
-         * @methodOf krushaTV.service:loggedin
-         * @name loggedin#setDateFormat
-         * @description sets the date format
-         * @param {String} format date format
-         */
-        setDateFormat: function(format) {
-            if (format)
-                dateFormat = format;
-            else
-                dateFormat = 'yyyy-MM-dd';
-        }
-    }
+    /**
+     * @ngdoc loggedinFactory.method
+     * @methodOf krushaTV.service:loggedinFactory
+     * @name loggedinFactory#getDateFormat
+     * @description returns date format
+     * @return {String} date format
+     */
+    loggedinClass.prototype.getDateFormat = function() {
+        return dateFormat;
+    };
+
+    /**
+     * @ngdoc loggedinFactory.method
+     * @methodOf krushaTV.service:loggedinFactory
+     * @name loggedinFactory#setDateFormat
+     * @description sets the date format
+     * @param {String} format date format
+     */
+    loggedinClass.prototype.setDateFormat = function(format) {
+        if (format)
+            dateFormat = format;
+        else
+            dateFormat = 'yyyy-MM-dd';
+    };
+    
+    return loggedinClass;
 }]);

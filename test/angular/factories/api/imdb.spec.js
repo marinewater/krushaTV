@@ -4,8 +4,8 @@ describe('apiImdb', function() {
     var apiImdb;
     var $httpBackend;
 
-    beforeEach(inject(function(_apiImdb_, _$httpBackend_) {
-        apiImdb = _apiImdb_;
+    beforeEach(inject(function(_apiImdbFactory_, _$httpBackend_) {
+        apiImdb = new _apiImdbFactory_();
         $httpBackend = _$httpBackend_;
     }));
 
@@ -26,6 +26,4 @@ describe('apiImdb', function() {
         apiImdb.acceptSubmittedIMDbID(6234);
         $httpBackend.flush();
     });
-
-
 });

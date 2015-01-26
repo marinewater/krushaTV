@@ -3,8 +3,8 @@ describe('calendar factory', function() {
 
     var calendar;
 
-    beforeEach(inject(function(_calendar_) {
-        calendar = _calendar_;
+    beforeEach(inject(function(_calendarFactory_) {
+        calendar = new _calendarFactory_();
     }));
 
     it('should return 7 weekdays', function() {

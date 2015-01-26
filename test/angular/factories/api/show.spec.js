@@ -4,8 +4,8 @@ describe('apiShow', function() {
     var apiShow;
     var $httpBackend;
 
-    beforeEach(inject(function(_apiShow_, _$httpBackend_) {
-        apiShow = _apiShow_;
+    beforeEach(inject(function(_apiShowFactory_, _$httpBackend_) {
+        apiShow = new _apiShowFactory_();
         $httpBackend = _$httpBackend_;
     }));
 

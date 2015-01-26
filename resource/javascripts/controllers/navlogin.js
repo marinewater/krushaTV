@@ -6,13 +6,18 @@
  * @requires $scope
  * @requires $location
  * @requires $modal
- * @requires krushaTV.service:redirect
- * @requires krushaTV.service:apiAuth
- * @requires krushaTV.service:loggedin
- * @requires krushaTV.service:notifications
+ * @requires krushaTV.service:redirectFactory
+ * @requires krushaTV.service:apiAuthFactory
+ * @requires krushaTV.service:loggedinFactory
+ * @requires krushaTV.service:notificationsFactory
  */
-krusha.controller('navLoginCtrl', ['$scope', '$location', '$modal', 'redirect', 'apiAuth', 'loggedin', 'notifications',
-	function($scope, $location, $modal, redirect, apiAuth, loggedin, notifications) {
+krusha.controller('navLoginCtrl', ['$scope', '$location', '$modal', 'redirectFactory', 'apiAuthFactory', 'loggedinFactory', 'notificationsFactory',
+	function($scope, $location, $modal, redirectFactory, apiAuthFactory, loggedinFactory, notificationsFactory) {
+		var redirect = new redirectFactory();
+		var apiAuth = new apiAuthFactory();
+		var loggedin = new loggedinFactory();
+		var notifications = new notificationsFactory();
+		
 		/**
 		 * **true:** user is logged in, **false:** user is *not* logged in
 		 * @type {boolean}
@@ -112,8 +117,12 @@ krusha.controller('navLoginCtrl', ['$scope', '$location', '$modal', 'redirect', 
  * @requires krushaTV.service:notifications
  * @requires krushaTV.service:loggedin
  */
-krusha.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'apiAuth', 'notifications', 'loggedin',
-	function ($scope, $modalInstance, apiAuth, notifications, loggedin) {
+krusha.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'apiAuthFactory', 'notificationsFactory', 'loggedinFactory',
+	function ($scope, $modalInstance, apiAuth, notificationsFactory, loggedinFactory) {
+		var apiAuth = new apiAuthFactory();
+		var loggedin = new loggedinFactory();
+		var notifications = new notificationsFactory();
+		
 		/**
 		 * error messages as infos
 		 * @type {Array}

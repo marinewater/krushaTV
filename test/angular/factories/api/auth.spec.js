@@ -4,8 +4,8 @@ describe('apiAuth', function() {
     var apiAuth;
     var $httpBackend;
 
-    beforeEach(inject(function(_apiAuth_, _$httpBackend_) {
-        apiAuth = _apiAuth_;
+    beforeEach(inject(function(_apiAuthFactory_, _$httpBackend_) {
+        apiAuth = new _apiAuthFactory_();
         $httpBackend = _$httpBackend_;
     }));
 

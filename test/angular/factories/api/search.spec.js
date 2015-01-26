@@ -3,10 +3,12 @@ describe('apiSearch', function() {
 
     var apiSearch;
     var $httpBackend;
+    var $rootScope;
 
-    beforeEach(inject(function(_apiSearch_, _$httpBackend_) {
-        apiSearch = _apiSearch_;
+    beforeEach(inject(function(_apiSearchFactory_, _$httpBackend_, _$rootScope_) {
+        apiSearch = new _apiSearchFactory_();
         $httpBackend = _$httpBackend_;
+        $rootScope = _$rootScope_;
     }));
 
     it('search in the database', function() {
@@ -16,7 +18,17 @@ describe('apiSearch', function() {
     });
 
     it('should not search if the length is smaller than 2 (local)', function() {
-        // ToDo
+        var error = null;
+        apiSearch.searchLocal('a').then(function() {
+            expect(true).toBeFalsy();
+        }, function(data) {
+            error = data;
+        });
+        
+        $rootScope.$digest();
+        
+        expect(error.type).toBe('error');
+        expect(error.code).toBe(400);
     });
 
 
@@ -27,6 +39,16 @@ describe('apiSearch', function() {
     });
 
     it('should not search if the length is smaller than 3 (remote)', function() {
-        // ToDo
+        var error = null;
+        apiSearch.searchRemote('ab').then(function() {
+            expect(true).toBeFalsy();
+        }, function(data) {
+            error = data;
+        });
+
+        $rootScope.$digest();
+
+        expect(error.type).toBe('error');
+        expect(error.code).toBe(400);
     });
 });

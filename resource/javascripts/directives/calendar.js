@@ -8,7 +8,10 @@
  * @param {function} getShowsWeek request shows for week
  * @param {function} getShowsDay request shows for day
  */
-krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calendar, hotkeys, loggedin) {
+krusha.directive('calendar', ['calendarFactory', 'hotkeys', 'loggedinFactory', function(calendarFactory, hotkeys, loggedinFactory) {
+    var calendar = new calendarFactory();
+    var loggedin = new loggedinFactory();
+    
     var link = function($scope) {
         var today = new Date();
 
@@ -327,7 +330,9 @@ krusha.directive('calendar', ['calendar', 'hotkeys', 'loggedin', function(calend
  * @param {Array} days array containing days and shows for each day
  * @param {function} changeToDay function is called if the user clicks on a day
  */
-krusha.directive('dates', ['$filter', 'calendar', function($filter, calendar) {
+krusha.directive('dates', ['$filter', 'calendarFactory', function($filter, calendarFactory) {
+    var calendar = new calendarFactory();
+    
     /**
      * create a table cell for each day of the week and fill it with the corresponding episodes
      * @param row

@@ -8,14 +8,20 @@
  * @requires $cookies
  * @requires $cookieStore
  * @requires $timeout
- * @requires krushaTV.service:apiShow
- * @requires krushaTV.service:apiReddit
- * @requires krushaTV.service:apiImdb
- * @requires krushaTV.service:notifications
- * @requires krushaTV.service:loggedin
+ * @requires krushaTV.service:apiShowFactory
+ * @requires krushaTV.service:apiRedditFactory
+ * @requires krushaTV.service:apiImdbFactory
+ * @requires krushaTV.service:notificationsFactory
+ * @requires krushaTV.service:loggedinFactory
  */
-krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieStore', '$timeout', 'apiShow', 'apiReddit', 'apiImdb', 'notifications', 'loggedin',
-	function($scope, $routeParams, $cookies, $cookieStore, $timeout, apiShow, apiReddit, apiImdb, notifications, loggedin) {
+krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieStore', '$timeout', 'apiShowFactory', 'apiRedditFactory', 'apiImdbFactory', 'notificationsFactory', 'loggedinFactory',
+	function($scope, $routeParams, $cookies, $cookieStore, $timeout, apiShowFactory, apiRedditFactory, apiImdbFactory, notificationsFactory, loggedinFactory) {
+		var apiShow = new apiShowFactory();
+		var apiImdb = new apiImdbFactory();
+		var apiReddit = new apiRedditFactory();
+		var notifications = new notificationsFactory();
+		var loggedin = new loggedinFactory();
+
 		$scope.show = {};
 		$scope.seasons = {};
 		$scope.tracked = null;

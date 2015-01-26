@@ -4,8 +4,8 @@ describe('search_text', function() {
 
     var notifications;
 
-    beforeEach(inject(function(_notifications_) {
-        notifications = _notifications_;
+    beforeEach(inject(function(_notificationsFactory_) {
+        notifications = new _notificationsFactory_();
     }));
 
     describe('add', function() {

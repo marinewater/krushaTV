@@ -6,9 +6,11 @@
  * @requires $scope
  * @requires $rootScope
  * @requires $location
- * @requires krushaTV.service:search_text
+ * @requires krushaTV.service:searchTextFactory
  */
-krusha.controller('mainCtrl', ['$scope', '$rootScope', '$location', 'search_text', function($scope, $rootScope, $location, search_text) {
+krusha.controller('mainCtrl', ['$scope', '$rootScope', '$location', 'searchTextFactory', function($scope, $rootScope, $location, searchTextFactory) {
+	var search_text = new searchTextFactory();
+	
 	/**
 	 * @ngdoc mainCtrl.method
 	 * @name mainCtrl#getResults
@@ -34,11 +36,16 @@ krusha.controller('mainCtrl', ['$scope', '$rootScope', '$location', 'search_text
  * @requires $scope
  * @requires $location
  * @requires $rootScope
- * @requires krushaTV.service:apiSearch
- * @requires krushaTV.service:search_text
+ * @requires krushaTV.service:apiSearchFactory
+ * @requires krushaTV.service:apiShowFactory
+ * @requires krushaTV.service:searchTextFactory
  */
-krusha.controller('searchCtrl', ['$scope', '$location', '$rootScope', 'apiSearch', 'apiShow', 'search_text',
-	function($scope, $location, $rootScope, apiSearch, apiShow, search_text) {
+krusha.controller('searchCtrl', ['$scope', '$location', '$rootScope', 'apiSearchFactory', 'apiShowFactory', 'searchTextFactory',
+	function($scope, $location, $rootScope, apiSearchFactory, apiShowFactory, searchTextFactory) {
+		var apiShow = new apiShowFactory();
+		var apiSearch = new apiSearchFactory();
+		var search_text = new searchTextFactory();
+		
 		$scope.$parent.title = 'Search Results';
 	$scope.shows= [];
 	$scope.shows_remote = [];

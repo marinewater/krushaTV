@@ -4,8 +4,8 @@ describe('search_text', function() {
 
     var search_text;
 
-    beforeEach(inject(function(_search_text_) {
-        search_text = _search_text_;
+    beforeEach(inject(function(_searchTextFactory_) {
+        search_text = new _searchTextFactory_();
     }));
 
     describe('get set', function() {

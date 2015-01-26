@@ -5,12 +5,16 @@
  * Controller for signup.html template
  * @requires $scope
  * @requires $location
- * @requires krushaTV.service:apiAuth
- * @requires krushaTV.service:notifications
- * @requires krushaTV.service:loggedin
+ * @requires krushaTV.service:apiAuthFactory
+ * @requires krushaTV.service:notificationsFactory
+ * @requires krushaTV.service:loggedinFactory
  */
-krusha.controller('signupCtrl', ['$scope', '$location', 'apiAuth', 'notifications', 'loggedin',
-	function($scope, $location, apiAuth, notifications, loggedin) {
+krusha.controller('signupCtrl', ['$scope', '$location', 'apiAuthFactory', 'notificationsFactory', 'loggedinFactory',
+	function($scope, $location, apiAuthFactory, notificationsFactory, loggedinFactory) {
+		var apiAuth = new apiAuthFactory();
+		var notifications = new notificationsFactory();
+		var loggedin = new loggedinFactory();
+		
 		$scope.$parent.title = 'Sign Up';
 
 		/**

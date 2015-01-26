@@ -5,15 +5,21 @@
  * Controller for profile.html template
  * @requires $scope
  * @requires $cookieStore
- * @requires krushaTV.service:apiSettings
- * @requires krushaTV.service:apiImdb
- * @requires krushaTV.service:apiReddit
+ * @requires krushaTV.service:apiSettingsFactory
+ * @requires krushaTV.service:apiImdbFactory
+ * @requires krushaTV.service:apiRedditFactory
  * @requires krushaTV.service:notifications
  * @requires krushaTV.service:loggedin
  * @requires hotkeys
  */
-krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettings', 'apiImdb', 'apiReddit', 'notifications', 'loggedin', 'hotkeys',
-	function($scope, $cookieStore, apiSettings, apiImdb, apiReddit, notifications, loggedin, hotkeys) {
+krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettingsFactory', 'apiImdbFactory', 'apiRedditFactory', 'notificationsFactory', 'loggedinFactory', 'hotkeys',
+	function($scope, $cookieStore, apiSettingsFactory, apiImdbFactory, apiRedditFactory, notificationsFactory, loggedinFactory, hotkeys) {
+		var apiSettings = new apiSettingsFactory();
+		var apiImdb = new apiImdbFactory();
+		var apiReddit = new apiRedditFactory();
+		var notifications = new notificationsFactory();
+		var loggedin = new loggedinFactory();
+		
 		$scope.$parent.title = 'Profile';
 		/**
 		 * **true:** user is admin
