@@ -9,7 +9,7 @@
 krusha.controller('notificationsCtrl', ['$scope', 'notificationsFactory', function($scope, notificationsFactory) {
     var notifications = new notificationsFactory();
     
-    $scope.notifications = {};
+    $scope.notifications = [];
     var index = 0;
     var i;
 
