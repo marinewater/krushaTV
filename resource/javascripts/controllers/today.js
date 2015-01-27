@@ -19,6 +19,11 @@ krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactor
 	$scope.stopClick = function(event) {
 		event.stopPropagation();
 	};
+
+	$scope.$on('loggedin', function() {
+		getTodaysEpisodes();
+	});
+	
 	/**
 	 * @ngdoc todayCtrl.method
 	 * @name todayCtrl#getTodaysEpisodes
@@ -31,16 +36,6 @@ krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactor
 			$scope.tomorrows_episodes = $filter('filter')(data.episodes, {'age': -1}, true);
 			$scope.yesterdays_episodes = $filter('filter')(data.episodes, {'age': 1}, true);
 		});
-	};
-	/**
-	 * @ngdoc todayCtrl.method
-	 * @name todayCtrl#changeLocation
-	 * @description redirects the user to a show view
-	 * @methodOf krushaTV.controllers:todayCtrl
-	 * @param {number} showid local show id
-	 */
-	$scope.changeLocation = function(showid) {
-		$location.path('show/' + showid);
 	};
 
 	getTodaysEpisodes();
