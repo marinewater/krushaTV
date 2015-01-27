@@ -59,6 +59,9 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
                 templateUrl: '/static/templates/calendar.html',
                 controller: 'calendarCtrl'
             })
+            .when('/about', {
+                templateUrl: '/static/templates/about.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });
