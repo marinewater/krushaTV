@@ -33,6 +33,7 @@ var log		= bunyan.createLogger(log_options);
 var router = express.Router(); 				// get an instance of the express Router
 var admin_router = express.Router();
 var auth_router = express.Router();
+var base = express.Router();
 
 // configuration ===============================================================
 var models = require('./models');
@@ -92,10 +93,12 @@ require('./app/api/calendar.js')(router, log, models, user);
 require('./app/api/admin/reddit.js')(admin_router, log, models, user);
 require('./app/api/admin/imdb.js')(admin_router, log, models, user);
 require('./app/api/omdb.js')(router, log, redis);
+require('./app/routes.js')(base, __dirname);
 
 app.use('/api', router);
 app.use('/api/admin', admin_router);
 app.use('/auth', auth_router);
+app.use('/', base);
 
 // return index for every not assigned url to get angular's html5 mode to work
 app.use(function(req, res) {
