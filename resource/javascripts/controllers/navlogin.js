@@ -156,6 +156,7 @@ krusha.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'apiAuthFact
 		 * @methodOf krushaTV.controllers:ModalInstanceCtrl
 		 * @param {string} username username
 		 * @param {string} password password (has to be at least 6 characters long)
+		 * @param {boolean=} keep_logged_in defines if the user is logged out after the session
 		 */
 		$scope.login = function(username, password, keep_logged_in) {
 			apiAuth.login(username, password, keep_logged_in)
