@@ -6,7 +6,7 @@ module.exports = function(app, dirname) {
 
 	// Favicons
 	app.get('/favicon.ico', function(req, res) {
-		res.sendFile(dirname + '/static/images/favicon.ico');
+		res.sendFile(dirname + '/static/images/favicons/favicon.ico');
 	});
 
 	app.get('/apple-touch-icon-57x57.png', function(req, res) {
