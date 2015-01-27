@@ -13,6 +13,13 @@
 
   .navbar-brand {
     padding-top: 5px;
+    
+    div {
+      display: inline-block;
+      width: 60px;
+      height: 40px;
+      overflow: hidden;
+    }
 
     span {
       position: relative;
