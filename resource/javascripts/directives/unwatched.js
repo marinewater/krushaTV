@@ -32,7 +32,7 @@ krusha.directive('unwatched', ['$timeout', 'loggedinFactory', function($timeout,
         };
 
         $scope.scrollShows = function() {
-            $(document.body).animate({
+            $('html,body').animate({
                 'scrollTop':   $('#shows').offset().top - 70
             }, 200);
         };
@@ -45,14 +45,14 @@ krusha.directive('unwatched', ['$timeout', 'loggedinFactory', function($timeout,
 
         $scope.getSeasonsScroll = function(show_id) {
             $scope.getSeasons(show_id);
-            $(document.body).animate({
+            $('html,body').animate({
                 'scrollTop':   $('#seasons').offset().top - 70
             }, 200);
         };
 
         $scope.getEpisodesScroll = function(show_id, season) {
             $scope.getEpisodes(show_id, season);
-            $(document.body).animate({
+            $('html,body').animate({
                 'scrollTop':   $('#episodes').offset().top - 70
             }, 200);
         };

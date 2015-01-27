@@ -385,7 +385,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		 * @methodOf krushaTV.controllers:showCtrl
 		 */
 		var scrollToEpisodes = function() {
-			$(document.body).animate({
+			$('html,body').animate({
 				'scrollTop':   $('#episodes').offset().top - 70
 			}, 200);
 		};
