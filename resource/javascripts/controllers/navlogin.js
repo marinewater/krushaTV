@@ -118,7 +118,7 @@ krusha.controller('navLoginCtrl', ['$scope', '$location', '$modal', 'redirectFac
  * @requires krushaTV.service:loggedin
  */
 krusha.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'apiAuthFactory', 'notificationsFactory', 'loggedinFactory',
-	function ($scope, $modalInstance, apiAuth, notificationsFactory, loggedinFactory) {
+	function ($scope, $modalInstance, apiAuthFactory, notificationsFactory, loggedinFactory) {
 		var apiAuth = new apiAuthFactory();
 		var loggedin = new loggedinFactory();
 		var notifications = new notificationsFactory();
