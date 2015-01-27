@@ -38,5 +38,16 @@ krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactor
 		});
 	};
 
+	/**
+	 * @ngdoc todayCtrl.method
+	 * @name todayCtrl#changeLocation
+	 * @description redirects the user to a show view
+	 * @methodOf krushaTV.controllers:todayCtrl
+	 * @param {number} showid local show id
+	 */
+	$scope.changeLocation = function(showid) {
+		$location.path('show/' + showid);
+	};
+
 	getTodaysEpisodes();
 }]);
