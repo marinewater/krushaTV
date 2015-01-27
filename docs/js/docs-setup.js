@@ -46,7 +46,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for login modal",
-      "keywords": "$modalinstance $scope addalert alert api cancel characters closealert closes controller controllers displays error info krushatv login logs long message method modal modalinstancectrl msg password removed service success type user username warning"
+      "keywords": "$modalinstance $scope addalert alert api cancel characters closealert closes controller controllers defines displays error info keep_logged_in krushatv logged login logs long message method modal modalinstancectrl msg password removed service session success type user username warning"
     },
     {
       "section": "api",
