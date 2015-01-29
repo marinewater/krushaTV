@@ -208,8 +208,20 @@ module.exports = function(router, log, models, get_seasons, redis) {
 
 							if (typeof response !== 'undefined')
 								log_error += ' HTTP-Code: ' + response.statusCode;
-							if (typeof error !== 'undefined')
-								log_error += ' error: ' + error;
+							if (typeof error !== 'undefined') {
+								console.log(error);
+								if (error === 'Error: read ECONNRESET') {
+									res.status(503);
+									return res.json({
+										'type': 'error',
+										'code': 503,
+										'message': 'We cannot retrieve this show at the moment, please try again later.'
+									});
+								}
+								else {
+									log_error += ' error: ' + error;
+								}
+							}
 
 							log.error(log_error);
 							return next('error');

@@ -46,7 +46,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for login modal",
-      "keywords": "$modalinstance $scope addalert alert api cancel characters closealert closes controller controllers displays error info krushatv login logs long message method modal modalinstancectrl msg password removed service success type user username warning"
+      "keywords": "$modalinstance $scope addalert alert api cancel characters closealert closes controller controllers defines displays error info keep_logged_in krushatv logged login logs long message method modal modalinstancectrl msg password removed service session success type user username warning"
     },
     {
       "section": "api",
@@ -302,66 +302,66 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "krushaTV.service:apiImdb",
-      "shortName": "apiImdb",
-      "type": "service",
-      "moduleName": "krushaTV",
-      "shortDescription": "IMDb api",
-      "keywords": "$http accepted accepts acceptsubmittedimdbid admin api apiimdb deleted getsubmittedimdbids http httppromise ids imdb imdb_id krushatv local method permissions service show_id submission submission_id submit submitimdbid submitted subreddit tt1234567 unique user verify"
-    },
-    {
-      "section": "api",
-      "id": "krushaTV.service:apiLogin",
-      "shortName": "apiLogin",
+      "id": "krushaTV.service:apiAuthFactory",
+      "shortName": "apiAuthFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "Rest API calls for authentication",
-      "keywords": "$http api apilogin authentication calls captcha characters check credentials defines httppromise keep_logged_in krushatv logged login loginstatus logout logs long method password provided recaptcha registers response rest service session signup user username"
+      "keywords": "$http api apiauthfactory authentication calls captcha characters check credentials defines httppromise keep_logged_in krushatv logged login loginstatus logout logs long method password provided recaptcha registers response rest service session signup user username"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:apiReddit",
-      "shortName": "apiReddit",
+      "id": "krushaTV.service:apiImdbFactory",
+      "shortName": "apiImdbFactory",
+      "type": "service",
+      "moduleName": "krushaTV",
+      "shortDescription": "IMDb api",
+      "keywords": "$http accepted accepts acceptsubmittedimdbid admin api apiimdbfactory deleted getsubmittedimdbids http httppromise ids imdb imdb_id krushatv local method permissions service show_id submission submission_id submit submitimdbid submitted subreddit tt1234567 unique user verify"
+    },
+    {
+      "section": "api",
+      "id": "krushaTV.service:apiRedditFactory",
+      "shortName": "apiRedditFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "reddit api",
-      "keywords": "$http accepted accepts admin api apireddit deleted display future getsubmittedsubreddits hot http httppromise krushatv local method permissions previous reddit reddit5more request service show_id string submission submission_id submit submitsubreddit submitted subreddit subreddits threads unique user verify view views"
+      "keywords": "$http accepted accepts admin api apiredditfactory deleted display future getsubmittedsubreddits hot http httppromise krushatv local method permissions previous reddit reddit5more request service show_id string submission submission_id submit submitsubreddit submitted subreddit subreddits threads unique user verify view views"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:apiSearch",
-      "shortName": "apiSearch",
+      "id": "krushaTV.service:apiSearchFactory",
+      "shortName": "apiSearchFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "Rest API calls for searching shows",
-      "keywords": "$http $q api apisearch calls database external httppromise krushatv local method rest search search_input searches searching searchlocal searchremote service text"
+      "keywords": "$http $q api apisearchfactory calls database external httppromise krushatv local method rest search search_input searches searching searchlocal searchremote service text"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:apiSettings",
-      "shortName": "apiSettings",
+      "id": "krushaTV.service:apiSettingsFactory",
+      "shortName": "apiSettingsFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "Rest API calls for user settings and profile",
-      "keywords": "$http aired api apisettings calls change complete date_format dates days difference displayed episode episodes format getprofile hours http httppromise krushatv method negative notified offset profile request rest sends service setdateformat setepisodeoffset settings user"
+      "keywords": "$http aired api apisettingsfactory calls change complete date_format dates days difference displayed episode episodes format getprofile hours http httppromise krushatv method negative notified offset profile request rest sends service setdateformat setepisodeoffset settings user"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:apiShow",
-      "shortName": "apiShow",
+      "id": "krushaTV.service:apiShowFactory",
+      "shortName": "apiShowFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "Rest API calls for shows and episodes",
-      "keywords": "$http adds addshow addtracked api apishow calls database day deletetracked episode episode_id episodes external getepisodes getepisodesday getepisodesmonth getepisodesweek getomdb getseasons getshow gettodaysepisodes gettracked getunwatched getunwatchedepisodes getunwatchedseasons getunwatchedshows getwatched getwatchedepisodes getwatchedseasons getwatchedshows httppromise imdb imdb_id krushatv local loggedin marks markseasonnotwatched markseasonwatched markshownotwatched markshowwatched method month notwatchedepisode number omdb rating remote removes rest retrieves season season_nr seasons service showid specific stores today tomorrow tracked tracking tt1285016 unwatched user valid watched watchedepisode week year yesterday"
+      "keywords": "$http adds addshow addtracked api apishowfactory calls database day deletetracked episode episode_id episodes external getepisodes getepisodesday getepisodesmonth getepisodesweek getomdb getseasons getshow gettodaysepisodes gettracked getunwatched getunwatchedepisodes getunwatchedseasons getunwatchedshows getwatched getwatchedepisodes getwatchedseasons getwatchedshows httppromise imdb imdb_id krushatv local loggedin marks markseasonnotwatched markseasonwatched markshownotwatched markshowwatched method month notwatchedepisode number omdb rating remote removes rest retrieves season season_nr seasons service showid specific stores today tomorrow tracked tracking tt1285016 unwatched user valid watched watchedepisode week year yesterday"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:calendar",
-      "shortName": "calendar",
+      "id": "krushaTV.service:calendarFactory",
+      "shortName": "calendarFactory",
       "type": "service",
       "moduleName": "krushaTV",
-      "shortDescription": "helper functions for calendar directive",
-      "keywords": "api array calendar creates day days december directive entries entry first_day functions getallmonth getallyears getdays getdaysday getdaysweek getweekday helper javascript krushatv last_day lastdayofmonth method monday month november numbers previous returns service sunday twelve week weekday weeks year years"
+      "shortDescription": "helper functions for calendarFactory directive",
+      "keywords": "api array calendarfactory creates day days december directive entries entry first_day functions getallmonth getallyears getdays getdaysday getdaysweek getweekday helper javascript krushatv last_day lastdayofmonth method monday month november numbers previous returns service sunday twelve week weekday weeks year years"
     },
     {
       "section": "api",
@@ -374,39 +374,39 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "krushaTV.service:loggedin",
-      "shortName": "loggedin",
+      "id": "krushaTV.service:loggedinFactory",
+      "shortName": "loggedinFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "handles user authentication",
-      "keywords": "$rootscope api authentication format getdateformat getstatus getuser handles krushatv logged loggedin method returns service setdateformat sets setstatus setuser status true user username"
+      "keywords": "$rootscope api authentication format getdateformat getstatus getuser handles krushatv logged loggedin loggedinfactory method returns service setdateformat sets setstatus setuser status true user username"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:notifications",
-      "shortName": "notifications",
+      "id": "krushaTV.service:notificationsFactory",
+      "shortName": "notificationsFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "displays notifications",
-      "keywords": "$rootscope add api background bg_class close color custom danger determines display displayed displays info krushatv link message method milliseconds notification notifications option pop removes returns service success time ttl warning"
+      "keywords": "$rootscope add api background bg_class close color custom danger determines display displayed displays info krushatv link message method milliseconds notification notifications notificationsfactory option pop removes returns service success time ttl warning"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:redirect",
-      "shortName": "redirect",
+      "id": "krushaTV.service:redirectFactory",
+      "shortName": "redirectFactory",
       "type": "service",
       "moduleName": "krushaTV",
-      "shortDescription": "stores the last known url and redirects back to it after logging in",
-      "keywords": "$location api current krushatv location logging login method redirect redirects service stores url"
+      "shortDescription": "stores the last known url and redirectFactorys back to it after logging in",
+      "keywords": "$location api current krushatv location logging login method redirectfactory redirectfactorys service stores url"
     },
     {
       "section": "api",
-      "id": "krushaTV.service:search_text",
-      "shortName": "search_text",
+      "id": "krushaTV.service:searchTextFactory",
+      "shortName": "searchTextFactory",
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "stores a user&#39;s search query",
-      "keywords": "api gettext krushatv method query retrieves returns search search_text service settext stored stores user"
+      "keywords": "api gettext krushatv method query retrieves returns search searchtextfactory service settext stored stores user"
     }
   ],
   "apis": {

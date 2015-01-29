@@ -9,10 +9,25 @@
   .checkbox {
     margin: 0;
   }
+
+  @media (max-width: $screen-xs-max) {
+    .list-inline {
+      > li {
+        display: block;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 
 .seasons {
   margin-bottom: 50px;
+}
+
+@media (max-width: $screen-xs-max) {
+  .show-genres {
+    display: block;
+  }
 }
 
 .info {

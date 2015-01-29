@@ -5,9 +5,11 @@
  * Controller for watched.html template
  * @requires $scope
  * @requires $filter
- * @requires krushaTV.service:apiShow
+ * @requires krushaTV.service:apiShowFactory
  */
-krusha.controller('watchedCtrl', ['$scope', '$filter', 'apiShow', function($scope, $filter, apiShow) {
+krusha.controller('watchedCtrl', ['$scope', '$filter', 'apiShowFactory', function($scope, $filter, apiShowFactory) {
+	var apiShow = new apiShowFactory();
+	
 	/**
 	 * set title of html page
 	 * @type {string}

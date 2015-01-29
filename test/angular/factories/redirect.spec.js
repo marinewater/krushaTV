@@ -4,8 +4,8 @@ describe('search_text', function() {
 
     var redirect;
 
-    beforeEach(inject(function(_redirect_) {
-        redirect = _redirect_;
+    beforeEach(inject(function(_redirectFactory_) {
+        redirect = new _redirectFactory_();
     }));
 
     describe('login', function() {

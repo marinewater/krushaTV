@@ -13,7 +13,7 @@ krusha.directive('scrollTo', function() {
         }
         
         element.on('click', function() {
-            $(document.body).animate({
+            $('html,body').animate({
                 'scrollTop':   $(attr.scrollTo).offset().top - 70
             }, 200);
         });

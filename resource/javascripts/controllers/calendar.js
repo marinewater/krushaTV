@@ -4,9 +4,11 @@
  * @description
  * Controller for calendar.html template
  * @requires $scope
- * @requires krushaTV.service:apiShow
+ * @requires krushaTV.service:apiShowFactory
  */
-krusha.controller('calendarCtrl', ['$scope', 'apiShow', function($scope, apiShow) {
+krusha.controller('calendarCtrl', ['$scope', 'apiShowFactory', function($scope, apiShowFactory) {
+    var apiShow = new apiShowFactory();
+    
     /**
      * set title of html page
      * @type {string}

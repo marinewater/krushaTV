@@ -46,9 +46,23 @@ describe('unwatched', function() {
 
         element = $compile(tpl)($rootScope);
     }));
+    
+    it('should display an erro message', function() {
+        $rootScope.watched = false;
+        $rootScope.shows = [];
+        $rootScope.seasons = [];
+        $rootScope.episodes = [];
+        $rootScope.$digest();
+        
+        expect(element.find('.card').length).toBe(1);
+        expect(element.find('p').text()).toContain('no');
+    });
 
     it('should display "Unwatched Episodes"', function() {
         $rootScope.watched = false;
+        $rootScope.shows = shows;
+        $rootScope.seasons = seasons;
+        $rootScope.episodes = episodes;
         $rootScope.$digest();
 
         expect(element.find('.page-header:first > h1').text()).toBe('Unwatched Episodes');
@@ -58,6 +72,9 @@ describe('unwatched', function() {
 
     it('should display "Watched Episodes"', function() {
         $rootScope.watched = true;
+        $rootScope.shows = shows;
+        $rootScope.seasons = seasons;
+        $rootScope.episodes = episodes;
         $rootScope.$digest();
 
         expect(element.find('.page-header:first > h1').text()).toBe('Watched Episodes');
@@ -67,6 +84,8 @@ describe('unwatched', function() {
 
     it('should display shows', function() {
         $rootScope.shows = shows;
+        $rootScope.seasons = seasons;
+        $rootScope.episodes = episodes;
 
         $rootScope.$digest();
 
@@ -84,7 +103,9 @@ describe('unwatched', function() {
     });
 
     it('should display seasons', function() {
+        $rootScope.shows = shows;
         $rootScope.seasons = seasons;
+        $rootScope.episodes = episodes;
         $rootScope.$digest();
 
         var seasons_elements = element.find('#seasons li');
@@ -128,7 +149,7 @@ describe('unwatched', function() {
     it('should show the season link', function() {
         $rootScope.shows = shows;
         $rootScope.seasons = seasons;
-        $rootScope.episodes = [];
+        $rootScope.episodes = [{ episode: 2, title: 'test', airdate: new Date('2013-08-03T00:00:00Z') }];
         $rootScope.watched = false;
         $rootScope.$digest();
 

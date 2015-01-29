@@ -14,8 +14,8 @@
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.3.3",
     "crypto": "~0.0.3",
-    "ejs": "~1.0.0",
-    "express": "~4.10.6",
+    "ejs": "~2.1.2",
+    "express": "~4.11.1",
     "express-brute": "~0.5.2",
     "express-brute-redis": "~0.0.1",
     "express-session": "~1.10.0",
@@ -26,14 +26,15 @@
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~1.0.0",
     "passport-reddit": "~0.2.4",
-    "pg": "~4.1.1",
+    "pg": "~4.2.0",
     "redis": "~0.12.1",
     "request": "~2.51.0",
-    "sanitize-html": "~1.4.3",
-    "sequelize": "~2.0.0-rc2",
+    "sanitize-html": "~1.5.1",
+    "sequelize": "2.0.0-rc7",
     "serialize": "~0.1.3",
-    "bluebird": "~2.6.4",
-    "connect-redis": "~2.1.0"
+    "bluebird": "~2.8.0",
+    "connect-redis": "~2.1.0",
+    "pg-hstore": "~2.3.1"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
@@ -49,7 +50,7 @@
     "karma-ng-html2js-preprocessor": "~0.1.2",
     "karma-phantomjs-launcher": "~0.1.4",
     "mocha": "~2.1.0",
-    "should": "~4.4.2",
+    "should": "~4.6.0",
     "supertest": "~0.15.0"
   }
 }

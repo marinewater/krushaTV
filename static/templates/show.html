@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="page-header">
-			<h1>{{ ::show.name }} <small>{{ ::show.genre }}</small></h1>
+			<h1>{{ ::show.name }} <small class="show-genres">{{ ::show.genre }}</small></h1>
 		</div>
 	</div>
 </div>
@@ -22,6 +22,8 @@
 						</label>
 					</div>
 				</li>
+				<li ng-if="::display.imdb" scroll-to=".imdb" class="link">Show Info</li>
+				<li ng-if="display.reddit && reddit.length > 0" scroll-to=".reddit" class="link">Reddit Threads</li>
 			</ul>
 		</div>
 	</div>
@@ -65,13 +67,10 @@
 			</table>
 		</div>
 	</div>
-	<div class="col-xs-12 visible-xs">
-		<div class="card-small">
-			<p class="text-center">
-				<button type="button" class="btn btn-default" scroll-to="#seasons"><i class="fa fa-chevron-up"></i> Go to seasons</button>
-			</p>
-		</div>
+	<div class="col-xs-12 visible-xs text-center scroll-button">
+		<button type="button" class="btn btn-default" scroll-to="#seasons"><i class="fa fa-chevron-up"></i> Go to seasons</button>
 	</div>
+</div>
 </div>
 
 <div class="row" ng-if="!unwatchedSeasons()">
@@ -86,7 +85,7 @@
 	</div>
 </div>
 
-<div class="row" ng-if="::display.imdb">
+<div class="row imdb" ng-if="::display.imdb">
 	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
 
@@ -98,8 +97,11 @@
 				<li ng-if="omdb.imdbRating"><a ng-href="http://www.imdb.com/title/{{ ::show.imdbid }}/epdate?ref_=ttep_ql_4" target="_blank">List of episodes at IMDb</a></li>
 				<li ng-if="omdb.imdbRating"><a ng-href="http://graphtv.kevinformatics.com/{{ ::show.imdbid }}" target="_blank">Graph ratings at graphTV</a></li>
 			</ul>
+			
+			<p ng-if="omdb.imdbRating">Info by <a href="http://www.omdbapi.com" target="_blank">OMDb API</a> licenced under <a
+					href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY 4.0</a>.</p>
 
-			<div ng-show="loggedin && !show.imdbid && show.imdb_submitted !== false">
+			<div ng-show="loggedin && !show.imdbid && show.imdb_submitted !== false && omdb !== false">
 				<p>Submit IMDb id:</p>
 				<form role="form" name="imdbForm" ng-submit="imdbForm.$valid && submitIMDB(imdb, show.id)" ng-show="!submittedImdbId">
 					<div class="row">
@@ -125,7 +127,13 @@
 	</div>
 </div>
 
-<div class="row reddit" ng-if="display.reddit && reddit.length >0 ">
+<div class="row visible-xs">
+	<div class="col-xs-12 text-center scroll-button">
+		<button class="btn btn-default" scroll-to="#top"><i class="fa fa-chevron-up"></i> Go to top</button>
+	</div>
+</div>
+
+<div class="row reddit" ng-if="display.reddit && reddit.length > 0">
 	<div class="col-lg-8 col-lg-push-2">
 		<div class="card">
 			<h2>{{ reddit.length }} hot reddit links</h2>
@@ -143,7 +151,7 @@
 
 <loadingspinner></loadingspinner>
 
-<div class="row reddit" ng-if="display.reddit && reddit.length==0 && loggedin && show.subreddit !== false">
+<div class="row reddit" ng-if="reddit !== false && display.reddit && reddit.length==0 && loggedin && show.subreddit !== false">
 	<div class="col-lg-6 col-lg-push-3">
 		<div class="card">
 			<h2>reddit</h2>

@@ -5,13 +5,18 @@
  * Controller for login.html template
  * @requires $scope
  * @requires $location
- * @requires krushaTV.service:apiAuth
- * @requires krushaTV.service:notifications
- * @requires krushaTV.service:redirect
- * @requires krushaTV.service:loggedin
+ * @requires krushaTV.service:apiAuthFactory
+ * @requires krushaTV.service:notificationsFactory
+ * @requires krushaTV.service:redirectFactory
+ * @requires krushaTV.service:loggedinFactory
  */
-krusha.controller('loginCtrl', ['$scope', '$location', 'apiAuth', 'notifications', 'redirect', 'loggedin',
-	function($scope, $location, apiAuth, notifications, redirect, loggedin) {
+krusha.controller('loginCtrl', ['$scope', '$location', 'apiAuthFactory', 'notificationsFactory', 'redirectFactory', 'loggedinFactory',
+	function($scope, $location, apiAuthFactory, notificationsFactory, redirectFactory, loggedinFactory) {
+		var apiAuth = new apiAuthFactory();
+		var notifications = new notificationsFactory();
+		var redirect = new redirectFactory();
+		var loggedin = new loggedinFactory();
+		
 		$scope.$parent.title = 'Login';
 
 		/**

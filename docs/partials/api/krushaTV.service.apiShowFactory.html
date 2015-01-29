@@ -1,0 +1,177 @@
+<h1><code ng:non-bindable="">apiShowFactory</code>
+<div><span class="hint">service in module <code ng:non-bindable="">krushaTV</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="krushatv-service-page krushatv-service-apishowfactory-page"><p>Rest API calls for shows and episodes</p>
+</div></div>
+<h2 id="dependencies">Dependencies</h2>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$http">$http</a></code>
+</li>
+</ul>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_addshow">addShow(showid)</h3>
+<div class="addshow"><div class="apishowfactory-addshow-page"><p>retrieves show information from an external api and stores it in the local database</p>
+</div><h5 id="methods_addshow_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-addshow-page"><p>remote show id</p>
+</div></td></tr></tbody></table><h5 id="methods_addshow_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-addshow-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_addtracked">addTracked(showid)</h3>
+<div class="addtracked"><div class="apishowfactory-addtracked-page"><p>adds show to tracked shows</p>
+</div><h5 id="methods_addtracked_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-addtracked-page"><p>local show id</p>
+</div></td></tr></tbody></table><h5 id="methods_addtracked_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-addtracked-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_deletetracked">deleteTracked(showid)</h3>
+<div class="deletetracked"><div class="apishowfactory-deletetracked-page"><p>removes show to tracked shows</p>
+</div><h5 id="methods_deletetracked_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-deletetracked-page"><p>local show id</p>
+</div></td></tr></tbody></table><h5 id="methods_deletetracked_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-deletetracked-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getepisodes">getEpisodes(showid, season_nr)</h3>
+<div class="getepisodes"><div class="apishowfactory-getepisodes-page"><p>gets episodes for particular show</p>
+</div><h5 id="methods_getepisodes_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-getepisodes-page"><p>local show id</p>
+</div></td></tr><tr><td>season_nr</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-getepisodes-page"><p>season number</p>
+</div></td></tr></tbody></table><h5 id="methods_getepisodes_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getepisodes-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getepisodesday">getEpisodesDay(day, month, year)</h3>
+<div class="getepisodesday"><div class="apishowfactory-getepisodesday-page"><p>gets all tracked episodes for the specified day</p>
+</div><h5 id="methods_getepisodesday_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>day</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesday-page"><p>day</p>
+</div></td></tr><tr><td>month</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesday-page"><p>month</p>
+</div></td></tr><tr><td>year</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesday-page"><p>year</p>
+</div></td></tr></tbody></table><h5 id="methods_getepisodesday_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getepisodesday-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getepisodesmonth">getEpisodesMonth(month, year)</h3>
+<div class="getepisodesmonth"><div class="apishowfactory-getepisodesmonth-page"><p>gets all tracked episodes for the specified month</p>
+</div><h5 id="methods_getepisodesmonth_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>month</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesmonth-page"><p>month</p>
+</div></td></tr><tr><td>year</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesmonth-page"><p>year</p>
+</div></td></tr></tbody></table><h5 id="methods_getepisodesmonth_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getepisodesmonth-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getepisodesweek">getEpisodesWeek(day, month, year)</h3>
+<div class="getepisodesweek"><div class="apishowfactory-getepisodesweek-page"><p>gets all tracked episodes for the week the specified date is in</p>
+</div><h5 id="methods_getepisodesweek_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>day</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesweek-page"><p>day</p>
+</div></td></tr><tr><td>month</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesweek-page"><p>month</p>
+</div></td></tr><tr><td>year</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getepisodesweek-page"><p>year</p>
+</div></td></tr></tbody></table><h5 id="methods_getepisodesweek_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getepisodesweek-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getseasons">getSeasons(showid)</h3>
+<div class="getseasons"><div class="apishowfactory-getseasons-page"><p>gets seasons for particular show</p>
+</div><h5 id="methods_getseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-getseasons-page"><p>local show id</p>
+</div></td></tr></tbody></table><h5 id="methods_getseasons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getseasons-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getshow">getShow(showid)</h3>
+<div class="getshow"><div class="apishowfactory-getshow-page"><p>gets show information from local database</p>
+</div><h5 id="methods_getshow_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-getshow-page"><p>local show id</p>
+</div></td></tr></tbody></table><h5 id="methods_getshow_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getshow-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_gettodaysepisodes">getTodaysEpisodes()</h3>
+<div class="gettodaysepisodes"><div class="apishowfactory-gettodaysepisodes-page"><p>gets episodes from yesterday, today and tomorrow
+if the user is loggedin, gets only episodes from tracked shows</p>
+</div><h5 id="methods_gettodaysepisodes_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-gettodaysepisodes-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_gettracked">getTracked()</h3>
+<div class="gettracked"><div class="apishowfactory-gettracked-page"><p>gets all shows the user is tracking</p>
+</div><h5 id="methods_gettracked_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-gettracked-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getunwatched">getUnwatched()</h3>
+<div class="getunwatched"><div class="apishowfactory-getunwatched-page"><p>retrieves all unwatched episodes from tracked shows</p>
+</div><h5 id="methods_getunwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getunwatched-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getunwatchedepisodes">getUnwatchedEpisodes(showid, season)</h3>
+<div class="getunwatchedepisodes"><div class="apishowfactory-getunwatchedepisodes-page"><p>gets  unwatched episodes for specific show and season from the api</p>
+</div><h5 id="methods_getunwatchedepisodes_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getunwatchedepisodes-page"><p>show id</p>
+</div></td></tr><tr><td>season</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getunwatchedepisodes-page"><p>season number</p>
+</div></td></tr></tbody></table><h5 id="methods_getunwatchedepisodes_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getunwatchedepisodes-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getunwatchedseasons">getUnwatchedSeasons(showid)</h3>
+<div class="getunwatchedseasons"><div class="apishowfactory-getunwatchedseasons-page"><p>gets seasons with unwatched episodes for specific show from the api</p>
+</div><h5 id="methods_getunwatchedseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getunwatchedseasons-page"><p>show id</p>
+</div></td></tr></tbody></table><h5 id="methods_getunwatchedseasons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getunwatchedseasons-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getunwatchedshows">getUnwatchedShows()</h3>
+<div class="getunwatchedshows"><div class="apishowfactory-getunwatchedshows-page"><p>gets shows with unwatched episodes from the api</p>
+</div><h5 id="methods_getunwatchedshows_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getunwatchedshows-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getwatched">getWatched()</h3>
+<div class="getwatched"><div class="apishowfactory-getwatched-page"><p>retrieves all watched episodes from tracked shows</p>
+</div><h5 id="methods_getwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getwatched-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getwatchedepisodes">getWatchedEpisodes(showid, season)</h3>
+<div class="getwatchedepisodes"><div class="apishowfactory-getwatchedepisodes-page"><p>gets  watched episodes for specific show and season from the api</p>
+</div><h5 id="methods_getwatchedepisodes_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getwatchedepisodes-page"><p>show id</p>
+</div></td></tr><tr><td>season</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getwatchedepisodes-page"><p>season number</p>
+</div></td></tr></tbody></table><h5 id="methods_getwatchedepisodes_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getwatchedepisodes-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getwatchedseasons">getWatchedSeasons(showid)</h3>
+<div class="getwatchedseasons"><div class="apishowfactory-getwatchedseasons-page"><p>gets seasons with watched episodes for specific show from the api</p>
+</div><h5 id="methods_getwatchedseasons_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="apishowfactory-getwatchedseasons-page"><p>show id</p>
+</div></td></tr></tbody></table><h5 id="methods_getwatchedseasons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getwatchedseasons-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getwatchedshows">getWatchedShows()</h3>
+<div class="getwatchedshows"><div class="apishowfactory-getwatchedshows-page"><p>gets shows with watched episodes from the api</p>
+</div><h5 id="methods_getwatchedshows_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getwatchedshows-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getomdb">getomdb(imdb_id)</h3>
+<div class="getomdb"><div class="apishowfactory-getomdb-page"><p>gets imdb rating from omdb api</p>
+</div><h5 id="methods_getomdb_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>imdb_id</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="apishowfactory-getomdb-page"><p>A valid IMDb ID (e.g. tt1285016)</p>
+</div></td></tr></tbody></table><h5 id="methods_getomdb_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-getomdb-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_markseasonnotwatched">markSeasonNotWatched(showid, season_nr)</h3>
+<div class="markseasonnotwatched"><div class="apishowfactory-markseasonnotwatched-page"><p>marks all episodes of a season of a particular show as unwatched</p>
+</div><h5 id="methods_markseasonnotwatched_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-markseasonnotwatched-page"><p>local show id</p>
+</div></td></tr><tr><td>season_nr</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-markseasonnotwatched-page"><p>season number</p>
+</div></td></tr></tbody></table><h5 id="methods_markseasonnotwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-markseasonnotwatched-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_markseasonwatched">markSeasonWatched(showid, season_nr)</h3>
+<div class="markseasonwatched"><div class="apishowfactory-markseasonwatched-page"><p>marks all episodes of a season of a particular show as watched</p>
+</div><h5 id="methods_markseasonwatched_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-markseasonwatched-page"><p>local show id</p>
+</div></td></tr><tr><td>season_nr</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-markseasonwatched-page"><p>season number</p>
+</div></td></tr></tbody></table><h5 id="methods_markseasonwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-markseasonwatched-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_markshownotwatched">markShowNotWatched(showid)</h3>
+<div class="markshownotwatched"><div class="apishowfactory-markshownotwatched-page"><p>marks all episodes of a particular show as unwatched</p>
+</div><h5 id="methods_markshownotwatched_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-markshownotwatched-page"><p>local show id</p>
+</div></td></tr></tbody></table><h5 id="methods_markshownotwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-markshownotwatched-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_markshowwatched">markShowWatched(showid)</h3>
+<div class="markshowwatched"><div class="apishowfactory-markshowwatched-page"><p>marks all episodes of a particular show as watched</p>
+</div><h5 id="methods_markshowwatched_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showid</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-markshowwatched-page"><p>local show id</p>
+</div></td></tr></tbody></table><h5 id="methods_markshowwatched_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-markshowwatched-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_notwatchedepisode">notWatchedEpisode(episode_id)</h3>
+<div class="notwatchedepisode"><div class="apishowfactory-notwatchedepisode-page"><p>marks an episode as unwatched</p>
+</div><h5 id="methods_notwatchedepisode_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>episode_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-notwatchedepisode-page"><p>episode id</p>
+</div></td></tr></tbody></table><h5 id="methods_notwatchedepisode_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-notwatchedepisode-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_watchedepisode">watchedEpisode(episode_id)</h3>
+<div class="watchedepisode"><div class="apishowfactory-watchedepisode-page"><p>marks an episode as watched</p>
+</div><h5 id="methods_watchedepisode_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>episode_id</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="apishowfactory-watchedepisode-page"><p>episode id</p>
+</div></td></tr></tbody></table><h5 id="methods_watchedepisode_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td><td><div class="apishowfactory-watchedepisode-page"><p>HttpPromise</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

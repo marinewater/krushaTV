@@ -14,7 +14,9 @@
  * @param {function} markEpisodeWatched function that marks a single episode as watchted/unwatched
  * @param {boolean} watched determined if this template shows watched or unwatched episodes
  */
-krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, loggedin) {
+krusha.directive('unwatched', ['$timeout', 'loggedinFactory', function($timeout, loggedinFactory) {
+    var loggedin = new loggedinFactory();
+    
     var link = function($scope) {
         if (typeof $scope.shows === 'undefined')
             $scope.shows = [];
@@ -30,7 +32,7 @@ krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, logged
         };
 
         $scope.scrollShows = function() {
-            $(document.body).animate({
+            $('html,body').animate({
                 'scrollTop':   $('#shows').offset().top - 70
             }, 200);
         };
@@ -43,19 +45,20 @@ krusha.directive('unwatched', ['$timeout', 'loggedin', function($timeout, logged
 
         $scope.getSeasonsScroll = function(show_id) {
             $scope.getSeasons(show_id);
-            $(document.body).animate({
+            $('html,body').animate({
                 'scrollTop':   $('#seasons').offset().top - 70
             }, 200);
         };
 
         $scope.getEpisodesScroll = function(show_id, season) {
             $scope.getEpisodes(show_id, season);
-            $(document.body).animate({
+            $('html,body').animate({
                 'scrollTop':   $('#episodes').offset().top - 70
             }, 200);
         };
 
         $scope.watched_text = $scope.watched ? 'unwatched' : 'watched';
+        $scope.watched_text_inv = $scope.watched ? 'watched' : 'unwatched';
         $scope.watched_text_cap = $scope.watched ? 'Unwatched' : 'Watched';
         $scope.watched_text_cap_short = $scope.watched ? 'Unw.' : 'W.';
     };

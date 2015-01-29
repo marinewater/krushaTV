@@ -1,0 +1,15 @@
+ul.login-buttons {
+  list-style: none;
+  padding: 0;
+
+  li {
+    @media (min-width: $screen-sm-min) {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    @media (max-width: $screen-xs-max) {
+      margin-bottom: 10px;
+    }
+  }
+}

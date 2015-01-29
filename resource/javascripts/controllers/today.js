@@ -8,15 +8,36 @@
  * @requires $scope
  * @requires $filter
  * @requires $location
- * @requires krushaTV.service:apiShow
+ * @requires krushaTV.service:apiShowFactory
  */
-krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShow', function($scope, $filter, $location, apiShow) {
+krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactory', 'loggedinFactory', function($scope, $filter, $location, apiShowFactory, loggedinFactory) {
+	var apiShow = new apiShowFactory();
+	var loggedin = new loggedinFactory();
+	
 	$scope.$parent.title = 'New Episodes';
+	$scope.loggedin = loggedin.getStatus();
+	$scope.close_welcome = false;
 
 
 	$scope.stopClick = function(event) {
 		event.stopPropagation();
 	};
+
+	$scope.$on('loggedin', function() {
+		getTodaysEpisodes();
+		$scope.loggedin = loggedin.getStatus();
+	});
+
+	/**
+	 * @ngdoc todayCtrl.method
+	 * @name todayCtrl#close_info
+	 * @description closes welcome info box
+	 * @methodOf krushaTV.controllers:todayCtrl
+	 */
+	$scope.close_info = function() {
+		$scope.close_welcome = true;
+	};
+	
 	/**
 	 * @ngdoc todayCtrl.method
 	 * @name todayCtrl#getTodaysEpisodes
@@ -30,6 +51,7 @@ krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShow', fun
 			$scope.yesterdays_episodes = $filter('filter')(data.episodes, {'age': 1}, true);
 		});
 	};
+
 	/**
 	 * @ngdoc todayCtrl.method
 	 * @name todayCtrl#changeLocation

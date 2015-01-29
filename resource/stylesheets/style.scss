@@ -19,6 +19,8 @@ $fa-font-path:   "../fonts/FontAwesome";
 @import "custom/slider";
 @import "custom/calendar";
 @import "custom/date_picker";
+@import "custom/scroll_button";
+@import "custom/login_buttons";
 @import "../../static/javascripts/bower_components/angular-hotkeys/build/hotkeys.css";
 
 body {
@@ -83,14 +85,5 @@ unwatched >.row {
 @media(min-width: $screen-lg-min) {
   .pull-left-lg {
 	float: left;
-  }
-}
-
-.profile-link {
-  max-width: 135px;
-  overflow: hidden;
-
-  > a {
-	white-space: nowrap;
   }
 }

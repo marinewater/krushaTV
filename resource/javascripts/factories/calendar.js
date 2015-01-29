@@ -1,33 +1,37 @@
 /**
  * @ngdoc service
- * @name krushaTV.service:calendar
- * @description helper functions for calendar directive
+ * @name krushaTV.service:calendarFactory
+ * @description helper functions for calendarFactory directive
  */
-krusha.factory('calendar', [function() {
+krusha.factory('calendarFactory', function() {
+    var calendar = function() {
+        this.allWeekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    };
+    
     /**
-     * @ngdoc calendar.method
-     * @methodOf krushaTV.service:calendar
-     * @name calendar#lastDayOfMonth
+     * @ngdoc calendarFactory.method
+     * @methodOf krushaTV.service:calendarFactory
+     * @name calendarFactory#lastDayOfMonth
      * @description returns the last day of the specified month (e.g. 31 for december, 30 for november)
      * @param {Number} year year
      * @param {Number} month month
      * @return {Number} last day of the month
      */
-    var lastDayOfMonth = function(year, month) {
+    calendar.prototype.lastDayOfMonth = function(year, month) {
         var d = new Date(year, month, 0);
         return d.getDate();
     };
 
     /**
-     * @ngdoc calendar.method
-     * @methodOf krushaTV.service:calendar
-     * @name calendar#getDays
+     * @ngdoc calendarFactory.method
+     * @methodOf krushaTV.service:calendarFactory
+     * @name calendarFactory#getDays
      * @description creates an array with entries for every day of the month and the previous and following days (complete weeks, so first day in array is an monday and the last a sunday)
      * @param {Number} year year
      * @param {Number} month month
      * @return {Array} contains an entry for every day of the month
      */
-    var getDays = function(year, month) {
+    calendar.prototype.getDays = function(year, month) {
         var today = new Date();
 
         if (typeof year === 'undefined' || typeof month === 'undefined') {
@@ -35,7 +39,7 @@ krusha.factory('calendar', [function() {
             month = today.getMonth()+1;
         }
 
-        var lastDay = lastDayOfMonth(year, month);
+        var lastDay = this.lastDayOfMonth(year, month);
         var firstDay = new Date(year, month-1, 1);
 
         var days = [];
@@ -82,15 +86,15 @@ krusha.factory('calendar', [function() {
     };
 
     /**
-     * @ngdoc calendar.method
-     * @methodOf krushaTV.service:calendar
-     * @name calendar#getDaysWeek
+     * @ngdoc calendarFactory.method
+     * @methodOf krushaTV.service:calendarFactory
+     * @name calendarFactory#getDaysWeek
      * @description creates an array with entries for every day of the month and the previous and following days (complete weeks, so first day in array is an monday and the last a sunday)
      * @param {Date} first_day first day of the week
      * @param {Date} last_day last day of the week
      * @return {Array} contains an entry for every day of the week
      */
-    var getDaysWeek = function(first_day, last_day) {
+    calendar.prototype.getDaysWeek = function(first_day, last_day) {
         var days = [];
 
         for (var day = new Date(first_day); day <= last_day; day.setDate(day.getDate() + 1)) {
@@ -105,14 +109,14 @@ krusha.factory('calendar', [function() {
     };
 
     /**
-     * @ngdoc calendar.method
-     * @methodOf krushaTV.service:calendar
-     * @name calendar#getDaysDay
+     * @ngdoc calendarFactory.method
+     * @methodOf krushaTV.service:calendarFactory
+     * @name calendarFactory#getDaysDay
      * @description creates an array with an entry for one day
      * @param {Date} day day
      * @return {Array} contains an entry for one day
      */
-    var getDaysDay = function(day) {
+    calendar.prototype.getDaysDay = function(day) {
         var days = [];
 
         days.push({
@@ -125,13 +129,13 @@ krusha.factory('calendar', [function() {
     };
 
     /**
-     * @ngdoc calendar.method
-     * @methodOf krushaTV.service:calendar
-     * @name calendar#getAllMonth
+     * @ngdoc calendarFactory.method
+     * @methodOf krushaTV.service:calendarFactory
+     * @name calendarFactory#getAllMonth
      * @description returns array containing numbers one to twelve
      * @return {Array} month
      */
-    var getAllMonth = function() {
+    calendar.prototype.getAllMonth = function() {
         var month = [];
 
         for (var i=1; i<=12; i++) {
@@ -142,13 +146,13 @@ krusha.factory('calendar', [function() {
     };
 
     /**
-     * @ngdoc calendar.method
-     * @methodOf krushaTV.service:calendar
-     * @name calendar#getAllYears
+     * @ngdoc calendarFactory.method
+     * @methodOf krushaTV.service:calendarFactory
+     * @name calendarFactory#getAllYears
      * @description returns array containing years from 1950 to next year
      * @return {Array} years
      */
-    var getAllYears = function() {
+    calendar.prototype.getAllYears = function() {
         var years = [];
         var nextYear = new Date().getFullYear()+1;
 
@@ -160,36 +164,22 @@ krusha.factory('calendar', [function() {
     };
 
     /**
-     * @ngdoc calendar.method
-     * @methodOf krushaTV.service:calendar
-     * @name calendar#getWeekDay
+     * @ngdoc calendarFactory.method
+     * @methodOf krushaTV.service:calendarFactory
+     * @name calendarFactory#getWeekDay
      * @description returns the the name for a day of the week
      * @param {Number} day javascript's day of the week
      * @return {String} name of the weekday
      */
-    var getWeekDay = function(day) {
+    calendar.prototype.getWeekDay = function(day) {
         day -= 1;
 
         if (day < 0) {
             day = 6;
         }
 
-        return allWeekdays[day];
+        return this.allWeekdays[day];
     };
 
-    /**
-     * weekdays
-     * @type {string[]}
-     */
-    var allWeekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-    return {
-        getAllMonth: getAllMonth,
-        getAllYears: getAllYears,
-        allWeekdays: allWeekdays,
-        getDays: getDays,
-        getDaysWeek: getDaysWeek,
-        getWeekDay: getWeekDay,
-        getDaysDay: getDaysDay
-    }
-}]);
+    return calendar;
+});
