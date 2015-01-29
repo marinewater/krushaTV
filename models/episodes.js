@@ -37,9 +37,9 @@ module.exports = function(sequelize, DataTypes) {
           if (isNaN(userid)) {
             return;
           }
-          select +=  ' ROUND(EXTRACT(epoch FROM ((now()-e.airdate) - user_interval.episode_offset))/86400-0.5) as age ';
+          select +=  ' ROUND(EXTRACT(epoch FROM ((now()-e.airdate) - user_interval.episode_offset))/86400-0.5)::int as age ';
           from += ', "' + models.TrackShow.tableName + '" t, (SELECT u.episode_offset FROM "' + models.User.tableName + '" u';
-          where = ' WHERE u.id = ' + userid + ' LIMIT 1) as user_interval WHERE e.seriesid = s.id AND s.id = t.showid AND t.userid = ' + userid + ' AND age(e.airdate) <= (user_interval.episode_offset + interval \'1 day\') AND age(e.airdate) >= (user_interval.episode_offset - interval \'1 day\')';
+          where = ' WHERE u.id = ' + userid + ' LIMIT 1) as user_interval WHERE e.seriesid = s.id AND s.id = t.showid AND t.userid = ' + userid + ' AND (now()-e.airdate) <= (user_interval.episode_offset + interval \'2 day\') AND (now()-e.airdate) >= (user_interval.episode_offset - interval \'1 day\')';
         }
         else {
           select +=  ' ROUND(EXTRACT(epoch FROM age(e.airdate))/86400) as age ';
