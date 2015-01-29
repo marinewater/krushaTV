@@ -7,7 +7,7 @@ describe('loginButtons', function() {
     var $rootScope;
     var element;
 
-    var tpl = '<ul login-buttons></ul>';
+    var tpl = '<login-buttons></login-buttons>';
 
     beforeEach(inject(function(_$compile_, _$rootScope_) {
         $compile = _$compile_;
