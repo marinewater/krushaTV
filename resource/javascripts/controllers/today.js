@@ -10,10 +10,13 @@
  * @requires $location
  * @requires krushaTV.service:apiShowFactory
  */
-krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactory', function($scope, $filter, $location, apiShowFactory) {
+krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactory', 'loggedinFactory', function($scope, $filter, $location, apiShowFactory, loggedinFactory) {
 	var apiShow = new apiShowFactory();
+	var loggedin = new loggedinFactory();
 	
 	$scope.$parent.title = 'New Episodes';
+	$scope.loggedin = loggedin.getStatus();
+	$scope.close_welcome = false;
 
 
 	$scope.stopClick = function(event) {
@@ -22,7 +25,18 @@ krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactor
 
 	$scope.$on('loggedin', function() {
 		getTodaysEpisodes();
+		$scope.loggedin = loggedin.getStatus();
 	});
+
+	/**
+	 * @ngdoc todayCtrl.method
+	 * @name todayCtrl#close_info
+	 * @description closes welcome info box
+	 * @methodOf krushaTV.controllers:todayCtrl
+	 */
+	$scope.close_info = function() {
+		$scope.close_welcome = true;
+	};
 	
 	/**
 	 * @ngdoc todayCtrl.method

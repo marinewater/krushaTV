@@ -17,6 +17,13 @@
 	  display: flex;
 	}
   }
+  
+  &.card {
+	.signup {
+	  font-size: $jumbotron-font-size;
+	  font-weight: 200;
+	}
+  }
 }
 
 .dailyepisodes {
