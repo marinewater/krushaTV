@@ -1,5 +1,5 @@
 <div class="row signup">
-	<div class="col-lg-6 col-lg-offset-3">
+	<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 		<div class="jumbotron">
 			<h1><i class="fa fa-lock"></i> Sign Up</h1>
             <alert ng-repeat="alert in alerts" type="{{ ::alert.type }}" close="closeAlert($index)">{{ ::alert.msg }}</alert>
@@ -32,13 +32,10 @@
 
 	        <div class="row">
 	            <div class="col-md-10 col-md-offset-2">
-	                <p class="pull-left hidden-xs">or login with:</p>
+	                <p class="pull-left hidden-xs login">or login with:</p>
 					<p class="visible-xs">or login with:</p>
 
-	                <ul class="list-inline hidden-xs" login-buttons>
-	                </ul>
-					<ul class="list-unstyled visible-xs" login-buttons>
-					</ul>
+	                <login-buttons></login-buttons>
 	            </div>
         	</div>
 		</div>

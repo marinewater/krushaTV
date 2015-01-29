@@ -1,14 +1,5 @@
 .signup {
-  .list-inline {
-    position: relative;
-    left: 20px;
-  }
-
-  &, .login {
-    .list-unstyled {
-      li {
-        margin-bottom: 10px;
-      }
-    }
+  .login {
+    margin-right: 20px;
   }
 }
