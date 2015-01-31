@@ -266,14 +266,18 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 			if (!episode.watched) {
 				apiShow.watchedEpisode(episode.id).success(function() {
 					episode.watched = true;
-					season.watched_count++;
+					if (Date.parse(episode.airdate) <= Date.now()) {
+						season.watched_count++;
+					}
 					getNextUnwatchedSeason();
 				});
 			}
 			else {
 				apiShow.notWatchedEpisode(episode.id).success(function() {
 					episode.watched = false;
-					season.watched_count--;
+					if (Date.parse(episode.airdate) <= Date.now()) {
+						season.watched_count--;
+					}
 					getNextUnwatchedSeason();
 				});
 			}

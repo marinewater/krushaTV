@@ -72,8 +72,8 @@ module.exports = function(sequelize, DataTypes) {
           return;
         }
 
-        var query = 'SELECT e.season, count(e.id) AS episode_count, count(w.id) AS watched_count\
-        FROM "Episodes" e LEFT OUTER JOIN "WatchedEpisodes" w ON (w.userid = ' + user_id + ' AND w.episodeid = e.id)\
+        var query = 'SELECT e.season, count(CASE WHEN e.airdate <= now() THEN 1 END) AS episode_count, count(CASE WHEN w.id IS NOT NULL AND e.airdate <= now() THEN 1 END) AS watched_count\
+        FROM "' + models.Episodes.tableName + '" e LEFT OUTER JOIN "' + models.WatchedEpisodes.tableName + '" w ON (w.userid = ' + user_id + ' AND w.episodeid = e.id)\
         WHERE e.seriesid = ' + show_id +
         'GROUP BY e.season\
         ORDER BY e.season;';
