@@ -86,7 +86,8 @@
                         <li><a href="/calendar" ng-click="col.isCollapsed = true">Calendar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-left visible-sm visible-md" ng-show="loggedin">
-                        <li class="dropdown"><a href class="dropdown-toggle">Your Shows <span class="caret"></span></a>
+                        <li class="dropdown" dropdown>
+                            <a href class="dropdown-toggle" dropdown-toggle>Your Shows <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/track">Tracked Shows</a></li>
                                 <li><a href="/unwatched">Unwatched Episodes</a></li>
