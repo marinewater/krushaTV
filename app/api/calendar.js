@@ -112,7 +112,17 @@ module.exports = function(router, log, models, user) {
                             lt: date_after
                         }
                     },
-                    attributes: ['episode', 'season', 'title', 'airdate']
+                    attributes: ['episode', 'season', 'title', 'airdate'],
+                    include: [
+                        {
+                            model: models.WatchedEpisodes,
+                            where: {
+                                userid: sequelize.literal('"' + models.Episodes.tableName + '.' + models.WatchedEpisodes.tableName + '".userid = ' + req.user.id)
+                            },
+                            attributes: [['id', 'watched']],
+                            required: false
+                        }
+                    ]
                 }
             ]
         }).then(function(data) {
@@ -126,7 +136,8 @@ module.exports = function(router, log, models, user) {
                     episode: episode.Episodes[0].episode,
                     season: episode.Episodes[0].season,
                     title: episode.Episodes[0].title,
-                    airdate: episode.Episodes[0].airdate
+                    airdate: episode.Episodes[0].airdate,
+                    watched: episode.Episodes[0].WatchedEpisodes.length > 0
                 });
             });
 

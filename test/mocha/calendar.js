@@ -471,6 +471,7 @@ describe('Calendar', function() {
 
         describe('with data', function() {
             var showid;
+            var episodeid;
 
             before(function(done) {
                 models.Series.create({
@@ -485,7 +486,8 @@ describe('Calendar', function() {
                         season: 3,
                         title: 'test episode',
                         airdate: '2014-12-31T23:59:59.000Z'
-                    }).then(function() {
+                    }).then(function(episode) {
+                        episodeid = episode.dataValues.id;
                         done();
                     }).catch(function(err) {
                         done(err);
@@ -578,6 +580,7 @@ describe('Calendar', function() {
                             res.body.episodes[0].should.have.property('name', 'test');
                             res.body.episodes[0].should.have.property('season', 3);
                             res.body.episodes[0].should.have.property('title', 'test episode');
+                            res.body.episodes[0].should.have.property('watched', false);
                             done();
                         });
                 });
@@ -597,6 +600,7 @@ describe('Calendar', function() {
                             res.body.episodes[0].should.have.property('name', 'test');
                             res.body.episodes[0].should.have.property('season', 3);
                             res.body.episodes[0].should.have.property('title', 'test episode');
+                            res.body.episodes[0].should.have.property('watched', false);
                             done();
                         });
                 });
@@ -616,8 +620,62 @@ describe('Calendar', function() {
                             res.body.episodes[0].should.have.property('name', 'test');
                             res.body.episodes[0].should.have.property('season', 3);
                             res.body.episodes[0].should.have.property('title', 'test episode');
+                            res.body.episodes[0].should.have.property('watched', false);
                             done();
                         });
+                });
+
+                describe('watched episode', function() {
+                    var watched_episode;
+                    before(function(done) {
+                        models.WatchedEpisodes.create({
+                            userid: userid,
+                            episodeid: episodeid
+                        }).then(function(_watched_episode_) {
+                            watched_episode = _watched_episode_;
+                            done();
+                        }).catch(done);
+                    });
+
+                    after(function(done) {
+                        watched_episode.destroy().then(function() { done(); }).catch(done);
+                    });
+
+                    it('should return a watched episode (month)', function(done) {
+                        user
+                            .get('/api/calendar/2014/12')
+                            .set('Content-Type', 'application/json')
+                            .expect(200)
+                            .end(function(err, res) {
+                                should.not.exist(err);
+                                res.body.episodes[0].should.have.property('watched', true);
+                                done();
+                            });
+                    });
+
+                    it('should return a watched episode (week)', function(done) {
+                        user
+                            .get('/api/calendar/2014/12/30/week')
+                            .set('Content-Type', 'application/json')
+                            .expect(200)
+                            .end(function(err, res) {
+                                should.not.exist(err);
+                                res.body.episodes[0].should.have.property('watched', true);
+                                done();
+                            });
+                    });
+
+                    it('should return a watched episode (day)', function(done) {
+                        user
+                            .get('/api/calendar/2014/12/31')
+                            .set('Content-Type', 'application/json')
+                            .expect(200)
+                            .end(function(err, res) {
+                                should.not.exist(err);
+                                res.body.episodes[0].should.have.property('watched', true);
+                                done();
+                            });
+                    });
                 });
             });
         });

@@ -110,8 +110,9 @@ module.exports = function(sequelize, DataTypes) {
 				var date = year + '-' + month + '-01';
 
 				return sequelize
-					.query('SELECT s.id, s.name, e.episode, e.season, e.title, e.airdate ' +
+					.query('SELECT s.id, s.name, e.episode, e.season, e.title, e.airdate, w.id IS NOT NULL as watched ' +
 					'FROM "' + sequelize.models.TrackShow.tableName + '" t, "' + sequelize.models.Series.tableName + '" s, "' + sequelize.models.Episodes.tableName + '" e ' +
+					'LEFT JOIN "' + sequelize.models.WatchedEpisodes.tableName + '" w ON e.id = w.episodeid AND w.userid = ' + userid + ' ' +
 					'WHERE t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
 					'AND e.airdate >= date_trunc(\'month\', date(\'' + date + '\'))' +
 					'AND e.airdate <= date_trunc(\'month\', date(\'' + date + '\')) + \'1month\'::interval - \'1sec\'::interval;');
@@ -129,8 +130,9 @@ module.exports = function(sequelize, DataTypes) {
 				var date = date_parsed.getFullYear() + '-' + (date_parsed.getMonth() + 1) + '-' + date_parsed.getDate();
 
 				return sequelize
-					.query('SELECT s.id, s.name, s.genre, e.episode, e.season, e.title, e.airdate ' +
+					.query('SELECT s.id, s.name, s.genre, e.episode, e.season, e.title, e.airdate, w.id IS NOT NULL as watched ' +
 					'FROM "' + sequelize.models.TrackShow.tableName + '" t, "' + sequelize.models.Series.tableName + '" s, "' + sequelize.models.Episodes.tableName + '" e ' +
+					'LEFT JOIN "' + sequelize.models.WatchedEpisodes.tableName + '" w ON e.id = w.episodeid AND w.userid = ' + userid + ' ' +
 					'WHERE t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
 					'AND e.airdate >= date_trunc(\'week\', \'' + date + '\'::timestamp)' +
 					'AND e.airdate <= (date_trunc(\'week\', \'' + date + '\'::timestamp)+ \'6 days\'::interval)::date;');

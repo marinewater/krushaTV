@@ -363,12 +363,18 @@ krusha.directive('dates', ['$filter', 'calendarFactory', function($filter, calen
 
             shows.forEach(function(show) {
                 var show_item = $('<li/>').appendTo(list);
+                if (show.watched === true) {
+                    show_item.addClass('watched');
+                }
                 $('<a/>')
                     .attr('href', '/show/' + show.id)
                     .text(show.name)
                     .appendTo(show_item);
                 $('<span/>')
                     .text(' - ' + $filter('formatEpisode')(show.episode, show.season))
+                    .appendTo(show_item);
+                $('<i/>')
+                    .addClass('fa fa-check')
                     .appendTo(show_item);
             });
 

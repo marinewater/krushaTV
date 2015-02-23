@@ -36,6 +36,34 @@
     margin: 10px;
   }
 
+  li.watched {
+    color: #7D7E7E;
+    a {
+      color: #95A0B8;
+
+      &:hover {
+        color: $link-hover-color;
+      }
+    }
+
+    &:hover {
+      color: $text-color;
+
+      a {
+        color: $link-hover-color;
+      }
+    }
+
+    .fa.fa-check {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+
+  .fa.fa-check {
+    display: none;
+  }
+
   @media (max-width: $screen-xs-max) {
     &.week {
       thead {
