@@ -58,9 +58,15 @@ krusha.controller('todayCtrl', ['$scope', '$filter', '$location', 'apiShowFactor
 	 * @description redirects the user to a show view
 	 * @methodOf krushaTV.controllers:todayCtrl
 	 * @param {number} showid local show id
+	 * @param {number} season season
 	 */
-	$scope.changeLocation = function(showid) {
-		$location.path('show/' + showid);
+	$scope.changeLocation = function(showid, season) {
+		var url = '/show/' + showid;
+		if (typeof season !== 'undefined') {
+			url += '?season=' + season;
+		}
+
+		$location.url(url);
 	};
 
 	getTodaysEpisodes();

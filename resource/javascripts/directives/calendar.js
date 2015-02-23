@@ -367,7 +367,7 @@ krusha.directive('dates', ['$filter', 'calendarFactory', function($filter, calen
                     show_item.addClass('watched');
                 }
                 $('<a/>')
-                    .attr('href', '/show/' + show.id)
+                    .attr('href', '/show/' + show.id + '?season=' + show.season)
                     .text(show.name)
                     .appendTo(show_item);
                 $('<span/>')
