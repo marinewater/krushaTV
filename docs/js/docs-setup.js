@@ -91,7 +91,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for show.html template",
-      "keywords": "$cookies $cookiestore $routeparams $scope $timeout active adds ago air airdate api checks controller controllers cookie determines displayed displays doesn episode episodes getepisodes getnextunwatchedseason getseasons getshow hot html imdb imdb_id imdb_url indicates krushatv lessthanaweek loads local marks method nextfive notification number offset older omdb_get previous rating reddit reddit_get reddit_url request saveshowwatched scrollfix scrolls scrolltoepisodes season season_nr seasons sends service setting show_id showctrl showwatched stores string submitimdb submits submitsubreddit subreddit template threads track tracked true tt1234567 tt1285016 unwatched unwatchedseasons update updates updatescrolloffset updateshowwatched url user valid watched watchedepisode week wih"
+      "keywords": "$cookies $cookiestore $routeparams $scope $timeout active active_season adds ago air airdate api checks controller controllers cookie determines displayed displays doesn episode episodes getepisodes getnextunwatchedseason getseasons getshow hot html imdb imdb_id imdb_url indicates krushatv lessthanaweek loads local marks method nextfive notification number offset older omdb_get previous rating reddit reddit_get reddit_url request saveshowwatched scrollfix scrolls scrolltoepisodes season season_nr seasons sends service setting show_id showctrl showwatched stores string submitimdb submits submitsubreddit subreddit template threads track tracked true tt1234567 tt1285016 unwatched unwatchedseasons update updates updatescrolloffset updateshowwatched url user valid watched watchedepisode week wih"
     },
     {
       "section": "api",
@@ -109,7 +109,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for homepage",
-      "keywords": "$filter $location $scope api box changelocation close_info closes controller controllers displays episodes gettodaysepisodes homepage info krushatv local logged method redirects retrieves service showid todayctrl todays tomorrows trakced user view yesterdays"
+      "keywords": "$filter $location $scope api box changelocation close_info closes controller controllers displays episodes gettodaysepisodes homepage info krushatv local logged method redirects retrieves season service showid todayctrl todays tomorrows trakced user view yesterdays"
     },
     {
       "section": "api",
