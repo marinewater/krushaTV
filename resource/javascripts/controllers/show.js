@@ -126,7 +126,7 @@ krusha.controller('showCtrl', ['$scope', '$location', '$routeParams', '$cookies'
 			apiShow.getShow(show_id)
 				.success(function(data) {
 					$scope.show = data;
-					$scope.$parent.title = $scope.show.name;
+					$scope.$parent.title = $scope.show.name + ' Season ' + ($scope.active_season + 1).toString();
 
 					if ('tracked' in data)
 						$scope.tracked = data.tracked;
@@ -158,6 +158,7 @@ krusha.controller('showCtrl', ['$scope', '$location', '$routeParams', '$cookies'
 		 */
 		var getSeasons = function(show_id, active_season) {
 			apiShow.getSeasons(show_id, active_season).success(function(data) {
+				$scope.$parent.title = $scope.show.name + ' Season ' + ($scope.active_season + 1).toString();
 				$scope.seasons = data.seasons;
 
 				if (typeof active_season === 'undefined') {
@@ -183,10 +184,11 @@ krusha.controller('showCtrl', ['$scope', '$location', '$routeParams', '$cookies'
 		 * @param {number} season_nr season number
 		 */
 		$scope.getEpisodes = function(show_id, season_nr) {
-			$scope.active_season = season_nr - 1;
-			$location.search('season', season_nr);
 			apiShow.getEpisodes(show_id, season_nr)
 				.success(function(data) {
+					$scope.active_season = season_nr - 1;
+					$scope.$parent.title = $scope.show.name + ' Season ' + ($scope.active_season + 1).toString();
+					$location.search('season', season_nr);
 					$scope.episodes = data.episodes;
 
 					$scope.seasons.find(function(season) {
