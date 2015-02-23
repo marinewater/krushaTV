@@ -109,7 +109,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for homepage",
-      "keywords": "$filter $location $scope api changelocation controller controllers displays episodes gettodaysepisodes homepage krushatv local logged method redirects retrieves service showid todayctrl todays tomorrows trakced user view yesterdays"
+      "keywords": "$filter $location $scope api box changelocation close_info closes controller controllers displays episodes gettodaysepisodes homepage info krushatv local logged method redirects retrieves service showid todayctrl todays tomorrows trakced user view yesterdays"
     },
     {
       "section": "api",
@@ -271,7 +271,7 @@ NG_DOCS={
       "type": "filter",
       "moduleName": "krushaTV",
       "shortDescription": "&quot;copyEpisode&quot; creates a string that is later used to be copied to the clipboard. Looks like &quot;Firefly S01E04&quot;.",
-      "keywords": "api clipboard copied copyepisode creates episode filter firefly krushatv s01e04 string"
+      "keywords": "api clipboard copied copyepisode creates episode filter firefly krushatv number s01e04 season string"
     },
     {
       "section": "api",

@@ -55,10 +55,14 @@ krusha.filter('formatEpisode', function() {
  * @name krushaTV.filter:copyEpisode
  * @description "copyEpisode" creates a string that is later used to be copied to the clipboard. Looks like "Firefly S01E04".
  * @param {Object} episode episode
+ * @param {String=} show show name
+ * @param {Number=} season season number
  */
 krusha.filter('copyEpisode', ['$filter', function($filter) {
-	return function(episode) {
-		return episode.showname + ' ' + $filter('formatEpisode')(episode.episode, episode.season);
+	return function(episode, show, season) {
+		var showname = typeof show === 'undefined' ? episode.showname : show;
+		var season_nr = typeof season === 'undefined' ? episode.season : season;
+		return showname + ' ' + $filter('formatEpisode')(episode.episode, season_nr);
 	}
 }]);
 

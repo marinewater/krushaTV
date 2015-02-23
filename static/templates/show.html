@@ -48,6 +48,7 @@
 						<th>Nr</th>
 						<th>Title</th>
 						<th>Airdate</th>
+						<th class="visible-lg">Copy</th>
 						<th ng-if="tracked" class="hidden-xs">Watched</th>
 						<th ng-if="tracked" class="visible-xs">W.</th>
 					</tr>
@@ -57,6 +58,9 @@
 						<td>{{ ::episode.episode }}</td>
 						<td>{{ ::episode.title }}</td>
 						<td>{{ ::episode.airdate | date: dateFormat }}</td>
+						<td class="visible-lg" clip-copy="::episode | copyEpisode:show.name:active_season">
+							<i class="fa fa-files-o" tooltip="copy to clipboard"></i>
+						</td>
 						<td ng-if="tracked">
 							<i class="fa pointer"
 								  ng-class="{ 'fa-check': episode.watched, 'text-success': episode.watched, 'fa-minus': !episode.watched, 'text-danger': !episode.watched}"
