@@ -44,7 +44,7 @@ describe('dates', function() {
             expect(date_cell.find('li').length).toBe(1);
 
             var show = date_cell.find('li:first');
-            expect(show.find('a').attr('href')).toBe('/show/1');
+            expect(show.find('a').attr('href')).toBe('/show/1?season=2');
             expect(show.find('a').text()).toBe('test');
             expect(show.text()).toBe('test - S02E24');
         });

@@ -33,7 +33,7 @@ describe('dailyepisodes', function() {
 
         var anchor = element.find('h3:first >a');
         expect(anchor.text()).toBe('show');
-        expect(anchor.attr('href')).toBe('/show/23');
+        expect(anchor.attr('href')).toBe('/show/23?season=2');
 
         expect(element.find('p:first strong').text()).toBe('title');
 
