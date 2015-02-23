@@ -2,7 +2,90 @@ var request = require('request');
 var libxmljs = require("libxmljs");
 var tvrage = require('../../config/tvrage.json');
 
+
 module.exports = function(router, log, models, get_seasons, redis) {
+	function route_get_seasons(req, res, next, selected_season) {
+		if (typeof selected_season === 'undefined') {
+			selected_season = 1;
+		}
+
+		function log_error(err) {
+			log.error('GET /show/' + showid + '/season DB: ' + err);
+			next();
+		}
+
+		/**
+		 * local show id
+		 * @type {Number}
+		 */
+		var showid = parseInt(req.params.showid);
+
+		if (isNaN(showid)) {
+			res.status(400);
+			return res.json({
+				'type': 'error',
+				'code': 400,
+				'message': 'showid must be integer'
+			});
+		}
+
+		function return_json(seasons, episodes) {
+			for (var season in seasons) {
+				if (seasons.hasOwnProperty(season)) {
+					seasons[season].episode_count = parseInt(seasons[season].episode_count);
+
+					if (seasons[season].hasOwnProperty('watched_count')) {
+						seasons[season].watched_count = parseInt(seasons[season].watched_count);
+					}
+				}
+			}
+			return res.json({
+				'type': 'seasons',
+				'seasons': seasons,
+				'episodes': episodes,
+				'season': selected_season
+			});
+		}
+
+		if (req.isAuthenticated() !== true) {
+			models.Episodes.getSeasons(models, showid)
+				.then(function(seasons) {
+					get_seasons.getEpisodes(showid, null, selected_season, function(episodes) {
+						return return_json(seasons, episodes);
+					});
+				})
+				.catch(log_error);
+		}
+		else {
+			models.TrackShow.findOne({
+				where: {
+					userid: req.user.id,
+					showid: showid
+				},
+				attributes: ['id']
+			}).then(function(tracked) {
+				if (tracked !== null) {
+					models.Episodes.getSeasonsWatched(models, showid, req.user.id)
+						.then(function(seasons) {
+							get_seasons.getEpisodes(showid, req.user.id, selected_season, function(episodes) {
+								return return_json(seasons, episodes);
+							});
+						})
+						.catch(log_error);
+				}
+				else {
+					models.Episodes.getSeasons(models, showid)
+						.then(function(seasons) {
+							get_seasons.getEpisodes(showid, null, selected_season, function(episodes) {
+								return return_json(seasons, episodes);
+							});
+						})
+						.catch(log_error);
+				}
+			}).catch(log_error);
+		}
+	}
+
 	/**
 	 * get show info from local database
 	 */
@@ -235,82 +318,27 @@ module.exports = function(router, log, models, get_seasons, redis) {
 	/**
 	 * get seasons for show
 	 */
-	router.get('/show/:showid/season', function(req, res, next) {
-		function log_error(err) {
-			log.error('GET /show/' + showid + '/season DB: ' + err);
-			next();
-		}
+	router.get('/show/:showid/season', route_get_seasons);
 
+	/**
+	 * get seasons for show
+	 */
+	router.get('/show/:showid/season/:season', function(req, res, next) {
 		/**
-		 * local show id
+		 * season number
 		 * @type {Number}
 		 */
-		var showid = parseInt(req.params.showid);
+		var season = parseInt(req.params.season);
 
-		if (isNaN(showid)) {
+		if (isNaN(season)) {
 			res.status(400);
 			return res.json({
 				'type': 'error',
 				'code': 400,
-				'message': 'showid must be integer'
+				'message': 'season must be integer'
 			});
 		}
-
-		function return_json(seasons, episodes) {
-			for (var season in seasons) {
-				if (seasons.hasOwnProperty(season)) {
-					seasons[season].episode_count = parseInt(seasons[season].episode_count);
-
-					if (seasons[season].hasOwnProperty('watched_count')) {
-						seasons[season].watched_count = parseInt(seasons[season].watched_count);
-					}
-				}
-			}
-			return res.json({
-				'type': 'seasons',
-				'seasons': seasons,
-				'episodes': episodes,
-				'season': seasons[0].season
-			});
-		}
-
-		if (req.isAuthenticated() !== true) {
-			models.Episodes.getSeasons(models, showid)
-				.then(function(seasons) {
-					get_seasons.getEpisodes(showid, null, seasons[0].season, function(episodes) {
-						return return_json(seasons, episodes);
-					});
-				})
-				.catch(log_error);
-		}
-		else {
-			models.TrackShow.findOne({
-				where: {
-					userid: req.user.id,
-					showid: showid
-				},
-				attributes: ['id']
-			}).then(function(tracked) {
-				if (tracked !== null) {
-					models.Episodes.getSeasonsWatched(models, showid, req.user.id)
-						.then(function(seasons) {
-							get_seasons.getEpisodes(showid, req.user.id, seasons[0].season, function(episodes) {
-								return return_json(seasons, episodes);
-							});
-						})
-						.catch(log_error);
-				}
-				else {
-					models.Episodes.getSeasons(models, showid)
-						.then(function(seasons) {
-							get_seasons.getEpisodes(showid, null, seasons[0].season, function(episodes) {
-								return return_json(seasons, episodes);
-							});
-						})
-						.catch(log_error);
-				}
-			}).catch(log_error);
-		}
+		route_get_seasons(req, res, next, season);
 	});
 
 	/**

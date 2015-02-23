@@ -14,8 +14,8 @@
  * @requires krushaTV.service:notificationsFactory
  * @requires krushaTV.service:loggedinFactory
  */
-krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieStore', '$timeout', 'apiShowFactory', 'apiRedditFactory', 'apiImdbFactory', 'notificationsFactory', 'loggedinFactory',
-	function($scope, $routeParams, $cookies, $cookieStore, $timeout, apiShowFactory, apiRedditFactory, apiImdbFactory, notificationsFactory, loggedinFactory) {
+krusha.controller('showCtrl', ['$scope', '$location', '$routeParams', '$cookies', '$cookieStore', '$timeout', 'apiShowFactory', 'apiRedditFactory', 'apiImdbFactory', 'notificationsFactory', 'loggedinFactory',
+	function($scope, $location, $routeParams, $cookies, $cookieStore, $timeout, apiShowFactory, apiRedditFactory, apiImdbFactory, notificationsFactory, loggedinFactory) {
 		var apiShow = new apiShowFactory();
 		var apiImdb = new apiImdbFactory();
 		var apiReddit = new apiRedditFactory();
@@ -36,7 +36,6 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 			$scope.dateFormat = loggedin.getDateFormat();
 		});
 
-		$scope.active_season = 1;
 		var reddit_info = {};
 
 		$scope.dateFormat = loggedin.getDateFormat();
@@ -155,9 +154,10 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		 * @description gets seasons for show and episodes for first season from api
 		 * @methodOf krushaTV.controllers:showCtrl
 		 * @param {number} show_id local show id
+		 * @param {number=} active_season active season
 		 */
 		var getSeasons = function(show_id, active_season) {
-			apiShow.getSeasons(show_id).success(function(data) {
+			apiShow.getSeasons(show_id, active_season).success(function(data) {
 				$scope.seasons = data.seasons;
 
 				if (typeof active_season === 'undefined') {
@@ -168,6 +168,7 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 				}
 
 				$scope.seasons[active_season].active = true;
+				$location.search('season', active_season + 1);
 				$scope.episodes = data.episodes;
 				updateScrollOffset();
 			});
@@ -182,7 +183,8 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		 * @param {number} season_nr season number
 		 */
 		$scope.getEpisodes = function(show_id, season_nr) {
-			$scope.active_season = season_nr;
+			$scope.active_season = season_nr - 1;
+			$location.search('season', season_nr);
 			apiShow.getEpisodes(show_id, season_nr)
 				.success(function(data) {
 					$scope.episodes = data.episodes;
@@ -395,7 +397,16 @@ krusha.controller('showCtrl', ['$scope', '$routeParams', '$cookies', '$cookieSto
 		};
 
 		var showid = $routeParams.id;
+
+		if (!('season' in $location.search())) {
+			$location.search('season', '1');
+			$scope.active_season = 0;
+		}
+		else {
+			$scope.active_season = parseInt($location.search()['season']) - 1;
+		}
+
 		getShow(showid);
-		getSeasons(showid);
+		getSeasons(showid, $scope.active_season + 1);
 		updateShowWatched();
 }]);

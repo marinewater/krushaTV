@@ -39,8 +39,13 @@ krusha.factory('apiShowFactory', ['$http', function($http) {
      * @param {number} showid local show id
      * @returns {HttpPromise} HttpPromise
      */
-    apiShow.prototype.getSeasons = function (showid) {
-        return $http.get('/api/show/' + showid + '/season');
+    apiShow.prototype.getSeasons = function (showid, season) {
+        if (typeof season === 'undefined') {
+            return $http.get('/api/show/' + showid + '/season');
+        }
+        else {
+            return $http.get('/api/show/' + showid + '/season/' + season);
+        }
     };
 
     /**

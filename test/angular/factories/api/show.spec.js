@@ -21,9 +21,15 @@ describe('apiShow', function() {
         $httpBackend.flush();
     });
 
-    it('should get seasons for a show', function() {
+    it('should get seasons for a show and episodes of the first season', function() {
         $httpBackend.expectGET('/api/show/1234/season').respond(200, {});
         apiShow.getSeasons(1234);
+        $httpBackend.flush();
+    });
+
+    it('should get seasons for a show and episodes of the second season', function() {
+        $httpBackend.expectGET('/api/show/1234/season/2').respond(200, {});
+        apiShow.getSeasons(1234, 2);
         $httpBackend.flush();
     });
 

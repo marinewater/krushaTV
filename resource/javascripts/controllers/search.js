@@ -21,7 +21,7 @@ krusha.controller('mainCtrl', ['$scope', '$rootScope', '$location', 'searchTextF
 	$scope.getResults = function(search_input) {
 		search_text.setText(search_input);
 		if ($location.path() !== '/search') {
-			$location.path('/search');
+			$location.url('/search');
 		}
 		else {
 			$rootScope.$broadcast('search_input');

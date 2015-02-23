@@ -21,7 +21,8 @@ krusha.config(['$routeProvider', '$httpProvider', '$compileProvider', '$location
             })
             .when('/show/:id', {
                 templateUrl: '/static/templates/show.html',
-                controller: 'showCtrl'
+                controller: 'showCtrl',
+                reloadOnSearch: false
             })
             .when('/login', {
                 templateUrl: '/static/templates/login.html',
