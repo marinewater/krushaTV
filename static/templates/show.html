@@ -58,7 +58,7 @@
 						<td>{{ ::episode.episode }}</td>
 						<td>{{ ::episode.title }}</td>
 						<td>{{ ::episode.airdate | date: dateFormat }}</td>
-						<td class="visible-lg" clip-copy="::episode | copyEpisode:show.name:active_season">
+						<td class="visible-lg" clip-copy="::episode | copyEpisode:show.name:active_season+1">
 							<i class="fa fa-files-o" tooltip="copy to clipboard"></i>
 						</td>
 						<td ng-if="tracked">
