@@ -107,10 +107,17 @@ module.exports = function(router, log, models, user) {
 	});
 
 	router.get('/unwatched/shows', user.isLoggedIn, function(req, res, next) {
-		models.TrackShow.unwatchedShows(models, req.user.id).then(function(unwatchedShows) {
+
+		var unwatchedSeasons;
+
+		models.TrackShow.unwatchedShows(models, req.user.id).spread(function(unwatchedShows) {
 			if (unwatchedShows.length > 0) {
-				models.TrackShow.unwatchedSeasons(models, req.user.id, unwatchedShows[0].id).then(function(unwatchedSeasons) {
-					models.TrackShow.unwatchedEpisodes(models, req.user.id, unwatchedShows[0].id, unwatchedSeasons[0].season).then(function(unwatchedEpisodes) {
+				models.TrackShow.unwatchedSeasons(models, req.user.id, unwatchedShows[0].id)
+					.spread(function(_unwatchedSeasons) {
+						unwatchedSeasons = _unwatchedSeasons;
+						return models.TrackShow.unwatchedEpisodes(models, req.user.id, unwatchedShows[0].id, unwatchedSeasons[0].season)
+					})
+					.spread(function(unwatchedEpisodes) {
 						return res.json({
 							'type': 'shows',
 							'shows': unwatchedShows,
@@ -118,13 +125,9 @@ module.exports = function(router, log, models, user) {
 							'episodes': unwatchedEpisodes
 						});
 					}).catch(function(err) {
-						log.error('GET /unwatched/shows unwatchedEpisodes DB: ' + err);
+						log.error('GET /unwatched/shows unwatchedSeasons DB: ' + err);
 						next();
 					});
-				}).catch(function(err) {
-					log.error('GET /unwatched/shows unwatchedSeasons DB: ' + err);
-					next();
-				});
 			}
 			else {
 				res.status(404);
@@ -152,9 +155,9 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.unwatchedSeasons(models, req.user.id, showid).then(function(unwatchedSeasons) {
+		models.TrackShow.unwatchedSeasons(models, req.user.id, showid).spread(function(unwatchedSeasons) {
 			if (unwatchedSeasons.length > 0) {
-				models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, unwatchedSeasons[0].season).then(function(unwatchedEpisodes) {
+				models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, unwatchedSeasons[0].season).spread(function(unwatchedEpisodes) {
 					return res.json({
 						'type': 'seasons',
 						'seasons': unwatchedSeasons,
@@ -192,7 +195,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, season).then(function(unwatchedEpisodes) {
+		models.TrackShow.unwatchedEpisodes(models, req.user.id, showid, season).spread(function(unwatchedEpisodes) {
 			if (unwatchedEpisodes.length > 0) {
 				return res.json({
 					'type': 'episodes',

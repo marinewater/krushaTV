@@ -15,7 +15,7 @@ module.exports = function(router, log, models, user) {
             });
         }
 
-        models.TrackShow.monthEpisodes(req.user.id, year, month).then(function(db_episodes) {
+        models.TrackShow.monthEpisodes(req.user.id, year, month).spread(function(db_episodes) {
             return res.json({
                 'type': 'episodes',
                 'span': 'month',
@@ -52,16 +52,14 @@ module.exports = function(router, log, models, user) {
         queries.push(models.TrackShow.weekEpisodes(req.user.id, year, month, day));
         queries.push(models.TrackShow.weekSpan(year, month, day));
 
-        Promise.all(queries).then(function(results) {
-            var db_episodes = results[0];
-
+        Promise.all(queries).spread(function(db_episodes, time_frame) {
             return res.json({
                 'type': 'episodes',
                 'span': {
                     'type': 'week',
-                    'frame': results[1][0]
+                    'frame': time_frame[0]
                 },
-                'episodes': db_episodes
+                'episodes': db_episodes[0]
             });
         }).catch(function(err) {
             log.error('/calendar/' + year + '/' + month + '/' + day + '/week DB error', err);

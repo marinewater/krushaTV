@@ -72,16 +72,16 @@ describe('Unwatched Episodes', function() {
         });
 
         after(function(done) {
-            models.sequelize.query("DELETE FROM \"Users\";").success(function() {
+            models.sequelize.query("DELETE FROM \"Users\";").then(function() {
                 done();
-            }).error(function(err) {
+            }).catch(function(err) {
                 done(err);
             });
         });
 
         describe('show does not exist', function() {
 
-            it('should return an not found error', function(done) {
+            it('should return an not found error 1', function(done) {
                 user
                     .get('/api/unwatched/shows')
                     .set('Content-Type', 'application/json')
@@ -95,7 +95,7 @@ describe('Unwatched Episodes', function() {
                     });
             });
 
-            it('should return a not found error', function(done) {
+            it('should return a not found error 2', function(done) {
                 user
                     .get('/api/unwatched/shows/1/seasons')
                     .set('Content-Type', 'application/json')
@@ -109,7 +109,7 @@ describe('Unwatched Episodes', function() {
                     });
             });
 
-            it('should return a bad request error', function(done) {
+            it('should return a not found error 3', function(done) {
                 user
                     .get('/api/unwatched/shows/1/seasons/1/episodes')
                     .set('Content-Type', 'application/json')
@@ -135,15 +135,15 @@ describe('Unwatched Episodes', function() {
                     'genre': 'na',
                     'ended': false,
                     'imdb_id': null
-                }).success(function(show) {
+                }).then(function(show) {
                     show_id = show.dataValues.id;
 
-                    models.User.findOne({ where: { 'username': 'test' } }).success(function(user) {
+                    models.User.findOne({ where: { 'username': 'test' } }).then(function(user) {
                         user_id = user.id;
                         models.TrackShow.create({
                             'showid': show_id,
                             'userid': user.id
-                        }).success(function() {
+                        }).then(function() {
                             done();
                         }).catch(function(err) {
                             done(err);
@@ -155,13 +155,13 @@ describe('Unwatched Episodes', function() {
             });
 
             after(function(done) {
-                models.sequelize.query("DELETE FROM \"TrackShows\";").success(function() {
-                    models.sequelize.query("DELETE FROM \"Series\";").success(function() {
+                models.sequelize.query("DELETE FROM \"TrackShows\";").then(function() {
+                    models.sequelize.query("DELETE FROM \"Series\";").then(function() {
                         done();
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         done(err);
                     });
-                }).error(function(err) {
+                }).catch(function(err) {
                     done(err);
                 });
             });
@@ -189,17 +189,17 @@ describe('Unwatched Episodes', function() {
                         'airdate': '2013-12-31',
                         'update': true,
                         'seriesid': show_id
-                    }).success(function() {
+                    }).then(function() {
                         done();
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         done(err);
                     });
                 });
 
                 after(function(done) {
-                    models.sequelize.query("DELETE FROM \"Episodes\";").success(function() {
+                    models.sequelize.query("DELETE FROM \"Episodes\";").then(function() {
                         done();
-                    }).error(function(err) {
+                    }).catch(function(err) {
                         done(err);
                     });
                 });
@@ -210,6 +210,7 @@ describe('Unwatched Episodes', function() {
                         .set('Content-Type', 'application/json')
                         .expect(200)
                         .end(function(err, res) {
+                            console.log(res.body);
                             should.not.exist(err);
                             res.body.should.have.property('type', 'shows');
                             res.body.should.have.property('shows');
@@ -264,22 +265,22 @@ describe('Unwatched Episodes', function() {
 
                 describe('added episode to watched shows', function() {
                     before(function(done) {
-                        models.Episodes.findOne({ where: { 'title': 'nanana' } }).success(function(episode) {
+                        models.Episodes.findOne({ where: { 'title': 'nanana' } }).then(function(episode) {
                             models.WatchedEpisodes.create({
                                 'userid': user_id,
                                 'episodeid': episode.dataValues.id
-                            }).success(function() {
+                            }).then(function() {
                                 done();
-                            }).error(function(err) {
+                            }).catch(function(err) {
                                 done(err);
                             });
                         });
                     });
 
                     after(function(done) {
-                        models.sequelize.query("DELETE FROM \"WatchedEpisodes\";").success(function() {
+                        models.sequelize.query("DELETE FROM \"WatchedEpisodes\";").then(function() {
                             done();
-                        }).error(function(err) {
+                        }).catch(function(err) {
                             done(err);
                         });
                     });
@@ -329,22 +330,22 @@ describe('Unwatched Episodes', function() {
                     describe('show is untracked', function() {
                         before(function(done) {
                             models.TrackShow.findOne({ where: { 'showid': show_id }})
-                                .success(function(show) {
-                                    show.destroy().success(function() {
-                                        models.WatchedEpisodes.find({ where: { 'userid': user_id } }).success(function(data) {
-                                            data.destroy().success(function() {
+                                .then(function(show) {
+                                    show.destroy().then(function() {
+                                        models.WatchedEpisodes.find({ where: { 'userid': user_id } }).then(function(data) {
+                                            data.destroy().then(function() {
                                                 done();
-                                            }).error(function(err) {
+                                            }).catch(function(err) {
                                                 done(err);
                                             });
-                                        }).error(function(err) {
+                                        }).catch(function(err) {
                                             done(err);
                                         });
-                                    }).error(function(err) {
+                                    }).catch(function(err) {
                                         done(err);
                                     });
                                 })
-                                .error(function(err) {
+                                .catch(function(err) {
                                     done(err);
                                 });
                         });

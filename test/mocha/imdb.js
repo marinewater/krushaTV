@@ -51,9 +51,9 @@ describe('IMDb', function() {
         });
 
         after(function(done) {
-            models.sequelize.query("DELETE FROM \"Users\";").success(function() {
+            models.sequelize.query("DELETE FROM \"Users\";").then(function() {
                 done();
-            }).error(function(err) {
+            }).catch(function(err) {
                 done(err);
             });
         });
@@ -83,18 +83,18 @@ describe('IMDb', function() {
                     'showid': 1,
                     'name': 'test',
                     'ended': false
-                }).success(function(show) {
+                }).then(function(show) {
                     showid = show.dataValues.id;
                     done();
-                }).error(function(err) {
+                }).catch(function(err) {
                     done(err);
                 });
             });
 
             after(function(done) {
-                models.sequelize.query("DELETE FROM \"Series\";").success(function() {
+                models.sequelize.query("DELETE FROM \"Series\";").then(function() {
                     done();
-                }).error(function(err) {
+                }).catch(function(err) {
                     done(err);
                 });
             });
@@ -111,9 +111,12 @@ describe('IMDb', function() {
                     .end(function(err) {
                         should.not.exist(err);
 
-                        models.sequelize.query("DELETE FROM \"Imdbs\";").success(function() {
+                        models.sequelize.query("DELETE FROM \"Imdbs\";").then(function() {
                             done();
-                        });
+                        })
+                            .catch( function( error ) {
+                                done( error );
+                            });
                     });
             });
 

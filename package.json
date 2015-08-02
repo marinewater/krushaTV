@@ -29,7 +29,7 @@
     "redis": "~0.12.1",
     "request": "~2.53.0",
     "sanitize-html": "~1.5.1",
-    "sequelize": "2.0.0-rc7",
+    "sequelize": "~3.5.1",
     "serialize": "~0.1.3",
     "bluebird": "~2.9.9",
     "connect-redis": "~2.2.0",

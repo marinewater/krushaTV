@@ -12,17 +12,17 @@ var sequelize = new Sequelize(config.database, config.username, config.password,
 
 describe('User', function() {
 	before(function(done) {
-		sequelize.query("DELETE FROM \"Users\";").success(function() {
+		sequelize.query("DELETE FROM \"Users\";").then(function() {
 			done();
-		}).error(function(err) {
+		}).catch(function(err) {
 			done(err);
 		});
 	});
 
 	afterEach(function(done) {
-		sequelize.query("DELETE FROM \"Users\";").success(function() {
+		sequelize.query("DELETE FROM \"Users\";").then(function() {
 			done();
-		}).error(function(err) {
+		}).catch(function(err) {
 			done(err);
 		});
 	});
@@ -44,11 +44,11 @@ describe('User', function() {
 					res.body.should.have.property('type', 'authenticated');
 					res.body.should.have.property('user', 'test');
 
-					sequelize.query("SELECT * FROM \"Users\" u WHERE u.username = 'test';").success(function(ret) {
+					sequelize.query("SELECT * FROM \"Users\" u WHERE u.username = 'test';").then(function(ret) {
 						if (ret !== null)
 							return done();
 						done("user does not exist");
-					}).error(function(err) {
+					}).catch(function(err) {
 						done(err);
 					});
 				});
@@ -497,12 +497,12 @@ describe('User', function() {
 									res.body.should.have.property('success', true);
 
 									sequelize.query('SELECT u.episode_offset FROM "Users" u WHERE u.username = \'' + newUser.username + '\' LIMIT 1;')
-										.success(function(db_user) {
+										.spread(function(db_user) {
 											db_user[0].should.have.property('episode_offset');
 											db_user[0].episode_offset.should.have.property('days', -2);
 											db_user[0].episode_offset.should.have.property('hours', 1);
 											done();
-										}).error(function(err) {
+										}).catch(function(err) {
 											done(err);
 										});
 								});
@@ -594,10 +594,10 @@ describe('User', function() {
 									res.body.should.have.property('success', true);
 
 									sequelize.query('SELECT u.date_format FROM "Users" u WHERE u.username = \'' + newUser.username + '\' LIMIT 1;')
-										.success(function(db_user) {
+										.spread(function(db_user) {
 											db_user[0].should.have.property('date_format', date_format);
 											done();
-										}).error(function(err) {
+										}).catch(function(err) {
 											done(err);
 										});
 								});
