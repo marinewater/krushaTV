@@ -1,9 +1,9 @@
 module.exports = function(router, log, models, user) {
 	router.get('/watched/shows', user.isLoggedIn, function(req, res, next) {
-		models.TrackShow.watchedShows(models, req.user.id).then(function(watchedShows) {
+		models.TrackShow.watchedShows(models, req.user.id).spread(function(watchedShows) {
 			if (watchedShows.length > 0) {
-				models.TrackShow.watchedSeasons(models, req.user.id, watchedShows[0].id).then(function(watchedSeasons) {
-					models.TrackShow.watchedEpisodes(models, req.user.id, watchedShows[0].id, watchedSeasons[0].season).then(function(watchedEpisodes) {
+				models.TrackShow.watchedSeasons(models, req.user.id, watchedShows[0].id).spread(function(watchedSeasons) {
+					models.TrackShow.watchedEpisodes(models, req.user.id, watchedShows[0].id, watchedSeasons[0].season).spread(function(watchedEpisodes) {
 						return res.json({
 							'type': 'shows',
 							'shows': watchedShows,
@@ -45,9 +45,9 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.watchedSeasons(models, req.user.id, showid).then(function(watchedSeasons) {
+		models.TrackShow.watchedSeasons(models, req.user.id, showid).spread(function(watchedSeasons) {
 			if (watchedSeasons.length > 0) {
-				models.TrackShow.watchedEpisodes(models, req.user.id, showid, watchedSeasons[0].season).then(function(watchedEpisodes) {
+				models.TrackShow.watchedEpisodes(models, req.user.id, showid, watchedSeasons[0].season).spread(function(watchedEpisodes) {
 					return res.json({
 						'type': 'seasons',
 						'seasons': watchedSeasons,
@@ -85,7 +85,7 @@ module.exports = function(router, log, models, user) {
 			});
 		}
 
-		models.TrackShow.watchedEpisodes(models, req.user.id, showid, season).then(function(watchedEpisodes) {
+		models.TrackShow.watchedEpisodes(models, req.user.id, showid, season).spread(function(watchedEpisodes) {
 			if (watchedEpisodes.length > 0) {
 				return res.json({
 					'type': 'episodes',
