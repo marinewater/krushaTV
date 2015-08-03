@@ -49,7 +49,7 @@ module.exports = function(router, log, models, get_seasons, redis) {
 
 		if (req.isAuthenticated() !== true) {
 			models.Episodes.getSeasons(models, showid)
-				.then(function(seasons) {
+				.spread(function(seasons) {
 					get_seasons.getEpisodes(showid, null, selected_season, function(episodes) {
 						return return_json(seasons, episodes);
 					});
@@ -63,10 +63,10 @@ module.exports = function(router, log, models, get_seasons, redis) {
 					showid: showid
 				},
 				attributes: ['id']
-			}).then(function(tracked) {
+			}).then(function(tracked) {55
 				if (tracked !== null) {
 					models.Episodes.getSeasonsWatched(models, showid, req.user.id)
-						.then(function(seasons) {
+						.spread(function(seasons) {
 							get_seasons.getEpisodes(showid, req.user.id, selected_season, function(episodes) {
 								return return_json(seasons, episodes);
 							});
@@ -75,7 +75,7 @@ module.exports = function(router, log, models, get_seasons, redis) {
 				}
 				else {
 					models.Episodes.getSeasons(models, showid)
-						.then(function(seasons) {
+						.spread(function(seasons) {
 							get_seasons.getEpisodes(showid, null, selected_season, function(episodes) {
 								return return_json(seasons, episodes);
 							});

@@ -37,6 +37,7 @@ krusha.factory('apiShowFactory', ['$http', function($http) {
      * @name apiShowFactory#getSeasons
      * @description gets seasons for particular show
      * @param {number} showid local show id
+     * @param {number} [season] season number
      * @returns {HttpPromise} HttpPromise
      */
     apiShow.prototype.getSeasons = function (showid, season) {
