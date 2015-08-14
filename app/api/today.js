@@ -65,7 +65,7 @@ module.exports = function( router, log, models, redis ) {
 
 							log.error( 'GET /api/today DB: ' + err );
 							return next;
-							
+
 						});
 				}
 			});
