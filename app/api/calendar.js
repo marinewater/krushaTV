@@ -6,7 +6,7 @@ module.exports = function(router, log, models, user) {
      * api endpoint that returns all tracked shows for a month
      */
     router.get( '/calendar/:year/:month', user.isLoggedIn, function( req, res, next ) {
-        
+
         var month = parseInt( req.params.month );
         var year = parseInt( req.params.year );
 

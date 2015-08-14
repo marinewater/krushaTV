@@ -73,7 +73,7 @@ module.exports = function(router, log, models, user) {
 				});
 
 				// return a list with the amount of seasons for each season id
-				models.Episodes.countSeasons(id_list).then(function(season_counts) {
+				models.Episodes.countSeasons(id_list).spread(function(season_counts) {
 
 					models.WatchedEpisodes.countWachtedEpisodes(models, req.user.id, id_list).then(function(watched_counts) {
 
