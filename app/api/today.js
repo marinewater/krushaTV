@@ -4,7 +4,7 @@ module.exports = function(router, log, models, redis) {
 			var todaysEpisodes = models.Episodes.getTodaysEpisodes(models, req.user.id);
 
 			todaysEpisodes
-				.then(function(returning) {
+				.spread(function(returning) {
 					return res.json({
 						'type': 'todaysEpisodes',
 						'episodes': returning
@@ -19,6 +19,7 @@ module.exports = function(router, log, models, redis) {
 			var redis_today_key = 'kTV:today';
 
 			redis.get(redis_today_key, function (err, redis_today) {
+				console.log( redis_today );
 				if (err) {
 					return log.error('GET /api/today redis: ' + err);
 				}
@@ -32,7 +33,7 @@ module.exports = function(router, log, models, redis) {
 					var todaysEpisodes = models.Episodes.getTodaysEpisodes(models);
 
 					todaysEpisodes
-						.then(function(returning) {
+						.spread(function(returning) {
 							redis.set(redis_today_key, JSON.stringify(returning));
 							redis.expire(redis_today_key, 3600);
 
