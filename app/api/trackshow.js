@@ -1,164 +1,223 @@
-module.exports = function(router, log, models, user) {
-	// add show to list of tracked shows
-	router.post('/track', user.isLoggedIn, function(req, res, next) {
-		showid = parseInt(req.body.showid);
-		if (isNaN(showid)) {
-			res.status(400);
-			return res.json({
+module.exports = function( router, log, models, user ) {
+
+	/**
+	 * add show to list of tracked shows
+	 */
+	router.post( '/track', user.isLoggedIn, function( req, res, next ) {
+
+		showid = parseInt( req.body.showid );
+		if ( isNaN( showid ) ) {
+
+			res.status( 400 );
+			return res.json( {
 				'type': 'error',
 				'code': 400,
 				'message': 'showid must be integer'
-			});
+			} );
+
 		}
 
-		models.Series.find({ where: { 'id': showid } }).then(function(returning) {
-			if (returning) {
-				models.TrackShow.findOrCreate({
-					where: {
-						'userid': req.user.id,
-						'showid': showid
-					},
-					defaults: {
-						'userid': req.user.id,
-						'showid': showid
-					}
-				}).then(function(returning) {
-					res.status(201);
-					return res.json({
-						'type': 'track',
-						'showid': returning[0].dataValues.showid
-					});
-				}).catch(function(err) {
-					log.error('/api/track DB:' + err);
-					res.status(400);
-					return res.json({
+		models.Series.find( { where: { 'id': showid } } )
+			.then( function( returning ) {
+
+				if ( returning ) {
+
+					models.TrackShow.findOrCreate( {
+						where: {
+							'userid': req.user.id,
+							'showid': showid
+						},
+						defaults: {
+							'userid': req.user.id,
+							'showid': showid
+						}
+					} )
+						.then(function(returning) {
+
+							res.status( 201 );
+							return res.json( {
+								'type': 'track',
+								'showid': returning[0].dataValues.showid
+							} );
+
+						} )
+						.catch( function( err ) {
+
+							log.error( '/api/track DB:' + err );
+							res.status( 400 );
+							return res.json( {
+								'type': 'error',
+								'code': 400,
+								'message': 'Bad Request'
+							} );
+
+						} );
+
+				}
+				else {
+
+					res.status( 404 );
+					return res.json( {
 						'type': 'error',
-						'code': 400,
-						'message': 'Bad Request'
-					});
-				});
-			}
-			else {
-				res.status(404);
-				return res.json({
+						'code': 404,
+						'message': 'Show id not found'
+					} );
+
+				}
+
+			})
+			.catch( function( err ) {
+
+				log.error( '/api/track DB:' + err );
+				res.status( 400 );
+				return res.json( {
 					'type': 'error',
-					'code': 404,
-					'message': 'Show id not found'
-				});
-			}
-		}).catch(function(err) {
-			log.error('/api/track DB:' + err);
-			res.status(400);
-			return res.json({
-				'type': 'error',
-				'code': 400,
-				'message': 'Bad Request'
+					'code': 400,
+					'message': 'Bad Request'
+				} );
+
 			});
-		});
+
 	});
 
-	router.get('/track', user.isLoggedIn, function(req, res, next) {
-		models.TrackShow.findAll({
+	/**
+	 * list all shows, which the user has tracked, and additional information like watched / total episode counts
+	 */
+	router.get( '/track', user.isLoggedIn, function( req, res, next ) {
+
+		models.TrackShow.findAll( {
 			where: {
 				'userid': req.user.id
 			},
-			include: [models.Series]
-		}).then(function(returning) {
-			if(returning.length !== 0) {
-				var shows = [];
-				var id_list = [];
+			include: [ models.Series ]
+		} )
+			.then( function( returning ) {
 
-				returning.forEach(function(show) {
-					id_list.push(show.Series.id);
-				});
+				if ( returning.length !== 0 ) {
 
-				// return a list with the amount of seasons for each season id
-				models.Episodes.countSeasons(id_list).spread(function(season_counts) {
+					var shows = [];
+					var id_list = [];
 
-					models.WatchedEpisodes.countWachtedEpisodes(models, req.user.id, id_list).then(function(watched_counts) {
-
-						returning.forEach(function(show) {
-							var season_count = 0;
-							var episode_count = 0;
-							var watched_count = 0;
-
-							season_counts.forEach(function(sc) {
-								if (sc.seriesid === show.Series.id) {
-									season_count = sc.season_count;
-									episode_count = sc.episode_count;
-								}
-							});
-
-							watched_counts.forEach(function(wc) {
-								if (wc.seriesid === show.Series.id) {
-									watched_count = wc.count;
-								}
-							});
-							shows.push({
-								'name': show.Series.name,
-								'id': show.Series.id,
-								'resource': '/api/show/' + show.Series.id,
-								'season_count': parseInt(season_count),
-								'episode_count': parseInt(episode_count),
-								'watched_count': parseInt(watched_count),
-								'ended': show.Series.ended
-							});
-						});
-
-						return res.json({
-							'type':  'tracked',
-							'shows': shows
-						});
-						
+					returning.forEach( function( show ) {
+						id_list.push( show.Series.id );
 					});
-				}).catch(function(err) {
-					log.error('GET /api/track DB', err);
-					return next();
-				});
-			}
-			else {
-				res.status(404);
-				return res.json({
-					'type': 'error',
-					'code': 404,
-					'message': 'User does not track any shows'
-				});
-			}
-		});
+
+					// return a list with the amount of seasons for each season id
+					models.Episodes.countSeasons( id_list )
+						.spread( function( season_counts ) {
+
+							models.WatchedEpisodes.countWachtedEpisodes( models, req.user.id, id_list )
+								.then(function(watched_counts) {
+
+									returning.forEach( function( show ) {
+										var season_count = 0;
+										var episode_count = 0;
+										var watched_count = 0;
+
+										season_counts.forEach( function( sc ) {
+											if ( sc.seriesid === show.Series.id ) {
+												season_count = sc.season_count;
+												episode_count = sc.episode_count;
+											}
+										});
+
+										watched_counts.forEach( function( wc ) {
+											if ( wc.seriesid === show.Series.id ) {
+												watched_count = wc.count;
+											}
+										});
+
+										shows.push( {
+											'name': show.Series.name,
+											'id': show.Series.id,
+											'resource': '/api/show/' + show.Series.id,
+											'season_count': parseInt(season_count),
+											'episode_count': parseInt(episode_count),
+											'watched_count': parseInt(watched_count),
+											'ended': show.Series.ended
+										} );
+									});
+
+									return res.json( {
+										'type':  'tracked',
+										'shows': shows
+									} );
+
+								});
+						})
+						.catch( function( err ) {
+
+							log.error( 'GET /api/track DB', err );
+							return next();
+
+						});
+
+				}
+				else {
+
+					res.status( 404 );
+					return res.json( {
+						'type': 'error',
+						'code': 404,
+						'message': 'User does not track any shows'
+					} );
+
+				}
+
+			} );
+
 	});
 
-	router.delete('/track/:showid', user.isLoggedIn, function(req, res, next) {
-		showid = parseInt(req.params.showid);
-		if (isNaN(showid)) {
-			res.status(400);
-			return res.json({
+	/**
+	 * remove show from the list of tracked shows
+	 */
+	router.delete( '/track/:showid', user.isLoggedIn, function( req, res, next ) {
+
+		showid = parseInt( req.params.showid );
+
+		if ( isNaN( showid ) ) {
+
+			res.status( 400 );
+			return res.json( {
 				'type': 'error',
 				'code': 400,
 				'message': 'showid must be integer'
-			});
+			} );
 		}
 
-		models.TrackShow.destroy({ where: {
-			'showid': showid,
-			'userid': req.user.id
-		}}).then(function(delete_count) {
-			if (delete_count > 0) {
-				return res.json({
-					'type': 'delete',
-					'success': true
-				});
+		models.TrackShow.destroy( {
+			where: {
+				'showid': showid,
+				'userid': req.user.id
 			}
-			else {
-				res.status(404);
-				return res.json({
-					'type': 'error',
-					'code': 404,
-					'msg': 'show was not tracked anyway'
-				});
-			}
-		}).catch(function(err) {
-			log.err('DELETE /track/' + req.params.showid + ' userid: ' + req.user.id + ' DB: ' + err);
-		});
+		})
+			.then( function( delete_count ) {
+
+				if  (delete_count > 0 ) {
+
+					return res.json( {
+						'type': 'delete',
+						'success': true
+					} );
+
+				}
+				else {
+
+					res.status( 404 );
+					return res.json( {
+						'type': 'error',
+						'code': 404,
+						'msg': 'show was not tracked anyway'
+					} );
+
+				}
+
+			})
+			.catch( function( err ) {
+
+				log.err( 'DELETE /track/' + req.params.showid + ' userid: ' + req.user.id + ' DB: ' + err );
+				
+			});
 
 	});
 
