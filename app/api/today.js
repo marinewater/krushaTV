@@ -19,7 +19,6 @@ module.exports = function(router, log, models, redis) {
 			var redis_today_key = 'kTV:today';
 
 			redis.get(redis_today_key, function (err, redis_today) {
-				console.log( redis_today );
 				if (err) {
 					return log.error('GET /api/today redis: ' + err);
 				}
