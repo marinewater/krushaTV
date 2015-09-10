@@ -81,9 +81,9 @@ describe('Calendar', function() {
         });
 
         after(function (done) {
-            models.sequelize.query("DELETE FROM \"Users\";").success(function () {
+            models.sequelize.query("DELETE FROM \"Users\";").then(function () {
                 done();
-            }).error(function (err) {
+            }).catch(function (err) {
                 done(err);
             });
         });

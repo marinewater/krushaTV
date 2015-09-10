@@ -8,11 +8,11 @@ var app 	= require('../../server').app;
 
 var models = require('../../models/index');
 
-describe('Unwatched Episodes', function() {
+describe('Watched Episodes', function() {
     describe('logged out', function () {
         it('should return an unauthorized error', function (done) {
             request(app)
-                .get('/api/unwatched/shows')
+                .get('/api/watched/shows')
                 .set('Content-Type', 'application/json')
                 .expect(401)
                 .end(function (err, res) {
@@ -25,7 +25,7 @@ describe('Unwatched Episodes', function() {
         });
         it('should return an unauthorized error', function (done) {
             request(app)
-                .get('/api/unwatched/shows/1/seasons')
+                .get('/api/watched/shows/1/seasons')
                 .set('Content-Type', 'application/json')
                 .expect(401)
                 .end(function (err, res) {
@@ -38,7 +38,7 @@ describe('Unwatched Episodes', function() {
         });
         it('should return an unauthorized error', function (done) {
             request(app)
-                .get('/api/unwatched/shows/1/seasons/1/episodes')
+                .get('/api/watched/shows/1/seasons/1/episodes')
                 .set('Content-Type', 'application/json')
                 .expect(401)
                 .end(function (err, res) {
@@ -83,42 +83,42 @@ describe('Unwatched Episodes', function() {
 
             it('should return an not found error 1', function(done) {
                 user
-                    .get('/api/unwatched/shows')
+                    .get('/api/watched/shows')
                     .set('Content-Type', 'application/json')
                     .expect(404)
                     .end(function(err, res) {
                         should.not.exist(err);
                         res.body.should.have.property('type', 'error');
                         res.body.should.have.property('code', 404);
-                        res.body.should.have.property('message', 'You have no unwatched shows');
+                        res.body.should.have.property('message', 'You have no watched shows');
                         done();
                     });
             });
 
             it('should return a not found error 2', function(done) {
                 user
-                    .get('/api/unwatched/shows/1/seasons')
+                    .get('/api/watched/shows/1/seasons')
                     .set('Content-Type', 'application/json')
                     .expect(404)
                     .end(function(err, res) {
                         should.not.exist(err);
                         res.body.should.have.property('type', 'error');
                         res.body.should.have.property('code', 404);
-                        res.body.should.have.property('message', 'No unwatched episodes for showid 1');
+                        res.body.should.have.property('message', 'No watched episodes for showid 1');
                         done();
                     });
             });
 
             it('should return a not found error 3', function(done) {
                 user
-                    .get('/api/unwatched/shows/1/seasons/1/episodes')
+                    .get('/api/watched/shows/1/seasons/1/episodes')
                     .set('Content-Type', 'application/json')
                     .expect(404)
                     .end(function(err, res) {
                         should.not.exist(err);
                         res.body.should.have.property('type', 'error');
                         res.body.should.have.property('code', 404);
-                        res.body.should.have.property('message', 'No unwatched episodes for showid 1 and season 1');
+                        res.body.should.have.property('message', 'No watched episodes for showid 1 and season 1');
                         done();
                     });
             });
@@ -168,17 +168,19 @@ describe('Unwatched Episodes', function() {
 
             it('should return a not found error', function(done) {
                 user
-                    .get('/api/unwatched/shows')
+                    .get('/api/watched/shows')
                     .set('Content-Type', 'application/json')
                     .expect(404)
                     .end(function(err, res) {
                         should.not.exist(err);
                         res.body.should.have.property('type', 'error');
                         res.body.should.have.property('code', 404);
-                        res.body.should.have.property('message', 'You have no unwatched shows');
+                        res.body.should.have.property('message', 'You have no watched shows');
                         done();
                     });
             });
+
+            var episode_id;
 
             describe('episode exists', function() {
                 before(function(done) {
@@ -189,6 +191,15 @@ describe('Unwatched Episodes', function() {
                         'airdate': '2013-12-31',
                         'update': true,
                         'seriesid': show_id
+                    }).then( function( episode ) {
+
+                        episode_id = episode.dataValues.id;
+
+                        return models.WatchedEpisodes.create( {
+                            userid: user_id,
+                            episodeid: episode_id
+                        } )
+
                     }).then(function() {
                         done();
                     }).catch(function(err) {
@@ -197,20 +208,23 @@ describe('Unwatched Episodes', function() {
                 });
 
                 after(function(done) {
-                    models.sequelize.query("DELETE FROM \"Episodes\";").then(function() {
-                        done();
-                    }).catch(function(err) {
-                        done(err);
-                    });
+                    models.sequelize.query("DELETE FROM \"WatchedEpisodes\";")
+                        .then( function() {
+                            return models.sequelize.query("DELETE FROM \"Episodes\";");
+                        })
+                        .then(function() {
+                            done();
+                        }).catch(function(err) {
+                            done(err);
+                        });
                 });
 
-                it('should return an unwatched show', function(done) {
+                it('should return an watched show', function(done) {
                     user
-                        .get('/api/unwatched/shows')
+                        .get('/api/watched/shows')
                         .set('Content-Type', 'application/json')
                         .expect(200)
                         .end(function(err, res) {
-                            console.log(res.body);
                             should.not.exist(err);
                             res.body.should.have.property('type', 'shows');
                             res.body.should.have.property('shows');
@@ -227,9 +241,9 @@ describe('Unwatched Episodes', function() {
                         });
                 });
 
-                it('should return an unwatched season', function(done) {
+                it('should return an watched season', function(done) {
                     user
-                        .get('/api/unwatched/shows/' + show_id + '/seasons')
+                        .get('/api/watched/shows/' + show_id + '/seasons')
                         .set('Content-Type', 'application/json')
                         .expect(200)
                         .end(function(err, res) {
@@ -246,9 +260,9 @@ describe('Unwatched Episodes', function() {
                         });
                 });
 
-                it('should return an unwatched episode', function(done) {
+                it('should return an watched episode', function(done) {
                     user
-                        .get('/api/unwatched/shows/' + show_id + '/seasons/1/episodes')
+                        .get('/api/watched/shows/' + show_id + '/seasons/1/episodes')
                         .set('Content-Type', 'application/json')
                         .expect(200)
                         .end(function(err, res) {
@@ -263,66 +277,71 @@ describe('Unwatched Episodes', function() {
                         });
                 });
 
-                describe('added episode to watched shows', function() {
+                describe('added episode to unwatched shows', function() {
                     before(function(done) {
-                        models.Episodes.findOne({ where: { 'title': 'nanana' } }).then(function(episode) {
-                            models.WatchedEpisodes.create({
+                        models.WatchedEpisodes.destroy({
+                            where: {
                                 'userid': user_id,
-                                'episodeid': episode.dataValues.id
-                            }).then(function() {
-                                done();
-                            }).catch(function(err) {
-                                done(err);
-                            });
-                        });
-                    });
-
-                    after(function(done) {
-                        models.sequelize.query("DELETE FROM \"WatchedEpisodes\";").then(function() {
+                                'episodeid': episode_id
+                            }
+                        }).then(function() {
                             done();
                         }).catch(function(err) {
                             done(err);
                         });
                     });
 
+                    after(function(done) {
+                        models.WatchedEpisodes.create( {
+                            userid: user_id,
+                            episodeid: episode_id
+                        } )
+                            .then( function() {
+                                done();
+                            })
+                            .catch( function( error ) {
+                                done( error );
+                            })
+                    });
+
                     it('should return an not found error for a show', function(done) {
                         user
-                            .get('/api/unwatched/shows')
+                            .get('/api/watched/shows')
                             .set('Content-Type', 'application/json')
                             .expect(404)
                             .end(function(err, res) {
                                 should.not.exist(err);
                                 res.body.should.have.property('type', 'error');
                                 res.body.should.have.property('code', 404);
-                                res.body.should.have.property('message', 'You have no unwatched shows');
+                                res.body.should.have.property('message', 'You have no watched shows');
                                 done();
                             });
                     });
 
                     it('should return an not found error for a season', function(done) {
                         user
-                            .get('/api/unwatched/shows/' + show_id + '/seasons')
+                            .get('/api/watched/shows/' + show_id + '/seasons')
                             .set('Content-Type', 'application/json')
                             .expect(404)
                             .end(function(err, res) {
                                 should.not.exist(err);
                                 res.body.should.have.property('type', 'error');
                                 res.body.should.have.property('code', 404);
-                                res.body.should.have.property('message', 'No unwatched episodes for showid ' + show_id);
+                                res.body.should.have.property('message', 'No watched episodes for showid ' + show_id);
                                 done();
                             });
                     });
 
                     it('should return an not found error for an episode', function(done) {
                         user
-                            .get('/api/unwatched/shows/' + show_id + '/seasons/1/episodes')
+                            .get('/api/watched/shows/' + show_id + '/seasons/1/episodes')
                             .set('Content-Type', 'application/json')
                             .expect(404)
                             .end(function(err, res) {
                                 should.not.exist(err);
                                 res.body.should.have.property('type', 'error');
                                 res.body.should.have.property('code', 404);
-                                res.body.should.have.property('message', 'No unwatched episodes for showid ' + show_id + ' and season 1');
+                                res.body.should.have.property('message', 'No watched episodes for showid ' + show_id + ' and season 1');
                                 done();
                             });
                     });
@@ -330,20 +349,8 @@ describe('Unwatched Episodes', function() {
                     describe('show is untracked', function() {
                         before(function(done) {
                             models.TrackShow.findOne({ where: { 'showid': show_id }})
-                                .then(function(show) {
-                                    show.destroy().then(function() {
-                                        models.WatchedEpisodes.find({ where: { 'userid': user_id } }).then(function(data) {
-                                            data.destroy().then(function() {
-                                                done();
-                                            }).catch(function(err) {
-                                                done(err);
-                                            });
-                                        }).catch(function(err) {
-                                            done(err);
-                                        });
-                                    }).catch(function(err) {
-                                        done(err);
-                                    });
+                                .then( function() {
+                                    done();
                                 })
                                 .catch(function(err) {
                                     done(err);
@@ -352,28 +359,28 @@ describe('Unwatched Episodes', function() {
 
                         it('should return an not found error for a season', function(done) {
                             user
-                                .get('/api/unwatched/shows/' + show_id + '/seasons')
+                                .get('/api/watched/shows/' + show_id + '/seasons')
                                 .set('Content-Type', 'application/json')
                                 .expect(404)
                                 .end(function(err, res) {
                                     should.not.exist(err);
                                     res.body.should.have.property('type', 'error');
                                     res.body.should.have.property('code', 404);
-                                    res.body.should.have.property('message', 'No unwatched episodes for showid ' + show_id);
+                                    res.body.should.have.property('message', 'No watched episodes for showid ' + show_id);
                                     done();
                                 });
                         });
 
                         it('should return an not found error for an episode', function(done) {
                             user
-                                .get('/api/unwatched/shows/' + show_id + '/seasons/1/episodes')
+                                .get('/api/watched/shows/' + show_id + '/seasons/1/episodes')
                                 .set('Content-Type', 'application/json')
                                 .expect(404)
                                 .end(function(err, res) {
                                     should.not.exist(err);
                                     res.body.should.have.property('type', 'error');
                                     res.body.should.have.property('code', 404);
-                                    res.body.should.have.property('message', 'No unwatched episodes for showid ' + show_id + ' and season 1');
+                                    res.body.should.have.property('message', 'No watched episodes for showid ' + show_id + ' and season 1');
                                     done();
                                 });
                         });

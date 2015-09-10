@@ -34,10 +34,10 @@ module.exports = function(router, log, models, redis) {
 			user_id = req.user.id;
 		}
 
-		models.Series.search(search_query, user_id).then(function(query_results) {
+		models.Series.search(search_query, user_id).spread(function(query_results) {
 
 			query_results.forEach(function(sh) {
-				var show = sh.dataValues;
+				var show = sh;
 
 				var show_json = {
 					'type': 'show',
@@ -62,7 +62,7 @@ module.exports = function(router, log, models, redis) {
 			});
 
 		}).catch(function(err) {
-			log.error('/api/search/'  + req.params.show + ' DB: ' + err);
+			log.error('/api/search/'  + req.params.show + ' Error Message: ' + err);
 		});
 	});
 

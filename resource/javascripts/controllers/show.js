@@ -49,7 +49,7 @@ krusha.controller('showCtrl', ['$scope', '$location', '$routeParams', '$cookies'
 		$scope.$on('loggedin', function() {
 			$scope.loggedin = loggedin.getStatus();
 			getShow(showid);
-			$scope.getEpisodes(showid, $scope.active_season);
+			$scope.getEpisodes(showid, $scope.active_season + 1);
 			updateShowWatched();
 		});
 

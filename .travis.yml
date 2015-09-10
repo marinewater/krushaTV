@@ -5,7 +5,7 @@ node_js:
 services:
   - redis-server
 addons:
-    postgresql: "9.1"
+    postgresql: "9.4"
 before_script:
   - psql -c 'create database "krushaTV_test";' -U postgres
   - NODE_ENV=test node sync.js
