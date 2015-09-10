@@ -107,7 +107,7 @@ module.exports = function( router, log, models, user ) {
 						.spread( function( season_counts ) {
 
 							models.WatchedEpisodes.countWachtedEpisodes( models, req.user.id, id_list )
-								.then(function(watched_counts) {
+								.spread( function( watched_counts ) {
 
 									returning.forEach( function( show ) {
 										var season_count = 0;
