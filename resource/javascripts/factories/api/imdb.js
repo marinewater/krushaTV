@@ -43,6 +43,24 @@ krusha.factory('apiImdbFactory', ['$http', function($http) {
     apiImdb.prototype.acceptSubmittedIMDbID = function (submission_id) {
         return $http.put('/api/admin/imdb/' + submission_id);
     };
+
+    /**
+     * @ngdoc apiImdbFactory.method
+     * @methodOf krushaTV.service:apiImdbFactory
+     * @name apiImdbFactory#getShowsWithoutIMDbID
+     * @description lists show without an associated imdb id
+     * @param {number} [offset] offset for pagination
+     * @returns {HttpPromise} HttpPromise
+     */
+    apiImdb.prototype.getShowsWithoutIMDbID = function( offset ) {
+
+        if ( !offset ) {
+            offset = 0;
+        }
+
+        return $http.get( '/api/admin/no-imdb/' + offset );
+
+    };
     
     return apiImdb;
 }]);

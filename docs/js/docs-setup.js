@@ -73,7 +73,7 @@ NG_DOCS={
       "type": "controller",
       "moduleName": "krushaTV",
       "shortDescription": "Controller for profile.html template",
-      "keywords": "$cookiestore $scope accepted acceptimdbid accepts acceptsub api called change changedateformat changes checkmark controller controllers date_format days displays episode error failed format getimdbids getprofile getsubreddits hotkeys html imdb imdb_ids krushatv method offset profile profilectrl request select sends service setoffset submission submission_id submitted subreddit subreddits successful template unique user"
+      "keywords": "$cookiestore $scope accepted acceptimdbid accepts acceptsub api associated called change changedateformat changes checkmark controller controllers creates date_format days displays episode error failed format getimdbids getprofile getshowswoimdbid getsubreddits hotkeys html imdb imdb_ids imdbsearchlink krushatv link method offset profile profilectrl request search select sends service setoffset show_name submission submission_id submitted subreddit subreddits successful template text unique url user"
     },
     {
       "section": "api",
@@ -316,7 +316,7 @@ NG_DOCS={
       "type": "service",
       "moduleName": "krushaTV",
       "shortDescription": "IMDb api",
-      "keywords": "$http accepted accepts acceptsubmittedimdbid admin api apiimdbfactory deleted getsubmittedimdbids http httppromise ids imdb imdb_id krushatv local method permissions service show_id submission submission_id submit submitimdbid submitted subreddit tt1234567 unique user verify"
+      "keywords": "$http accepted accepts acceptsubmittedimdbid admin api apiimdbfactory associated deleted getshowswithoutimdbid getsubmittedimdbids http httppromise ids imdb imdb_id krushatv lists local method offset pagination permissions service show_id submission submission_id submit submitimdbid submitted subreddit tt1234567 unique user verify"
     },
     {
       "section": "api",
