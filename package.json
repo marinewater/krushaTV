@@ -34,8 +34,8 @@
     "bluebird": "~2.10.0",
     "connect-redis": "~2.5.0",
     "pg-hstore": "~2.3.1",
-    "node-tvdb": "~1.4.0",
-    "express-validator": "~2.17.1"
+    "express-validator": "~2.17.1",
+    "moment": "~2.10.6"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
@@ -52,6 +52,7 @@
     "karma-phantomjs-launcher": "~0.2.0",
     "mocha": "~2.2.5",
     "should": "~7.0.2",
-    "supertest": "~1.0.1"
+    "supertest": "~1.0.1",
+    "proxyquire": "~1.7.2"
   }
 }

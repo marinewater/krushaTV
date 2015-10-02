@@ -144,6 +144,9 @@ module.exports = function(router, log, models, user) {
                         airdate: {
                             gte: date,
                             lt: date_after
+                        },
+                        season: {
+                            gt: 0
                         }
                     },
                     attributes: [ 'episode', 'season', 'title', 'airdate' ],

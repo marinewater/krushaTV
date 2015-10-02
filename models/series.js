@@ -2,12 +2,17 @@
 
 module.exports = function(sequelize, DataTypes) {
 	var Series = sequelize.define("Series", {
-		showid: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+		showid: { type: DataTypes.INTEGER, unique: true, allowNull: true },
 		name: { type: DataTypes.TEXT, unique: true, allowNull: false },
 		genre: { type: DataTypes.TEXT },
 		subreddit: { type: DataTypes.TEXT },
 		ended: { type: DataTypes.BOOLEAN, allowNull: false },
-		imdbid: {type: DataTypes.TEXT, unique: true }
+		imdbid: {type: DataTypes.TEXT, unique: true },
+			thetvdb_id: {
+				type: DataTypes.INTEGER,
+				unique: true,
+				allowNull: true
+			}
 	},
 	{
 		classMethods: {
@@ -16,7 +21,8 @@ module.exports = function(sequelize, DataTypes) {
 				Series.hasMany(models.Episodes, {
 					foreignKey: {
 						fieldName: 'seriesid',
-						allowNull: false
+						allowNull: false,
+						unique: 'UniqueEpisode'
 					}
 				});
 				Series.hasMany(models.TrackShow, {
