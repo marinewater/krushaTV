@@ -3,11 +3,28 @@
 
 module.exports = function(sequelize, DataTypes) {
 	var Episodes = sequelize.define("Episodes", {
-		season: { type: DataTypes.INTEGER, allowNull: false },
-		episode: { type: DataTypes.INTEGER, allowNull: false },
+		season: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          unique: 'UniqueEpisode'
+        },
+		episode: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          unique: 'UniqueEpisode'
+        },
 		title: { type: DataTypes.TEXT, allowNull: false },
 		airdate: { type: DataTypes.DATE },
-        update: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }
+        update: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true },
+          thetvdb_id: {
+            type: DataTypes.INTEGER,
+            unique: true,
+            allowNull: true
+          },
+          overview: {
+            type: DataTypes.TEXT,
+            allowNull: true
+          }
 	},
   	{
     classMethods: {
@@ -16,6 +33,13 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: {
             fieldName: 'episodeid',
             allowNull: false
+          }
+        });
+        Episodes.belongsTo( models.Series, {
+          foreignKey: {
+            fieldName: 'seriesid',
+            allowNull: false,
+            unique: 'UniqueEpisode'
           }
         });
       },
@@ -56,11 +80,11 @@ module.exports = function(sequelize, DataTypes) {
           return;
         }
 
-        var query = 'SELECT e.season, count(e.id) AS episode_count\
-        FROM "Episodes" e\
-        WHERE e.seriesid = ' + show_id +
-        'GROUP BY e.season\
-        ORDER BY e.season';
+        var query = 'SELECT e.season, count(e.id) AS episode_count ' +
+        'FROM "Episodes" e ' +
+        'WHERE e.seriesid = ' + show_id + ' AND e.season > 0 ' +
+        'GROUP BY e.season ' +
+        'ORDER BY e.season';
 
         return sequelize.query(query);
       },
@@ -72,11 +96,11 @@ module.exports = function(sequelize, DataTypes) {
           return;
         }
 
-        var query = 'SELECT e.season, count(CASE WHEN e.airdate <= now() THEN 1 END) AS episode_count, count(CASE WHEN w.id IS NOT NULL AND e.airdate <= now() THEN 1 END) AS watched_count\
-        FROM "' + models.Episodes.tableName + '" e LEFT OUTER JOIN "' + models.WatchedEpisodes.tableName + '" w ON (w.userid = ' + user_id + ' AND w.episodeid = e.id)\
-        WHERE e.seriesid = ' + show_id +
-        'GROUP BY e.season\
-        ORDER BY e.season;';
+        var query = 'SELECT e.season, count(CASE WHEN e.airdate <= now() THEN 1 END) AS episode_count, count(CASE WHEN w.id IS NOT NULL AND e.airdate <= now() THEN 1 END) AS watched_count ' +
+        'FROM "' + models.Episodes.tableName + '" e LEFT OUTER JOIN "' + models.WatchedEpisodes.tableName + '" w ON (w.userid = ' + user_id + ' AND w.episodeid = e.id) ' +
+        'WHERE e.seriesid = ' + show_id + ' AND e.season > 0 ' +
+        'GROUP BY e.season ' +
+        'ORDER BY e.season;';
 
         return sequelize.query(query);
       }

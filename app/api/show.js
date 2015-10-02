@@ -1,6 +1,11 @@
-var request = require('request');
-var libxmljs = require("libxmljs");
-var tvrage = require('../../config/tvrage.json');
+var Promise = require( 'bluebird' );
+
+var tvdb_api_key = require( __dirname + '/../../config/thetvdb.json' ).key;
+var tvdbClass = require( __dirname + '/../modules/tvdb' );
+
+var tvdb = new tvdbClass( tvdb_api_key, {
+	language: 'en'
+} );
 
 
 module.exports = function(router, log, models, get_seasons, redis) {
@@ -166,153 +171,158 @@ module.exports = function(router, log, models, get_seasons, redis) {
 	});
 
 	/**
-	 * retrieve show from tvrage and send back local show id
+	 * retrieve show from TVDb and send back local show id
 	 */
-	router.post('/show', function(req, res, next) {
-		/**
-		 * tvrage show id
-		 * @type {Number}
-		 */
-		var body_showid = parseInt(req.body.showid, 10);
+	router.post( '/show', function( req, res, next ) {
 
-		if (isNaN(body_showid)) {
+		req.checkBody( 'showid', 'Invalid showid' ).notEmpty().isInt();
+
+		var errors = req.validationErrors();
+
+		if ( errors ) {
 			res.status(400);
 			return res.json({
-				'type': 'error',
-				'code': 400,
-				'message': 'showid must be integer'
+				type: 'error',
+				code: 400,
+				errors: errors
 			});
 		}
-		else {
-			models.Series.find({ where: { 'showid': body_showid } }).catch(function() {
-			}).then(function(returning) {
-				if (returning !== null) {
-					// show is already in database, return id
-					id = returning.dataValues.id;
+
+		var local_show_id;
+
+		models.Series.findOne( {
+			where:
+			{
+				showid: req.body.showid
+			}
+		})
+			.then( function( show ) {
+
+				// show is already in database
+
+				if ( show ) {
 					res.json({
-						'type': 'show',
-						'id': id,
-						'resource': '/api/show/' + id
+						type: 'show',
+						id: id,
+						resource: '/api/show/' + show.id
 					});
+
+					throw 'break chain';
 				}
-				else {
-					// show is not in database, request from TVRage and insert into database
-					request(tvrage.baseurl + 'feeds/full_show_info.php?key=' + tvrage.key + '&sid=' + body_showid, function(error, response, body) {
-						if (!error && response.statusCode == 200) {
-							var xml = libxmljs.parseXmlString(body);
 
+				return tvdb.login();
 
-							var show = xml.get('/Show');
+			})
+			.then( function() {
 
-							// put show info into the database and return info
-							/**
-							 * show's genres
-							 * @type {string}
-							 */
-							var genres = '';
-							show.find('./genres/genre').forEach(function(genre) {
-								genres += genre.text() + ', ';
-							});
+				var get_show_info = [];
 
-							/**
-							 * tvrage show id
-							 * @type {Number}
-							 */
-							var show_id = parseInt(show.get('./showid').text());
+				get_show_info.push( tvdb.Series( req.body.showid )
+					.then( function( series_data ) {
 
-							models.Series.findOrCreate({
-								where: { 'showid': show_id },
-								defaults:  {
-									'name': show.get('./name').text(),
-									'genre': genres.substring(0, genres.length - 2),
-									'ended': (show.get('./status').text() === 'Ended' || show.get('./status').text() === 'Canceled')
-								}
-							}).then(function(returning) {
-								/**
-								 * local show id
-								 * @type {Number}
-								 */
-								var id = returning[0].dataValues.id;
+						// get all necessary info and immediatly create database entry for series
 
-								// add episodes
-								/**
-								 * list of episodes for specified show
-								 * @type {Array}
-								 */
-								var episodes = [];
-
-								show.find('./Episodelist/Season').forEach(function(s) {
-									/**
-									 * season number
-									 * @type {Number}
-									 */
-									var season_nr = parseInt(s.attr('no').value());
-
-									s.find('./episode').forEach(function(e) {
-										/**
-										 * date the episode was first aired
-										 * @type {null | string}
-										 */
-										var airdate = e.get('./airdate').text() === '0000-00-00' ? null : e.get('./airdate').text();
-										
-										episodes.push({
-											'season': parseInt(season_nr),
-											'episode': parseInt(e.get('./seasonnum').text()),
-											'title': e.get('./title').text(),
-											'airdate': airdate,
-											'seriesid': id
-										});
-
-									});
-								});
-
-								models.Episodes.bulkCreate(episodes).then(function() {
-									redis.del('kTV:today');
-									res.json({
-										'type': 'show',
-										'id': id,
-										'resource': '/api/show/' + id
-									});
-								}).catch(function(err) {
-										log.error('/api/show DB (Episode): ' + err);
-								});
-							}).catch(function(err) {
-								log.error('/api/show DB (Series): ' + err);
-							});
-						}
-						else {
-							// TVRage returned error, log it
-							res.status(400);
-							/**
-							 * error string for logging, because we failed to retrieve data from tvrage
-							 * @type {string}
-							 */
-							var log_error = '/api/show';
-
-							if (typeof response !== 'undefined')
-								log_error += ' HTTP-Code: ' + response.statusCode;
-							if (typeof error !== 'undefined') {
-								console.log(error);
-								if (error === 'Error: read ECONNRESET') {
-									res.status(503);
-									return res.json({
-										'type': 'error',
-										'code': 503,
-										'message': 'We cannot retrieve this show at the moment, please try again later.'
-									});
-								}
-								else {
-									log_error += ' error: ' + error;
-								}
+						return models.Series.findOrCreate({
+							where: {
+								thetvdb_id: req.body.showid
+							},
+							defaults:  {
+								name: series_data.data.seriesName,
+								genre: series_data.data.genre.join( ',' ),
+								ended: series_data.data.status !== 'Continuing',
+								imdbid: series_data.data.imdbId ? series_data.data.imdbId : null
 							}
+						});
 
-							log.error(log_error);
-							return next('error');
-						}
-					});
+					}));
+
+				/**
+				 * recursive function to get all pages of episode results
+				 * @param {number} show_id
+				 * @param {Array} [episodes]
+				 * @param {number} [page]
+				 * @returns {Promise}
+				 */
+				function getAllEpisodes( show_id, episodes, page ) {
+
+					if( Object.prototype.toString.call( episodes ) !== '[object Array]' ) {
+						episodes = [];
+					}
+
+					return tvdb.SeriesEpisodes( show_id, page )
+						.then( function( episode_data ) {
+
+							var combined_episodes = episodes.concat( episode_data.data );
+
+							if ( episode_data.links.next ) {
+
+								return getAllEpisodes( show_id, combined_episodes, episode_data.links.next );
+
+							}
+							else {
+
+								return combined_episodes;
+
+							}
+						});
+
 				}
+
+				get_show_info.push( getAllEpisodes( req.body.showid ) );
+
+				return Promise.all( get_show_info );
+
+			})
+			.spread( function( show_instance, episodes ) {
+
+				// bulk create all episodes
+
+				var new_episodes = [];
+				local_show_id = show_instance[0].id;
+
+				episodes.forEach( function( episode ) {
+
+					new_episodes.push({
+						season: parseInt( episode.airedSeason ),
+						episode: parseInt( episode.airedEpisodeNumber ),
+						title: episode.episodeName,
+						airdate: episode.firstAired ? new Date( episode.firstAired ) : null,
+						seriesid: show_instance[0].id,
+						thetvdb_id: parseInt( episode.id ),
+						overview: episode.overview
+					});
+
+				});
+
+				return models.Episodes.bulkCreate( new_episodes );
+
+			})
+			.then( function() {
+
+				// clear cache for homepage and return data
+
+				redis.del('kTV:today');
+
+				return res.json({
+					type: 'show',
+					id: local_show_id,
+					resource: '/api/show/' + local_show_id
+				});
+
+			})
+			.catch( function( error ) {
+
+				log.error( error );
+
+				res.status( 500 );
+				return res.json({
+					type: 'error',
+					code: 500,
+					message: 'Internal Server Error'
+				});
+
 			});
-		}
+
 	});
 
 	/**

@@ -88,6 +88,16 @@ krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettingsFactory'
 		$scope.now = now;
 
 		/**
+		 * shows without IMDb id
+		 * @type {{total_count: number, current_page: number, shows: Array}}
+		 */
+		$scope.addImdb = {
+			total_count: null,
+			current_page: 1,
+			shows: []
+		};
+
+		/**
 		 * @ngdoc profileCtrl.method
 		 * @name profileCtrl#getProfile
 		 * @description gets the user profile from the api
@@ -173,6 +183,55 @@ krusha.controller('profileCtrl', ['$scope', '$cookieStore', 'apiSettingsFactory'
 					$scope.imdb_ids = null;
 				}
 			});
+		};
+
+		/**
+		 * @ngdoc profileCtrl.method
+		 * @name profileCtrl#getShowsWoImdbId
+		 * @description gets all shows without an associated imdb id
+		 * @methodOf krushaTV.controllers:profileCtrl
+		 */
+		$scope.getShowsWoImdbId = function( ) {
+
+			apiImdb.getShowsWithoutIMDbID( ( $scope.addImdb.current_page - 1 ) * 5 ).success( function( data ) {
+
+				$scope.addImdb.shows = data.shows;
+
+				$scope.addImdb.total_count = data.total_count;
+
+			})
+				.error( function( error ) {
+
+					console.log( error );
+
+				});
+
+		};
+
+		/**
+		 * @ngdoc profileCtrl.method
+		 * @name profileCtrl#IMDbSearchLink
+		 * @description creates an imdb search link from the show name
+		 * @methodOf krushaTV.controllers:profileCtrl
+		 * @param {string} show_name search text for imdb
+		 * @returns {string} imdb search url
+		 */
+		$scope.IMDbSearchLink = function( show_name ) {
+
+			return 'http://www.imdb.com/find?ref_=nv_sr_fn&q=' + show_name.trim().replace( /\s/gi, '+' ) + '&s=all';
+
+		};
+
+		$scope.submitIMDbId = function( show_id, imdb_url ) {
+
+			var imdb_id = imdb_url.match( imdb_regex );
+
+			apiImdb.submitIMDbId( imdb_id[1], show_id ).success( function() {
+
+				$scope.getShowsWoImdbId();
+
+			});
+
 		};
 
 		/**

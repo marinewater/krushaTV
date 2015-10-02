@@ -36,34 +36,54 @@ module.exports = function(router, log, models, user) {
         models.Series.findOne({ where: { 'id': showid } }).then(function(show) {
             if (show !== null) {
                 if (show.dataValues.imdbid === null) {
-                    models.Imdb.findOrCreate({
-                        where: { 'userid': req.user.id, 'showid': showid},
-                        defaults: { 'userid': req.user.id, 'showid': showid, 'imdb_id': match[1]}
-                    }).then(function(affected) {
-                        if (affected[1]) {
-                            res.status(201);
-                            return res.json({
-                                'type': 'imdb',
-                                'success': true
+
+                    if ( req.user.admin === true ) {
+
+                        show.imdbid = match[1];
+                        show.save()
+                            .then( function( ) {
+
+                                res.status( 201 );
+                                return res.json( {
+                                    type: 'imdb',
+                                    success: true
+                                });
+
                             });
-                        }
-                        else {
+                    }
+                    else {
+
+                        models.Imdb.findOrCreate({
+                            where: { 'userid': req.user.id, 'showid': showid},
+                            defaults: { 'userid': req.user.id, 'showid': showid, 'imdb_id': match[1]}
+                        }).then(function(affected) {
+                            if (affected[1]) {
+                                res.status(201);
+                                return res.json({
+                                    'type': 'imdb',
+                                    'success': true
+                                });
+                            }
+                            else {
+                                res.status(400);
+                                return res.json({
+                                    'type': 'error',
+                                    'code': 400,
+                                    'message': 'user has already submitted an imdb id for this show'
+                                });
+                            }
+                        }).catch(function(err) {
+                            log.error('POST /api/imdb DB', err);
                             res.status(400);
                             return res.json({
                                 'type': 'error',
                                 'code': 400,
-                                'message': 'user has already submitted an imdb id for this show'
+                                'message': 'Bad Request'
                             });
-                        }
-                    }).catch(function(err) {
-                        log.error('POST /api/imdb DB', err);
-                        res.status(400);
-                        return res.json({
-                            'type': 'error',
-                            'code': 400,
-                            'message': 'Bad Request'
                         });
-                    });
+
+                    }
+
                 }
                 else {
                     res.status(400);
