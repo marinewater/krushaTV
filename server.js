@@ -12,6 +12,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+var expressValidator = require( 'express-validator' );
+
 // set environment variable
 var env       = process.env.NODE_ENV || "development";
 
@@ -59,6 +61,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use( expressValidator() );
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
@@ -92,6 +95,7 @@ require('./app/api/unwatched.js')(router, log, models, user);
 require('./app/api/calendar.js')(router, log, models, user);
 require('./app/api/admin/reddit.js')(admin_router, log, models, user);
 require('./app/api/admin/imdb.js')(admin_router, log, models, user);
+require('./app/api/admin/list_no_imdb.js')(admin_router, log, models, user);
 require('./app/api/omdb.js')(router, log, redis);
 require('./app/routes.js')(base, __dirname);
 

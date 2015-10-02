@@ -1,7 +1,12 @@
 var env = process.env.NODE_ENV || "development";
-var request = require('request');
-var libxmljs = require("libxmljs");
-var tvrage = require('../../config/tvrage.json');
+var Promise = require( 'bluebird' );
+
+var tvdb_api_key = require( __dirname + '/../../config/thetvdb.json' ).key;
+var tvdbClass = require( __dirname + '/../modules/tvdb' );
+
+var tvdb = new tvdbClass( tvdb_api_key, {
+	language: 'en'
+} );
 
 // rate limiting
 var main_config = require('../../config/main.json')[env];
@@ -22,7 +27,10 @@ var bruteforce = new ExpressBrute(store, {
 	maxWait: 61000
 });
 
-module.exports = function(router, log, models, redis) {
+module.exports = function(router, log, models, _redis) {
+
+	var redis = Promise.promisifyAll( _redis );
+
 	// search for matching shows in local database
 	router.get('/search/:show', bruteforce.prevent, function(req, res) {
 		var shows = [];
@@ -43,7 +51,7 @@ module.exports = function(router, log, models, redis) {
 					'type': 'show',
 					'location': 'local',
 					'id': show.id,
-					'showid': show.showid,
+					'showid': show.thetvdb_id,
 					'name': show.name,
 					'genre': show.genre,
 					'resource': '/api/show/' + show.id
@@ -66,49 +74,63 @@ module.exports = function(router, log, models, redis) {
 		});
 	});
 
-	// search for matching shows in tvrage api
-	router.get('/search/:show/remote', bruteforce.prevent, function(req, res, next) {
-		var redis_show_key = 'kTV:search:remote: ' + req.params.show;
-		redis.get(redis_show_key, function (err, redis_shows) {
-			if (err) {
-				log.error('GET /api/search/' + req.params.show + '/remote redis: ' + err);
-			}
-			else if (redis_shows) {
-				return res.json({
-					'type': 'shows',
-					'shows': JSON.parse(redis_shows)
+	// search for matching shows in theTVDb api
+	router.get( '/search/:show/remote', bruteforce.prevent, function( req, res, next ) {
+
+		var show_name = req.params.show;
+
+		var redis_show_key = 'kTV:search:remote: ' + show_name;
+
+		redis.getAsync( redis_show_key )
+			.then( function( redis_shows ) {
+
+				if ( redis_shows ) {
+					res.json( {
+						type: 'shows',
+						shows: JSON.parse( redis_shows )
+					});
+
+					throw 'break chain';
+				}
+
+				return tvdb.login();
+
+			})
+			.then( function() {
+
+				return tvdb.SearchSeries( {
+					name: show_name
 				});
-			}
-			request(tvrage.baseurl + 'myfeeds/search.php?key=' + tvrage.key + '&show=' + req.params.show, function (error, response, body) {
-				if (!error && response.statusCode == 200) {
-					var xml = libxmljs.parseXmlString(body);
-					var shows = [];
 
-					xml.find('show').forEach(function(show) {
-						shows.push({
-							'type': 'show',
-							'location': 'remote',
-							'name': show.get('name').text(),
-							'showid': parseInt(show.get('showid').text())
-						});
+			})
+			.then( function( search_results ) {
+
+				var shows = [];
+
+				search_results.data.forEach( function( show ) {
+					shows.push({
+						type: 'show',
+						location: 'remote',
+						name: show.seriesName,
+						showid: parseInt( show.id )
 					});
+				});
 
-					redis.set(redis_show_key, JSON.stringify(shows));
-					redis.expire(redis_show_key, 86400);
+				redis.set( redis_show_key, JSON.stringify( shows ) );
+				redis.expire( redis_show_key, 86400 );
 
-					res.json({
-						'type': 'shows',
-						'shows': shows
-					});
+				res.json({
+					'type': 'shows',
+					'shows': shows
+				});
+
+			})
+			.catch( function( error ) {
+
+				if ( error !== 'break chain' ) {
+					log.error( 'GET /api/search/' + req.params.show + '/remote error: ' + error );
 				}
-				else {
-					if (response)
-						log.error('/api/search' + req.params.show + '/remote HTTP-Code: ' + response.statusCode + ' error: ' + error);
-					else
-						log.error('/api/search' + req.params.show + '/remote error: ' + error);
-					next();
-				}
+
 			});
-		});
 	});
 };

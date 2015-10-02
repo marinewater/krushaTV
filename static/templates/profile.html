@@ -185,6 +185,38 @@
 
 				<p ng-show="!subreddits">No unanswered submissions for subreddits.</p>
 			</tab>
+			<tab ng-if="admin" select="getShowsWoImdbId()">
+				<tab-heading>
+					<i class="fa fa-pencil wo-imdb-color"></i> shows without imdb id
+				</tab-heading>
+				<h1><i class="fa fa-pencil"></i> Shows without imdb id</h1>
+				<hr/>
+
+				<pagination ng-change="getShowsWoImdbId()" total-items="addImdb.total_count" items-per-page="5" ng-model="addImdb.current_page" max-size="5" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Show</th>
+						<th>Ended</th>
+						<th>imdb id</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="show in addImdb.shows">
+						<td><a href="{{ IMDbSearchLink( show.name ) }}" target="_blank">{{ show.name }}</a></td>
+						<td><i class="fa fa-check" ng-if="!show.ended"></i><i class="fa fa-times" ng-if="show.ended"></i></td>
+						<td>
+							<form ng-submit="submitIMDbId( show.id, imdb_url )">
+								<div class="form-group">
+									<label for="new-imdb-id" class="sr-only">IMDb id</label>
+									<input type="text" class="form-control" id="new-imdb-id" placeholder="IMDb id" ng-model="imdb_url">
+								</div>
+							</form>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</tab>
 		</tabset>
 		<button class="btn btn-default btn-large visible-xs up" scroll-to="#profile_top">Up</button>
 	</div>
