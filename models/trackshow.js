@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
 
 				return sequelize
 					.query('SELECT e.season FROM "' + models.WatchedEpisodes.tableName + '" w, "' + models.Episodes.tableName + '" e, "' + TrackShow.tableName + '" t \
-							WHERE w.episodeid = e.id AND t.showid = e.seriesid AND w.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND t.userid = w.userid \
+							WHERE e.season > 0 AND w.episodeid = e.id AND t.showid = e.seriesid AND w.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND t.userid = w.userid \
 							GROUP BY e.season \
 							ORDER BY e.season;');
 			},
@@ -57,7 +57,7 @@ module.exports = function(sequelize, DataTypes) {
 
 				return sequelize
 					.query('SELECT e.id, e.episode, e.title, e.airdate FROM "' + models.WatchedEpisodes.tableName + '" w, "' + models.Episodes.tableName + '" e, "' + TrackShow.tableName + '" t \
-							WHERE w.episodeid = e.id AND t.showid = e.seriesid AND w.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND e.season = ' + season + ' AND t.userid = w.userid \
+							WHERE e.season > 0 AND w.episodeid = e.id AND t.showid = e.seriesid AND w.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND e.season = ' + season + ' AND t.userid = w.userid \
 							ORDER BY e.episode;');
 			},
 			unwatchedShows: function(models, userid) {
@@ -80,7 +80,7 @@ module.exports = function(sequelize, DataTypes) {
 
 				return sequelize
 					.query('SELECT e.season FROM "' + models.Episodes.tableName + '" e, "' + models.TrackShow.tableName + '" t \
-							WHERE e.seriesid = t.showid AND e.airdate <= now() AND e.seriesid = ' + showid + ' AND t.userid = ' + userid +
+							WHERE e.season > 0 AND e.seriesid = t.showid AND e.airdate <= now() AND e.seriesid = ' + showid + ' AND t.userid = ' + userid +
 							' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE e.id = w.episodeid AND w.userid = t.userid) \
 							GROUP BY e.season \
 							ORDER BY e.season;');
@@ -94,7 +94,7 @@ module.exports = function(sequelize, DataTypes) {
 
 				return sequelize
 					.query('SELECT e.id, e.episode, e.title, e.airdate FROM "' + models.Episodes.tableName + '" e, "' + models.TrackShow.tableName + '" t \
-						WHERE e.seriesid = t.showid AND t.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND e.season = ' + season +
+						WHERE e.season > 0 AND e.seriesid = t.showid AND t.userid = ' + userid + ' AND e.seriesid = ' + showid + ' AND e.season = ' + season +
 						' AND e.airdate <= now()' +
 						' AND NOT EXISTS (SELECT 1 FROM "' + models.WatchedEpisodes.tableName + '" w WHERE w.episodeid = e.id AND w.userid = t.userid) \
 						ORDER BY e.episode;');
@@ -113,7 +113,7 @@ module.exports = function(sequelize, DataTypes) {
 					.query('SELECT s.id, s.name, e.episode, e.season, e.title, e.airdate, w.id IS NOT NULL as watched ' +
 					'FROM "' + sequelize.models.TrackShow.tableName + '" t, "' + sequelize.models.Series.tableName + '" s, "' + sequelize.models.Episodes.tableName + '" e ' +
 					'LEFT JOIN "' + sequelize.models.WatchedEpisodes.tableName + '" w ON e.id = w.episodeid AND w.userid = ' + userid + ' ' +
-					'WHERE t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
+					'WHERE e.season > 0 AND t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
 					'AND e.airdate >= date_trunc(\'month\', date(\'' + date + '\'))' +
 					'AND e.airdate <= date_trunc(\'month\', date(\'' + date + '\')) + \'1month\'::interval - \'1sec\'::interval;');
 			},
@@ -133,7 +133,7 @@ module.exports = function(sequelize, DataTypes) {
 					.query('SELECT s.id, s.name, s.genre, e.episode, e.season, e.title, e.airdate, w.id IS NOT NULL as watched ' +
 					'FROM "' + sequelize.models.TrackShow.tableName + '" t, "' + sequelize.models.Series.tableName + '" s, "' + sequelize.models.Episodes.tableName + '" e ' +
 					'LEFT JOIN "' + sequelize.models.WatchedEpisodes.tableName + '" w ON e.id = w.episodeid AND w.userid = ' + userid + ' ' +
-					'WHERE t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
+					'WHERE e.season > 0 AND t.showid = s.id AND e.seriesid = s.id AND t.userid = ' + userid +
 					'AND e.airdate >= date_trunc(\'week\', \'' + date + '\'::timestamp)' +
 					'AND e.airdate <= (date_trunc(\'week\', \'' + date + '\'::timestamp)+ \'6 days\'::interval)::date;');
 			},
