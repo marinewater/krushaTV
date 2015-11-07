@@ -8,12 +8,14 @@ var env = process.env.NODE_ENV || "development";
 // DB Models
 var models = require( './models' );
 
+var path = require( 'path' );
+
 // LOGGING
 var bunyan	= require( 'bunyan' );
 var log_options = {
 	name: 'krushaTV_update',
 	streams: [ {
-        path: './log/krushaTV_update.log',
+        path: path.join( __dirname, './log/krushaTV_update.log' ),
         level: 'error'
     } ]
 };
