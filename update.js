@@ -37,9 +37,9 @@ var sanitizeHtml = require( 'sanitize-html' );
 var fs = Promise.promisifyAll( require( 'fs' ) );
 
 // TVDb api
-var tvdb_api_key = require( __dirname + '/config/thetvdb' ).key;
+var tvdb_api_data = require( __dirname + '/config/thetvdb' );
 var tvdb_temp = require( __dirname + '/app/modules/tvdb' );
-var TVDb = new tvdb_temp( tvdb_api_key, {
+var TVDb = new tvdb_temp( tvdb_api_data.key, tvdb_api_data.username, tvdb_api_data.password, {
 	language: 'en'
 } );
 
@@ -75,15 +75,48 @@ function update_episodes( show, page ) {
                     return;
                 }
 
-                return models.Episodes.upsert( {
-                    seriesid: show.id,
-                    season: season,
-                    episode: episode_nr,
-                    title: episode.episodeName,
-                    airdate: airdate,
-                    thetvdb_id: episode.id,
-                    overview: episode.overview
-                })
+                var result;
+
+                return models.Episodes.findOrCreate( {
+                        where: {
+                            thetvdb_id: episode.id
+                        },
+                        defaults: {
+                            seriesid: show.id,
+                            season: season,
+                            episode: episode_nr,
+                            title: episode.episodeName,
+                            airdate: airdate,
+                            thetvdb_id: episode.id,
+                            overview: episode.overview
+                        }
+                    })
+                    .spread( function( _result, created ) {
+
+                        result = _result;
+
+                        if ( !created ) {
+                            result.season = season;
+                            result.episode = episode_nr;
+                            result.title = episode.episodeName;
+                            result.airdate = airdate;
+                            result.overview = episode.overview;
+
+                            return result.save();
+                        }
+
+                    })
+                    .catch( function ( error ) {
+
+                        if ( error.name === 'SequelizeUniqueConstraintError' ) {
+                            return result.destroy();
+                        }
+                        else {
+                            throw error;
+                        }
+
+                    });
+
             }, {
                 concurrency: 5
             })
