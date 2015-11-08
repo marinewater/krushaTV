@@ -1,7 +1,7 @@
 {
   "name": "krushaTV",
   "description": "episode tracking app",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "private": true,
   "scripts": {
     "test": "sh test/test.sh"

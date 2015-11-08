@@ -7,18 +7,31 @@ var moment = require( 'moment' );
  * Inializes a new instance of the TVDb class and sets options
  * TVDb documentation can be found at https://api-beta.thetvdb.com/swagger
  * @param {string} api_key TVDb api key
+ * @param {string} username TVDb username
+ * @param {string} password TVDb password
  * @param {object} [options] change the default options
  * @param {string} [options.base_url=https://api-beta.thetvdb.com/] the api base url, used for all requests
- * @param {string} [options.language=null] the language for response data; all available languages can be found at /languages
+ * @param {string} [options.language=null] the language for response data; all available languages can be found at
+ *     /languages
  * @constructor
  */
-function TVDb ( api_key, options ) {
+function TVDb ( api_key, username, password, options ) {
 
     if ( typeof api_key !== 'string' ) {
         throw new Error( 'api_key is required' );
     }
 
+    if ( typeof api_key !== 'string' ) {
+        throw new Error( 'username is required' );
+    }
+
+    if ( typeof api_key !== 'string' ) {
+        throw new Error( 'password is required' );
+    }
+
     this.api_key = api_key;
+    this.username = username;
+    this.password = password;
     this.token = null;
     this.options = defaultOptions( options );
 
@@ -52,14 +65,54 @@ TVDb.prototype.login = function() {
         uri: '/login',
         json: true,
         body: {
-            apikey: _this.api_key
+            apikey: _this.api_key,
+            username: _this.username,
+            userpass: _this.password
         }
     })
-        .spread( function( response, body ) {
+        .then( function( response ) {
 
-            _this.token = body.token;
+            _this.token = response.body.token;
 
         });
+
+};
+
+
+/**
+ * makes a get request to the TVDb API
+ * @param {string} uri the requested API resource (without the base url)
+ * @param [qs] query string
+ * @returns {bluebird}
+ */
+TVDb.prototype.getRequest = function( uri, qs ) {
+
+    var _this = this;
+
+    var http_headers = {};
+
+    if ( _this.options.language ) {
+        http_headers['Accept-Language'] = _this.options.language;
+    }
+
+    if ( typeof qs !== 'object' ) {
+        qs = {};
+    }
+
+    return request.getAsync( {
+        baseUrl: _this.options.base_url,
+        uri: uri,
+        qs: qs,
+        headers: http_headers,
+        auth: {
+            bearer: _this.token
+        }
+    })
+    .then( function( res ) {
+
+        return JSON.parse( res.body );
+
+    });
 
 };
 
@@ -108,27 +161,8 @@ TVDb.prototype.SearchSeries = function( query_items ) {
         throw new Error( 'no options provided' );
     }
 
-    var http_headers = {};
 
-    if ( _this.options.language ) {
-        http_headers['Accept-Language'] = _this.options.language;
-    }
-
-
-    return request.getAsync( {
-        baseUrl: _this.options.base_url,
-        uri: '/search/series',
-        qs: qs,
-        headers: http_headers,
-        auth: {
-            bearer: _this.token
-        }
-    })
-        .spread( function( res, body ) {
-
-            return JSON.parse( body );
-
-        });
+    return _this.getRequest.call( _this, '/search/series', qs );
 
 };
 
@@ -150,19 +184,8 @@ TVDb.prototype.Series = function( series_id ) {
         http_headers['Accept-Language'] = _this.options.language;
     }
 
-    return request.getAsync( {
-        baseUrl: _this.options.base_url,
-        uri: '/series/' + series_id,
-        headers: http_headers,
-        auth: {
-            bearer: _this.token
-        }
-    })
-        .spread( function( res, body ) {
+    return _this.getRequest.call( _this, '/series/' + series_id.toString() );
 
-            return JSON.parse( body );
-
-        });
 };
 
 /**
@@ -195,21 +218,8 @@ TVDb.prototype.SeriesEpisodes = function( series_id, page ) {
         http_headers['Accept-Language'] = _this.options.language;
     }
 
-    return request.getAsync( {
-        baseUrl: _this.options.base_url,
-        uri: '/series/' + series_id.toString() + '/episodes',
-        qs: qs,
-        headers: http_headers,
-        auth: {
-            bearer: _this.token
-        },
-        json: true
-    })
-        .spread( function( res, body ) {
+    return _this.getRequest.call( _this, '/series/' + series_id.toString() + '/episodes', qs );
 
-            return body;
-
-        });
 };
 
 TVDb.prototype.UpdatedQuery = function( fromTime ) {
@@ -243,20 +253,7 @@ TVDb.prototype.UpdatedQuery = function( fromTime ) {
     }
 
 
-    return request.getAsync( {
-        baseUrl: _this.options.base_url,
-        uri: '/updated/query',
-        qs: qs,
-        headers: http_headers,
-        auth: {
-            bearer: _this.token
-        }
-    })
-        .spread( function( res, body ) {
-
-            return JSON.parse( body );
-
-        });
+    return _this.getRequest.call( _this, '/updated/query', qs );
 
 };
 
