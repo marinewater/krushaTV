@@ -26,4 +26,9 @@ models.sequelize.sync()
 	})
 	.catch(function(err){
 		log.error(err);
+	})
+	.finally( function() {
+
+		process.exit( 0 );
+
 	});
